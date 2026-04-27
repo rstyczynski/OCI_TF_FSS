@@ -29,28 +29,10 @@ Mode: managed
 Test: integration
 Regression: integration
 
+This sprint combines mount target, export, and availability validation to enable end-to-end testing of the FSS setup.
+
 Backlog Items:
 
 * PBI-002. Terraform module for FSS mount target
-
-## Sprint 4 - FSS export module
-
-Status: Planned
-Mode: managed
-Test: integration
-Regression: integration
-
-Backlog Items:
-
 * PBI-003. Terraform module for FSS export
-
-## Sprint 5 - FSS availability validation
-
-Status: Planned
-Mode: managed
-Test: integration
-Regression: integration
-
-Backlog Items:
-
 * PBI-004. Network Path Analyzer test for FSS availability
