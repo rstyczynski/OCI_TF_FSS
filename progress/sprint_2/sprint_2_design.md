@@ -144,6 +144,11 @@ Establish a set of Terraform architecture rules to be used as the standard for a
   - optional repeated blocks: `for_each = var.blocks` with `default = []`
 - For optional maps (for example tags), use `default = {}`.
 - Do not create “*_type” scalar variables for blocks (for example `locks.type`). Prefer structured variables (`object` / `list(object)`) so required fields are enforced by the type system.
+- Always declare `terraform.required_version` in modules (pin to the minimum version the repository supports).
+- Always define module outputs explicitly:
+  - output names are stable and descriptive (`filesystem_ocid`, not `id`)
+  - output values come from module resources/locals, never from ad-hoc CLI parsing
+  - output types should be clear from naming and/or `description`
 
 ### Feasibility Analysis
 
