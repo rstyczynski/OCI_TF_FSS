@@ -4,11 +4,11 @@
 
 - Sprint: 1 — Initial setup
 - Status: Progress
-- Mode: YOLO
-- Test: unit, integration
-- Regression: unit, integration
+- Mode: managed
+- Test: integration
+- Regression: integration
 - Backlog Items:
-  - PBI-001. Define initial project backlog
+  - PBI-005. Foundation infrastructure for system-level FSS tests
 
 ### Rules and procedures acknowledged (source: `RUPStrikesBack/`)
 
@@ -30,11 +30,11 @@
 
 ### Constraints / local policy notes
 
-- `PROGRESS_BOARD.md` updates are part of the upstream process; however, this repository’s operator instruction for this session explicitly forbids creating `PROGRESS_BOARD.md` at this stage, so it is intentionally not created/updated in Phase 1.
+- `PROGRESS_BOARD.md` is maintained as the live status tracker for sprint and backlog item states.
 
 ### Open questions
 
-- None (YOLO mode; initial Sprint is a bootstrap to establish backlog and plan content for this repository).
+- None.
 
 ### LLM tokens
 
@@ -44,20 +44,20 @@
 
 ### Backlog Items analyzed
 
-#### PBI-001. Define initial project backlog
+#### PBI-005. Foundation infrastructure for system-level FSS tests
 
-- **Requirement summary**: Create initial backlog items for this repository so execution can proceed sprint-by-sprint using RUP Strikes Back, keeping each item atomic and free of design/implementation detail.
-- **Feasibility**: High. This is documentation work within repo root (`BACKLOG.md`, `PLAN.md` already present).
-- **Dependencies**: None (bootstrap item).
-- **Compatibility**: No existing sprint artifacts; safe to proceed.
-- **Testing**: No executable tests required; quality gate evidence requirements apply only when claiming tests were executed.
+- **Requirement summary**: Provide a reusable foundation environment (network + test client baseline) for system-level tests of the FSS modules using `oci_scaffold`.
+- **Feasibility**: Medium. Requires selecting a minimal foundation shape from `oci_scaffold` and confirming it can be provisioned in the target compartment (`/oci_tf_fss`).
+- **Dependencies**: `oci_scaffold` submodule must be usable as a baseline.
+- **Compatibility**: Must align with later sprints that create filesystem/mount target/export modules and the NPA validation.
+- **Testing**: Integration-level validation should prove the foundation exists and exposes identifiers required by later tests.
 - **Risks/concerns**:
-  - The upstream process expects `PROGRESS_BOARD.md` as a live status tracker; we are deferring it per operator instruction.
+  - Environment constraints (credentials/OCI access) may prevent executing integration tests; per `RUP_patch.md`, results must be recorded as NOT RUN with reasons and artifacts.
 
 ### Overall sprint assessment
 
-- Feasibility: High
-- Estimated complexity: Simple
+- Feasibility: Medium
+- Estimated complexity: Moderate
 - Prerequisites met: Yes (repo initialized, RUPStrikesBack submodule present, initial PLAN/BACKLOG exist)
 - Readiness for design phase: Confirmed Ready
 
