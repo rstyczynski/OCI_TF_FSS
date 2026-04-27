@@ -40,12 +40,18 @@ Use `oci_scaffold` as the authoritative provisioning mechanism for “test basel
 **Key Components:**
 
 1. `oci_scaffold/` submodule: provides `cycle-*` and `resource/ensure-*` scripts.
-2. `tests/run.sh`: repository test runner used by quality gates.
-3. `tests/integration/test_foundation.sh`: integration tests for foundation provisioning.
+2. `tools/infra_setup.sh`: shared **`sprint1_foundation_infra_setup`** ensure chain (Vault/KMS/secret, VCN, compute) used by the foundation integration test and operators (see **`progress/sprint_1/sprint_1_operator_manual.md`**). Operators connect over SSH with **`tools/go_remote.sh`** (Vault or local key per state; see operator manual).
+3. `tests/run.sh`: repository test runner used by quality gates.
+4. `tests/integration/test_foundation.sh`: integration tests for foundation provisioning.
 
 **Data Flow:**
 
-`tests/run.sh --integration` → runs `tests/integration/test_foundation.sh:*` → calls into `oci_scaffold` scripts (in later implementation) → verifies expected baseline outputs (network OCIDs, compute identifiers).
+`tests/run.sh --integration --new-only progress/sprint_1/new_tests.manifest` → `tests/integration/test_foundation.sh` → sources `oci_scaffold.sh` and `tools/infra_setup.sh` → **`sprint1_foundation_infra_setup`** → verifies SSH and state outputs.
+
+**Sprint state layout (`RUP_patch.md` § P7):**
+
+- **oci_scaffold** foundation state (`state-{NAME_PREFIX}.json`, SSH keys) lives under **`progress/sprint_1/scaffold/<NAME_PREFIX>/`** (process `cwd` / **`WORKDIR`**).
+- **Terraform** working directories for module tests stay under **`progress/sprint_1/tf_state/<test_id>/`** — separate from oci_scaffold; do not mix both in one directory.
 
 ### Technical Specification
 
@@ -89,13 +95,14 @@ The foundation design intentionally mirrors the way `oci_scaffold` already provi
     - Record compute outputs in state:
       - `.compute.ocid`, `.compute.private_ip`, optional `.compute.public_ip`
     - Validate SSH connectivity as part of system-level acceptance:
-      - operator can `ssh -i state-<NAME_PREFIX>-key opc@<public-ip>` and run basic commands
+      - operator can SSH using the private key **from Vault** (or **`state-<NAME_PREFIX>-key`** if **`FOUNDATION_STORE_SSH_PRIVATE_KEY_IN_VAULT=false`**) and run basic commands
 
 - **Vault / key / secret provisioning pattern**
   - Reuse `cycle-vault.sh` approach for secrets needed by system tests (when applicable):
     - `resource/ensure-vault.sh` creates or adopts a vault and records `.vault.ocid` and `.vault.mgmt_endpoint`
     - `resource/ensure-key.sh` creates or adopts a KMS key under the vault endpoint and records `.key.ocid`
     - `resource/ensure-secret.sh` creates or updates a secret (base64 content) and records `.secret.ocid` / `.secret.name`
+  - **`tools/infra_setup.sh`** aligns foundation SSH material with **`oci_bv4db_arch`** **`setup_infra.sh`**: **`ssh-keygen -m PEM -t rsa -b 4096`** for new keys, **`_state_set`** + **`ensure-secret`** for Vault upload, **`secret-bundle`** download via single **`base64 -d`** of the bundle **`content`** field (see **`sprint_1_operator_manual.md`**).
   - This pattern supports scheduled-deletion recovery (cancel deletion when re-running within the retention window), which is important for retry-safe integration test loops.
 
 **Error Handling:**
@@ -106,7 +113,7 @@ The foundation design intentionally mirrors the way `oci_scaffold` already provi
 ### Implementation Approach
 
 1. Introduce integration test skeletons that define the expected foundation behavior (red-first).
-2. Implement the skeletons by invoking `oci_scaffold` with a deterministic `NAME_PREFIX` and `COMPARTMENT_PATH=/oci_tf_fss`.
+2. Implement the skeletons by invoking `oci_scaffold` with a deterministic prefix (integration harness: **`SPRINT1_NAME_PREFIX`**, default **`infra`**; ignores unrelated process **`NAME_PREFIX`**) and `COMPARTMENT_PATH=/oci_tf_fss`.
 3. Record provisioning outputs for reuse in later sprints’ integration tests.
 
 ### Testing Strategy
@@ -181,7 +188,7 @@ Sprint Test Configuration:
 #### IT-1: Provision foundation baseline (network + optional compute)
 
 - **Preconditions:** OCI CLI authenticated; permissions to create resources in `/oci_tf_fss`; `jq` available.
-- **Steps:** run the foundation provisioning logic (implemented via `oci_scaffold`) with a deterministic `NAME_PREFIX`, following the same patterns as `cycle-compute.sh` and (when secrets are required) `cycle-vault.sh`.
+- **Steps:** run **`sprint1_foundation_infra_setup`** from **`tools/infra_setup.sh`** with **`SPRINT1_NAME_PREFIX`** (default **`infra`** in **`test_foundation.sh`**; **`NAME_PREFIX`** from env is ignored unless **`SPRINT1_USE_ENV_NAME_PREFIX=true`**) and **`WORKDIR`** under **`progress/sprint_1/scaffold/`**, following **`cycle-compute.sh`**-style SSH wiring and **`cycle-vault.sh`** / **`ensure-secret.sh`** for Vault-backed SSH material when enabled.
 - **Expected Outcome:** baseline resources exist, identifiers are available for downstream tests, and the operator can connect to the test client via SSH.
 - **Verification:** test asserts required identifiers are non-empty and performs an SSH readiness check to the instance (connect + run `true` / `hostname`).
 - **Target file:** `tests/integration/test_foundation.sh`

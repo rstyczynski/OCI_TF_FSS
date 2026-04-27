@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Sprint 1 foundation integration test. Infra ensure chain lives in ../../tools/infra_setup.sh.
+
 test_IT1_provision_foundation_baseline() {
   echo "=== IT-1: Provision foundation baseline (network + optional compute) ==="
 
@@ -8,28 +10,34 @@ test_IT1_provision_foundation_baseline() {
   root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
   scaffold_dir="${root_dir}/oci_scaffold"
 
-  # Default to a unique prefix to avoid collisions with stale resources
-  # (and avoid SSH key mismatches if an old instance exists).
-  name_prefix="${NAME_PREFIX:-fss_foundation_$(date -u '+%Y%m%d_%H%M%S')}"
+  # Default stack prefix is always **infra** unless SPRINT1_NAME_PREFIX is set. We do *not* use a
+  # generic NAME_PREFIX from the process environment (CI/agents often export e.g. tf_fs_lookup).
+  # To use the environment’s NAME_PREFIX anyway: SPRINT1_USE_ENV_NAME_PREFIX=true
+  if [[ "${SPRINT1_USE_ENV_NAME_PREFIX:-false}" == "true" ]] && [[ -n "${NAME_PREFIX:-}" ]]; then
+    name_prefix="$NAME_PREFIX"
+  else
+    name_prefix="${SPRINT1_NAME_PREFIX:-infra}"
+  fi
   compartment_path="${COMPARTMENT_PATH:-/oci_tf_fss}"
+  echo "INFO: IT-1 name_prefix=${name_prefix} (set SPRINT1_NAME_PREFIX to override; set SPRINT1_USE_ENV_NAME_PREFIX=true to honor NAME_PREFIX from env)"
 
   if [[ ! -d "$scaffold_dir" ]]; then
     echo "FAIL: missing oci_scaffold submodule at ${scaffold_dir}" >&2
     return 1
   fi
 
+  # RUP_patch P7: oci_scaffold state under progress/sprint_1/scaffold/ (not tf_state; not /tmp-only).
   if [[ -n "${WORKDIR:-}" ]]; then
     workdir="$WORKDIR"
     mkdir -p "$workdir"
   else
-    workdir="$(mktemp -d "/tmp/oci_tf_fss_${name_prefix}_XXXXXX")"
+    workdir="${root_dir}/progress/sprint_1/scaffold/${name_prefix}"
+    mkdir -p "$workdir"
   fi
-  echo "INFO: workdir=${workdir}"
+  echo "INFO: workdir=${workdir} (oci_scaffold; Terraform uses progress/sprint_1/tf_state/ separately)"
 
-  # Ensure teardown is attempted unless explicitly disabled.
   skip_teardown="${SKIP_TEARDOWN:-false}"
 
-  # Always try to teardown on exit unless user explicitly wants to keep resources.
   _cleanup() {
     local ec=$?
     if [[ -n "${workdir:-}" && "${skip_teardown:-false}" != "true" ]]; then
@@ -57,47 +65,34 @@ test_IT1_provision_foundation_baseline() {
     # shellcheck source=/dev/null
     source "$scaffold_dir/do/oci_scaffold.sh"
 
-    # OCI_REGION must be set for many ensure scripts (oci_scaffold prints a default
-    # but does not guarantee it is exported for subprocesses).
     if [[ -z "${OCI_REGION:-}" ]]; then
       OCI_REGION="$(_oci_home_region)"
     fi
     export OCI_REGION
 
-    # Compartment: ensure full path exists and capture OCID.
-    _state_set '.inputs.compartment_path' "$compartment_path"
-    ensure-compartment.sh
-    local compartment_ocid
-    compartment_ocid="$(_state_get '.compartment.ocid')"
-    if [[ -z "$compartment_ocid" || "$compartment_ocid" == "null" ]]; then
-      echo "FAIL: could not resolve compartment OCID for ${compartment_path}" >&2
+    # shellcheck source=/dev/null
+    source "${root_dir}/tools/infra_setup.sh"
+
+    export COMPARTMENT_PATH="$compartment_path"
+    sprint1_foundation_infra_setup
+
+    # Private key is not kept under ./state-<prefix>-key when Vault-backed; materialize from bundle for SSH checks.
+    local ssh_identity sec_ocid
+    ssh_identity="$(mktemp)"
+    trap 'rm -f "$ssh_identity"' EXIT
+    sec_ocid="$(_state_get '.secret.ocid')"
+    if [[ -n "$sec_ocid" && "$sec_ocid" != "null" ]]; then
+      sprint1__raw_key_from_secret_bundle "$sec_ocid" "$ssh_identity" || {
+        echo "FAIL: could not materialize private key from Vault for SSH test" >&2
+        exit 1
+      }
+    elif [[ -f "${PWD}/state-${name_prefix}-key" ]]; then
+      cp "${PWD}/state-${name_prefix}-key" "$ssh_identity"
+      chmod 600 "$ssh_identity"
+    else
+      echo "FAIL: no Vault secret OCID and no local state-${name_prefix}-key for SSH" >&2
       exit 1
     fi
-
-    # Seed inputs (mirrors cycle-compute.sh defaults).
-    _state_set '.inputs.oci_compartment' "$compartment_ocid"
-    _state_set '.inputs.oci_region' "$OCI_REGION"
-    _state_set '.inputs.name_prefix' "$name_prefix"
-
-    # Public subnet + SSH from anywhere (operator requirement).
-    _state_set '.inputs.subnet_prohibit_public_ip' 'false'
-    _state_set '.inputs.sl_ingress_cidr' '0.0.0.0/0'
-
-    # SSH keypair — mirrors cycle-compute.sh behavior.
-    local ssh_key="${PWD}/state-${name_prefix}-key"
-    if [[ ! -f "$ssh_key" ]]; then
-      ssh-keygen -t rsa -b 4096 -N "" -f "$ssh_key" -C "${name_prefix}-compute" >/dev/null
-      echo "INFO: SSH key generated: ${ssh_key}"
-    fi
-    _state_set '.inputs.compute_ssh_authorized_keys_file' "${ssh_key}.pub"
-
-    # Provision network + compute (subset of cycle-compute.sh; non-interactive).
-    ensure-vcn.sh
-    ensure-sl.sh
-    ensure-igw.sh
-    ensure-rt.sh
-    ensure-subnet.sh
-    ensure-compute.sh
 
     local compute_ocid compute_public_ip
     compute_ocid="$(_state_get '.compute.ocid')"
@@ -115,13 +110,12 @@ test_IT1_provision_foundation_baseline() {
     echo "INFO: compute_ocid=${compute_ocid}"
     echo "INFO: compute_public_ip=${compute_public_ip}"
 
-    # SSH readiness check (operator acceptance signal).
     ssh-keygen -R "$compute_public_ip" >/dev/null 2>&1 || true
 
     local elapsed=0
     while true; do
       printf "\033[2K\r  [WAIT] Waiting for SSH %s … %ds" "$compute_public_ip" "$elapsed"
-      ssh -i "$ssh_key" \
+      ssh -i "$ssh_identity" \
         -o StrictHostKeyChecking=no -o ConnectTimeout=5 -o BatchMode=yes \
         "opc@${compute_public_ip}" true 2>/dev/null && { echo; break; }
       sleep 5
@@ -133,12 +127,11 @@ test_IT1_provision_foundation_baseline() {
       fi
     done
 
-    # Wait for cloud-init to finish (same signal as cycle-compute.sh).
     echo "INFO: waiting for cloud-init to complete"
     elapsed=0
     while true; do
       local ci_status=""
-      ci_status=$(ssh -i "$ssh_key" \
+      ci_status=$(ssh -i "$ssh_identity" \
         -o StrictHostKeyChecking=no -o ConnectTimeout=5 -o BatchMode=yes \
         "opc@${compute_public_ip}" "sudo cloud-init status 2>/dev/null" 2>/dev/null) || true
       printf "\033[2K\r  [WAIT] cloud-init … %ds (status: %s)" "$elapsed" "$ci_status"
@@ -153,7 +146,7 @@ test_IT1_provision_foundation_baseline() {
       fi
     done
 
-    echo "INFO: ssh command: ssh -i ${ssh_key} opc@${compute_public_ip}"
+    echo "INFO: ssh uses a key materialized from Vault (secret OCID in state); example: oci secrets secret-bundle get --secret-id \"\$SECRET_OCID\" | jq -r '.data.\"secret-bundle-content\".content' | base64 -d > key.pem && chmod 600 key.pem && ssh -i key.pem opc@${compute_public_ip}"
     echo "PASS: IT-1"
   )
 }
@@ -165,4 +158,3 @@ main() {
 if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
   main "$@"
 fi
-

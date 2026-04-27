@@ -54,3 +54,16 @@ Requirements:
 - Record the approval request in `progress/sprint_N/sprint_N_openquestions.md` (or `sprint_N_proposedchanges.md` if more appropriate).
 - Product Owner signals approval by marking the entry `Status: Accepted`.
 - Only then run the gate commands and create `progress/sprint_N/test_run_*.log` artifacts.
+
+## P7. oci_scaffold state MUST live under the sprint directory
+
+`oci_scaffold` resolves **`STATE_FILE`** as `./state-{NAME_PREFIX}.json` (and PEM paths like `./state-{NAME_PREFIX}-key`) relative to the **process working directory** (`do/oci_scaffold.sh`). Using an ephemeral **`mktemp`** workdir without copying the resulting state elsewhere **loses** teardown, recovery, and SSH key continuity after the directory is removed.
+
+Requirements for **sprint-scoped** oci_scaffold runs (foundation stacks, Sprint 1 integration harness, operators following `sprint_N_operator_manual.md`):
+
+1. **`WORKDIR` (cwd for oci_scaffold) MUST be under** `progress/sprint_N/` — use **`progress/sprint_N/scaffold/<stable_name>/`** for oci_scaffold foundation state (`state-{NAME_PREFIX}.json`, SSH keys). Keep **Terraform** working directories under **`progress/sprint_N/tf_state/`** (separate from oci_scaffold) so sprint tests do not mix the two kinds of state in one folder.
+2. Integration tests or scripts MUST NOT rely on **`/tmp` / mktemp-only** locations as the sole home for oci_scaffold state unless the sprint explicitly documents a copy/archive step (not the default).
+3. **`WORKDIR`** MUST be deterministic when the operator needs repeatable destroy/recreate — use a stable subdirectory name (often tied to `NAME_PREFIX`), not only random `XXXXXX`.
+4. Secrets on disk remain sensitive: keep sprint state directories under patterns already excluded from version control if they contain PEMs (see repository `.gitignore`; do not commit raw keys).
+
+This applies in addition to P1 evidence rules: logs under `progress/sprint_N/` do not substitute for **preserved** oci_scaffold state when teardown or reproducibility depends on `STATE_FILE`.

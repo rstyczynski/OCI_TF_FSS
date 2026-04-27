@@ -64,8 +64,15 @@ locals {
   - `defaults_path` — validate defaults and stateful behaviors (run second)
   - `happy_path` — full apply success scenario (run last)
 - Terraform integration tests MUST keep their Terraform working directory (and thus TF state) under the sprint directory:
-  - Default: `progress/sprint_N/tf_state/`
-  - If `SKIP_TEARDOWN=true`, the directory is preserved for operator debugging and manual teardown.
+  - Default root: `progress/sprint_N/tf_state/` (override with `TF_STATE_ROOT` if needed).
+  - **Stable directory per logical test**: use a fixed subdirectory name per test (a `test_id`), e.g. `progress/sprint_N/tf_state/it4_happy_path/`, not a fresh `mktemp` directory on every run. That keeps `.terraform/` on disk so **`terraform init` is not repeated** when you re-run the same test.
+  - **When to wipe**: remove that subdirectory (or set `TF_RESET_TF_STATE=true` before the run, if the harness supports it) when you need a clean slate or hit state conflicts. **Keep** the directory across reruns when an update-style or multi-step scenario depends on existing state (or use `SKIP_TEARDOWN=true` to skip destroy and preserve state for debugging).
+  - **Per-test teardown**: each test case MUST run **`terraform destroy`** when its body finishes (unless `SKIP_TEARDOWN=true`). Do not rely on a single **EXIT** trap when the runner may invoke several test functions in one shell (manifest mode): traps overwrite each other and only the last workdir would be destroyed. Ephemeral dirs (`mktemp`-style names under `tf_state`) may be removed entirely after destroy; stable `test_id` dirs are left on disk after destroy (empty or state-only) so the next run can re-init quickly.
+  - If `SKIP_TEARDOWN=true`, destroy is skipped and the directory is preserved for operator debugging and manual teardown.
+- **Test artifacts (gate / debugging evidence)** — integration runs MUST retain:
+  - **Plan files**: every `terraform plan` that participates in assertions MUST use `-out=<path>` and keep that **binary plan file** on disk under the test working directory (for example `tf_test_artifacts/*.tfplan`). Do not rely only on console plan output.
+  - **Deploy and destroy logs**: capture **stdout and stderr together** from `terraform apply` (deploy) and from `terraform destroy` (teardown), for example with `2>&1 | tee tf_test_artifacts/deploy.stdout.log` and `tf_test_artifacts/destroy.stdout.log`. Tests that have no apply still SHOULD capture comparable steps (for example `terraform validate`) to a log under the same artifacts folder.
+  - Optionally also write `terraform show -no-color <planfile>` next to each binary plan for human-readable review.
 - For behavior that should be validated without destructive changes (example: “changing AD forces replace”), tests MUST:
   - run `terraform plan -detailed-exitcode` and assert exit code (`0` = no change, `2` = change)
   - parse plan output (`terraform show -no-color <plan>`) to assert replace behavior (destroy+create)

@@ -15,6 +15,7 @@ Terraform components to create and manage OCI File Storage Service.
 **Key Features Added:**
 
 - Integration test that provisions a public SSH-accessible test client baseline in `/oci_tf_fss` using `oci_scaffold`
+- `tools/go_remote.sh` — SSH to the foundation compute using scaffold state (see `progress/sprint_1/sprint_1_operator_manual.md`)
 - Quality gates with committed, timestamped test logs
 
 **Documentation:**
@@ -23,6 +24,7 @@ Terraform components to create and manage OCI File Storage Service.
 - Design: `progress/sprint_1/sprint_1_design.md`
 - Implementation: `progress/sprint_1/sprint_1_implementation.md`
 - Tests: `progress/sprint_1/sprint_1_tests.md`
+- Operator manual (`infra_setup`, `go_remote`, teardown): `progress/sprint_1/sprint_1_operator_manual.md`
 
 ### Sprint 2 - FSS filesystem module + Terraform rules
 

@@ -3,7 +3,7 @@
 ### Sprint context
 
 - Sprint: 2 — FSS filesystem module
-- Status: Progress
+- Status: Done
 - Mode: managed
 - Test: integration
 - Regression: integration

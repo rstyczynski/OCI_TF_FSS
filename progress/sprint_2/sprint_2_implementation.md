@@ -2,16 +2,16 @@
 
 ## Implementation Overview
 
-**Sprint Status:** under_construction
+**Sprint Status:** implemented
 
 **Backlog Items:**
 
-- PBI-001. Terraform module for FSS filesystem — under_construction
-- PBI-006. Terraform architecture rules for agentic development — under_construction
+- PBI-001. Terraform module for FSS filesystem — implemented
+- PBI-006. Terraform architecture rules for agentic development — implemented
 
 ## PBI-001. Terraform module for FSS filesystem
 
-Status: under_construction
+Status: implemented
 
 ### Implementation Summary
 
@@ -21,8 +21,8 @@ Implemented the initial Terraform module `terraform/modules/fss_filesystem/` tha
 
 | Artifact | Purpose | Status | Tested |
 |----------|---------|--------|--------|
-| `terraform/modules/fss_filesystem/` | Terraform module for OCI FSS filesystem | Complete | No (Phase 4 gates) |
-| `tests/integration/test_fss_filesystem_tf.sh` | Integration test that applies module and asserts OCID output | Complete | No (Phase 4 gates) |
+| `terraform/modules/fss_filesystem/` | Terraform module for OCI FSS filesystem | Complete | Yes (`sprint_2_tests.md`) |
+| `tests/integration/test_fss_filesystem_tf.sh` | Integration test that applies module and asserts OCID output | Complete | Yes (`sprint_2_tests.md`) |
 
 ### User Documentation
 
@@ -52,11 +52,11 @@ tests/run.sh --integration --new-only progress/sprint_2/new_tests.manifest
 
 ### Known Issues
 
-- None known yet; gate execution will validate provider auth and resource creation.
+- None recorded; see `progress/sprint_2/sprint_2_tests.md` for gate evidence.
 
 ## PBI-006. Terraform architecture rules for agentic development
 
-Status: under_construction
+Status: implemented
 
 ### Implementation Summary
 
@@ -68,5 +68,4 @@ Sprint 2 includes the initial Terraform interface and testing rules of thumb (op
 
 ### Overall Status
 
-under_construction
-
+implemented

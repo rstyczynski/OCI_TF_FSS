@@ -31,6 +31,7 @@
 ### Constraints / local policy notes
 
 - `PROGRESS_BOARD.md` is maintained as the live status tracker for sprint and backlog item states.
+- Sprint-level state layout per **`RUP_patch.md` § P7**: **`progress/sprint_1/scaffold/<NAME_PREFIX>/`** for oci_scaffold foundation (`state-*.json`, keys); **`progress/sprint_1/tf_state/<test_id>/`** for Terraform runs — do not combine in one directory.
 
 ### Open questions
 
