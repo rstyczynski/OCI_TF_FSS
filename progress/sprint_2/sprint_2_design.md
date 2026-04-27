@@ -149,6 +149,29 @@ Establish a set of Terraform architecture rules to be used as the standard for a
   - output names are stable and descriptive (`filesystem_ocid`, not `id`)
   - output values come from module resources/locals, never from ad-hoc CLI parsing
   - output types should be clear from naming and/or `description`
+- If you need a “randomized default” (example: pick an Availability Domain when the input is null), the random choice MUST be persisted in Terraform state and MUST store the final value (not an index):
+
+```hcl
+data "oci_identity_availability_domains" "ads" {
+  compartment_id = var.compartment_ocid
+}
+
+locals {
+  ad_names = [for ad in data.oci_identity_availability_domains.ads.availability_domains : ad.name]
+}
+
+resource "random_shuffle" "picked_ad" {
+  count        = var.availability_domain == null ? 1 : 0
+  input        = local.ad_names
+  result_count = 1
+}
+
+locals {
+  availability_domain = var.availability_domain != null
+    ? var.availability_domain
+    : random_shuffle.picked_ad[0].result[0]
+}
+```
 
 ### Feasibility Analysis
 
