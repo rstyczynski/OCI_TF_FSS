@@ -4,15 +4,16 @@ set -euo pipefail
 usage() {
   cat <<'EOF'
 Usage:
-  tests/run.sh --integration [--new-only <manifest>] [--component <name>]
-  tests/run.sh --unit        [--new-only <manifest>] [--component <name>]
-  tests/run.sh --smoke       [--new-only <manifest>] [--component <name>]
+  tests/run.sh --integration [--new-only <manifest>] [--component <name>] [--group <name>]
+  tests/run.sh --unit        [--new-only <manifest>] [--component <name>] [--group <name>]
+  tests/run.sh --smoke       [--new-only <manifest>] [--component <name>] [--group <name>]
 EOF
 }
 
 SUITE=""
 NEW_ONLY_MANIFEST=""
 COMPONENT=""
+GROUP=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -26,6 +27,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --component)
       COMPONENT="${2:-}"
+      shift 2
+      ;;
+    --group)
+      GROUP="${2:-}"
       shift 2
       ;;
     -h|--help)
@@ -87,6 +92,17 @@ if [[ -n "$NEW_ONLY_MANIFEST" ]]; then
     [[ "$line" =~ ^# ]] && continue
     entries+=("$line")
   done <"$NEW_ONLY_MANIFEST"
+elif [[ -n "$GROUP" ]]; then
+  manifest="${MANIFESTS_DIR}/group_${GROUP}.manifest"
+  if [[ ! -f "$manifest" ]]; then
+    echo "Missing group manifest: ${manifest}" >&2
+    exit 2
+  fi
+  while IFS= read -r line; do
+    [[ -z "$line" ]] && continue
+    [[ "$line" =~ ^# ]] && continue
+    entries+=("$line")
+  done <"$manifest"
 elif [[ -n "$COMPONENT" ]]; then
   manifest="${MANIFESTS_DIR}/component_${COMPONENT}.manifest"
   if [[ ! -f "$manifest" ]]; then

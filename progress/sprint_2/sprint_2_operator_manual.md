@@ -17,6 +17,16 @@ Run from the repository root:
 tests/run.sh --integration --new-only progress/sprint_2/new_tests.manifest
 ```
 
+## Run only one test category (optional)
+
+To run only specific categories (faster feedback), use `--group`:
+
+```bash
+tests/run.sh --integration --group error_path
+tests/run.sh --integration --group defaults_path
+tests/run.sh --integration --group happy_path
+```
+
 Expected output includes:
 
 - `PASS: IT-1 (filesystem_ocid=...)`

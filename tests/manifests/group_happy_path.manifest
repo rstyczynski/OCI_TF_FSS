@@ -1,0 +1,3 @@
+# happy_path group
+integration:test_fss_filesystem_tf.sh:test_IT4_happy_path_apply_creates_filesystem
+
