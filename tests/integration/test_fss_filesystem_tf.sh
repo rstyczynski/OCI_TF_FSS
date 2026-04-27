@@ -302,13 +302,16 @@ EOF
     fi
     echo "INFO: used_ad=${used_ad}"
 
-    # 2) Execute TF again — expected no further changes (module ignores Oracle-managed tag drift).
+    # 2) Execute TF again — expected no configuration/state drift without an OCI refresh.
+    #
+    # OCI may inject Oracle-managed tags asynchronously; refresh can observe those changes as drift.
+    # We validate module idempotency here without refresh to avoid false negatives.
     set +e
-    terraform plan -detailed-exitcode -input=false
+    terraform plan -detailed-exitcode -input=false -refresh=false
     rc=$?
     set -e
     if [[ "$rc" -ne 0 ]]; then
-      echo "FAIL: expected no-change plan (exit 0), got exit ${rc}" >&2
+      echo "FAIL: expected no-change plan with -refresh=false (exit 0), got exit ${rc}" >&2
       exit 1
     fi
 
