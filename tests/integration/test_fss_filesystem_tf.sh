@@ -60,8 +60,8 @@ _pick_alternate_ad_name() {
   echo "$other"
 }
 
-test_IT1_terraform_apply_creates_filesystem() {
-  echo "=== IT-1: Terraform apply creates filesystem and returns OCID ==="
+test_IT4_happy_path_apply_creates_filesystem() {
+  echo "=== IT-4: Happy path — terraform apply creates filesystem and returns OCID ==="
 
   local root_dir module_dir compartment_path
   root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
@@ -116,12 +116,12 @@ EOF
       exit 1
     fi
 
-    echo "PASS: IT-1 (filesystem_ocid=${fs_ocid})"
+    echo "PASS: IT-4 (filesystem_ocid=${fs_ocid})"
   )
 }
 
 test_IT2_defaults_when_name_missing() {
-  echo "=== IT-2: Defaults work when name inputs are omitted ==="
+  echo "=== IT-2: Defaults path — defaults work when name inputs are omitted ==="
 
   local root_dir module_dir compartment_path
   root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
@@ -187,8 +187,8 @@ EOF
   )
 }
 
-test_IT3_missing_compartment_is_error() {
-  echo "=== IT-3: Missing required compartment_ocid fails ==="
+test_IT1_error_path_missing_compartment_is_error() {
+  echo "=== IT-1: Error path — missing required compartment_ocid fails ==="
 
   local root_dir module_dir
   root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
@@ -229,12 +229,12 @@ EOF
       exit 1
     fi
 
-    echo "PASS: IT-3"
+    echo "PASS: IT-1"
   )
 }
 
-test_IT4_ad_behavior_sequence_plan_replace() {
-  echo "=== IT-4: AD behavior sequence (apply default, no-change, plan replace) ==="
+test_IT3_defaults_path_ad_behavior_sequence_plan_replace() {
+  echo "=== IT-3: Defaults path — AD behavior sequence (apply default, no-change, plan replace) ==="
 
   local root_dir module_dir compartment_path
   root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
@@ -327,20 +327,20 @@ EOF
       exit 1
     fi
 
-    echo "PASS: IT-4"
+    echo "PASS: IT-3"
   )
 }
 
 main() {
   # error_path
-  test_IT3_missing_compartment_is_error
+  test_IT1_error_path_missing_compartment_is_error
 
   # defaults_path
   test_IT2_defaults_when_name_missing
-  test_IT4_ad_behavior_sequence_plan_replace
+  test_IT3_defaults_path_ad_behavior_sequence_plan_replace
 
   # happy_path (run last)
-  test_IT1_terraform_apply_creates_filesystem
+  test_IT4_happy_path_apply_creates_filesystem
 }
 
 if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then

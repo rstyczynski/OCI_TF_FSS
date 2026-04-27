@@ -224,7 +224,34 @@ Sprint Test Configuration:
 
 ### Integration Tests
 
-#### IT-1: Terraform apply creates filesystem and returns OCID
+#### IT-1: Error path — missing required compartment_ocid fails
+
+- **Preconditions:** Terraform installed.
+- **Steps:** run `terraform validate` with `compartment_ocid` omitted.
+- **Expected Outcome:** validation fails.
+- **Verification:** validate returns non-zero.
+- **Target file:** `tests/integration/test_fss_filesystem_tf.sh`
+
+#### IT-2: Defaults path — missing name inputs uses defaults
+
+- **Preconditions:** Terraform installed; OCI creds configured; permissions for `/oci_tf_fss`.
+- **Steps:** apply module with `display_name` and `name_prefix` omitted.
+- **Expected Outcome:** apply succeeds and `filesystem_display_name` output is non-empty.
+- **Verification:** parse outputs and assert display name and OCID are present.
+- **Target file:** `tests/integration/test_fss_filesystem_tf.sh`
+
+#### IT-3: Defaults path — AD behavior sequence (apply, no-change, plan replace)
+
+- **Preconditions:** Terraform installed; OCI creds configured; permissions for `/oci_tf_fss`; multiple ADs available (otherwise skip).
+- **Steps:**
+  - apply without AD specified
+  - rerun plan expecting no changes
+  - run plan with a different AD expecting destroy+create replacement, without apply
+- **Expected Outcome:** second run has no changes; override run produces a replace plan.
+- **Verification:** use `terraform plan -detailed-exitcode` and parse `terraform show -no-color` output.
+- **Target file:** `tests/integration/test_fss_filesystem_tf.sh`
+
+#### IT-4: Happy path — terraform apply creates filesystem and returns OCID
 
 - **Preconditions:** Terraform installed; OCI creds configured; permissions for `/oci_tf_fss`.
 - **Steps:** run `terraform init` and `terraform apply` against a minimal root config using the module.
@@ -236,6 +263,6 @@ Sprint Test Configuration:
 
 | Backlog Item | Smoke | Unit Tests | Integration Tests |
 |--------------|-------|------------|-------------------|
-| PBI-001 | — | — | IT-1 |
+| PBI-001 | — | — | IT-1, IT-2, IT-3, IT-4 |
 | PBI-006 | — | — | (process) |
 

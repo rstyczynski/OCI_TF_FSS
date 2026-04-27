@@ -1,8 +1,8 @@
 # Sprint 2 new tests — used by tests/run.sh --new-only
 
 # Integration tests
-integration:test_fss_filesystem_tf.sh:test_IT3_missing_compartment_is_error
+integration:test_fss_filesystem_tf.sh:test_IT1_error_path_missing_compartment_is_error
 integration:test_fss_filesystem_tf.sh:test_IT2_defaults_when_name_missing
-integration:test_fss_filesystem_tf.sh:test_IT4_ad_behavior_sequence_plan_replace
-integration:test_fss_filesystem_tf.sh:test_IT1_terraform_apply_creates_filesystem
+integration:test_fss_filesystem_tf.sh:test_IT3_defaults_path_ad_behavior_sequence_plan_replace
+integration:test_fss_filesystem_tf.sh:test_IT4_happy_path_apply_creates_filesystem
 
