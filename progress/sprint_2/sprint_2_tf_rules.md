@@ -63,8 +63,68 @@ locals {
   - `error_path` — validate required arguments fail fast (run first)
   - `defaults_path` — validate defaults and stateful behaviors (run second)
   - `happy_path` — full apply success scenario (run last)
+- Terraform integration tests MUST keep their Terraform working directory (and thus TF state) under the sprint directory:
+  - Default: `progress/sprint_N/tf_state/`
+  - If `SKIP_TEARDOWN=true`, the directory is preserved for operator debugging and manual teardown.
 - For behavior that should be validated without destructive changes (example: “changing AD forces replace”), tests MUST:
   - run `terraform plan -detailed-exitcode` and assert exit code (`0` = no change, `2` = change)
   - parse plan output (`terraform show -no-color <plan>`) to assert replace behavior (destroy+create)
   - do NOT apply the destructive plan in the test
 
+## Oracle-managed tags (OCI) — avoid perpetual drift
+
+Some OCI resources get **Oracle-managed defined tags** injected after create (example keys: `Oracle-Tags.CreatedBy`, `Oracle-Tags.CreatedOn`). If your Terraform configuration sets `defined_tags = {}` (or sets a subset), a subsequent `terraform plan` may try to remove those injected tags, causing perpetual “drift”.
+
+Rule: **Never fight Oracle-managed defined tags.** Either ignore them, or explicitly preserve them.
+
+Preferred approach (preserve-only allowlisted Oracle tags via merge):
+
+- Read current tags from the resource via `data.*` (after the resource exists).
+- Filter to **only** the allowlisted Oracle-managed keys.
+- Merge them into the desired user-supplied `defined_tags`.
+- Validate that allowlisted keys are **exactly** in the `Oracle-Tags.*` namespace.
+
+Recipe (pattern):
+
+```hcl
+variable "defined_tags" {
+  type    = map(string)
+  default = {}
+}
+
+variable "oracle_managed_defined_tag_keys" {
+  type    = set(string)
+  default = ["Oracle-Tags.CreatedBy", "Oracle-Tags.CreatedOn"]
+
+  validation {
+    condition = alltrue([
+      for k in var.oracle_managed_defined_tag_keys :
+      can(regex("^Oracle-Tags\\.[A-Za-z0-9_]+$", k))
+    ])
+    error_message = "oracle_managed_defined_tag_keys entries must be Oracle-Tags.<Name> (example: Oracle-Tags.CreatedOn)."
+  }
+}
+
+# Example: after creation, read the resource back (no circular deps).
+data "oci_file_storage_file_system" "current" {
+  file_system_id = oci_file_storage_file_system.this.id
+}
+
+locals {
+  oracle_managed_defined_tags = {
+    for k, v in try(data.oci_file_storage_file_system.current.defined_tags, {}) :
+    k => v if contains(var.oracle_managed_defined_tag_keys, k)
+  }
+
+  merged_defined_tags = merge(var.defined_tags, local.oracle_managed_defined_tags)
+}
+
+resource "oci_file_storage_file_system" "this" {
+  # ...
+  defined_tags = local.merged_defined_tags
+}
+```
+
+Notes:
+
+- This pattern is easiest when the resource already exists (imported) or when the provider/data source can read without creating a dependency cycle. If a data source would create a cycle, fall back to ignoring `defined_tags` drift for that resource.
