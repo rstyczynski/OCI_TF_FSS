@@ -7,6 +7,8 @@ Mode: managed
 Test: integration
 Regression: integration
 
+Keep all resources in /oci_tf_fss compartment.
+
 Backlog Items:
 
 * PBI-005. Foundation infrastructure for system-level FSS tests
@@ -21,6 +23,7 @@ Regression: integration
 Backlog Items:
 
 * PBI-001. Terraform module for FSS filesystem
+* PBI-006. Terraform architecture rules for agentic development
 
 ## Sprint 3 - FSS mount target module
 
