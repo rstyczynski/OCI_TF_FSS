@@ -18,10 +18,10 @@ test_IT1_terraform_apply_creates_filesystem() {
   workdir="$(mktemp -d "/tmp/oci_tf_fss_tf_fs_XXXXXX")"
   echo "INFO: workdir=${workdir}"
 
-  local skip_teardown="${SKIP_TEARDOWN:-false}"
+  skip_teardown="${SKIP_TEARDOWN:-false}"
   _cleanup() {
     local ec=$?
-    if [[ "${skip_teardown}" != "true" ]]; then
+    if [[ "${skip_teardown:-false}" != "true" ]]; then
       (
         cd "$workdir"
         terraform destroy -auto-approve || true
