@@ -1,0 +1,5 @@
+# Sprint 1 new tests — used by tests/run.sh --new-only
+
+# Integration tests
+integration:test_foundation.sh:test_IT1_provision_foundation_baseline
+
