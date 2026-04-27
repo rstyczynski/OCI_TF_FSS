@@ -155,7 +155,15 @@ None.
 
 ### Open Design Questions
 
-- Whether the foundation should always provision a compute test client in Sprint 1, or defer compute provisioning until Sprint 3 when mount/export are available.
+- None (decision: provision a public SSH-accessible compute test client in Sprint 1).
+
+### Foundation Network Profile (Sprint 1 decision)
+
+The foundation environment provisions a **publicly reachable test client** so the operator can SSH and interact with FSS tooling:
+
+- Compute instance has a **public IP** and is reachable on SSH from the operator network.
+- Network includes an **Internet Gateway (IGW)** to support public access.
+- This choice is made solely to satisfy the operator requirement for SSH access; it is not a statement that FSS itself requires internet/OSN.
 
 ## YOLO Mode Decisions
 
