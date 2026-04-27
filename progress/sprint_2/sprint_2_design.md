@@ -173,6 +173,11 @@ locals {
 }
 ```
 
+- For behavior that should be validated without destructive changes (example: “changing AD forces replace”), write integration tests that:
+  - run `terraform plan -detailed-exitcode` and assert exit code (`0` = no change, `2` = change)
+  - parse the plan output (`terraform show -no-color <plan>`) to assert replace behavior (destroy+create)
+  - do NOT apply the destructive plan in the test
+
 ### Feasibility Analysis
 
 **API Availability:**
