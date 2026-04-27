@@ -54,4 +54,3 @@ Requirements:
 - Record the approval request in `progress/sprint_N/sprint_N_openquestions.md` (or `sprint_N_proposedchanges.md` if more appropriate).
 - Product Owner signals approval by marking the entry `Status: Accepted`.
 - Only then run the gate commands and create `progress/sprint_N/test_run_*.log` artifacts.
-

@@ -20,6 +20,10 @@ Mode: managed
 Test: integration
 Regression: integration
 
+Artifacts / Sprint definition notes:
+
+* PBI-006 deliverable -> `progress/sprint_2/sprint_2_tf_rules.md`
+
 Backlog Items:
 
 * PBI-001. Terraform module for FSS filesystem
