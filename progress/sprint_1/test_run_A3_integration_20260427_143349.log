@@ -1,0 +1,20 @@
+=== RUN integration:test_foundation.sh:test_IT1_provision_foundation_baseline ===
+=== IT-1: Provision foundation baseline (network + optional compute) ===
+INFO: workdir=/tmp/oci_tf_fss_fss_foundation_rsbpRO
+  [INFO] COMPARTMENT_OCID defaulted to tenancy: ocid1.tenancy.oc1..aaaaaaaay2b2tvqcmqmndvcbz5kuptzuo7sp4vufarqfgoru7qojdgywb27a
+  [INFO] OCI_REGION defaulted to home region: eu-zurich-1
+  [INFO] STATE_FILE: /tmp/oci_tf_fss_fss_foundation_rsbpRO/state-fss_foundation.json
+  [DONE] Compartment created: ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q (/oci_tf_fss)
+INFO: SSH key generated: /tmp/oci_tf_fss_fss_foundation_rsbpRO/state-fss_foundation-key
+  [ERROR] Required variable not set: OCI_REGION
+  [ERROR] Required variable not set: VCN_OCID
+  [ERROR] Required variable not set: VCN_OCID
+  [ERROR] Required variable not set: VCN_OCID
+  [ERROR] Required variable not set: VCN_OCID
+  [ERROR] Required variable not set: RT_OCID
+  [ERROR] Required variable not set: SL_OCID
+  [ERROR] Required variable not set: SUBNET_OCID
+FAIL: compute OCID missing in state
+=== FAIL integration:test_foundation.sh:test_IT1_provision_foundation_baseline ===
+=== SUMMARY suite=integration pass=0 fail=1 ===
+/Users/rstyczynski/projects/OCI_TF_FSS/tests/integration/test_foundation.sh: line 28: skip_teardown: unbound variable

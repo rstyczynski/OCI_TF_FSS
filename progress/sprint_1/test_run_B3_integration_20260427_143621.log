@@ -1,0 +1,18 @@
+=== RUN integration:test_foundation.sh ===
+=== IT-1: Provision foundation baseline (network + optional compute) ===
+INFO: workdir=/tmp/oci_tf_fss_fss_foundation_EuC6u9
+  [INFO] COMPARTMENT_OCID defaulted to tenancy: ocid1.tenancy.oc1..aaaaaaaay2b2tvqcmqmndvcbz5kuptzuo7sp4vufarqfgoru7qojdgywb27a
+  [INFO] OCI_REGION defaulted to home region: eu-zurich-1
+  [INFO] STATE_FILE: /tmp/oci_tf_fss_fss_foundation_EuC6u9/state-fss_foundation.json
+  [EXISTING] Compartment '/oci_tf_fss': ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q
+INFO: SSH key generated: /tmp/oci_tf_fss_fss_foundation_EuC6u9/state-fss_foundation-key
+  [EXISTING] VCN 'fss_foundation-vcn': ocid1.vcn.oc1.eu-zurich-1.amaaaaaaknhfuyiac2sgktblojc7jnbpuwrfmhpl37ull2txvbakq3vodnrq
+  [EXISTING] Security List 'fss_foundation-sl': ocid1.securitylist.oc1.eu-zurich-1.aaaaaaaarnbpda5cl6xvo4mi2nevjgofoam5msjpekdalhyfvrqptlkddkpq
+  [EXISTING] Internet Gateway 'fss_foundation-igw': ocid1.internetgateway.oc1.eu-zurich-1.aaaaaaaao3om5kx6qsghnc2qclr4omutdz3cv7b362naisbj3ruxmjsxnj5a
+  [EXISTING] Route Table 'fss_foundation-rt': ocid1.routetable.oc1.eu-zurich-1.aaaaaaaahtth3phs2pds45sz5zbbknnezrpq2nz32w3nuf7mfblrujk5iypa
+  [EXISTING] Internet Gateway route: present
+  [EXISTING] Subnet 'fss_foundation': ocid1.subnet.oc1.eu-zurich-1.aaaaaaaa6k3hk2bvtot6tp5f73ivv4eyg4jj5ou6g2cge5quaw2gbpsnb2xq
+  [EXISTING] Compute instance 'fss_foundation-instance' already exists: ocid1.instance.oc1.eu-zurich-1.an5heljrknhfuyicrb5j44s2yz6k27jbbhnzlttrwbqwlq6wy3n6qb2u62yq
+INFO: compute_ocid=ocid1.instance.oc1.eu-zurich-1.an5heljrknhfuyicrb5j44s2yz6k27jbbhnzlttrwbqwlq6wy3n6qb2u62yq
+INFO: compute_public_ip=140.86.214.93
+[2K  [WAIT] Waiting for SSH 140.86.214.93 … 0s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 5s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 10s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 15s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 20s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 25s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 30s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 35s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 40s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 45s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 50s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 55s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 60s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 65s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 70s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 75s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 80s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 85s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 90s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 95s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 100s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 105s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 110s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 115s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 120s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 125s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 130s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 135s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 140s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 145s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 150s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 155s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 160s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 165s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 170s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 175s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 180s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 185s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 190s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 195s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 200s

@@ -1,0 +1,30 @@
+=== RUN integration:test_foundation.sh:test_IT1_provision_foundation_baseline ===
+=== IT-1: Provision foundation baseline (network + optional compute) ===
+INFO: workdir=/tmp/oci_tf_fss_fss_foundation_yIJjFu
+  [INFO] COMPARTMENT_OCID defaulted to tenancy: ocid1.tenancy.oc1..aaaaaaaay2b2tvqcmqmndvcbz5kuptzuo7sp4vufarqfgoru7qojdgywb27a
+  [INFO] OCI_REGION defaulted to home region: eu-zurich-1
+  [INFO] STATE_FILE: /tmp/oci_tf_fss_fss_foundation_yIJjFu/state-fss_foundation.json
+  [EXISTING] Compartment '/oci_tf_fss': ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q
+INFO: SSH key generated: /tmp/oci_tf_fss_fss_foundation_yIJjFu/state-fss_foundation-key
+Action completed. Waiting until the resource has entered state: ('AVAILABLE',)
+  [DONE] VCN created (10.0.0.0/16): ocid1.vcn.oc1.eu-zurich-1.amaaaaaaknhfuyiac2sgktblojc7jnbpuwrfmhpl37ull2txvbakq3vodnrq
+Action completed. Waiting until the resource has entered state: ('AVAILABLE',)
+  [DONE] Security List created (0.0.0.0/0 all egress, 0.0.0.0/0 6 ingress): ocid1.securitylist.oc1.eu-zurich-1.aaaaaaaarnbpda5cl6xvo4mi2nevjgofoam5msjpekdalhyfvrqptlkddkpq
+Action completed. Waiting until the resource has entered state: ('AVAILABLE',)
+  [DONE] Internet Gateway created: ocid1.internetgateway.oc1.eu-zurich-1.aaaaaaaao3om5kx6qsghnc2qclr4omutdz3cv7b362naisbj3ruxmjsxnj5a
+Action completed. Waiting until the resource has entered state: ('AVAILABLE',)
+  [DONE] Route Table created: ocid1.routetable.oc1.eu-zurich-1.aaaaaaaahtth3phs2pds45sz5zbbknnezrpq2nz32w3nuf7mfblrujk5iypa
+Action completed. Waiting until the resource has entered state: ('AVAILABLE',)
+  [DONE] Subnet created (10.0.0.0/24, public): ocid1.subnet.oc1.eu-zurich-1.aaaaaaaa6k3hk2bvtot6tp5f73ivv4eyg4jj5ou6g2cge5quaw2gbpsnb2xq
+[2K  [WAIT] Compute instance provisioning … 0s (state: PROVISIONING)[2K  [WAIT] Compute instance provisioning … 5s (state: PROVISIONING)[2K  [WAIT] Compute instance provisioning … 10s (state: PROVISIONING)[2K  [WAIT] Compute instance provisioning … 15s (state: PROVISIONING)[2K  [WAIT] Compute instance provisioning … 20s (state: PROVISIONING)[2K  [WAIT] Compute instance provisioning … 25s (state: RUNNING)
+  [DONE] Compute instance created (VM.Standard.E4.Flex, 1 OCPU, 4 GB): ocid1.instance.oc1.eu-zurich-1.an5heljrknhfuyicrb5j44s2yz6k27jbbhnzlttrwbqwlq6wy3n6qb2u62yq
+INFO: compute_ocid=ocid1.instance.oc1.eu-zurich-1.an5heljrknhfuyicrb5j44s2yz6k27jbbhnzlttrwbqwlq6wy3n6qb2u62yq
+INFO: compute_public_ip=140.86.214.93
+[2K  [WAIT] Waiting for SSH 140.86.214.93 … 0s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 5s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 10s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 15s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 20s[2K  [WAIT] Waiting for SSH 140.86.214.93 … 25s
+INFO: waiting for cloud-init to complete
+[2K  [WAIT] cloud-init … 0s (status: status: done)
+INFO: ssh command: ssh -i /tmp/oci_tf_fss_fss_foundation_yIJjFu/state-fss_foundation-key opc@140.86.214.93
+PASS: IT-1
+=== PASS integration:test_foundation.sh:test_IT1_provision_foundation_baseline ===
+=== SUMMARY suite=integration pass=1 fail=0 ===
+/Users/rstyczynski/projects/OCI_TF_FSS/tests/integration/test_foundation.sh: line 30: workdir: unbound variable

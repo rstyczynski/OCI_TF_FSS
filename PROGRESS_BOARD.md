@@ -4,5 +4,5 @@ Progress board is a table showing sprint, and backlog items state. It's the only
 
 | Sprint | Sprint Status | Backlog Item | Item Status |
 |--------|---------------|--------------|-------------|
-| Sprint 1 | under_construction | PBI-005. Foundation infrastructure for system-level FSS tests | under_construction |
+| Sprint 1 | implemented | PBI-005. Foundation infrastructure for system-level FSS tests | tested |
 
