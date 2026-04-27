@@ -8,7 +8,9 @@ test_IT1_provision_foundation_baseline() {
   root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
   scaffold_dir="${root_dir}/oci_scaffold"
 
-  name_prefix="${NAME_PREFIX:-fss_foundation}"
+  # Default to a unique prefix to avoid collisions with stale resources
+  # (and avoid SSH key mismatches if an old instance exists).
+  name_prefix="${NAME_PREFIX:-fss_foundation_$(date -u '+%Y%m%d_%H%M%S')}"
   compartment_path="${COMPARTMENT_PATH:-/oci_tf_fss}"
 
   if [[ ! -d "$scaffold_dir" ]]; then
