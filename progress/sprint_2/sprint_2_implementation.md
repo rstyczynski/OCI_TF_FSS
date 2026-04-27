@@ -60,7 +60,9 @@ Status: under_construction
 
 ### Implementation Summary
 
-Sprint 2 design document includes the initial Terraform interface rules of thumb (optional argument patterns) that will be upstreamed into RUPStrikesBack in a later step.
+Sprint 2 includes the initial Terraform interface and testing rules of thumb (optional argument patterns, outputs, stateful randomized defaults, and plan-parsing tests). The rules are enumerated in:
+
+- `progress/sprint_2/sprint_2_tf_rules.md`
 
 ## Sprint Implementation Summary
 
