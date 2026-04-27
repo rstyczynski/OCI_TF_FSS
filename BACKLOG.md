@@ -18,3 +18,9 @@ Create a Terraform module that provisions an OCI FSS export that connects a file
 
 Test: apply succeeds and outputs include the export identifier and export path.
 
+### PBI-004. Network Path Analyzer test for FSS availability
+
+Add a validation step that uses OCI Network Path Analyzer to verify network reachability between the intended client network and the FSS mount target. This provides early detection of network/security-list/NSG/route issues that would prevent mounting. This item is complete when the analysis can be executed and its result can be used to decide whether the environment is ready for FSS access.
+
+Test: a path analysis run completes and reports reachability (or a clear non-reachability reason) for the FSS mount target from the chosen source.
+
