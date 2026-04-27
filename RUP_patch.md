@@ -32,3 +32,16 @@ Any command sequence published in sprint documentation (especially sprint manual
 - Each documented snippet must have a corresponding execution artifact (for example a captured stdout/stderr log) stored under `progress/sprint_N/` and referenced from `progress/sprint_N/sprint_N_tests.md`.
 - If a snippet cannot be executed (missing credentials, no OCI access, destructive side effects, or cost/capacity constraints), it must be explicitly marked **NOT RUN** with a short reason and an alternative verification plan, and treated as an open issue until resolved or accepted as a plan change.
 
+## P5. Operator manual is mandatory for runnable access to sprint products
+
+Each sprint that produces runnable infrastructure or operator-facing behavior MUST include a copy/paste operator manual that shows how to access and use the sprint’s products.
+
+Requirements:
+
+- The manual lives in `progress/sprint_N/sprint_N_operator_manual.md`.
+- It MUST contain runnable snippets (copy/paste) for:
+  - provisioning or bringing the sprint product to a usable state
+  - connecting (for example SSH to a test instance), including how to obtain or preserve required keys
+  - teardown / cleanup (when applicable)
+- Any claim that a manual snippet was executed MUST be backed by an artifact per P4 (log file under `progress/sprint_N/` and referenced from `sprint_N_tests.md`).
+
