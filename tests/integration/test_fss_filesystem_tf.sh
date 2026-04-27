@@ -121,7 +121,7 @@ EOF
 }
 
 test_IT2_defaults_when_ad_and_name_missing() {
-  echo "=== IT-2: Defaults work when AD and name inputs are omitted ==="
+  echo "=== IT-2: Defaults work when name inputs are omitted ==="
 
   local root_dir module_dir compartment_path
   root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
@@ -138,7 +138,7 @@ test_IT2_defaults_when_ad_and_name_missing() {
     local compartment_ocid
     compartment_ocid="$(_resolve_compartment_ocid "$compartment_path")"
 
-    # Omit availability_domain, display_name, and name_prefix to exercise defaults.
+    # AD behavior is covered by IT-4. Here we focus ONLY on name/display_name defaults.
     cat > main.tf <<EOF
 terraform {
   required_providers {
@@ -148,9 +148,14 @@ terraform {
   }
 }
 
+data "oci_identity_availability_domains" "ads" {
+  compartment_id = "${compartment_ocid}"
+}
+
 module "fs" {
   source           = "${module_dir}"
   compartment_ocid = "${compartment_ocid}"
+  availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
 }
 
 output "filesystem_ocid" {
