@@ -55,3 +55,10 @@ Requirements:
 - Product Owner signals approval by marking the entry `Status: Accepted`.
 - Only then run the gate commands and create `progress/sprint_N/test_run_*.log` artifacts.
 
+## P7. Sprint definition must account for operator manual
+
+When creating or updating a Sprint entry in `PLAN.md`, the Product Owner MUST explicitly consider whether the Sprint produces runnable infrastructure or operator-facing behavior.
+
+- If yes, the Sprint MUST produce `progress/sprint_N/sprint_N_operator_manual.md` per P5.
+- If no, the operator manual may be omitted.
+
