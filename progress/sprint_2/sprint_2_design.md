@@ -39,18 +39,54 @@ Provide a Terraform module that provisions an OCI File Storage Service (FSS) fil
 
 ### Technical Specification
 
-**Inputs (module):**
+**Terraform module design (`terraform/modules/fss_filesystem/`)**
 
-- Compartment OCID (target: `/oci_tf_fss`)
-- Display name / name prefix
+- **Resources:**
+  - One OCI FSS filesystem resource.
+- **Naming:**
+  - Filesystem display name derived from a provided name input (no hidden randomness).
+- **Outputs:**
+  - Expose the filesystem OCID for downstream modules (mount target, export).
+
+**Inputs (module) — required arguments:**
+
+- `compartment_ocid` — OCI compartment OCID for `/oci_tf_fss`.
+
+**Inputs (module) — optional arguments (with defaults):**
+
+- `display_name` — filesystem display name (default: derived from `name_prefix`).
+- `name_prefix` — name prefix used when `display_name` is not set (default: `fss`).
+- `availability_domain` — AD name (optional; if omitted, module selects the first AD in the region).
+- `freeform_tags` — map (default: `{}`).
+- `defined_tags` — map (default: `{}`).
+
+**Availability Domain resolution (when not provided):**
+
+- Use an OCI identity data lookup to select the first availability domain for the tenancy/region and use it for filesystem creation. This keeps the required interface minimal while still producing a valid filesystem.
 
 **Outputs (module):**
 
-- Filesystem OCID
+- `filesystem_ocid` — Filesystem OCID.
+- `filesystem_display_name` — Display name used.
 
 **Error Handling:**
 
 - Fail fast on missing required variables and provider auth errors (Terraform defaults).
+
+**Integration test root config design (used by `tests/integration/test_fss_filesystem_tf.sh`):**
+
+- A minimal Terraform root configuration that:
+  - configures the provider (via environment / standard Terraform provider auth)
+  - calls `terraform/modules/fss_filesystem/`
+  - outputs `filesystem_ocid`
+
+**Integration test required inputs (test runner environment):**
+
+- Terraform available on PATH (`terraform`).
+- OCI credentials/provider auth available to Terraform.
+- Ability to resolve target compartment:
+  - `COMPARTMENT_OCID` environment variable preferred, or
+  - resolve from compartment path `/oci_tf_fss` using OCI CLI before running Terraform.
 
 ### Implementation Approach
 
