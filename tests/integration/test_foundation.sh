@@ -35,7 +35,11 @@ test_IT1_provision_foundation_baseline() {
         bash "$scaffold_dir/do/teardown.sh" || true
       )
     fi
-    [[ -n "${workdir:-}" ]] && rm -rf "$workdir"
+    if [[ -n "${workdir:-}" && "${skip_teardown:-false}" != "true" ]]; then
+      rm -rf "$workdir"
+    elif [[ -n "${workdir:-}" ]]; then
+      echo "INFO: SKIP_TEARDOWN=true — resources kept; workdir preserved at: ${workdir}"
+    fi
     return "$ec"
   }
   trap _cleanup EXIT
