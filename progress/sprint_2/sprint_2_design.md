@@ -177,6 +177,10 @@ locals {
   - run `terraform plan -detailed-exitcode` and assert exit code (`0` = no change, `2` = change)
   - parse the plan output (`terraform show -no-color <plan>`) to assert replace behavior (destroy+create)
   - do NOT apply the destructive plan in the test
+- Categorize terraform integration tests by intent and run them in this order:
+  - `error_path` — validate required arguments fail fast (run first)
+  - `defaults_path` — validate defaults and stateful behaviors (run second)
+  - `happy_path` — full apply success scenario (run last)
 
 ### Feasibility Analysis
 

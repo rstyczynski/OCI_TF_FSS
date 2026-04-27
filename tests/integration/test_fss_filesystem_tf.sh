@@ -120,7 +120,7 @@ EOF
   )
 }
 
-test_IT2_defaults_when_ad_and_name_missing() {
+test_IT2_defaults_when_name_missing() {
   echo "=== IT-2: Defaults work when name inputs are omitted ==="
 
   local root_dir module_dir compartment_path
@@ -332,10 +332,15 @@ EOF
 }
 
 main() {
-  test_IT1_terraform_apply_creates_filesystem
-  test_IT2_defaults_when_ad_and_name_missing
+  # error_path
   test_IT3_missing_compartment_is_error
+
+  # defaults_path
+  test_IT2_defaults_when_name_missing
   test_IT4_ad_behavior_sequence_plan_replace
+
+  # happy_path (run last)
+  test_IT1_terraform_apply_creates_filesystem
 }
 
 if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
