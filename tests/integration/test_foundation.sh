@@ -20,12 +20,12 @@ test_IT1_provision_foundation_baseline() {
   echo "INFO: workdir=${workdir}"
 
   # Ensure teardown is attempted unless explicitly disabled.
-  local skip_teardown="${SKIP_TEARDOWN:-false}"
+  skip_teardown="${SKIP_TEARDOWN:-false}"
 
   # Always try to teardown on exit unless user explicitly wants to keep resources.
   _cleanup() {
     local ec=$?
-    if [[ "$skip_teardown" != "true" ]]; then
+    if [[ "${skip_teardown:-false}" != "true" ]]; then
       (
         cd "$workdir"
         export PATH="$scaffold_dir/do:$scaffold_dir/resource:$PATH"
@@ -46,6 +46,13 @@ test_IT1_provision_foundation_baseline() {
     # shellcheck source=/dev/null
     source "$scaffold_dir/do/oci_scaffold.sh"
 
+    # OCI_REGION must be set for many ensure scripts (oci_scaffold prints a default
+    # but does not guarantee it is exported for subprocesses).
+    if [[ -z "${OCI_REGION:-}" ]]; then
+      OCI_REGION="$(_oci_home_region)"
+    fi
+    export OCI_REGION
+
     # Compartment: ensure full path exists and capture OCID.
     _state_set '.inputs.compartment_path' "$compartment_path"
     ensure-compartment.sh
@@ -58,6 +65,7 @@ test_IT1_provision_foundation_baseline() {
 
     # Seed inputs (mirrors cycle-compute.sh defaults).
     _state_set '.inputs.oci_compartment' "$compartment_ocid"
+    _state_set '.inputs.oci_region' "$OCI_REGION"
     _state_set '.inputs.name_prefix' "$name_prefix"
 
     # Public subnet + SSH from anywhere (operator requirement).
