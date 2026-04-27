@@ -18,7 +18,12 @@ test_IT1_provision_foundation_baseline() {
     return 1
   fi
 
-  workdir="$(mktemp -d "/tmp/oci_tf_fss_${name_prefix}_XXXXXX")"
+  if [[ -n "${WORKDIR:-}" ]]; then
+    workdir="$WORKDIR"
+    mkdir -p "$workdir"
+  else
+    workdir="$(mktemp -d "/tmp/oci_tf_fss_${name_prefix}_XXXXXX")"
+  fi
   echo "INFO: workdir=${workdir}"
 
   # Ensure teardown is attempted unless explicitly disabled.

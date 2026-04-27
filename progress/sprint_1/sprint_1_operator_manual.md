@@ -13,7 +13,8 @@ This manual provides copy/paste commands to provision the Sprint 1 foundation en
 Run from the repository root:
 
 ```bash
-SKIP_TEARDOWN=true COMPARTMENT_PATH=/oci_tf_fss NAME_PREFIX=fss_operator \
+WORKDIR="${WORKDIR:-/tmp/oci_tf_fss_operator}"
+SKIP_TEARDOWN=true WORKDIR="$WORKDIR" COMPARTMENT_PATH=/oci_tf_fss NAME_PREFIX=fss_operator \
   tests/run.sh --integration --new-only progress/sprint_1/new_tests.manifest
 ```
 
@@ -30,8 +31,10 @@ Copy/paste the SSH command printed by the provisioning run.
 If you need to reconstruct it:
 
 ```bash
-WORKDIR="<paste workdir printed by the test>"
-PUBLIC_IP="<paste compute_public_ip printed by the test>"
+WORKDIR="${WORKDIR:-/tmp/oci_tf_fss_operator}"
+STATE_FILE="${WORKDIR}/state-fss_operator.json"
+
+PUBLIC_IP="$(jq -r '.compute.public_ip' "$STATE_FILE")"
 ssh -i "${WORKDIR}/state-fss_operator-key" -o StrictHostKeyChecking=no "opc@${PUBLIC_IP}"
 ```
 
@@ -48,7 +51,7 @@ sudo cloud-init status
 If you kept resources (`SKIP_TEARDOWN=true`), teardown must be executed manually from the same workdir:
 
 ```bash
-WORKDIR="<paste workdir printed by the test>"
+WORKDIR="${WORKDIR:-/tmp/oci_tf_fss_operator}"
 cd "$WORKDIR"
 
 export NAME_PREFIX=fss_operator
