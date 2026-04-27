@@ -30,3 +30,9 @@ Provide a reusable foundation environment for system-level testing of the FSS mo
 
 Test: foundation environment provisioning completes and outputs include the network and test client identifiers required to run FSS availability checks.
 
+### PBI-006. Terraform architecture rules for agentic development
+
+Establish a set of Terraform architecture rules that will be used as the standard for all further work in this repository when building modules and tests with agentic help. These rules must be added to the upstream RUPStrikesBack rules/skills so they can be applied consistently in future sprints. This item is complete when the rules exist in RUPStrikesBack and are usable as an explicit reference during design and implementation.
+
+Test: RUPStrikesBack contains the Terraform rules/skill and a sprint design can reference them as the governing standard.
+
