@@ -2,7 +2,7 @@
 
 ## Sprint 1 - Initial setup
 
-Status: Progress
+Status: Done
 Mode: managed
 Test: integration
 Regression: integration
@@ -15,7 +15,7 @@ Backlog Items:
 
 ## Sprint 2 - FSS filesystem module
 
-Status: Planned
+Status: Progress
 Mode: managed
 Test: integration
 Regression: integration
