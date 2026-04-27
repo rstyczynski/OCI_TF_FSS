@@ -4,7 +4,7 @@ set -euo pipefail
 test_IT1_terraform_apply_creates_filesystem() {
   echo "=== IT-1: Terraform apply creates filesystem and returns OCID ==="
 
-  local root_dir workdir module_dir compartment_path
+  local root_dir module_dir compartment_path
   root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
   module_dir="${root_dir}/terraform/modules/fss_filesystem"
 
@@ -21,14 +21,14 @@ test_IT1_terraform_apply_creates_filesystem() {
   skip_teardown="${SKIP_TEARDOWN:-false}"
   _cleanup() {
     local ec=$?
-    if [[ "${skip_teardown:-false}" != "true" ]]; then
+    if [[ -n "${workdir:-}" && "${skip_teardown:-false}" != "true" ]]; then
       (
         cd "$workdir"
         terraform destroy -auto-approve || true
       )
       rm -rf "$workdir"
     else
-      echo "INFO: SKIP_TEARDOWN=true — terraform state preserved at: ${workdir}"
+      [[ -n "${workdir:-}" ]] && echo "INFO: SKIP_TEARDOWN=true — terraform state preserved at: ${workdir}"
     fi
     return "$ec"
   }
