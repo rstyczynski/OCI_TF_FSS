@@ -1,0 +1,163 @@
+=== RUN integration:test_foundation.sh ===
+=== IT-1: Provision foundation baseline (network + optional compute) ===
+INFO: workdir=/tmp/oci_tf_fss_fss_foundation_20260427_184520_6WMezW
+  [INFO] COMPARTMENT_OCID defaulted to tenancy: ocid1.tenancy.oc1..aaaaaaaay2b2tvqcmqmndvcbz5kuptzuo7sp4vufarqfgoru7qojdgywb27a
+  [INFO] OCI_REGION defaulted to home region: eu-zurich-1
+  [INFO] STATE_FILE: /tmp/oci_tf_fss_fss_foundation_20260427_184520_6WMezW/state-fss_foundation_20260427_184520.json
+  [EXISTING] Compartment '/oci_tf_fss': ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q
+INFO: SSH key generated: /tmp/oci_tf_fss_fss_foundation_20260427_184520_6WMezW/state-fss_foundation_20260427_184520-key
+Action completed. Waiting until the resource has entered state: ('AVAILABLE',)
+  [DONE] VCN created (10.0.0.0/16): ocid1.vcn.oc1.eu-zurich-1.amaaaaaaknhfuyiasynrx6v4vcsvp3643c4g62347fdzjpl5ttiiiphlyyja
+Action completed. Waiting until the resource has entered state: ('AVAILABLE',)
+  [DONE] Security List created (0.0.0.0/0 all egress, 0.0.0.0/0 6 ingress): ocid1.securitylist.oc1.eu-zurich-1.aaaaaaaanneqxyrhq4rf3upsafrdnucrxu3smol43o5cwpml6pxla43ofarq
+Action completed. Waiting until the resource has entered state: ('AVAILABLE',)
+  [DONE] Internet Gateway created: ocid1.internetgateway.oc1.eu-zurich-1.aaaaaaaaubybuzhpzziilrk5qxksi66antoksigomlebva5lnqsw4q7udmpa
+Action completed. Waiting until the resource has entered state: ('AVAILABLE',)
+  [DONE] Route Table created: ocid1.routetable.oc1.eu-zurich-1.aaaaaaaanpucbmpviwdoffoer6lwieziw5djgokddjizeo3grum22hh6sh6a
+Action completed. Waiting until the resource has entered state: ('AVAILABLE',)
+  [DONE] Subnet created (10.0.0.0/24, public): ocid1.subnet.oc1.eu-zurich-1.aaaaaaaa7rluzm2fdo5sfw3ddw732nn5tabuffi5kuwcbgibhkfk6wvnsmaq
+[2K  [WAIT] Compute instance provisioning … 0s (state: PROVISIONING)[2K  [WAIT] Compute instance provisioning … 5s (state: PROVISIONING)[2K  [WAIT] Compute instance provisioning … 10s (state: PROVISIONING)[2K  [WAIT] Compute instance provisioning … 15s (state: PROVISIONING)[2K  [WAIT] Compute instance provisioning … 20s (state: PROVISIONING)[2K  [WAIT] Compute instance provisioning … 25s (state: RUNNING)
+  [DONE] Compute instance created (VM.Standard.E4.Flex, 1 OCPU, 4 GB): ocid1.instance.oc1.eu-zurich-1.an5heljrknhfuyicndfsj6kxwnchnxul4wvezsnenc3viicepzuwdkn7oowa
+INFO: compute_ocid=ocid1.instance.oc1.eu-zurich-1.an5heljrknhfuyicndfsj6kxwnchnxul4wvezsnenc3viicepzuwdkn7oowa
+INFO: compute_public_ip=152.67.79.154
+[2K  [WAIT] Waiting for SSH 152.67.79.154 … 0s[2K  [WAIT] Waiting for SSH 152.67.79.154 … 5s[2K  [WAIT] Waiting for SSH 152.67.79.154 … 10s[2K  [WAIT] Waiting for SSH 152.67.79.154 … 15s[2K  [WAIT] Waiting for SSH 152.67.79.154 … 20s[2K  [WAIT] Waiting for SSH 152.67.79.154 … 25s
+INFO: waiting for cloud-init to complete
+[2K  [WAIT] cloud-init … 0s (status: status: done)
+INFO: ssh command: ssh -i /tmp/oci_tf_fss_fss_foundation_20260427_184520_6WMezW/state-fss_foundation_20260427_184520-key opc@152.67.79.154
+PASS: IT-1
+=== PASS integration:test_foundation.sh ===
+=== RUN integration:test_fss_filesystem_tf.sh ===
+=== IT-1: Terraform apply creates filesystem and returns OCID ===
+INFO: workdir=/tmp/oci_tf_fss_tf_fs_QSDMpj
+  [INFO] COMPARTMENT_OCID defaulted to tenancy: ocid1.tenancy.oc1..aaaaaaaay2b2tvqcmqmndvcbz5kuptzuo7sp4vufarqfgoru7qojdgywb27a
+  [INFO] OCI_REGION defaulted to home region: eu-zurich-1
+  [INFO] STATE_FILE: /tmp/oci_tf_fss_tf_fs_QSDMpj/state-tf_fs_lookup.json
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+Downloading file:///Users/rstyczynski/projects/OCI_TF_FSS/terraform/modules/fss_filesystem for fs...
+- fs in .terraform/modules/fs
+
+[0m[1mInitializing provider plugins...[0m
+- Finding latest version of oracle/oci...
+- Installing oracle/oci v8.10.0...
+- Installed oracle/oci v8.10.0 (signed by a HashiCorp partner, key ID [0m[1m1533A49284137CEB[0m[0m)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_file_system" "this" {
+      [32m+[0m[0m are_quota_rules_enabled  = (known after apply)
+      [32m+[0m[0m availability_domain      = "jJRq:EU-ZURICH-1-AD-1"
+      [32m+[0m[0m clone_attach_status      = (known after apply)
+      [32m+[0m[0m clone_count              = (known after apply)
+      [32m+[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m defined_tags             = (known after apply)
+      [32m+[0m[0m display_name             = "fss_it-filesystem"
+      [32m+[0m[0m freeform_tags            = (known after apply)
+      [32m+[0m[0m id                       = (known after apply)
+      [32m+[0m[0m is_clone_parent          = (known after apply)
+      [32m+[0m[0m is_hydrated              = (known after apply)
+      [32m+[0m[0m is_lock_override         = (known after apply)
+      [32m+[0m[0m is_targetable            = (known after apply)
+      [32m+[0m[0m lifecycle_details        = (known after apply)
+      [32m+[0m[0m metered_bytes            = (known after apply)
+      [32m+[0m[0m quota_enforcement_state  = (known after apply)
+      [32m+[0m[0m replication_source_count = (known after apply)
+      [32m+[0m[0m replication_target_id    = (known after apply)
+      [32m+[0m[0m source_details           = (known after apply)
+      [32m+[0m[0m source_snapshot_id       = (known after apply)
+      [32m+[0m[0m state                    = (known after apply)
+      [32m+[0m[0m system_tags              = (known after apply)
+      [32m+[0m[0m time_created             = (known after apply)
+    }
+
+[1mPlan:[0m 1 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m filesystem_ocid = (known after apply)
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creating...[0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creation complete after 1s [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaanz6wl7pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1m[32m
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+[0m[0m[1m[32m
+Outputs:
+
+[0mfilesystem_ocid = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaanz6wl7pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+PASS: IT-1 (filesystem_ocid=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaanz6wl7pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr)
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Refreshing state... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaanz6wl7pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [31m-[0m destroy[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_file_system" "this" {
+      [31m-[0m[0m are_quota_rules_enabled  = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_domain      = "jJRq:EU-ZURICH-1-AD-1" [90m-> null[0m[0m
+      [31m-[0m[0m clone_attach_status      = "DETACHED" [90m-> null[0m[0m
+      [31m-[0m[0m clone_count              = 0 [90m-> null[0m[0m
+      [31m-[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+      [31m-[0m[0m defined_tags             = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com"
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-27T18:47:50.860Z"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m display_name             = "fss_it-filesystem" [90m-> null[0m[0m
+      [31m-[0m[0m freeform_tags            = {} [90m-> null[0m[0m
+      [31m-[0m[0m id                       = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaanz6wl7pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m is_clone_parent          = false [90m-> null[0m[0m
+      [31m-[0m[0m is_hydrated              = true [90m-> null[0m[0m
+      [31m-[0m[0m is_targetable            = true [90m-> null[0m[0m
+      [31m-[0m[0m metered_bytes            = "0" [90m-> null[0m[0m
+      [31m-[0m[0m quota_enforcement_state  = "DISABLED" [90m-> null[0m[0m
+      [31m-[0m[0m replication_source_count = 0 [90m-> null[0m[0m
+      [31m-[0m[0m source_details           = [
+          [31m-[0m[0m {
+              [31m-[0m[0m parent_file_system_id = ""
+              [31m-[0m[0m source_snapshot_id    = ""
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m state                    = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m system_tags              = {} [90m-> null[0m[0m
+      [31m-[0m[0m time_created             = "2026-04-27 18:47:50.916 +0000 UTC" [90m-> null[0m[0m
+    }
+
+[1mPlan:[0m 0 to add, 0 to change, 1 to destroy.
+[0m
+Changes to Outputs:
+  [31m-[0m[0m filesystem_ocid = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaanz6wl7pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destroying... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaanz6wl7pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destruction complete after 2s[0m
+[0m[1m[32m
+Destroy complete! Resources: 1 destroyed.
+[0m=== PASS integration:test_fss_filesystem_tf.sh ===
+=== SUMMARY suite=integration pass=2 fail=0 ===
