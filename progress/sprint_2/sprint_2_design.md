@@ -134,6 +134,17 @@ Status: Proposed
 
 Establish a set of Terraform architecture rules to be used as the standard for all further work in this repository, and upstream them into RUPStrikesBack rules/skills.
 
+### Terraform Module Interface — Rules of Thumb (optional arguments)
+
+- Prefer **required inputs** only for values that cannot be derived safely (for example `compartment_ocid`).
+- If there is a safe, stable default, make the argument optional with `default = <value>`.
+- If “unset” should change behavior (for example “auto-pick AD”), use `default = null` and conditional selection.
+- For optional nested blocks, use `dynamic` blocks with `for_each`:
+  - optional single block: `for_each = var.block == null ? [] : [var.block]`
+  - optional repeated blocks: `for_each = var.blocks` with `default = []`
+- For optional maps (for example tags), use `default = {}`.
+- Do not create “*_type” scalar variables for blocks (for example `locks.type`). Prefer structured variables (`object` / `list(object)`) so required fields are enforced by the type system.
+
 ### Feasibility Analysis
 
 **API Availability:**
