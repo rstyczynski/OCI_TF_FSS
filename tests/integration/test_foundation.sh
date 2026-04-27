@@ -25,7 +25,7 @@ test_IT1_provision_foundation_baseline() {
   # Always try to teardown on exit unless user explicitly wants to keep resources.
   _cleanup() {
     local ec=$?
-    if [[ "${skip_teardown:-false}" != "true" ]]; then
+    if [[ -n "${workdir:-}" && "${skip_teardown:-false}" != "true" ]]; then
       (
         cd "$workdir"
         export PATH="$scaffold_dir/do:$scaffold_dir/resource:$PATH"
@@ -33,7 +33,7 @@ test_IT1_provision_foundation_baseline() {
         bash "$scaffold_dir/do/teardown.sh" || true
       )
     fi
-    rm -rf "$workdir"
+    [[ -n "${workdir:-}" ]] && rm -rf "$workdir"
     return "$ec"
   }
   trap _cleanup EXIT
