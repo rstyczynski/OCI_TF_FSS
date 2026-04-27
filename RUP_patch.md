@@ -45,3 +45,13 @@ Requirements:
   - teardown / cleanup (when applicable)
 - Any claim that a manual snippet was executed MUST be backed by an artifact per P4 (log file under `progress/sprint_N/` and referenced from `sprint_N_tests.md`).
 
+## P6. Managed-mode approval checkpoint before quality gates
+
+In `Mode: managed`, after Phase 3 (Construction) is implemented and committed, the workflow MUST pause for explicit Product Owner approval **before** executing Phase 4 (Quality Gates).
+
+Requirements:
+
+- Record the approval request in `progress/sprint_N/sprint_N_openquestions.md` (or `sprint_N_proposedchanges.md` if more appropriate).
+- Product Owner signals approval by marking the entry `Status: Accepted`.
+- Only then run the gate commands and create `progress/sprint_N/test_run_*.log` artifacts.
+
