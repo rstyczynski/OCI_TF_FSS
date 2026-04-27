@@ -54,7 +54,7 @@ Use `oci_scaffold` as the authoritative provisioning mechanism for “test basel
 The foundation must provide (at minimum):
 
 - Network identifiers: subnet OCID (and VCN OCID if needed).
-- Compute identifiers: instance OCID and IP (for later mount testing), if a test client is provisioned.
+- Compute identifiers: instance OCID and IP, plus an SSH key usable by the operator to connect to the instance.
 - Compartment: all resources in `/oci_tf_fss`.
 
 **Planned `oci_scaffold` usage (design intent)**
@@ -62,7 +62,41 @@ The foundation must provide (at minimum):
 - Prefer reusing existing `oci_scaffold` cycles where possible:
   - `cycle-subnet.sh` or `cycle-subnet-nat.sh` for network baseline
   - `cycle-compute.sh` for test client baseline
+- Reuse `oci_scaffold` patterns for compute access and secret material handling (SSH key generation; vault/key/secret lifecycle) when they are needed for system-level testing.
 - Ensure the compartment path is set to `/oci_tf_fss` for all runs.
+
+**Reusable `oci_scaffold` approach (compute + vault/secret)**
+
+The foundation design intentionally mirrors the way `oci_scaffold` already provisions integration-test stacks, so later system tests can use the same mechanics and expectations.
+
+- **Compartment path enforcement**
+  - Use `resource/ensure-compartment.sh` behavior: given a full path (e.g. `/oci_tf_fss`), it creates missing segments idempotently and records the final OCID in state as `.compartment.ocid`.
+  - All subsequent ensure scripts take `.inputs.oci_compartment` (OCID) as the compartment for created resources.
+
+- **Deterministic state + parallel safety**
+  - State file naming is driven by `NAME_PREFIX`: default `STATE_FILE="${PWD}/state-${NAME_PREFIX}.json"` (from `do/oci_scaffold.sh`).
+  - This allows parallel test runs by using different `NAME_PREFIX` values without collisions.
+
+- **Compute instance provisioning pattern**
+  - Reuse `cycle-compute.sh` approach:
+    - Generate an SSH keypair if the instance is being created (and refuse to proceed if instance exists but key is missing).
+    - Seed state inputs including:
+      - `.inputs.oci_compartment` (final compartment OCID for `/oci_tf_fss`)
+      - `.inputs.name_prefix` (used for resource names)
+      - `.inputs.subnet_prohibit_public_ip=false` and security list ingress CIDR to allow operator SSH access
+      - `.inputs.compute_ssh_authorized_keys_file` pointing to the generated public key
+    - Provision network prerequisites then `resource/ensure-compute.sh` to create/adopt an instance.
+    - Record compute outputs in state:
+      - `.compute.ocid`, `.compute.private_ip`, optional `.compute.public_ip`
+    - Validate SSH connectivity as part of system-level acceptance:
+      - operator can `ssh -i state-<NAME_PREFIX>-key opc@<public-ip>` and run basic commands
+
+- **Vault / key / secret provisioning pattern**
+  - Reuse `cycle-vault.sh` approach for secrets needed by system tests (when applicable):
+    - `resource/ensure-vault.sh` creates or adopts a vault and records `.vault.ocid` and `.vault.mgmt_endpoint`
+    - `resource/ensure-key.sh` creates or adopts a KMS key under the vault endpoint and records `.key.ocid`
+    - `resource/ensure-secret.sh` creates or updates a secret (base64 content) and records `.secret.ocid` / `.secret.name`
+  - This pattern supports scheduled-deletion recovery (cancel deletion when re-running within the retention window), which is important for retry-safe integration test loops.
 
 **Error Handling:**
 
@@ -139,9 +173,9 @@ Sprint Test Configuration:
 #### IT-1: Provision foundation baseline (network + optional compute)
 
 - **Preconditions:** OCI CLI authenticated; permissions to create resources in `/oci_tf_fss`; `jq` available.
-- **Steps:** run the foundation provisioning logic (implemented via `oci_scaffold`) with a deterministic `NAME_PREFIX`.
-- **Expected Outcome:** baseline resources exist and identifiers are available for downstream tests.
-- **Verification:** test asserts that required identifiers are non-empty and that resources are in expected lifecycle state.
+- **Steps:** run the foundation provisioning logic (implemented via `oci_scaffold`) with a deterministic `NAME_PREFIX`, following the same patterns as `cycle-compute.sh` and (when secrets are required) `cycle-vault.sh`.
+- **Expected Outcome:** baseline resources exist, identifiers are available for downstream tests, and the operator can connect to the test client via SSH.
+- **Verification:** test asserts required identifiers are non-empty and performs an SSH readiness check to the instance (connect + run `true` / `hostname`).
 - **Target file:** `tests/integration/test_foundation.sh`
 
 ### Traceability
