@@ -2,7 +2,7 @@
 
 ## PBI-002. Terraform module for FSS mount target
 
-Status: Proposed
+Status: Approved
 
 ### Requirement Summary
 
@@ -82,7 +82,7 @@ lifecycle {
 
 ## PBI-003. Terraform module for FSS export
 
-Status: Proposed
+Status: Approved
 
 ### Requirement Summary
 
@@ -149,7 +149,7 @@ Create a Terraform module that provisions an OCI FSS export linking a filesystem
 
 ## PBI-004. Network Path Analyzer test for FSS availability
 
-Status: Proposed
+Status: Approved
 
 ### Requirement Summary
 
