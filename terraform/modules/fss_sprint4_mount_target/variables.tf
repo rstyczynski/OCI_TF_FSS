@@ -27,7 +27,7 @@ variable "display_name" {
 #
 
 variable "hostname_label" {
-  description = "Optional hostname label for the mount target private IP."
+  description = "Optional hostname label for the mount target private IP used to build the FQDN with subnet and VCN DNS labels."
   type        = string
   default     = null
 }

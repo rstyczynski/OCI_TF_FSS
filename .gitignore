@@ -7,3 +7,8 @@ progress/**/generated_tf/**/*.tfstate.*
 progress/**/generated_tf/**/*.tfplan
 progress/**/generated_tf/**/.terraform.lock.hcl
 progress/**/generated_tf/**/tf_test_artifacts/
+progress/**/operator_tf/.terraform.lock.hcl
+progress/**/operator_tf/.terraform.tfstate.lock.info
+progress/**/operator_tf/terraform.tfstate
+progress/**/operator_tf/terraform.tfstate.*
+model/.$model.drawio.bkp

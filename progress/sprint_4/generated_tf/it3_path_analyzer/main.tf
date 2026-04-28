@@ -21,7 +21,7 @@ module "mt" {
   source              = "../../../../terraform/modules/fss_sprint4_mount_target"
   compartment_ocid    = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
   availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
-  subnet_ocid         = "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaavsji5425xckgkwuxlzsxat3jdxx6bbrhprwi3dsgf6gr5f2aaudq"
+  subnet_ocid         = "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q"
   display_name        = "fss-sprint4-mt-it3-path-analyzer"
 }
 

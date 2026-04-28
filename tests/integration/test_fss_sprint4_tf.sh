@@ -184,6 +184,18 @@ output "mount_target_private_ip" {
   value = data.oci_core_private_ip.mount_target.ip_address
 }
 
+output "mount_target_ip_address" {
+  value = module.mt.mount_target_ip_address
+}
+
+output "mount_target_fqdn" {
+  value = module.mt.mount_target_fqdn
+}
+
+output "mount_target_mount_address" {
+  value = module.mt.mount_target_mount_address
+}
+
 output "mount_target_vnic_id" {
   value = data.oci_core_private_ip.mount_target.vnic_id
 }
@@ -194,6 +206,10 @@ output "export_ocid" {
 
 output "export_path" {
   value = module.export.export_path
+}
+
+output "nfs_mount_source" {
+  value = "${module.mt.mount_target_mount_address}:${module.export.export_path}"
 }
 
 output "source_cidr" {

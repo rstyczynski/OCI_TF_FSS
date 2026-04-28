@@ -88,7 +88,7 @@ Backlog Items:
 
 ## Sprint 6 - FSS mount and administration
 
-Status: Progress
+Status: Done
 Mode: YOLO
 Test: integration
 Regression: integration

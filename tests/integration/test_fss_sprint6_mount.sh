@@ -490,7 +490,7 @@ test_IT2_admin_operations() {
     ssh -i "$ssh_key" \
       -o StrictHostKeyChecking=no -o ConnectTimeout=30 -o BatchMode=yes \
       "opc@${compute_public_ip}" \
-      "rm -rf ${test_dir} && sudo umount ${mount_point} && sudo rmdir ${mount_point}" \
+      "sudo rm -rf ${test_dir} && sudo umount ${mount_point} && sudo rmdir ${mount_point}" \
       2>&1 | tee "${artifacts_dir}/cleanup.log"
 
     echo "PASS: IT-2"

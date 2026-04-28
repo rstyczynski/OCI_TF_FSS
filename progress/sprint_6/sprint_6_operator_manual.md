@@ -18,7 +18,7 @@ The Sprint 5 stack returns `nfs_mount_sources`, so operators do not need to look
 ### Step 1: Get Foundation State Values
 
 ```bash
-cd /Users/rstyczynski/projects/OCI_TF_FSS
+cd "$(git rev-parse --show-toplevel)"
 
 # Get compute public IP
 COMPUTE_IP=$(jq -r '.compute.public_ip' progress/sprint_1/scaffold/infra/state-infra.json)

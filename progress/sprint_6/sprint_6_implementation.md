@@ -83,8 +83,15 @@ After the Sprint 5 stack began exposing `mount_target_mount_addresses` and `nfs_
 - `mount_target_mount_addresses`
 - `nfs_mount_sources`
 
-Evidence pending quality gate execution.
+## Review Fix
+
+During A3 review, IT-2 completed successfully but cleanup printed a permission error when removing a mounted FSS directory after ownership and permission changes. The cleanup command now removes the test directory with sudo before unmounting and removing the mount point.
+
+## Quality Gates
+
+- A3 Integration: PASS (`progress/sprint_6/test_run_A3_integration_20260428_125641.log`)
+- B3 Integration: PASS (`progress/sprint_6/test_run_B3_integration_20260428_125921.log`)
 
 ## Known Issues
 
-None yet.
+None.
