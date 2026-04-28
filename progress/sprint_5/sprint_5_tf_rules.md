@@ -67,6 +67,40 @@ For Sprint 5, generated Terraform roots live under:
 progress/sprint_5/generated_tf/<test_id>/main.tf
 ```
 
+## Composite outputs for map-based modules
+
+For modules that accept a map and create a repeated stack of related resources, provide both:
+
+- atomic map outputs for stable Terraform references between modules
+- one composite map output for operator inventory and JSON review
+
+Atomic outputs should remain simple and narrowly named, such as `filesystem_ocids` or `export_paths`. The composite output should preserve the same input map keys and group the useful per-entry values into one object:
+
+```hcl
+output "filesystems" {
+  description = "Complete FSS stack outputs keyed by input map key."
+  value = {
+    for key in keys(var.filesystems) : key => {
+      filesystem_ocid         = module.filesystem[key].filesystem_ocid
+      filesystem_display_name = module.filesystem[key].filesystem_display_name
+      kms_key_id              = var.kms_key_id
+
+      mount_target_ocid            = module.mount_target[key].mount_target_ocid
+      mount_target_display_name    = module.mount_target[key].mount_target_display_name
+      mount_target_export_set_ocid = module.mount_target[key].mount_target_export_set_ocid
+      mount_target_private_ip_ids  = module.mount_target[key].mount_target_private_ip_ids
+
+      export_ocid     = module.export[key].export_ocid
+      export_set_ocid = module.export[key].export_set_ocid
+      export_path     = module.export[key].export_path
+      source_cidr     = local.effective_source_cidrs[key]
+    }
+  }
+}
+```
+
+Keep the composite output additive. Do not remove existing atomic outputs unless a sprint explicitly includes a breaking interface change.
+
 ## OCI Oracle-managed tags
 
 OCI may inject Oracle-managed defined tags such as:
