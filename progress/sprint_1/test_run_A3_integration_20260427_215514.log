@@ -1,0 +1,13 @@
+=== RUN integration:test_foundation.sh:test_IT1_provision_foundation_baseline ===
+=== IT-1: Provision foundation baseline (network + optional compute) ===
+INFO: workdir=/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/tf_fs_lookup (oci_scaffold; Terraform uses progress/sprint_1/tf_state/ separately)
+  [INFO] STATE_FILE: /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/tf_fs_lookup/state-tf_fs_lookup.json
+  [EXISTING] Compartment '/oci_tf_fss': ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q
+  [EXISTING] Vault 'tf_fs_lookup-vault': ocid1.vault.oc1.eu-zurich-1.fju67vjhaadi6.ab5heljrnnuwisjfuxlw63p3xpnqbpytcieh5wgkndomzcczomt7da3ugnsa
+  [EXISTING] KMS Key 'tf_fs_lookup-key': ocid1.key.oc1.eu-zurich-1.fju67vjhaadi6.ab5heljrovqd44phaklddvmdtpp5tychmxsvzsanlqlwnsvng7r6i4dgd6ja
+INFO: SSH private key from existing Vault secret 'tf_fs_lookup-foundation-ssh-private-key'
+FAIL: Vault secret bundle for ocid1.vaultsecret.oc1.eu-zurich-1.amaaaaaaknhfuyiagzy5uixj2v26dotskpnjburygikr4ablklmhuptx5aza is not a usable SSH private key after decode attempts. Replace the secret contents in OCI or schedule delete and re-bootstrap.
+FAIL: compute OCID missing in state
+=== FAIL integration:test_foundation.sh:test_IT1_provision_foundation_baseline ===
+=== SUMMARY suite=integration pass=0 fail=1 ===
+exit=1

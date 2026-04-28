@@ -1,0 +1,23 @@
+=== RUN integration:test_foundation.sh:test_IT1_provision_foundation_baseline ===
+=== IT-1: Provision foundation baseline (network + optional compute) ===
+INFO: workdir=/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/tf_fs_lookup (oci_scaffold; Terraform uses progress/sprint_1/tf_state/ separately)
+  [INFO] STATE_FILE: /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/tf_fs_lookup/state-tf_fs_lookup.json
+  [EXISTING] Compartment '/oci_tf_fss': ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q
+  [EXISTING] Vault 'tf_fs_lookup-vault': ocid1.vault.oc1.eu-zurich-1.fju67vjhaadi6.ab5heljrnnuwisjfuxlw63p3xpnqbpytcieh5wgkndomzcczomt7da3ugnsa
+  [EXISTING] KMS Key 'tf_fs_lookup-key': ocid1.key.oc1.eu-zurich-1.fju67vjhaadi6.ab5heljrovqd44phaklddvmdtpp5tychmxsvzsanlqlwnsvng7r6i4dgd6ja
+INFO: SSH private key from existing Vault secret 'tf_fs_lookup-foundation-ssh-private-key'
+Load key "/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/tf_fs_lookup/state-tf_fs_lookup-key": invalid format
+  [EXISTING] VCN 'tf_fs_lookup-vcn': ocid1.vcn.oc1.eu-zurich-1.amaaaaaaknhfuyiakws5y747jp4vq2glf24povuzn4epk6rjc6nktdvjtkaa
+  [EXISTING] Security List 'tf_fs_lookup-sl': ocid1.securitylist.oc1.eu-zurich-1.aaaaaaaaqvm2nzhuo3pjgzfswdmwlpogoidonuhmabvifhndwnlftqe3bmea
+  [EXISTING] Internet Gateway 'tf_fs_lookup-igw': ocid1.internetgateway.oc1.eu-zurich-1.aaaaaaaafv45jglcirzssqa2sq4j2trjcdbe5vxhpu4ddlmp7ds5ckcfybla
+  [EXISTING] Route Table 'tf_fs_lookup-rt': ocid1.routetable.oc1.eu-zurich-1.aaaaaaaaf6xcgoi3rzmjj7lhvuxacgcbkjcemruvkaicca4f3qahanefo33a
+  [EXISTING] Internet Gateway route: present
+  [EXISTING] Subnet 'tf_fs_lookup': ocid1.subnet.oc1.eu-zurich-1.aaaaaaaa32euhtmmo3cbfytpmfw2mluam5drq6lsza2234rii3qlszqwcpta
+  [EXISTING] Compute instance 'tf_fs_lookup-instance' already exists: ocid1.instance.oc1.eu-zurich-1.an5heljrknhfuyic7iwk5mrbkb34ilbtyguinsucbqjkzdkz7bxzvujr6gna
+INFO: Sprint 1 oci_scaffold state (this run) — cwd: /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/tf_fs_lookup
+INFO: STATE_FILE=/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/tf_fs_lookup/state-tf_fs_lookup.json
+INFO: SSH keys: /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/tf_fs_lookup/state-tf_fs_lookup-key /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/tf_fs_lookup/state-tf_fs_lookup-key.pub
+INFO: Terraform for this sprint belongs under progress/sprint_1/tf_state/ (separate from this directory).
+INFO: compute_ocid=ocid1.instance.oc1.eu-zurich-1.an5heljrknhfuyic7iwk5mrbkb34ilbtyguinsucbqjkzdkz7bxzvujr6gna
+INFO: compute_public_ip=140.238.221.65
+[2K  [WAIT] Waiting for SSH 140.238.221.65 … 0s[2K  [WAIT] Waiting for SSH 140.238.221.65 … 5s[2K  [WAIT] Waiting for SSH 140.238.221.65 … 10s[2K  [WAIT] Waiting for SSH 140.238.221.65 … 15s[2K  [WAIT] Waiting for SSH 140.238.221.65 … 20s[2K  [WAIT] Waiting for SSH 140.238.221.65 … 25s[2K  [WAIT] Waiting for SSH 140.238.221.65 … 30s[2K  [WAIT] Waiting for SSH 140.238.221.65 … 35s[2K  [WAIT] Waiting for SSH 140.238.221.65 … 40s[2K  [WAIT] Waiting for SSH 140.238.221.65 … 45s[2K  [WAIT] Waiting for SSH 140.238.221.65 … 50s[2K  [WAIT] Waiting for SSH 140.238.221.65 … 55s[2K  [WAIT] Waiting for SSH 140.238.221.65 … 60s[2K  [WAIT] Waiting for SSH 140.238.221.65 … 65s[2K  [WAIT] Waiting for SSH 140.238.221.65 … 70s[2K  [WAIT] Waiting for SSH 140.238.221.65 … 75s[2K  [WAIT] Waiting for SSH 140.238.221.65 … 80s[2K  [WAIT] Waiting for SSH 140.238.221.65 … 85s[2K  [WAIT] Waiting for SSH 140.238.221.65 … 90s[2K  [WAIT] Waiting for SSH 140.238.221.65 … 95s

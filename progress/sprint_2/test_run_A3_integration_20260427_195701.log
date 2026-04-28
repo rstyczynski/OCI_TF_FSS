@@ -1,0 +1,152 @@
+=== RUN integration:test_fss_filesystem_tf.sh:test_IT1_error_path_missing_compartment_is_error ===
+=== IT-1: Error path — missing required compartment_ocid fails ===
+INFO: workdir=/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/tf_fs_8SWUcj
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+Downloading file:///Users/rstyczynski/projects/OCI_TF_FSS/terraform/modules/fss_filesystem for fs...
+- fs in .terraform/modules/fs
+[31m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mInvalid reference in variable validation[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on .terraform/modules/fs/main.tf line 27, in variable "oracle_managed_defined_tags":
+[31m│[0m [0m  27:       contains([4mvar.oracle_managed_defined_tag_keys[0m, k)[0m
+[31m│[0m [0m
+[31m│[0m [0mThe condition for variable "oracle_managed_defined_tags" can only refer to
+[31m│[0m [0mthe variable itself, using var.oracle_managed_defined_tags.
+[31m╵[0m[0m
+[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mInvalid reference in variable validation[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on .terraform/modules/fs/main.tf line 27, in variable "oracle_managed_defined_tags":
+[31m│[0m [0m  27:       contains([4mvar.oracle_managed_defined_tag_keys[0m, k)[0m
+[31m│[0m [0m
+[31m│[0m [0mThe condition for variable "oracle_managed_defined_tags" can only refer to
+[31m│[0m [0mthe variable itself, using var.oracle_managed_defined_tags.
+[31m╵[0m[0m
+PASS: IT-1
+=== PASS integration:test_fss_filesystem_tf.sh:test_IT1_error_path_missing_compartment_is_error ===
+=== RUN integration:test_fss_filesystem_tf.sh:test_IT2_defaults_when_name_missing ===
+=== IT-2: Defaults path — defaults work when name inputs are omitted ===
+INFO: workdir=/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/tf_fs_7tZu9T
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+Downloading file:///Users/rstyczynski/projects/OCI_TF_FSS/terraform/modules/fss_filesystem for fs...
+- fs in .terraform/modules/fs
+[31m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mInvalid reference in variable validation[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on .terraform/modules/fs/main.tf line 27, in variable "oracle_managed_defined_tags":
+[31m│[0m [0m  27:       contains([4mvar.oracle_managed_defined_tag_keys[0m, k)[0m
+[31m│[0m [0m
+[31m│[0m [0mThe condition for variable "oracle_managed_defined_tags" can only refer to
+[31m│[0m [0mthe variable itself, using var.oracle_managed_defined_tags.
+[31m╵[0m[0m
+[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mInvalid reference in variable validation[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on .terraform/modules/fs/main.tf line 27, in variable "oracle_managed_defined_tags":
+[31m│[0m [0m  27:       contains([4mvar.oracle_managed_defined_tag_keys[0m, k)[0m
+[31m│[0m [0m
+[31m│[0m [0mThe condition for variable "oracle_managed_defined_tags" can only refer to
+[31m│[0m [0mthe variable itself, using var.oracle_managed_defined_tags.
+[31m╵[0m[0m
+PASS: IT-2 (filesystem_display_name=[33m╷[0m[0m
+[33m│[0m [0m[1m[33mWarning: [0m[0m[1mNo outputs found[0m
+[33m│[0m [0m
+[33m│[0m [0m[0mThe state file either has no outputs defined, or all the defined outputs
+[33m│[0m [0mare empty. Please define an output in your configuration with the `output`
+[33m│[0m [0mkeyword and run `terraform refresh` for it to become available. If you are
+[33m│[0m [0musing interpolation, please verify the interpolated value is not empty. You
+[33m│[0m [0mcan use the `terraform console` command to assist.
+[33m╵[0m[0m)
+=== PASS integration:test_fss_filesystem_tf.sh:test_IT2_defaults_when_name_missing ===
+=== RUN integration:test_fss_filesystem_tf.sh:test_IT3_defaults_path_ad_behavior_sequence_plan_replace ===
+=== IT-3: Defaults path — AD behavior sequence (apply default, no-change, plan replace) ===
+INFO: workdir=/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/tf_fs_rwSmkA
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+Downloading file:///Users/rstyczynski/projects/OCI_TF_FSS/terraform/modules/fss_filesystem for fs...
+- fs in .terraform/modules/fs
+[31m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mInvalid reference in variable validation[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on .terraform/modules/fs/main.tf line 27, in variable "oracle_managed_defined_tags":
+[31m│[0m [0m  27:       contains([4mvar.oracle_managed_defined_tag_keys[0m, k)[0m
+[31m│[0m [0m
+[31m│[0m [0mThe condition for variable "oracle_managed_defined_tags" can only refer to
+[31m│[0m [0mthe variable itself, using var.oracle_managed_defined_tags.
+[31m╵[0m[0m
+[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mInvalid reference in variable validation[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on .terraform/modules/fs/main.tf line 27, in variable "oracle_managed_defined_tags":
+[31m│[0m [0m  27:       contains([4mvar.oracle_managed_defined_tag_keys[0m, k)[0m
+[31m│[0m [0m
+[31m│[0m [0mThe condition for variable "oracle_managed_defined_tags" can only refer to
+[31m│[0m [0mthe variable itself, using var.oracle_managed_defined_tags.
+[31m╵[0m[0m
+[31m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mInvalid reference in variable validation[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on .terraform/modules/fs/main.tf line 27, in variable "oracle_managed_defined_tags":
+[31m│[0m [0m  27:       contains([4mvar.oracle_managed_defined_tag_keys[0m, k)[0m
+[31m│[0m [0m
+[31m│[0m [0mThe condition for variable "oracle_managed_defined_tags" can only refer to
+[31m│[0m [0mthe variable itself, using var.oracle_managed_defined_tags.
+[31m╵[0m[0m
+[0m[0m
+FAIL: could not determine used availability_domain from terraform state pull (module.fs oci_file_storage_file_system.this)
+=== FAIL integration:test_fss_filesystem_tf.sh:test_IT3_defaults_path_ad_behavior_sequence_plan_replace ===
+=== RUN integration:test_fss_filesystem_tf.sh:test_IT4_happy_path_apply_creates_filesystem ===
+=== IT-4: Happy path — terraform apply creates filesystem and returns OCID ===
+INFO: workdir=/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/tf_fs_RmChBy
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+Downloading file:///Users/rstyczynski/projects/OCI_TF_FSS/terraform/modules/fss_filesystem for fs...
+- fs in .terraform/modules/fs
+[31m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mInvalid reference in variable validation[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on .terraform/modules/fs/main.tf line 27, in variable "oracle_managed_defined_tags":
+[31m│[0m [0m  27:       contains([4mvar.oracle_managed_defined_tag_keys[0m, k)[0m
+[31m│[0m [0m
+[31m│[0m [0mThe condition for variable "oracle_managed_defined_tags" can only refer to
+[31m│[0m [0mthe variable itself, using var.oracle_managed_defined_tags.
+[31m╵[0m[0m
+[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mInvalid reference in variable validation[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on .terraform/modules/fs/main.tf line 27, in variable "oracle_managed_defined_tags":
+[31m│[0m [0m  27:       contains([4mvar.oracle_managed_defined_tag_keys[0m, k)[0m
+[31m│[0m [0m
+[31m│[0m [0mThe condition for variable "oracle_managed_defined_tags" can only refer to
+[31m│[0m [0mthe variable itself, using var.oracle_managed_defined_tags.
+[31m╵[0m[0m
+PASS: IT-4 (filesystem_ocid=[33m╷[0m[0m
+[33m│[0m [0m[1m[33mWarning: [0m[0m[1mNo outputs found[0m
+[33m│[0m [0m
+[33m│[0m [0m[0mThe state file either has no outputs defined, or all the defined outputs
+[33m│[0m [0mare empty. Please define an output in your configuration with the `output`
+[33m│[0m [0mkeyword and run `terraform refresh` for it to become available. If you are
+[33m│[0m [0musing interpolation, please verify the interpolated value is not empty. You
+[33m│[0m [0mcan use the `terraform console` command to assist.
+[33m╵[0m[0m)
+=== PASS integration:test_fss_filesystem_tf.sh:test_IT4_happy_path_apply_creates_filesystem ===
+=== SUMMARY suite=integration pass=3 fail=1 ===
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mInvalid reference in variable validation[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on .terraform/modules/fs/main.tf line 27, in variable "oracle_managed_defined_tags":
+[31m│[0m [0m  27:       contains([4mvar.oracle_managed_defined_tag_keys[0m, k)[0m
+[31m│[0m [0m
+[31m│[0m [0mThe condition for variable "oracle_managed_defined_tags" can only refer to
+[31m│[0m [0mthe variable itself, using var.oracle_managed_defined_tags.
+[31m╵[0m[0m

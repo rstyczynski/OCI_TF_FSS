@@ -1,0 +1,16 @@
+=== RUN integration:test_foundation.sh:test_IT1_provision_foundation_baseline ===
+=== IT-1: Provision foundation baseline (network + optional compute) ===
+INFO: workdir=/tmp/oci_tf_fss_tf_fs_lookup_pCumuh
+  [INFO] STATE_FILE: /tmp/oci_tf_fss_tf_fs_lookup_pCumuh/state-tf_fs_lookup.json
+  [EXISTING] Compartment '/oci_tf_fss': ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q
+  [EXISTING] Vault 'tf_fs_lookup-vault': ocid1.vault.oc1.eu-zurich-1.fju67vjhaadi6.ab5heljrnnuwisjfuxlw63p3xpnqbpytcieh5wgkndomzcczomt7da3ugnsa
+  [EXISTING] KMS Key 'tf_fs_lookup-key': ocid1.key.oc1.eu-zurich-1.fju67vjhaadi6.ab5heljrovqd44phaklddvmdtpp5tychmxsvzsanlqlwnsvng7r6i4dgd6ja
+INFO: SSH private key from existing Vault secret 'tf_fs_lookup-foundation-ssh-private-key'
+Load key "/tmp/oci_tf_fss_tf_fs_lookup_pCumuh/state-tf_fs_lookup-key": invalid format
+  [EXISTING] VCN 'tf_fs_lookup-vcn': ocid1.vcn.oc1.eu-zurich-1.amaaaaaaknhfuyiakws5y747jp4vq2glf24povuzn4epk6rjc6nktdvjtkaa
+  [EXISTING] Security List 'tf_fs_lookup-sl': ocid1.securitylist.oc1.eu-zurich-1.aaaaaaaaqvm2nzhuo3pjgzfswdmwlpogoidonuhmabvifhndwnlftqe3bmea
+  [EXISTING] Internet Gateway 'tf_fs_lookup-igw': ocid1.internetgateway.oc1.eu-zurich-1.aaaaaaaafv45jglcirzssqa2sq4j2trjcdbe5vxhpu4ddlmp7ds5ckcfybla
+  [EXISTING] Route Table 'tf_fs_lookup-rt': ocid1.routetable.oc1.eu-zurich-1.aaaaaaaaf6xcgoi3rzmjj7lhvuxacgcbkjcemruvkaicca4f3qahanefo33a
+  [EXISTING] Internet Gateway route: present
+  [EXISTING] Subnet 'tf_fs_lookup': ocid1.subnet.oc1.eu-zurich-1.aaaaaaaa32euhtmmo3cbfytpmfw2mluam5drq6lsza2234rii3qlszqwcpta
+  [EXISTING] Compute instance 'tf_fs_lookup-instance' already exists: ocid1.instance.oc1.eu-zurich-1.an5heljrknhfuyicf2ctfowt5twlabfit4p26tc3b5dxsohhde37qheupicq

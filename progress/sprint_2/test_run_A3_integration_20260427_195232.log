@@ -1,0 +1,13 @@
+=== RUN integration:test_fss_filesystem_tf.sh:test_IT1_error_path_missing_compartment_is_error ===
+=== IT-1: Error path — missing required compartment_ocid fails ===
+INFO: workdir=/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/tf_fs_kR99g0
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+Downloading file:///Users/rstyczynski/projects/OCI_TF_FSS/terraform/modules/fss_filesystem for fs...
+- fs in .terraform/modules/fs
+
+[0m[1mInitializing provider plugins...[0m
+- Finding latest version of oracle/oci...
+- Finding latest version of hashicorp/random...
+- Installing oracle/oci v8.10.0...
