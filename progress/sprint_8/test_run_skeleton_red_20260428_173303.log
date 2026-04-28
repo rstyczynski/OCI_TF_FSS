@@ -1,0 +1,5 @@
+=== RUN integration:test_fss_sprint8_logging.sh:test_IT1_logging_enabled_mount_target ===
+=== IT-1: Logging-enabled mount target is discoverable ===
+FAIL: TODO implement Sprint 8 logging integration test during construction
+=== FAIL integration:test_fss_sprint8_logging.sh:test_IT1_logging_enabled_mount_target ===
+=== SUMMARY suite=integration pass=0 fail=1 ===

@@ -112,3 +112,16 @@ Refactor the stack module variable structure so mount targets and filesystems ar
 Backlog Items:
 
 * PBI-019. Refactor stack filesystem variable
+
+## Sprint 8 - FSS mount target logging
+
+Status: Done
+Mode: managed
+Test: integration
+Regression: none
+
+Add optional OCI Logging support for mount targets in the current stack interface. Logging must be opt-in per mount target, expose created log resource information, and include an operator manual and integration evidence that uses OCI Logging CLI to discover the created logs.
+
+Backlog Items:
+
+* PBI-016. Add logging to mount targets

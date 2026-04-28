@@ -1,0 +1,2 @@
+# Sprint 8 FSS logging component tests
+integration:test_fss_sprint8_logging.sh

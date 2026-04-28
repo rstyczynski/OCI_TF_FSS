@@ -18,3 +18,4 @@ Progress board is a table showing sprint, and backlog items state. It's the only
 | Sprint 6 | tested | PBI-010. Mount FSS file system(s) on a compute instance | tested |
 | Sprint 6 | tested | PBI-011. Perform administrator tasks for FSS mount(s) | tested |
 | Sprint 7 | tested | PBI-019. Refactor stack filesystem variable | tested |
+| Sprint 8 | tested | PBI-016. Add logging to mount targets | tested |

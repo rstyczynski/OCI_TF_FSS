@@ -1,0 +1,4 @@
+# Sprint 8 new tests — used by tests/run.sh --new-only
+
+# Integration tests
+integration:test_fss_sprint8_logging.sh:test_IT1_logging_enabled_mount_target
