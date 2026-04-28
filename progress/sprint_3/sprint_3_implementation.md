@@ -52,7 +52,7 @@ tests/run.sh --integration --new-only progress/sprint_3/new_tests.manifest
 
 ### Known Issues
 
-- Quality gates are not run yet. Managed-mode approval is required before Phase 4.
+- None known after quality gates.
 
 ## PBI-006. Terraform architecture rules for agentic development
 
@@ -66,4 +66,4 @@ Created `progress/sprint_3/sprint_3_tf_rules.md`. It moves AD randomization, dyn
 
 ### Overall Status
 
-implemented; awaiting managed-mode approval before quality gates.
+tested.
