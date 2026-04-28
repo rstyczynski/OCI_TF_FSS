@@ -7,4 +7,5 @@ Progress board is a table showing sprint, and backlog items state. It's the only
 | Sprint 1 | implemented | PBI-005. Foundation infrastructure for system-level FSS tests | tested |
 | Sprint 2 | implemented | PBI-001. Terraform module for FSS filesystem | tested |
 | Sprint 2 | implemented | PBI-006. Terraform architecture rules for agentic development | tested |
-
+| Sprint 3 | under_design | PBI-001. Terraform module for FSS filesystem | test_specified |
+| Sprint 3 | under_design | PBI-006. Terraform architecture rules for agentic development | test_specified |
