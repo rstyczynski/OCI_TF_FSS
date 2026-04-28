@@ -1,3 +1,4 @@
 progress/**/tf_state/
 progress/**/scaffold/
 progress/.DS_Store
+**/.terraform/
