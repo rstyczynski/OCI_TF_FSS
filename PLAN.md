@@ -99,3 +99,16 @@ Backlog Items:
 
 * PBI-010. Mount FSS file system(s) on a compute instance
 * PBI-011. Perform administrator tasks for FSS mount(s)
+
+## Sprint 7 - FSS stack variable refactor
+
+Status: Done
+Mode: managed
+Test: integration
+Regression: none
+
+Refactor the stack module variable structure so mount targets and filesystems are independent, first-class entries. Each filesystem carries its own nested exports map; each export references a mount target by key. This breaks the current 1:1:1 coupling and aligns the module interface with OCI's actual M:N resource relationships. PBI-019 supersedes PBI-015. Build new version of stack in ./terraform/modules/fss_sprint7_stack
+
+Backlog Items:
+
+* PBI-019. Refactor stack filesystem variable

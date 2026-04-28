@@ -24,7 +24,6 @@ module "filesystem" {
   freeform_tags                 = each.value.freeform_tags
   defined_tags                  = each.value.defined_tags
   locks                         = each.value.locks
-  timeouts                      = each.value.timeouts
 }
 
 module "mount_target" {

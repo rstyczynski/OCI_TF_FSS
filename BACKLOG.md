@@ -117,3 +117,54 @@ Test: `terraform validate` accepts a mount target configuration that sets at lea
 Extend the FSS export module or v1 export module so it supports the full provider configuration surface, not only one fixed `export_options` entry. The module must accept a list of export option objects so operators can define multiple ordered client policies with different sources and access rules. It must also expose relevant optional provider arguments such as `is_idmap_groups_for_sys_auth`, `locks`, and operation `timeouts` while preserving the current simple single-CIDR behavior as a compatibility path where appropriate.
 
 Test: `terraform validate` accepts multiple `export_options` entries with distinct `source` and `access` values; an integration apply provisions an export with at least two ordered client policies and verifies the generated Terraform keeps both policies visible for operator review.
+
+### PBI-019. Refactor stack filesystem variable
+
+Mount target services one or more filesystems via one or more exports. Refactor `fss_stack` filesystems variable to reflect this, and remove optional arguments, that will be added in nex iterations. PBI-019 supersedes PBI-015.
+
+Exemplary definition:
+
+```hcl
+variable "mount_targets" {
+  description = "Map of mount targets keyed by stable operator names. Exports reference these keys via exports[*].mount_target_key."
+  type = map(object({
+    display_name   = optional(string)
+    hostname_label = optional(string)
+    nsg_ids        = optional(list(string))
+
+    freeform_tags = optional(map(string), {})
+    defined_tags  = optional(map(string), {})
+
+  }))
+  default = {}
+}
+
+variable "filesystems" {
+  description = "Map of filesystem entries keyed by stable operator names. Each filesystem may have multiple exports; each export can target any mount target (by key)."
+  type = map(object({
+    display_name = string
+    freeform_tags                 = optional(map(string), {})
+    defined_tags                  = optional(map(string), {})
+
+    exports = optional(map(object({
+      mount_target_key = string
+      path             = string
+
+      source                         = optional(string, null)
+      access                         = optional(string, "READ_WRITE")
+      allowed_auth                   = optional(list(string), ["SYS"])
+      identity_squash                = optional(string, "ROOT")
+      anonymous_uid                  = optional(number, 65534)
+      anonymous_gid                  = optional(number, 65534)
+      is_anonymous_access_allowed    = optional(bool, false)
+      require_privileged_source_port = optional(bool, false)
+    })), {})
+  }))
+
+  default = {}
+}
+```
+
+The stack must retain the `default_source_cidr` module-level variable so that exports with `source = null` inherit a meaningful CIDR rather than failing at plan time.
+
+Test: `terraform validate` accepts a configuration with two `mount_targets` entries and two `filesystems` entries where one filesystem has exports pointing to different mount targets via `mount_target_key`; `terraform apply` provisions all resources, and outputs correctly associate each export with its referenced mount target; a second apply with one filesystem entry removed destroys only the targeted resources without affecting the remaining stack.

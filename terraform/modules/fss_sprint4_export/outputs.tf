@@ -17,3 +17,8 @@ output "file_system_ocid" {
   description = "Filesystem OCID used by the export."
   value       = oci_file_storage_export.this.file_system_id
 }
+
+output "identity_squash" {
+  description = "Identity squash mode applied to the export option."
+  value       = oci_file_storage_export.this.export_options[0].identity_squash
+}

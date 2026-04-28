@@ -1,0 +1,5 @@
+# Sprint 7 new tests — used by tests/run.sh --new-only
+
+# Integration tests
+integration:test_fss_sprint7_tf.sh:test_IT1_static_validate_new_variable_structure
+integration:test_fss_sprint7_tf.sh:test_IT2_stack_applies_with_cross_referenced_mount_targets

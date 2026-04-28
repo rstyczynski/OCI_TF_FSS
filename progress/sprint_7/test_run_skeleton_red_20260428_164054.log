@@ -1,0 +1,80 @@
+=== RUN integration:test_fss_sprint7_tf.sh:test_IT1_static_validate_new_variable_structure ===
+=== IT-1: New variable structure passes static validation ===
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+- stack in 
+[31m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnreadable module directory[0m
+[31m│[0m [0m
+[31m│[0m [0m[0mUnable to evaluate directory symlink: lstat
+[31m│[0m [0m../../../../terraform/modules/fss_sprint7_stack: no such file or directory
+[31m╵[0m[0m
+[0m[0m
+[31m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnreadable module directory[0m
+[31m│[0m [0m
+[31m│[0m [0m[0mThe directory  could not be read for module "stack" at main.tf:9.
+[31m╵[0m[0m
+[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mModule not installed[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 9:
+[31m│[0m [0m   9: [4mmodule "stack"[0m {[0m
+[31m│[0m [0m
+[31m│[0m [0mThis module's local cache directory  could not be read. Run "terraform
+[31m│[0m [0minit" to install all modules required by this configuration.
+[31m╵[0m[0m
+FAIL: terraform validate failed unexpectedly
+INFO: no Terraform-managed resources in state - skipping terraform destroy (/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_7/generated_tf/it1_static_validate)
+=== FAIL integration:test_fss_sprint7_tf.sh:test_IT1_static_validate_new_variable_structure ===
+=== RUN integration:test_fss_sprint7_tf.sh:test_IT2_stack_applies_with_cross_referenced_mount_targets ===
+=== IT-2: Stack applies with cross-referenced mount targets and filesystems ===
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+- stack in 
+[31m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnreadable module directory[0m
+[31m│[0m [0m
+[31m│[0m [0m[0mUnable to evaluate directory symlink: lstat
+[31m│[0m [0m../../../../terraform/modules/fss_sprint7_stack: no such file or directory
+[31m╵[0m[0m
+[0m[0m
+[31m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnreadable module directory[0m
+[31m│[0m [0m
+[31m│[0m [0m[0mThe directory  could not be read for module "stack" at main.tf:13.
+[31m╵[0m[0m
+[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mModule not installed[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 13:
+[31m│[0m [0m  13: [4mmodule "stack"[0m {[0m
+[31m│[0m [0m
+[31m│[0m [0mThis module's local cache directory  could not be read. Run "terraform
+[31m│[0m [0minit" to install all modules required by this configuration.
+[31m╵[0m[0m
+
+Error: Failed to read the given file as a state or plan file
+
+State read error: Error loading statefile: open
+/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_7/generated_tf/it2_stack_cross_ref/tf_test_artifacts/deploy.tfplan:
+no such file or directory
+
+Plan read error: open
+/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_7/generated_tf/it2_stack_cross_ref/tf_test_artifacts/deploy.tfplan:
+no such file or directory
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mFailed to load "/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_7/generated_tf/it2_stack_cross_ref/tf_test_artifacts/deploy.tfplan" as a plan file[0m
+[31m│[0m [0m
+[31m│[0m [0m[0mError: stat
+[31m│[0m [0m/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_7/generated_tf/it2_stack_cross_ref/tf_test_artifacts/deploy.tfplan:
+[31m│[0m [0mno such file or directory
+[31m╵[0m[0m
+FAIL: mount_target_ocids missing or empty for key mt_primary
+INFO: no Terraform-managed resources in state - skipping terraform destroy (/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_7/generated_tf/it2_stack_cross_ref)
+=== FAIL integration:test_fss_sprint7_tf.sh:test_IT2_stack_applies_with_cross_referenced_mount_targets ===
+=== SUMMARY suite=integration pass=0 fail=2 ===

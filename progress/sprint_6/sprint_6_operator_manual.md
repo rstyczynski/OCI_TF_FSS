@@ -73,6 +73,7 @@ module "stack" {
     myfs = {
       filesystem_display_name = "my-fss-filesystem"
       export_path             = "/mydata"
+      identity_squash         = "ROOT"
       freeform_tags = {
         environment = "dev"
       }
@@ -148,7 +149,56 @@ REMOTE_SCRIPT
 
 ## Administrator Operations
 
+## Root Squash and Admin Operations
+
+OCI FSS export option `identity_squash` controls how client identities are mapped by the NFS export. The stack module default is `ROOT`, which is the safer default because remote root is mapped to the anonymous UID/GID instead of being treated as root on the export.
+
+That default can surprise operators during administration. This command can fail even though it uses `sudo` on the compute instance:
+
+```bash
+ssh -i /tmp/ssh_key.pem -o StrictHostKeyChecking=no "opc@${COMPUTE_IP}" << 'REMOTE_SCRIPT'
+ls -la /mnt/fss/myfs
+sudo mkdir -p /mnt/fss/myfs/data/subdir1/subdir2
+ls -la /mnt/fss/myfs/data/
+REMOTE_SCRIPT
+```
+
+Typical output:
+
+```text
+Pseudo-terminal will not be allocated because stdin is not a terminal.
+mkdir: cannot create directory '/mnt/fss/myfs/data': Permission denied
+ls: cannot access '/mnt/fss/myfs/data/': No such file or directory
+```
+
+The pseudo-terminal message is harmless. The permission failure is the important part: with `identity_squash = "ROOT"`, NFS maps remote root to the anonymous identity, so `sudo mkdir` does not have root authority on the mounted export.
+
+For admin workflows like the examples below, set the export to:
+
+```hcl
+identity_squash = "NONE"
+```
+
+Then apply Terraform and remount the export on the compute instance before retrying the operation:
+
+```bash
+terraform apply \
+  -var="compartment_ocid=${COMPARTMENT_OCID}" \
+  -var="subnet_ocid=${SUBNET_OCID}" \
+  -var="subnet_cidr=${SUBNET_CIDR}" \
+  -var="kms_key_id=${KMS_KEY_ID}"
+
+ssh -i /tmp/ssh_key.pem -o StrictHostKeyChecking=no "opc@${COMPUTE_IP}" << REMOTE_SCRIPT
+sudo umount /mnt/fss/myfs
+sudo mount -t nfs -o vers=3,noacl ${NFS_MOUNT_SOURCE} /mnt/fss/myfs
+REMOTE_SCRIPT
+```
+
+Keep `ROOT` squash for normal application mounts unless remote root administration is explicitly required.
+
 ### Create Directory Structure
+
+The admin examples below assume the export uses `identity_squash = "NONE"`, matching the Sprint 6 integration tests. With the default `identity_squash = "ROOT"`, NFS maps remote root to the anonymous UID/GID and `sudo mkdir` on the export can fail with `Permission denied`.
 
 ```bash
 ssh -i /tmp/ssh_key.pem -o StrictHostKeyChecking=no "opc@${COMPUTE_IP}" << 'REMOTE_SCRIPT'
@@ -254,6 +304,6 @@ Check export options in Terraform configuration ensure `source_cidr` matches the
 
 ### Permission denied on mounted filesystem
 
-1. Check export `identity_squash` setting (default: ROOT)
-2. Verify ownership and permissions with `ls -la`
-3. Use `sudo` for root-level operations
+1. Check export `identity_squash`; admin operations that use `sudo` require `identity_squash = "NONE"`.
+2. If the export was created with the default `ROOT` squash, update Terraform, apply, then remount the export before retrying.
+3. Verify ownership and permissions with `ls -la`.

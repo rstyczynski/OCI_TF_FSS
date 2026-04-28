@@ -70,3 +70,93 @@ Terraform components to create and manage OCI File Storage Service.
 - Tests: `progress/sprint_3/sprint_3_tests.md`
 - Operator manual: `progress/sprint_3/sprint_3_operator_manual.md`
 - Terraform rules: `progress/sprint_3/sprint_3_tf_rules.md`
+
+### Sprint 4 - FSS mount target, export, and NPA
+
+**Status:** tested
+
+**Backlog Items Implemented:**
+
+- **PBI-002**: Terraform module for FSS mount target - tested
+- **PBI-003**: Terraform module for FSS export - tested
+- **PBI-004**: Network Path Analyzer test for FSS availability - tested
+
+**Key Features Added:**
+
+- `terraform/modules/fss_sprint4_mount_target/` — mount target with `subnet_ocid`, optional `hostname_label` and `nsg_ids`; exposes `mount_target_mount_address` (FQDN or IP fallback)
+- `terraform/modules/fss_sprint4_export/` — export linking a filesystem to a mount target export set with configurable NFS options
+- Network Path Analyzer integration test via `oci_scaffold`
+
+**Documentation:**
+
+- Design: `progress/sprint_4/sprint_4_design.md`
+- Implementation: `progress/sprint_4/sprint_4_implementation.md`
+- Tests: `progress/sprint_4/sprint_4_tests.md`
+- Terraform rules: `progress/sprint_4/sprint_4_tf_rules.md`
+
+### Sprint 5 - FSS extended configuration and stack module
+
+**Status:** tested
+
+**Backlog Items Implemented:**
+
+- **PBI-007**: FSS module with mandatory KMS key - tested
+- **PBI-008**: Full optional filesystem argument surface - tested
+- **PBI-009**: Higher-level stack module for multiple FSS entries from a map - tested
+
+**Key Features Added:**
+
+- `terraform/modules/fss_sprint5_filesystem/` — filesystem with mandatory `kms_key_id` and full optional argument surface
+- `terraform/modules/fss_sprint5_stack/` — composition module: one map input creates N filesystems, mount targets, and exports with `nfs_mount_sources` output
+- IAM dynamic group and KMS-use policy automation for customer-managed encryption keys
+
+**Documentation:**
+
+- Design: `progress/sprint_5/sprint_5_design.md`
+- Implementation: `progress/sprint_5/sprint_5_implementation.md`
+- Tests: `progress/sprint_5/sprint_5_tests.md`
+- Terraform rules: `progress/sprint_5/sprint_5_tf_rules.md`
+
+### Sprint 6 - FSS mount and administration
+
+**Status:** tested
+
+**Backlog Items Implemented:**
+
+- **PBI-010**: Mount FSS exports on a compute instance - tested
+- **PBI-011**: Administrator tasks on mounted FSS exports - tested
+
+**Key Features Added:**
+
+- Automated NFS client install, mount directory creation, and export mounting on the foundation compute instance
+- Administrator task validation: directory creation, ownership/permission changes, file operations, remount, and cleanup
+
+**Documentation:**
+
+- Design: `progress/sprint_6/sprint_6_design.md`
+- Implementation: `progress/sprint_6/sprint_6_implementation.md`
+- Tests: `progress/sprint_6/sprint_6_tests.md`
+- Operator manual: `progress/sprint_6/sprint_6_operator_manual.md`
+
+### Sprint 7 - FSS stack variable refactor
+
+**Status:** tested
+
+**Backlog Items Implemented:**
+
+- **PBI-019**: Refactor stack filesystem variable — supersedes PBI-015 - tested
+
+**Key Features Added:**
+
+- `terraform/modules/fss_sprint7_stack/` — decoupled `mount_targets` and `filesystems` map inputs; each filesystem carries a nested `exports` map with `mount_target_key` references; true M:N topology supported
+- `identity_squash` output added to `fss_sprint4_export` (additive, backward compatible)
+- Composite `filesystems` output includes per-export `identity_squash` read from the OCI-applied value
+- `nfs_mount_sources` keyed by stable composite key `fs__export`
+
+**Documentation:**
+
+- Setup: `progress/sprint_7/sprint_7_setup.md`
+- Design: `progress/sprint_7/sprint_7_design.md`
+- Implementation: `progress/sprint_7/sprint_7_implementation.md`
+- Tests: `progress/sprint_7/sprint_7_tests.md`
+- Documentation: `progress/sprint_7/sprint_7_documentation.md`

@@ -27,6 +27,7 @@ module "stack" {
     myfs = {
       filesystem_display_name = "my-fss-filesystem"
       export_path             = "/mydata"
+      identity_squash         = "NONE"
       freeform_tags = {
         environment = "dev"
       }
