@@ -184,6 +184,10 @@ output "mount_target_private_ip" {
   value = data.oci_core_private_ip.mount_target.ip_address
 }
 
+output "mount_target_vnic_id" {
+  value = data.oci_core_private_ip.mount_target.vnic_id
+}
+
 output "export_ocid" {
   value = module.export.export_ocid
 }
@@ -231,7 +235,9 @@ _output_json_query() {
 _run_path_analyzer() {
   local test_id="$1"
   local dst_ip="$2"
+  local dst_vnic_id="$3"
   local root_dir scaffold_dir foundation_state npa_prefix npa_dir npa_state result
+  local compartment_ocid compute_ocid compute_private_ip compute_vnic_id
 
   root_dir="$(_root_dir)"
   scaffold_dir="${root_dir}/oci_scaffold"
@@ -249,12 +255,33 @@ _run_path_analyzer() {
     return 1
   fi
 
+  compartment_ocid="$(_foundation_value '.compartment.ocid')"
+  compute_ocid="$(_foundation_value '.compute.ocid')"
+  compute_private_ip="$(_foundation_value '.compute.private_ip')"
+  compute_vnic_id="$(oci compute vnic-attachment list \
+    --compartment-id "$compartment_ocid" \
+    --instance-id "$compute_ocid" \
+    --query 'data[0]."vnic-id"' \
+    --raw-output)"
+  if [[ -z "$compute_vnic_id" || "$compute_vnic_id" == "null" ]]; then
+    echo "FAIL: could not resolve foundation compute VNIC for NPA source" >&2
+    return 1
+  fi
+
   rm -rf "$npa_dir"
   mkdir -p "$npa_dir"
   jq \
     --arg dst_ip "$dst_ip" \
+    --arg dst_vnic_id "$dst_vnic_id" \
+    --arg source_ip "$compute_private_ip" \
+    --arg source_vnic_id "$compute_vnic_id" \
     --arg label "sprint4-${test_id}-nfs" \
     '.inputs.path_analyzer_dst_ip = $dst_ip
+      | .inputs.path_analyzer_dst_type = "VNIC"
+      | .inputs.path_analyzer_dst_vnic_id = $dst_vnic_id
+      | .inputs.path_analyzer_source_type = "VNIC"
+      | .inputs.path_analyzer_source_ip = $source_ip
+      | .inputs.path_analyzer_source_vnic_id = $source_vnic_id
       | .inputs.path_analyzer_protocol = "tcp"
       | .inputs.path_analyzer_port = "2049"
       | .inputs.path_analyzer_label = $label
@@ -270,7 +297,7 @@ _run_path_analyzer() {
   )
 
   result="$(jq -r '.path_analyzer[-1].result // empty' "$npa_state")"
-  echo "INFO: path analyzer result=${result} destination=${dst_ip}:2049"
+  echo "INFO: path analyzer result=${result} source=${compute_private_ip} destination=${dst_ip}:2049"
   if [[ "$result" != "SUCCEEDED" ]]; then
     echo "FAIL: expected Network Path Analyzer result SUCCEEDED, got ${result:-empty}" >&2
     return 1
@@ -336,17 +363,21 @@ test_IT2_export_happy_path() {
 test_IT3_path_analyzer_reachability() {
   echo "=== IT-3: Network Path Analyzer reachability ==="
 
-  local workdir ec=0 mount_target_ip
+  local workdir ec=0 mount_target_ip mount_target_vnic_id
   workdir="$(_tf_workdir it3_path_analyzer)"
 
   _apply_stack it3_path_analyzer "$workdir" || ec=$?
   if [[ "$ec" -eq 0 ]]; then
     mount_target_ip="$(_output_raw "$workdir" mount_target_private_ip)"
+    mount_target_vnic_id="$(_output_raw "$workdir" mount_target_vnic_id)"
     if [[ -z "$mount_target_ip" || "$mount_target_ip" == "null" ]]; then
       echo "FAIL: mount_target_private_ip output is empty" >&2
       ec=1
+    elif [[ -z "$mount_target_vnic_id" || "$mount_target_vnic_id" == "null" ]]; then
+      echo "FAIL: mount_target_vnic_id output is empty" >&2
+      ec=1
     else
-      _run_path_analyzer it3_path_analyzer "$mount_target_ip" || ec=$?
+      _run_path_analyzer it3_path_analyzer "$mount_target_ip" "$mount_target_vnic_id" || ec=$?
     fi
   fi
 

@@ -1,0 +1,2174 @@
+=== RUN integration:test_foundation.sh ===
+=== IT-1: Provision foundation baseline (network + optional compute) ===
+INFO: IT-1 name_prefix=infra (set SPRINT1_NAME_PREFIX to override; set SPRINT1_USE_ENV_NAME_PREFIX=true to honor NAME_PREFIX from env)
+INFO: workdir=/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/infra (oci_scaffold; Terraform uses progress/sprint_1/tf_state/ separately)
+  [INFO] COMPARTMENT_OCID defaulted to tenancy: ocid1.tenancy.oc1..aaaaaaaay2b2tvqcmqmndvcbz5kuptzuo7sp4vufarqfgoru7qojdgywb27a
+  [INFO] OCI_REGION defaulted to home region: eu-zurich-1
+  [INFO] STATE_FILE: /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/infra/state-infra.json
+  [EXISTING] Compartment '/oci_tf_fss': ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q
+  [EXISTING] Vault 'infra-vault': ocid1.vault.oc1.eu-zurich-1.fju67xzlaachm.ab5heljrcntmthnnfxo2mzukqghod5r36ap5j7x2dknincfionjimnh2g2sq
+  [EXISTING] KMS Key 'infra-key': ocid1.key.oc1.eu-zurich-1.fju67xzlaachm.ab5heljr6lh4wlloytnidbfjwelmks2awl6z5ndklgtpii4v2mtl76eyc55q
+INFO: SSH private key material from existing Vault secret 'infra-foundation-ssh-private-key'
+INFO: Vault secret validated (bundle decoded).
+  [EXISTING] VCN 'infra-vcn': ocid1.vcn.oc1.eu-zurich-1.amaaaaaaknhfuyiaockrd4kzg3safy5gklw5ofl5y76wz6gnd3gcaytnca5a
+  [EXISTING] Security List 'infra-sl': ocid1.securitylist.oc1.eu-zurich-1.aaaaaaaaxxvrp4ianoqnzx563q23keizc5dlztc5hqybs4zdi6houfbqo2aq
+  [EXISTING] Internet Gateway 'infra-igw': ocid1.internetgateway.oc1.eu-zurich-1.aaaaaaaaqeipzlafolfyyl4dpupeipjo2whd22hycuot4w2d6zkjo3xjpkma
+  [EXISTING] Route Table 'infra-rt': ocid1.routetable.oc1.eu-zurich-1.aaaaaaaagxkdwwx6elmbxj66nlhrlkunm2tbsmii756v5nuatihrmch2wrrq
+  [EXISTING] Internet Gateway route: present
+  [EXISTING] Subnet 'infra': ocid1.subnet.oc1.eu-zurich-1.aaaaaaaavsji5425xckgkwuxlzsxat3jdxx6bbrhprwi3dsgf6gr5f2aaudq
+  [EXISTING] Compute instance 'infra-instance' already exists: ocid1.instance.oc1.eu-zurich-1.an5heljrknhfuyic2x4fo5is57exvddn6zfm52dvdsmg7mo67wnapmn45j4q
+INFO: waiting for SSH (opc@140.238.221.181), timeout 600s …
+INFO: SSH ready — opc@140.238.221.181 (secret 'infra-foundation-ssh-private-key' when Vault-backed)
+INFO: Sprint 1 oci_scaffold state (this run) — cwd: /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/infra
+INFO: STATE_FILE=/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/infra/state-infra.json
+INFO: SSH public key file: /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/infra/state-infra-key.pub
+INFO: Private key is not stored in this directory — use Vault secret 'infra-foundation-ssh-private-key' (e.g. oci secrets secret-bundle get).
+INFO: Terraform for this sprint belongs under progress/sprint_1/tf_state/ (separate from this directory).
+INFO: Vault secret validated (bundle decoded).
+INFO: compute_ocid=ocid1.instance.oc1.eu-zurich-1.an5heljrknhfuyic2x4fo5is57exvddn6zfm52dvdsmg7mo67wnapmn45j4q
+INFO: compute_public_ip=140.238.221.181
+[2K  [WAIT] Waiting for SSH 140.238.221.181 … 0s
+INFO: waiting for cloud-init to complete
+[2K  [WAIT] cloud-init … 0s (status: status: done)
+INFO: ssh uses a key materialized from Vault (secret OCID in state); example: oci secrets secret-bundle get --secret-id "$SECRET_OCID" | jq -r '.data."secret-bundle-content".content' | base64 -d > key.pem && chmod 600 key.pem && ssh -i key.pem opc@140.238.221.181
+PASS: IT-1
+=== PASS integration:test_foundation.sh ===
+=== RUN integration:test_fss_sprint2_tf.sh ===
+=== IT-1: Error path — missing required compartment_ocid fails ===
+INFO: workdir=/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it1_error_missing_compartment
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+Downloading file:///Users/rstyczynski/projects/OCI_TF_FSS/terraform/modules/fss_sprint2 for fs...
+- fs in .terraform/modules/fs
+
+[0m[1mInitializing provider plugins...[0m
+- Finding latest version of oracle/oci...
+- Finding latest version of hashicorp/random...
+- Installing oracle/oci v8.10.0...
+- Installed oracle/oci v8.10.0 (signed by a HashiCorp partner, key ID [0m[1m1533A49284137CEB[0m[0m)
+- Installing hashicorp/random v3.8.1...
+- Installed hashicorp/random v3.8.1 (signed by HashiCorp)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mMissing required argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 9, in module "fs":
+[31m│[0m [0m   9: module "fs" [4m{[0m[0m
+[31m│[0m [0m
+[31m│[0m [0mThe argument "compartment_ocid" is required, but no definition was found.
+[31m╵[0m[0m
+PASS: IT-1
+INFO: no Terraform-managed resources in state — skipping terraform destroy (/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it1_error_missing_compartment)
+=== IT-2: Defaults path — defaults work when name inputs are omitted ===
+INFO: workdir=/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it2_defaults_name
+INFO: compartment OCID from foundation scaffold state (/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/infra/state-infra.json) — same stack as tools/infra_setup.sh
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+Downloading file:///Users/rstyczynski/projects/OCI_TF_FSS/terraform/modules/fss_sprint2 for fs...
+- fs in .terraform/modules/fs
+
+[0m[1mInitializing provider plugins...[0m
+- Finding latest version of hashicorp/random...
+- Finding latest version of oracle/oci...
+- Installing hashicorp/random v3.8.1...
+- Installed hashicorp/random v3.8.1 (signed by HashiCorp)
+- Installing oracle/oci v8.10.0...
+- Installed oracle/oci v8.10.0 (signed by a HashiCorp partner, key ID [0m[1m1533A49284137CEB[0m[0m)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mdata.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+[0m[1mdata.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Read complete after 0s [id=FileStorageFileSystemsDataSource-3271302951][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_file_system" "this" {
+      [32m+[0m[0m are_quota_rules_enabled  = (known after apply)
+      [32m+[0m[0m availability_domain      = "jJRq:EU-ZURICH-1-AD-1"
+      [32m+[0m[0m clone_attach_status      = (known after apply)
+      [32m+[0m[0m clone_count              = (known after apply)
+      [32m+[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m defined_tags             = (known after apply)
+      [32m+[0m[0m display_name             = "fss-filesystem"
+      [32m+[0m[0m freeform_tags            = (known after apply)
+      [32m+[0m[0m id                       = (known after apply)
+      [32m+[0m[0m is_clone_parent          = (known after apply)
+      [32m+[0m[0m is_hydrated              = (known after apply)
+      [32m+[0m[0m is_lock_override         = (known after apply)
+      [32m+[0m[0m is_targetable            = (known after apply)
+      [32m+[0m[0m lifecycle_details        = (known after apply)
+      [32m+[0m[0m metered_bytes            = (known after apply)
+      [32m+[0m[0m quota_enforcement_state  = (known after apply)
+      [32m+[0m[0m replication_source_count = (known after apply)
+      [32m+[0m[0m replication_target_id    = (known after apply)
+      [32m+[0m[0m source_details           = (known after apply)
+      [32m+[0m[0m source_snapshot_id       = (known after apply)
+      [32m+[0m[0m state                    = (known after apply)
+      [32m+[0m[0m system_tags              = (known after apply)
+      [32m+[0m[0m time_created             = (known after apply)
+    }
+
+[1mPlan:[0m 1 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m filesystem_display_name = "fss-filesystem"
+  [32m+[0m[0m filesystem_ocid         = (known after apply)
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Saved the plan to:
+/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it2_defaults_name/tf_test_artifacts/deploy.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it2_defaults_name/tf_test_artifacts/deploy.tfplan"
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creating...[0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creation complete after 1s [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7mypjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1m[32m
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+[0m[0m[1m[32m
+Outputs:
+
+[0mfilesystem_display_name = "fss-filesystem"
+filesystem_ocid = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7mypjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+PASS: IT-2 (filesystem_display_name=fss-filesystem)
+INFO: terraform destroy (test teardown) in /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it2_defaults_name …
+[0m[1mdata.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+[0m[1mdata.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Read complete after 0s [id=FileStorageFileSystemsDataSource-3271302951][0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Refreshing state... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7mypjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [31m-[0m destroy[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_file_system" "this" {
+      [31m-[0m[0m are_quota_rules_enabled  = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_domain      = "jJRq:EU-ZURICH-1-AD-1" [90m-> null[0m[0m
+      [31m-[0m[0m clone_attach_status      = "DETACHED" [90m-> null[0m[0m
+      [31m-[0m[0m clone_count              = 0 [90m-> null[0m[0m
+      [31m-[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+      [31m-[0m[0m defined_tags             = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com"
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-28T08:16:08.746Z"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m display_name             = "fss-filesystem" [90m-> null[0m[0m
+      [31m-[0m[0m freeform_tags            = {} [90m-> null[0m[0m
+      [31m-[0m[0m id                       = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7mypjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m is_clone_parent          = false [90m-> null[0m[0m
+      [31m-[0m[0m is_hydrated              = true [90m-> null[0m[0m
+      [31m-[0m[0m is_targetable            = true [90m-> null[0m[0m
+      [31m-[0m[0m metered_bytes            = "0" [90m-> null[0m[0m
+      [31m-[0m[0m quota_enforcement_state  = "DISABLED" [90m-> null[0m[0m
+      [31m-[0m[0m replication_source_count = 0 [90m-> null[0m[0m
+      [31m-[0m[0m source_details           = [
+          [31m-[0m[0m {
+              [31m-[0m[0m parent_file_system_id = ""
+              [31m-[0m[0m source_snapshot_id    = ""
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m state                    = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m system_tags              = {} [90m-> null[0m[0m
+      [31m-[0m[0m time_created             = "2026-04-28 08:16:08.801 +0000 UTC" [90m-> null[0m[0m
+    }
+
+[1mPlan:[0m 0 to add, 0 to change, 1 to destroy.
+[0m
+Changes to Outputs:
+  [31m-[0m[0m filesystem_display_name = "fss-filesystem" [90m-> null[0m[0m
+  [31m-[0m[0m filesystem_ocid         = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7mypjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destroying... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7mypjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destruction complete after 1s[0m
+[0m[1m[32m
+Destroy complete! Resources: 1 destroyed.
+[0m=== IT-3: Defaults path — AD behavior sequence (apply default, no-change, plan replace) ===
+INFO: workdir=/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it3_ad_sequence_replace
+INFO: compartment OCID from foundation scaffold state (/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/infra/state-infra.json) — same stack as tools/infra_setup.sh
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+Downloading file:///Users/rstyczynski/projects/OCI_TF_FSS/terraform/modules/fss_sprint2 for fs...
+- fs in .terraform/modules/fs
+
+[0m[1mInitializing provider plugins...[0m
+- Finding latest version of oracle/oci...
+- Finding latest version of hashicorp/random...
+- Installing oracle/oci v8.10.0...
+- Installed oracle/oci v8.10.0 (signed by a HashiCorp partner, key ID [0m[1m1533A49284137CEB[0m[0m)
+- Installing hashicorp/random v3.8.1...
+- Installed hashicorp/random v3.8.1 (signed by HashiCorp)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+ [36m<=[0m read (data resources)[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.fs.data.oci_file_storage_file_systems.by_compartment[0m will be read during apply
+  # (config refers to values not yet known)
+[0m [36m<=[0m[0m data "oci_file_storage_file_systems" "by_compartment" {
+      [32m+[0m[0m availability_domain = (known after apply)
+      [32m+[0m[0m compartment_id      = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m display_name        = "fss_it_ad-filesystem"
+      [32m+[0m[0m file_systems        = (known after apply)
+    }
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_file_system" "this" {
+      [32m+[0m[0m are_quota_rules_enabled  = (known after apply)
+      [32m+[0m[0m availability_domain      = (known after apply)
+      [32m+[0m[0m clone_attach_status      = (known after apply)
+      [32m+[0m[0m clone_count              = (known after apply)
+      [32m+[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m defined_tags             = (known after apply)
+      [32m+[0m[0m display_name             = "fss_it_ad-filesystem"
+      [32m+[0m[0m freeform_tags            = (known after apply)
+      [32m+[0m[0m id                       = (known after apply)
+      [32m+[0m[0m is_clone_parent          = (known after apply)
+      [32m+[0m[0m is_hydrated              = (known after apply)
+      [32m+[0m[0m is_lock_override         = (known after apply)
+      [32m+[0m[0m is_targetable            = (known after apply)
+      [32m+[0m[0m lifecycle_details        = (known after apply)
+      [32m+[0m[0m metered_bytes            = (known after apply)
+      [32m+[0m[0m quota_enforcement_state  = (known after apply)
+      [32m+[0m[0m replication_source_count = (known after apply)
+      [32m+[0m[0m replication_target_id    = (known after apply)
+      [32m+[0m[0m source_details           = (known after apply)
+      [32m+[0m[0m source_snapshot_id       = (known after apply)
+      [32m+[0m[0m state                    = (known after apply)
+      [32m+[0m[0m system_tags              = (known after apply)
+      [32m+[0m[0m time_created             = (known after apply)
+    }
+
+[1m  # module.fs.random_shuffle.picked_ad[0][0m will be created
+[0m  [32m+[0m[0m resource "random_shuffle" "picked_ad" {
+      [32m+[0m[0m id           = (known after apply)
+      [32m+[0m[0m input        = [
+          [32m+[0m[0m "jJRq:EU-ZURICH-1-AD-1",
+        ]
+      [32m+[0m[0m result       = (known after apply)
+      [32m+[0m[0m result_count = 1
+    }
+
+[1mPlan:[0m 2 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m filesystem_ocid = (known after apply)
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Saved the plan to:
+/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it3_ad_sequence_replace/tf_test_artifacts/deploy.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it3_ad_sequence_replace/tf_test_artifacts/deploy.tfplan"
+[0m[1mmodule.fs.random_shuffle.picked_ad[0]: Creating...[0m[0m
+[0m[1mmodule.fs.random_shuffle.picked_ad[0]: Creation complete after 0s [id=-][0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Read complete after 0s [id=FileStorageFileSystemsDataSource-1822664328][0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creating...[0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creation complete after 2s [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7mzpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1m[32m
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+[0m[0m[1m[32m
+Outputs:
+
+[0mfilesystem_ocid = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7mzpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+INFO: used_ad=jJRq:EU-ZURICH-1-AD-1
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Read complete after 0s [id=FileStorageFileSystemsDataSource-1822664328][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [33m~[0m update in-place[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be updated in-place
+[0m  [33m~[0m[0m resource "oci_file_storage_file_system" "this" {
+      [33m~[0m[0m defined_tags             = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com" [90m-> null[0m[0m
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-28T08:16:21.268Z" [90m-> null[0m[0m
+        }
+        id                       = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7mzpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+        [90m# (17 unchanged attributes hidden)[0m[0m
+    }
+
+[1mPlan:[0m 0 to add, 1 to change, 0 to destroy.
+[0m[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Saved the plan to:
+/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it3_ad_sequence_replace/tf_test_artifacts/plan_no_change.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it3_ad_sequence_replace/tf_test_artifacts/plan_no_change.tfplan"
+INFO: tolerated immediate Oracle-managed defined_tags propagation in IT-3 no-change check; IT-5 covers refreshed tag idempotency
+SKIP: tenancy/region appears to have only one AD; cannot test replacement behavior
+INFO: terraform destroy (test teardown) in /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it3_ad_sequence_replace …
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+[0m[1mmodule.fs.random_shuffle.picked_ad[0]: Refreshing state... [id=-][0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Read complete after 0s [id=FileStorageFileSystemsDataSource-1822664328][0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Refreshing state... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7mzpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [31m-[0m destroy[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_file_system" "this" {
+      [31m-[0m[0m are_quota_rules_enabled  = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_domain      = "jJRq:EU-ZURICH-1-AD-1" [90m-> null[0m[0m
+      [31m-[0m[0m clone_attach_status      = "DETACHED" [90m-> null[0m[0m
+      [31m-[0m[0m clone_count              = 0 [90m-> null[0m[0m
+      [31m-[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+      [31m-[0m[0m defined_tags             = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com"
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-28T08:16:21.268Z"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m display_name             = "fss_it_ad-filesystem" [90m-> null[0m[0m
+      [31m-[0m[0m freeform_tags            = {} [90m-> null[0m[0m
+      [31m-[0m[0m id                       = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7mzpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m is_clone_parent          = false [90m-> null[0m[0m
+      [31m-[0m[0m is_hydrated              = true [90m-> null[0m[0m
+      [31m-[0m[0m is_targetable            = true [90m-> null[0m[0m
+      [31m-[0m[0m metered_bytes            = "0" [90m-> null[0m[0m
+      [31m-[0m[0m quota_enforcement_state  = "DISABLED" [90m-> null[0m[0m
+      [31m-[0m[0m replication_source_count = 0 [90m-> null[0m[0m
+      [31m-[0m[0m source_details           = [
+          [31m-[0m[0m {
+              [31m-[0m[0m parent_file_system_id = ""
+              [31m-[0m[0m source_snapshot_id    = ""
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m state                    = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m system_tags              = {} [90m-> null[0m[0m
+      [31m-[0m[0m time_created             = "2026-04-28 08:16:21.326 +0000 UTC" [90m-> null[0m[0m
+    }
+
+[1m  # module.fs.random_shuffle.picked_ad[0][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "random_shuffle" "picked_ad" {
+      [31m-[0m[0m id           = "-" [90m-> null[0m[0m
+      [31m-[0m[0m input        = [
+          [31m-[0m[0m "jJRq:EU-ZURICH-1-AD-1",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m result       = [
+          [31m-[0m[0m "jJRq:EU-ZURICH-1-AD-1",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m result_count = 1 [90m-> null[0m[0m
+    }
+
+[1mPlan:[0m 0 to add, 0 to change, 2 to destroy.
+[0m
+Changes to Outputs:
+  [31m-[0m[0m filesystem_ocid = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7mzpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destroying... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7mzpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destruction complete after 1s[0m
+[0m[1mmodule.fs.random_shuffle.picked_ad[0]: Destroying... [id=-][0m[0m
+[0m[1mmodule.fs.random_shuffle.picked_ad[0]: Destruction complete after 0s[0m
+[0m[1m[32m
+Destroy complete! Resources: 2 destroyed.
+[0m=== IT-5: Defaults path — tags behavior (create then update with same tags) ===
+INFO: workdir=/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it5_tags_create_update
+INFO: compartment OCID from foundation scaffold state (/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/infra/state-infra.json) — same stack as tools/infra_setup.sh
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+Downloading file:///Users/rstyczynski/projects/OCI_TF_FSS/terraform/modules/fss_sprint2 for fs...
+- fs in .terraform/modules/fs
+
+[0m[1mInitializing provider plugins...[0m
+- Finding latest version of oracle/oci...
+- Finding latest version of hashicorp/random...
+- Installing oracle/oci v8.10.0...
+- Installed oracle/oci v8.10.0 (signed by a HashiCorp partner, key ID [0m[1m1533A49284137CEB[0m[0m)
+- Installing hashicorp/random v3.8.1...
+- Installed hashicorp/random v3.8.1 (signed by HashiCorp)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Read complete after 1s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+ [36m<=[0m read (data resources)[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.fs.data.oci_file_storage_file_systems.by_compartment[0m will be read during apply
+  # (config refers to values not yet known)
+[0m [36m<=[0m[0m data "oci_file_storage_file_systems" "by_compartment" {
+      [32m+[0m[0m availability_domain = (known after apply)
+      [32m+[0m[0m compartment_id      = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m display_name        = "fss_it_tags-filesystem"
+      [32m+[0m[0m file_systems        = (known after apply)
+    }
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_file_system" "this" {
+      [32m+[0m[0m are_quota_rules_enabled  = (known after apply)
+      [32m+[0m[0m availability_domain      = (known after apply)
+      [32m+[0m[0m clone_attach_status      = (known after apply)
+      [32m+[0m[0m clone_count              = (known after apply)
+      [32m+[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m defined_tags             = (known after apply)
+      [32m+[0m[0m display_name             = "fss_it_tags-filesystem"
+      [32m+[0m[0m freeform_tags            = {
+          [32m+[0m[0m "owner"     = "oci_tf_fss"
+          [32m+[0m[0m "test_case" = "IT-5"
+        }
+      [32m+[0m[0m id                       = (known after apply)
+      [32m+[0m[0m is_clone_parent          = (known after apply)
+      [32m+[0m[0m is_hydrated              = (known after apply)
+      [32m+[0m[0m is_lock_override         = (known after apply)
+      [32m+[0m[0m is_targetable            = (known after apply)
+      [32m+[0m[0m lifecycle_details        = (known after apply)
+      [32m+[0m[0m metered_bytes            = (known after apply)
+      [32m+[0m[0m quota_enforcement_state  = (known after apply)
+      [32m+[0m[0m replication_source_count = (known after apply)
+      [32m+[0m[0m replication_target_id    = (known after apply)
+      [32m+[0m[0m source_details           = (known after apply)
+      [32m+[0m[0m source_snapshot_id       = (known after apply)
+      [32m+[0m[0m state                    = (known after apply)
+      [32m+[0m[0m system_tags              = (known after apply)
+      [32m+[0m[0m time_created             = (known after apply)
+    }
+
+[1m  # module.fs.random_shuffle.picked_ad[0][0m will be created
+[0m  [32m+[0m[0m resource "random_shuffle" "picked_ad" {
+      [32m+[0m[0m id           = (known after apply)
+      [32m+[0m[0m input        = [
+          [32m+[0m[0m "jJRq:EU-ZURICH-1-AD-1",
+        ]
+      [32m+[0m[0m result       = (known after apply)
+      [32m+[0m[0m result_count = 1
+    }
+
+[1mPlan:[0m 2 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m filesystem_ocid = (known after apply)
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Saved the plan to:
+/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it5_tags_create_update/tf_test_artifacts/deploy.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it5_tags_create_update/tf_test_artifacts/deploy.tfplan"
+[0m[1mmodule.fs.random_shuffle.picked_ad[0]: Creating...[0m[0m
+[0m[1mmodule.fs.random_shuffle.picked_ad[0]: Creation complete after 0s [id=-][0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Read complete after 0s [id=FileStorageFileSystemsDataSource-517500461][0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creating...[0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creation complete after 2s [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m2pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1m[32m
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+[0m[0m[1m[32m
+Outputs:
+
+[0mfilesystem_ocid = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m2pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+INFO: waiting 10s before tag idempotency plan (Oracle managed tags propagation)
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+[0m[1mmodule.fs.random_shuffle.picked_ad[0]: Refreshing state... [id=-][0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Read complete after 0s [id=FileStorageFileSystemsDataSource-517500461][0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Refreshing state... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m2pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+
+[0m[1m[32mNo changes.[0m[1m Your infrastructure matches the configuration.[0m
+
+[0mTerraform has compared your real infrastructure against your configuration
+and found no differences, so no changes are needed.
+PASS: IT-5
+INFO: terraform destroy (test teardown) in /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it5_tags_create_update …
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+[0m[1mmodule.fs.random_shuffle.picked_ad[0]: Refreshing state... [id=-][0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Read complete after 0s [id=FileStorageFileSystemsDataSource-517500461][0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Refreshing state... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m2pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [31m-[0m destroy[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_file_system" "this" {
+      [31m-[0m[0m are_quota_rules_enabled  = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_domain      = "jJRq:EU-ZURICH-1-AD-1" [90m-> null[0m[0m
+      [31m-[0m[0m clone_attach_status      = "DETACHED" [90m-> null[0m[0m
+      [31m-[0m[0m clone_count              = 0 [90m-> null[0m[0m
+      [31m-[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+      [31m-[0m[0m defined_tags             = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com"
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-28T08:16:36.031Z"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m display_name             = "fss_it_tags-filesystem" [90m-> null[0m[0m
+      [31m-[0m[0m freeform_tags            = {
+          [31m-[0m[0m "owner"     = "oci_tf_fss"
+          [31m-[0m[0m "test_case" = "IT-5"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m id                       = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m2pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m is_clone_parent          = false [90m-> null[0m[0m
+      [31m-[0m[0m is_hydrated              = true [90m-> null[0m[0m
+      [31m-[0m[0m is_targetable            = true [90m-> null[0m[0m
+      [31m-[0m[0m metered_bytes            = "0" [90m-> null[0m[0m
+      [31m-[0m[0m quota_enforcement_state  = "DISABLED" [90m-> null[0m[0m
+      [31m-[0m[0m replication_source_count = 0 [90m-> null[0m[0m
+      [31m-[0m[0m source_details           = [
+          [31m-[0m[0m {
+              [31m-[0m[0m parent_file_system_id = ""
+              [31m-[0m[0m source_snapshot_id    = ""
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m state                    = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m system_tags              = {} [90m-> null[0m[0m
+      [31m-[0m[0m time_created             = "2026-04-28 08:16:36.085 +0000 UTC" [90m-> null[0m[0m
+    }
+
+[1m  # module.fs.random_shuffle.picked_ad[0][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "random_shuffle" "picked_ad" {
+      [31m-[0m[0m id           = "-" [90m-> null[0m[0m
+      [31m-[0m[0m input        = [
+          [31m-[0m[0m "jJRq:EU-ZURICH-1-AD-1",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m result       = [
+          [31m-[0m[0m "jJRq:EU-ZURICH-1-AD-1",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m result_count = 1 [90m-> null[0m[0m
+    }
+
+[1mPlan:[0m 0 to add, 0 to change, 2 to destroy.
+[0m
+Changes to Outputs:
+  [31m-[0m[0m filesystem_ocid = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m2pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destroying... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m2pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destruction complete after 1s[0m
+[0m[1mmodule.fs.random_shuffle.picked_ad[0]: Destroying... [id=-][0m[0m
+[0m[1mmodule.fs.random_shuffle.picked_ad[0]: Destruction complete after 0s[0m
+[0m[1m[32m
+Destroy complete! Resources: 2 destroyed.
+[0m=== IT-4: Happy path — terraform apply creates filesystem and returns OCID ===
+INFO: workdir=/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it4_happy_path
+INFO: compartment OCID from foundation scaffold state (/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/infra/state-infra.json) — same stack as tools/infra_setup.sh
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+Downloading file:///Users/rstyczynski/projects/OCI_TF_FSS/terraform/modules/fss_sprint2 for fs...
+- fs in .terraform/modules/fs
+
+[0m[1mInitializing provider plugins...[0m
+- Finding latest version of hashicorp/random...
+- Finding latest version of oracle/oci...
+- Installing hashicorp/random v3.8.1...
+- Installed hashicorp/random v3.8.1 (signed by HashiCorp)
+- Installing oracle/oci v8.10.0...
+- Installed oracle/oci v8.10.0 (signed by a HashiCorp partner, key ID [0m[1m1533A49284137CEB[0m[0m)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+ [36m<=[0m read (data resources)[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.fs.data.oci_file_storage_file_systems.by_compartment[0m will be read during apply
+  # (config refers to values not yet known)
+[0m [36m<=[0m[0m data "oci_file_storage_file_systems" "by_compartment" {
+      [32m+[0m[0m availability_domain = (known after apply)
+      [32m+[0m[0m compartment_id      = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m display_name        = "fss_it-filesystem"
+      [32m+[0m[0m file_systems        = (known after apply)
+    }
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_file_system" "this" {
+      [32m+[0m[0m are_quota_rules_enabled  = (known after apply)
+      [32m+[0m[0m availability_domain      = (known after apply)
+      [32m+[0m[0m clone_attach_status      = (known after apply)
+      [32m+[0m[0m clone_count              = (known after apply)
+      [32m+[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m defined_tags             = (known after apply)
+      [32m+[0m[0m display_name             = "fss_it-filesystem"
+      [32m+[0m[0m freeform_tags            = (known after apply)
+      [32m+[0m[0m id                       = (known after apply)
+      [32m+[0m[0m is_clone_parent          = (known after apply)
+      [32m+[0m[0m is_hydrated              = (known after apply)
+      [32m+[0m[0m is_lock_override         = (known after apply)
+      [32m+[0m[0m is_targetable            = (known after apply)
+      [32m+[0m[0m lifecycle_details        = (known after apply)
+      [32m+[0m[0m metered_bytes            = (known after apply)
+      [32m+[0m[0m quota_enforcement_state  = (known after apply)
+      [32m+[0m[0m replication_source_count = (known after apply)
+      [32m+[0m[0m replication_target_id    = (known after apply)
+      [32m+[0m[0m source_details           = (known after apply)
+      [32m+[0m[0m source_snapshot_id       = (known after apply)
+      [32m+[0m[0m state                    = (known after apply)
+      [32m+[0m[0m system_tags              = (known after apply)
+      [32m+[0m[0m time_created             = (known after apply)
+    }
+
+[1m  # module.fs.random_shuffle.picked_ad[0][0m will be created
+[0m  [32m+[0m[0m resource "random_shuffle" "picked_ad" {
+      [32m+[0m[0m id           = (known after apply)
+      [32m+[0m[0m input        = [
+          [32m+[0m[0m "jJRq:EU-ZURICH-1-AD-1",
+        ]
+      [32m+[0m[0m result       = (known after apply)
+      [32m+[0m[0m result_count = 1
+    }
+
+[1mPlan:[0m 2 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m filesystem_ocid = (known after apply)
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Saved the plan to:
+/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it4_happy_path/tf_test_artifacts/deploy.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it4_happy_path/tf_test_artifacts/deploy.tfplan"
+[0m[1mmodule.fs.random_shuffle.picked_ad[0]: Creating...[0m[0m
+[0m[1mmodule.fs.random_shuffle.picked_ad[0]: Creation complete after 0s [id=-][0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Read complete after 1s [id=FileStorageFileSystemsDataSource-3987359407][0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creating...[0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creation complete after 1s [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m3pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1m[32m
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+[0m[0m[1m[32m
+Outputs:
+
+[0mfilesystem_ocid = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m3pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+PASS: IT-4 (filesystem_ocid=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m3pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr)
+INFO: terraform destroy (test teardown) in /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_2/tf_state/it4_happy_path …
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+[0m[1mmodule.fs.random_shuffle.picked_ad[0]: Refreshing state... [id=-][0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Reading...[0m[0m
+[0m[1mmodule.fs.data.oci_file_storage_file_systems.by_compartment: Read complete after 0s [id=FileStorageFileSystemsDataSource-3987359407][0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Refreshing state... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m3pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [31m-[0m destroy[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_file_system" "this" {
+      [31m-[0m[0m are_quota_rules_enabled  = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_domain      = "jJRq:EU-ZURICH-1-AD-1" [90m-> null[0m[0m
+      [31m-[0m[0m clone_attach_status      = "DETACHED" [90m-> null[0m[0m
+      [31m-[0m[0m clone_count              = 0 [90m-> null[0m[0m
+      [31m-[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+      [31m-[0m[0m defined_tags             = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com"
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-28T08:17:00.555Z"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m display_name             = "fss_it-filesystem" [90m-> null[0m[0m
+      [31m-[0m[0m freeform_tags            = {} [90m-> null[0m[0m
+      [31m-[0m[0m id                       = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m3pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m is_clone_parent          = false [90m-> null[0m[0m
+      [31m-[0m[0m is_hydrated              = true [90m-> null[0m[0m
+      [31m-[0m[0m is_targetable            = true [90m-> null[0m[0m
+      [31m-[0m[0m metered_bytes            = "0" [90m-> null[0m[0m
+      [31m-[0m[0m quota_enforcement_state  = "DISABLED" [90m-> null[0m[0m
+      [31m-[0m[0m replication_source_count = 0 [90m-> null[0m[0m
+      [31m-[0m[0m source_details           = [
+          [31m-[0m[0m {
+              [31m-[0m[0m parent_file_system_id = ""
+              [31m-[0m[0m source_snapshot_id    = ""
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m state                    = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m system_tags              = {} [90m-> null[0m[0m
+      [31m-[0m[0m time_created             = "2026-04-28 08:17:00.612 +0000 UTC" [90m-> null[0m[0m
+    }
+
+[1m  # module.fs.random_shuffle.picked_ad[0][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "random_shuffle" "picked_ad" {
+      [31m-[0m[0m id           = "-" [90m-> null[0m[0m
+      [31m-[0m[0m input        = [
+          [31m-[0m[0m "jJRq:EU-ZURICH-1-AD-1",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m result       = [
+          [31m-[0m[0m "jJRq:EU-ZURICH-1-AD-1",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m result_count = 1 [90m-> null[0m[0m
+    }
+
+[1mPlan:[0m 0 to add, 0 to change, 2 to destroy.
+[0m
+Changes to Outputs:
+  [31m-[0m[0m filesystem_ocid = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m3pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destroying... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m3pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destruction complete after 1s[0m
+[0m[1mmodule.fs.random_shuffle.picked_ad[0]: Destroying... [id=-][0m[0m
+[0m[1mmodule.fs.random_shuffle.picked_ad[0]: Destruction complete after 0s[0m
+[0m[1m[32m
+Destroy complete! Resources: 2 destroyed.
+[0m=== PASS integration:test_fss_sprint2_tf.sh ===
+=== RUN integration:test_fss_sprint3_tf.sh ===
+=== IT-1: Error path - missing required inputs fail ===
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+Downloading file:///Users/rstyczynski/projects/OCI_TF_FSS/terraform/modules/fss_sprint3 for fs...
+- fs in .terraform/modules/fs
+
+[0m[1mInitializing provider plugins...[0m
+- Finding latest version of oracle/oci...
+- Installing oracle/oci v8.10.0...
+- Installed oracle/oci v8.10.0 (signed by a HashiCorp partner, key ID [0m[1m1533A49284137CEB[0m[0m)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mMissing required argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 9, in module "fs":
+[31m│[0m [0m   9: module "fs" [4m{[0m[0m
+[31m│[0m [0m
+[31m│[0m [0mThe argument "compartment_ocid" is required, but no definition was found.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mMissing required argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 9, in module "fs":
+[31m│[0m [0m   9: module "fs" [4m{[0m[0m
+[31m│[0m [0m
+[31m│[0m [0mThe argument "availability_domain" is required, but no definition was
+[31m│[0m [0mfound.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mMissing required argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 9, in module "fs":
+[31m│[0m [0m   9: module "fs" [4m{[0m[0m
+[31m│[0m [0m
+[31m│[0m [0mThe argument "display_name" is required, but no definition was found.
+[31m╵[0m[0m
+PASS: IT-1
+INFO: no Terraform-managed resources in state - skipping terraform destroy (/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_3/tf_state/it1_error_missing_required_inputs)
+=== IT-2: Happy path - apply creates filesystem with explicit inputs ===
+INFO: compartment OCID from foundation scaffold state (/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/infra/state-infra.json)
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+Downloading file:///Users/rstyczynski/projects/OCI_TF_FSS/terraform/modules/fss_sprint3 for fs...
+- fs in .terraform/modules/fs
+
+[0m[1mInitializing provider plugins...[0m
+- Finding latest version of oracle/oci...
+- Installing oracle/oci v8.10.0...
+- Installed oracle/oci v8.10.0 (signed by a HashiCorp partner, key ID [0m[1m1533A49284137CEB[0m[0m)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[0m[1mdata.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mdata.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_file_system" "this" {
+      [32m+[0m[0m are_quota_rules_enabled  = (known after apply)
+      [32m+[0m[0m availability_domain      = "jJRq:EU-ZURICH-1-AD-1"
+      [32m+[0m[0m clone_attach_status      = (known after apply)
+      [32m+[0m[0m clone_count              = (known after apply)
+      [32m+[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m defined_tags             = (known after apply)
+      [32m+[0m[0m display_name             = "fss-sprint3-it2"
+      [32m+[0m[0m freeform_tags            = (known after apply)
+      [32m+[0m[0m id                       = (known after apply)
+      [32m+[0m[0m is_clone_parent          = (known after apply)
+      [32m+[0m[0m is_hydrated              = (known after apply)
+      [32m+[0m[0m is_lock_override         = (known after apply)
+      [32m+[0m[0m is_targetable            = (known after apply)
+      [32m+[0m[0m lifecycle_details        = (known after apply)
+      [32m+[0m[0m metered_bytes            = (known after apply)
+      [32m+[0m[0m quota_enforcement_state  = (known after apply)
+      [32m+[0m[0m replication_source_count = (known after apply)
+      [32m+[0m[0m replication_target_id    = (known after apply)
+      [32m+[0m[0m source_details           = (known after apply)
+      [32m+[0m[0m source_snapshot_id       = (known after apply)
+      [32m+[0m[0m state                    = (known after apply)
+      [32m+[0m[0m system_tags              = (known after apply)
+      [32m+[0m[0m time_created             = (known after apply)
+    }
+
+[1mPlan:[0m 1 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m filesystem_display_name = "fss-sprint3-it2"
+  [32m+[0m[0m filesystem_ocid         = (known after apply)
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Saved the plan to:
+/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_3/tf_state/it2_happy_path/tf_test_artifacts/deploy.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_3/tf_state/it2_happy_path/tf_test_artifacts/deploy.tfplan"
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creating...[0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creation complete after 1s [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m4pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1m[32m
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+[0m[0m[1m[32m
+Outputs:
+
+[0mfilesystem_display_name = "fss-sprint3-it2"
+filesystem_ocid = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m4pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+PASS: IT-2 (filesystem_ocid=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m4pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr)
+INFO: terraform destroy (test teardown) in /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_3/tf_state/it2_happy_path
+[0m[1mdata.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mdata.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Refreshing state... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m4pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [31m-[0m destroy[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_file_system" "this" {
+      [31m-[0m[0m are_quota_rules_enabled  = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_domain      = "jJRq:EU-ZURICH-1-AD-1" [90m-> null[0m[0m
+      [31m-[0m[0m clone_attach_status      = "DETACHED" [90m-> null[0m[0m
+      [31m-[0m[0m clone_count              = 0 [90m-> null[0m[0m
+      [31m-[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+      [31m-[0m[0m defined_tags             = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com"
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-28T08:17:18.481Z"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m display_name             = "fss-sprint3-it2" [90m-> null[0m[0m
+      [31m-[0m[0m freeform_tags            = {} [90m-> null[0m[0m
+      [31m-[0m[0m id                       = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m4pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m is_clone_parent          = false [90m-> null[0m[0m
+      [31m-[0m[0m is_hydrated              = true [90m-> null[0m[0m
+      [31m-[0m[0m is_targetable            = true [90m-> null[0m[0m
+      [31m-[0m[0m metered_bytes            = "0" [90m-> null[0m[0m
+      [31m-[0m[0m quota_enforcement_state  = "DISABLED" [90m-> null[0m[0m
+      [31m-[0m[0m replication_source_count = 0 [90m-> null[0m[0m
+      [31m-[0m[0m source_details           = [
+          [31m-[0m[0m {
+              [31m-[0m[0m parent_file_system_id = ""
+              [31m-[0m[0m source_snapshot_id    = ""
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m state                    = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m system_tags              = {} [90m-> null[0m[0m
+      [31m-[0m[0m time_created             = "2026-04-28 08:17:18.53 +0000 UTC" [90m-> null[0m[0m
+    }
+
+[1mPlan:[0m 0 to add, 0 to change, 1 to destroy.
+[0m
+Changes to Outputs:
+  [31m-[0m[0m filesystem_display_name = "fss-sprint3-it2" [90m-> null[0m[0m
+  [31m-[0m[0m filesystem_ocid         = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m4pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destroying... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m4pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destruction complete after 1s[0m
+[0m[1m[32m
+Destroy complete! Resources: 1 destroyed.
+[0m=== IT-3: Tag lifecycle idempotency ===
+INFO: compartment OCID from foundation scaffold state (/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_1/scaffold/infra/state-infra.json)
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+Downloading file:///Users/rstyczynski/projects/OCI_TF_FSS/terraform/modules/fss_sprint3 for fs...
+- fs in .terraform/modules/fs
+
+[0m[1mInitializing provider plugins...[0m
+- Finding latest version of oracle/oci...
+- Installing oracle/oci v8.10.0...
+- Installed oracle/oci v8.10.0 (signed by a HashiCorp partner, key ID [0m[1m1533A49284137CEB[0m[0m)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[0m[1mdata.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mdata.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_file_system" "this" {
+      [32m+[0m[0m are_quota_rules_enabled  = (known after apply)
+      [32m+[0m[0m availability_domain      = "jJRq:EU-ZURICH-1-AD-1"
+      [32m+[0m[0m clone_attach_status      = (known after apply)
+      [32m+[0m[0m clone_count              = (known after apply)
+      [32m+[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m defined_tags             = (known after apply)
+      [32m+[0m[0m display_name             = "fss-sprint3-it3-create"
+      [32m+[0m[0m freeform_tags            = (known after apply)
+      [32m+[0m[0m id                       = (known after apply)
+      [32m+[0m[0m is_clone_parent          = (known after apply)
+      [32m+[0m[0m is_hydrated              = (known after apply)
+      [32m+[0m[0m is_lock_override         = (known after apply)
+      [32m+[0m[0m is_targetable            = (known after apply)
+      [32m+[0m[0m lifecycle_details        = (known after apply)
+      [32m+[0m[0m metered_bytes            = (known after apply)
+      [32m+[0m[0m quota_enforcement_state  = (known after apply)
+      [32m+[0m[0m replication_source_count = (known after apply)
+      [32m+[0m[0m replication_target_id    = (known after apply)
+      [32m+[0m[0m source_details           = (known after apply)
+      [32m+[0m[0m source_snapshot_id       = (known after apply)
+      [32m+[0m[0m state                    = (known after apply)
+      [32m+[0m[0m system_tags              = (known after apply)
+      [32m+[0m[0m time_created             = (known after apply)
+    }
+
+[1mPlan:[0m 1 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m filesystem_ocid = (known after apply)
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Saved the plan to:
+/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_3/tf_state/it3_tag_lifecycle/tf_test_artifacts/deploy.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_3/tf_state/it3_tag_lifecycle/tf_test_artifacts/deploy.tfplan"
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creating...[0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creation complete after 1s [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m5pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1m[32m
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+[0m[0m[1m[32m
+Outputs:
+
+[0mfilesystem_ocid = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m5pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+INFO: waiting 10s for Oracle-managed defined tags propagation
+[0m[1mdata.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mdata.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Refreshing state... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m5pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [33m~[0m update in-place[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be updated in-place
+[0m  [33m~[0m[0m resource "oci_file_storage_file_system" "this" {
+      [33m~[0m[0m display_name             = "fss-sprint3-it3-create" [33m->[0m[0m "fss-sprint3-it3-update"
+        id                       = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m5pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+        [90m# (17 unchanged attributes hidden)[0m[0m
+    }
+
+[1mPlan:[0m 0 to add, 1 to change, 0 to destroy.
+[0m[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Saved the plan to:
+/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_3/tf_state/it3_tag_lifecycle/tf_test_artifacts/update.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_3/tf_state/it3_tag_lifecycle/tf_test_artifacts/update.tfplan"
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Modifying... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m5pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Modifications complete after 1s [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m5pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1m[32m
+Apply complete! Resources: 0 added, 1 changed, 0 destroyed.
+[0m[0m[1m[32m
+Outputs:
+
+[0mfilesystem_ocid = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m5pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+[0m[1mdata.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mdata.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Refreshing state... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m5pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+
+[0m[1m[32mNo changes.[0m[1m Your infrastructure matches the configuration.[0m
+
+[0mTerraform has compared your real infrastructure against your configuration
+and found no differences, so no changes are needed.
+PASS: IT-3
+INFO: terraform destroy (test teardown) in /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_3/tf_state/it3_tag_lifecycle
+[0m[1mdata.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mdata.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Refreshing state... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m5pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [31m-[0m destroy[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_file_system" "this" {
+      [31m-[0m[0m are_quota_rules_enabled  = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_domain      = "jJRq:EU-ZURICH-1-AD-1" [90m-> null[0m[0m
+      [31m-[0m[0m clone_attach_status      = "DETACHED" [90m-> null[0m[0m
+      [31m-[0m[0m clone_count              = 0 [90m-> null[0m[0m
+      [31m-[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+      [31m-[0m[0m defined_tags             = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com"
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-28T08:17:32.595Z"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m display_name             = "fss-sprint3-it3-update" [90m-> null[0m[0m
+      [31m-[0m[0m freeform_tags            = {} [90m-> null[0m[0m
+      [31m-[0m[0m id                       = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m5pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m is_clone_parent          = false [90m-> null[0m[0m
+      [31m-[0m[0m is_hydrated              = true [90m-> null[0m[0m
+      [31m-[0m[0m is_targetable            = true [90m-> null[0m[0m
+      [31m-[0m[0m metered_bytes            = "0" [90m-> null[0m[0m
+      [31m-[0m[0m quota_enforcement_state  = "DISABLED" [90m-> null[0m[0m
+      [31m-[0m[0m replication_source_count = 0 [90m-> null[0m[0m
+      [31m-[0m[0m source_details           = [
+          [31m-[0m[0m {
+              [31m-[0m[0m parent_file_system_id = ""
+              [31m-[0m[0m source_snapshot_id    = ""
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m state                    = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m system_tags              = {} [90m-> null[0m[0m
+      [31m-[0m[0m time_created             = "2026-04-28 08:17:32.667 +0000 UTC" [90m-> null[0m[0m
+    }
+
+[1mPlan:[0m 0 to add, 0 to change, 1 to destroy.
+[0m
+Changes to Outputs:
+  [31m-[0m[0m filesystem_ocid = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m5pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destroying... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7m5pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destruction complete after 1s[0m
+[0m[1m[32m
+Destroy complete! Resources: 1 destroyed.
+[0m=== PASS integration:test_fss_sprint3_tf.sh ===
+=== RUN integration:test_fss_sprint4_tf.sh ===
+=== IT-1: Mount target happy path ===
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+- export in ../../../../terraform/modules/fss_sprint4_export
+- fs in ../../../../terraform/modules/fss_sprint3
+- mt in ../../../../terraform/modules/fss_sprint4_mount_target
+
+[0m[1mInitializing provider plugins...[0m
+- Finding latest version of oracle/oci...
+- Installing oracle/oci v8.10.0...
+- Installed oracle/oci v8.10.0 (signed by a HashiCorp partner, key ID [0m[1m1533A49284137CEB[0m[0m)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[0m[1mdata.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mdata.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+ [36m<=[0m read (data resources)[0m
+
+Terraform will perform the following actions:
+
+[1m  # data.oci_core_private_ip.mount_target[0m will be read during apply
+  # (config refers to values not yet known)
+[0m [36m<=[0m[0m data "oci_core_private_ip" "mount_target" {
+      [32m+[0m[0m availability_domain         = (known after apply)
+      [32m+[0m[0m cidr_prefix_length          = (known after apply)
+      [32m+[0m[0m compartment_id              = (known after apply)
+      [32m+[0m[0m defined_tags                = (known after apply)
+      [32m+[0m[0m display_name                = (known after apply)
+      [32m+[0m[0m freeform_tags               = (known after apply)
+      [32m+[0m[0m hostname_label              = (known after apply)
+      [32m+[0m[0m id                          = (known after apply)
+      [32m+[0m[0m ip_address                  = (known after apply)
+      [32m+[0m[0m ip_state                    = (known after apply)
+      [32m+[0m[0m ipv4subnet_cidr_at_creation = (known after apply)
+      [32m+[0m[0m is_primary                  = (known after apply)
+      [32m+[0m[0m is_reserved                 = (known after apply)
+      [32m+[0m[0m lifetime                    = (known after apply)
+      [32m+[0m[0m private_ip_id               = (known after apply)
+      [32m+[0m[0m route_table_id              = (known after apply)
+      [32m+[0m[0m subnet_id                   = (known after apply)
+      [32m+[0m[0m time_created                = (known after apply)
+      [32m+[0m[0m vlan_id                     = (known after apply)
+      [32m+[0m[0m vnic_id                     = (known after apply)
+    }
+
+[1m  # module.export.oci_file_storage_export.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_export" "this" {
+      [32m+[0m[0m export_set_id                = (known after apply)
+      [32m+[0m[0m file_system_id               = (known after apply)
+      [32m+[0m[0m id                           = (known after apply)
+      [32m+[0m[0m is_idmap_groups_for_sys_auth = (known after apply)
+      [32m+[0m[0m is_lock_override             = (known after apply)
+      [32m+[0m[0m path                         = "/sprint4-it1-mount-target"
+      [32m+[0m[0m state                        = (known after apply)
+      [32m+[0m[0m time_created                 = (known after apply)
+
+      [32m+[0m[0m export_options {
+          [32m+[0m[0m access                         = "READ_WRITE"
+          [32m+[0m[0m allowed_auth                   = [
+              [32m+[0m[0m "SYS",
+            ]
+          [32m+[0m[0m anonymous_gid                  = "65534"
+          [32m+[0m[0m anonymous_uid                  = "65534"
+          [32m+[0m[0m identity_squash                = "ROOT"
+          [32m+[0m[0m is_anonymous_access_allowed    = false
+          [32m+[0m[0m require_privileged_source_port = false
+          [32m+[0m[0m source                         = "10.0.0.0/24"
+        }
+    }
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_file_system" "this" {
+      [32m+[0m[0m are_quota_rules_enabled  = (known after apply)
+      [32m+[0m[0m availability_domain      = "jJRq:EU-ZURICH-1-AD-1"
+      [32m+[0m[0m clone_attach_status      = (known after apply)
+      [32m+[0m[0m clone_count              = (known after apply)
+      [32m+[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m defined_tags             = (known after apply)
+      [32m+[0m[0m display_name             = "fss-sprint4-it1-mount-target"
+      [32m+[0m[0m freeform_tags            = (known after apply)
+      [32m+[0m[0m id                       = (known after apply)
+      [32m+[0m[0m is_clone_parent          = (known after apply)
+      [32m+[0m[0m is_hydrated              = (known after apply)
+      [32m+[0m[0m is_lock_override         = (known after apply)
+      [32m+[0m[0m is_targetable            = (known after apply)
+      [32m+[0m[0m lifecycle_details        = (known after apply)
+      [32m+[0m[0m metered_bytes            = (known after apply)
+      [32m+[0m[0m quota_enforcement_state  = (known after apply)
+      [32m+[0m[0m replication_source_count = (known after apply)
+      [32m+[0m[0m replication_target_id    = (known after apply)
+      [32m+[0m[0m source_details           = (known after apply)
+      [32m+[0m[0m source_snapshot_id       = (known after apply)
+      [32m+[0m[0m state                    = (known after apply)
+      [32m+[0m[0m system_tags              = (known after apply)
+      [32m+[0m[0m time_created             = (known after apply)
+    }
+
+[1m  # module.mt.oci_file_storage_mount_target.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_mount_target" "this" {
+      [32m+[0m[0m availability_domain       = "jJRq:EU-ZURICH-1-AD-1"
+      [32m+[0m[0m compartment_id            = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m defined_tags              = (known after apply)
+      [32m+[0m[0m display_name              = "fss-sprint4-mt-it1-mount-target"
+      [32m+[0m[0m export_set_id             = (known after apply)
+      [32m+[0m[0m freeform_tags             = (known after apply)
+      [32m+[0m[0m hostname_label            = (known after apply)
+      [32m+[0m[0m id                        = (known after apply)
+      [32m+[0m[0m idmap_type                = (known after apply)
+      [32m+[0m[0m ip_address                = (known after apply)
+      [32m+[0m[0m is_lock_override          = (known after apply)
+      [32m+[0m[0m lifecycle_details         = (known after apply)
+      [32m+[0m[0m mount_target_ipv6ids      = (known after apply)
+      [32m+[0m[0m nsg_ids                   = (known after apply)
+      [32m+[0m[0m observed_throughput       = (known after apply)
+      [32m+[0m[0m private_ip_ids            = (known after apply)
+      [32m+[0m[0m requested_throughput      = (known after apply)
+      [32m+[0m[0m reserved_storage_capacity = (known after apply)
+      [32m+[0m[0m security_attributes       = (known after apply)
+      [32m+[0m[0m state                     = (known after apply)
+      [32m+[0m[0m subnet_id                 = "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaavsji5425xckgkwuxlzsxat3jdxx6bbrhprwi3dsgf6gr5f2aaudq"
+      [32m+[0m[0m system_tags               = (known after apply)
+      [32m+[0m[0m time_billing_cycle_end    = (known after apply)
+      [32m+[0m[0m time_created              = (known after apply)
+    }
+
+[1mPlan:[0m 3 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m export_ocid                  = (known after apply)
+  [32m+[0m[0m export_path                  = "/sprint4-it1-mount-target"
+  [32m+[0m[0m filesystem_ocid              = (known after apply)
+  [32m+[0m[0m mount_target_export_set_ocid = (known after apply)
+  [32m+[0m[0m mount_target_ocid            = (known after apply)
+  [32m+[0m[0m mount_target_private_ip      = (known after apply)
+  [32m+[0m[0m mount_target_private_ip_ids  = (known after apply)
+  [32m+[0m[0m mount_target_vnic_id         = (known after apply)
+  [32m+[0m[0m source_cidr                  = "10.0.0.0/24"
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Saved the plan to:
+/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_4/generated_tf/it1_mount_target/tf_test_artifacts/deploy.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_4/generated_tf/it1_mount_target/tf_test_artifacts/deploy.tfplan"
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creating...[0m[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Creating...[0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creation complete after 1s [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7sppjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Still creating... [10s elapsed][0m[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Still creating... [20s elapsed][0m[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Creation complete after 24s [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnov2kpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mdata.oci_core_private_ip.mount_target: Reading...[0m[0m
+[0m[1mmodule.export.oci_file_storage_export.this: Creating...[0m[0m
+[0m[1mdata.oci_core_private_ip.mount_target: Read complete after 0s [id=ocid1.privateip.oc1.eu-zurich-1.aaaaaaaas4ffo2hgyjwkycsutilgpj24bbdj756672mqvardx6q4pp5zyofq][0m
+[0m[1mmodule.export.oci_file_storage_export.this: Creation complete after 4s [id=ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnovvwpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1m[32m
+Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
+[0m[0m[1m[32m
+Outputs:
+
+[0mexport_ocid = "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnovvwpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+export_path = "/sprint4-it1-mount-target"
+filesystem_ocid = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7sppjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+mount_target_export_set_ocid = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnov2jpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+mount_target_ocid = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnov2kpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+mount_target_private_ip = "10.0.0.133"
+mount_target_private_ip_ids = tolist([
+  "ocid1.privateip.oc1.eu-zurich-1.aaaaaaaas4ffo2hgyjwkycsutilgpj24bbdj756672mqvardx6q4pp5zyofq",
+])
+mount_target_vnic_id = "ocid1.vnic.oc1.eu-zurich-1.ab5heljrjeixy4cvn4t3xgdstez7daxpyp7asiyrnziv2tp7rrwtfslq3mya"
+source_cidr = "10.0.0.0/24"
+PASS: IT-1 (mount_target_ocid=ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnov2kpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr)
+INFO: terraform destroy (test teardown) in /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_4/generated_tf/it1_mount_target
+[0m[1mdata.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mdata.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Refreshing state... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnov2kpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Refreshing state... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7sppjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mdata.oci_core_private_ip.mount_target: Reading...[0m[0m
+[0m[1mmodule.export.oci_file_storage_export.this: Refreshing state... [id=ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnovvwpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mdata.oci_core_private_ip.mount_target: Read complete after 0s [id=ocid1.privateip.oc1.eu-zurich-1.aaaaaaaas4ffo2hgyjwkycsutilgpj24bbdj756672mqvardx6q4pp5zyofq][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [31m-[0m destroy[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.export.oci_file_storage_export.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_export" "this" {
+      [31m-[0m[0m export_set_id                = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnov2jpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m file_system_id               = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7sppjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m id                           = "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnovvwpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m is_idmap_groups_for_sys_auth = false [90m-> null[0m[0m
+      [31m-[0m[0m path                         = "/sprint4-it1-mount-target" [90m-> null[0m[0m
+      [31m-[0m[0m state                        = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m time_created                 = "2026-04-28 08:18:24 +0000 UTC" [90m-> null[0m[0m
+
+      [31m-[0m[0m export_options {
+          [31m-[0m[0m access                         = "READ_WRITE" [90m-> null[0m[0m
+          [31m-[0m[0m allowed_auth                   = [
+              [31m-[0m[0m "SYS",
+            ] [90m-> null[0m[0m
+          [31m-[0m[0m anonymous_gid                  = "65534" [90m-> null[0m[0m
+          [31m-[0m[0m anonymous_uid                  = "65534" [90m-> null[0m[0m
+          [31m-[0m[0m identity_squash                = "ROOT" [90m-> null[0m[0m
+          [31m-[0m[0m is_anonymous_access_allowed    = false [90m-> null[0m[0m
+          [31m-[0m[0m require_privileged_source_port = false [90m-> null[0m[0m
+          [31m-[0m[0m source                         = "10.0.0.0/24" [90m-> null[0m[0m
+        }
+    }
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_file_system" "this" {
+      [31m-[0m[0m are_quota_rules_enabled  = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_domain      = "jJRq:EU-ZURICH-1-AD-1" [90m-> null[0m[0m
+      [31m-[0m[0m clone_attach_status      = "DETACHED" [90m-> null[0m[0m
+      [31m-[0m[0m clone_count              = 0 [90m-> null[0m[0m
+      [31m-[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+      [31m-[0m[0m defined_tags             = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com"
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-28T08:18:00.178Z"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m display_name             = "fss-sprint4-it1-mount-target" [90m-> null[0m[0m
+      [31m-[0m[0m freeform_tags            = {} [90m-> null[0m[0m
+      [31m-[0m[0m id                       = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7sppjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m is_clone_parent          = false [90m-> null[0m[0m
+      [31m-[0m[0m is_hydrated              = true [90m-> null[0m[0m
+      [31m-[0m[0m is_targetable            = false [90m-> null[0m[0m
+      [31m-[0m[0m metered_bytes            = "0" [90m-> null[0m[0m
+      [31m-[0m[0m quota_enforcement_state  = "DISABLED" [90m-> null[0m[0m
+      [31m-[0m[0m replication_source_count = 0 [90m-> null[0m[0m
+      [31m-[0m[0m source_details           = [
+          [31m-[0m[0m {
+              [31m-[0m[0m parent_file_system_id = ""
+              [31m-[0m[0m source_snapshot_id    = ""
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m state                    = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m system_tags              = {} [90m-> null[0m[0m
+      [31m-[0m[0m time_created             = "2026-04-28 08:18:00.255 +0000 UTC" [90m-> null[0m[0m
+    }
+
+[1m  # module.mt.oci_file_storage_mount_target.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_mount_target" "this" {
+      [31m-[0m[0m availability_domain       = "jJRq:EU-ZURICH-1-AD-1" [90m-> null[0m[0m
+      [31m-[0m[0m compartment_id            = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+      [31m-[0m[0m defined_tags              = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com"
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-28T08:18:00.178Z"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m display_name              = "fss-sprint4-mt-it1-mount-target" [90m-> null[0m[0m
+      [31m-[0m[0m export_set_id             = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnov2jpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m freeform_tags             = {} [90m-> null[0m[0m
+      [31m-[0m[0m id                        = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnov2kpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m idmap_type                = "NONE" [90m-> null[0m[0m
+      [31m-[0m[0m ip_address                = "10.0.0.133" [90m-> null[0m[0m
+      [31m-[0m[0m mount_target_ipv6ids      = [] [90m-> null[0m[0m
+      [31m-[0m[0m nsg_ids                   = [] [90m-> null[0m[0m
+      [31m-[0m[0m observed_throughput       = "1" [90m-> null[0m[0m
+      [31m-[0m[0m private_ip_ids            = [
+          [31m-[0m[0m "ocid1.privateip.oc1.eu-zurich-1.aaaaaaaas4ffo2hgyjwkycsutilgpj24bbdj756672mqvardx6q4pp5zyofq",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m requested_throughput      = "1" [90m-> null[0m[0m
+      [31m-[0m[0m reserved_storage_capacity = "0" [90m-> null[0m[0m
+      [31m-[0m[0m security_attributes       = {} [90m-> null[0m[0m
+      [31m-[0m[0m state                     = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m subnet_id                 = "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaavsji5425xckgkwuxlzsxat3jdxx6bbrhprwi3dsgf6gr5f2aaudq" [90m-> null[0m[0m
+      [31m-[0m[0m system_tags               = {} [90m-> null[0m[0m
+      [31m-[0m[0m time_created              = "2026-04-28 08:18:00.604 +0000 UTC" [90m-> null[0m[0m
+    }
+
+[1mPlan:[0m 0 to add, 0 to change, 3 to destroy.
+[0m
+Changes to Outputs:
+  [31m-[0m[0m export_ocid                  = "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnovvwpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+  [31m-[0m[0m export_path                  = "/sprint4-it1-mount-target" [90m-> null[0m[0m
+  [31m-[0m[0m filesystem_ocid              = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7sppjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+  [31m-[0m[0m mount_target_export_set_ocid = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnov2jpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+  [31m-[0m[0m mount_target_ocid            = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnov2kpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+  [31m-[0m[0m mount_target_private_ip      = "10.0.0.133" [90m-> null[0m[0m
+  [31m-[0m[0m mount_target_private_ip_ids  = [
+      [31m-[0m[0m "ocid1.privateip.oc1.eu-zurich-1.aaaaaaaas4ffo2hgyjwkycsutilgpj24bbdj756672mqvardx6q4pp5zyofq",
+    ] [90m-> null[0m[0m
+  [31m-[0m[0m mount_target_vnic_id         = "ocid1.vnic.oc1.eu-zurich-1.ab5heljrjeixy4cvn4t3xgdstez7daxpyp7asiyrnziv2tp7rrwtfslq3mya" [90m-> null[0m[0m
+  [31m-[0m[0m source_cidr                  = "10.0.0.0/24" [90m-> null[0m[0m
+[0m[1mmodule.export.oci_file_storage_export.this: Destroying... [id=ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnovvwpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.export.oci_file_storage_export.this: Destruction complete after 1s[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnov2kpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destroying... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7sppjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destruction complete after 2s[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Still destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaa...zgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, 10s elapsed][0m[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Still destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaa...zgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, 20s elapsed][0m[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Destruction complete after 24s[0m
+[0m[1m[32m
+Destroy complete! Resources: 3 destroyed.
+[0m=== IT-2: Export happy path ===
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+- export in ../../../../terraform/modules/fss_sprint4_export
+- fs in ../../../../terraform/modules/fss_sprint3
+- mt in ../../../../terraform/modules/fss_sprint4_mount_target
+
+[0m[1mInitializing provider plugins...[0m
+- Finding latest version of oracle/oci...
+- Installing oracle/oci v8.10.0...
+- Installed oracle/oci v8.10.0 (signed by a HashiCorp partner, key ID [0m[1m1533A49284137CEB[0m[0m)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[0m[1mdata.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mdata.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+ [36m<=[0m read (data resources)[0m
+
+Terraform will perform the following actions:
+
+[1m  # data.oci_core_private_ip.mount_target[0m will be read during apply
+  # (config refers to values not yet known)
+[0m [36m<=[0m[0m data "oci_core_private_ip" "mount_target" {
+      [32m+[0m[0m availability_domain         = (known after apply)
+      [32m+[0m[0m cidr_prefix_length          = (known after apply)
+      [32m+[0m[0m compartment_id              = (known after apply)
+      [32m+[0m[0m defined_tags                = (known after apply)
+      [32m+[0m[0m display_name                = (known after apply)
+      [32m+[0m[0m freeform_tags               = (known after apply)
+      [32m+[0m[0m hostname_label              = (known after apply)
+      [32m+[0m[0m id                          = (known after apply)
+      [32m+[0m[0m ip_address                  = (known after apply)
+      [32m+[0m[0m ip_state                    = (known after apply)
+      [32m+[0m[0m ipv4subnet_cidr_at_creation = (known after apply)
+      [32m+[0m[0m is_primary                  = (known after apply)
+      [32m+[0m[0m is_reserved                 = (known after apply)
+      [32m+[0m[0m lifetime                    = (known after apply)
+      [32m+[0m[0m private_ip_id               = (known after apply)
+      [32m+[0m[0m route_table_id              = (known after apply)
+      [32m+[0m[0m subnet_id                   = (known after apply)
+      [32m+[0m[0m time_created                = (known after apply)
+      [32m+[0m[0m vlan_id                     = (known after apply)
+      [32m+[0m[0m vnic_id                     = (known after apply)
+    }
+
+[1m  # module.export.oci_file_storage_export.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_export" "this" {
+      [32m+[0m[0m export_set_id                = (known after apply)
+      [32m+[0m[0m file_system_id               = (known after apply)
+      [32m+[0m[0m id                           = (known after apply)
+      [32m+[0m[0m is_idmap_groups_for_sys_auth = (known after apply)
+      [32m+[0m[0m is_lock_override             = (known after apply)
+      [32m+[0m[0m path                         = "/sprint4-it2-export"
+      [32m+[0m[0m state                        = (known after apply)
+      [32m+[0m[0m time_created                 = (known after apply)
+
+      [32m+[0m[0m export_options {
+          [32m+[0m[0m access                         = "READ_WRITE"
+          [32m+[0m[0m allowed_auth                   = [
+              [32m+[0m[0m "SYS",
+            ]
+          [32m+[0m[0m anonymous_gid                  = "65534"
+          [32m+[0m[0m anonymous_uid                  = "65534"
+          [32m+[0m[0m identity_squash                = "ROOT"
+          [32m+[0m[0m is_anonymous_access_allowed    = false
+          [32m+[0m[0m require_privileged_source_port = false
+          [32m+[0m[0m source                         = "10.0.0.0/24"
+        }
+    }
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_file_system" "this" {
+      [32m+[0m[0m are_quota_rules_enabled  = (known after apply)
+      [32m+[0m[0m availability_domain      = "jJRq:EU-ZURICH-1-AD-1"
+      [32m+[0m[0m clone_attach_status      = (known after apply)
+      [32m+[0m[0m clone_count              = (known after apply)
+      [32m+[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m defined_tags             = (known after apply)
+      [32m+[0m[0m display_name             = "fss-sprint4-it2-export"
+      [32m+[0m[0m freeform_tags            = (known after apply)
+      [32m+[0m[0m id                       = (known after apply)
+      [32m+[0m[0m is_clone_parent          = (known after apply)
+      [32m+[0m[0m is_hydrated              = (known after apply)
+      [32m+[0m[0m is_lock_override         = (known after apply)
+      [32m+[0m[0m is_targetable            = (known after apply)
+      [32m+[0m[0m lifecycle_details        = (known after apply)
+      [32m+[0m[0m metered_bytes            = (known after apply)
+      [32m+[0m[0m quota_enforcement_state  = (known after apply)
+      [32m+[0m[0m replication_source_count = (known after apply)
+      [32m+[0m[0m replication_target_id    = (known after apply)
+      [32m+[0m[0m source_details           = (known after apply)
+      [32m+[0m[0m source_snapshot_id       = (known after apply)
+      [32m+[0m[0m state                    = (known after apply)
+      [32m+[0m[0m system_tags              = (known after apply)
+      [32m+[0m[0m time_created             = (known after apply)
+    }
+
+[1m  # module.mt.oci_file_storage_mount_target.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_mount_target" "this" {
+      [32m+[0m[0m availability_domain       = "jJRq:EU-ZURICH-1-AD-1"
+      [32m+[0m[0m compartment_id            = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m defined_tags              = (known after apply)
+      [32m+[0m[0m display_name              = "fss-sprint4-mt-it2-export"
+      [32m+[0m[0m export_set_id             = (known after apply)
+      [32m+[0m[0m freeform_tags             = (known after apply)
+      [32m+[0m[0m hostname_label            = (known after apply)
+      [32m+[0m[0m id                        = (known after apply)
+      [32m+[0m[0m idmap_type                = (known after apply)
+      [32m+[0m[0m ip_address                = (known after apply)
+      [32m+[0m[0m is_lock_override          = (known after apply)
+      [32m+[0m[0m lifecycle_details         = (known after apply)
+      [32m+[0m[0m mount_target_ipv6ids      = (known after apply)
+      [32m+[0m[0m nsg_ids                   = (known after apply)
+      [32m+[0m[0m observed_throughput       = (known after apply)
+      [32m+[0m[0m private_ip_ids            = (known after apply)
+      [32m+[0m[0m requested_throughput      = (known after apply)
+      [32m+[0m[0m reserved_storage_capacity = (known after apply)
+      [32m+[0m[0m security_attributes       = (known after apply)
+      [32m+[0m[0m state                     = (known after apply)
+      [32m+[0m[0m subnet_id                 = "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaavsji5425xckgkwuxlzsxat3jdxx6bbrhprwi3dsgf6gr5f2aaudq"
+      [32m+[0m[0m system_tags               = (known after apply)
+      [32m+[0m[0m time_billing_cycle_end    = (known after apply)
+      [32m+[0m[0m time_created              = (known after apply)
+    }
+
+[1mPlan:[0m 3 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m export_ocid                  = (known after apply)
+  [32m+[0m[0m export_path                  = "/sprint4-it2-export"
+  [32m+[0m[0m filesystem_ocid              = (known after apply)
+  [32m+[0m[0m mount_target_export_set_ocid = (known after apply)
+  [32m+[0m[0m mount_target_ocid            = (known after apply)
+  [32m+[0m[0m mount_target_private_ip      = (known after apply)
+  [32m+[0m[0m mount_target_private_ip_ids  = (known after apply)
+  [32m+[0m[0m mount_target_vnic_id         = (known after apply)
+  [32m+[0m[0m source_cidr                  = "10.0.0.0/24"
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Saved the plan to:
+/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_4/generated_tf/it2_export/tf_test_artifacts/deploy.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_4/generated_tf/it2_export/tf_test_artifacts/deploy.tfplan"
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Creating...[0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creating...[0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creation complete after 2s [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7sspjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Still creating... [10s elapsed][0m[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Creation complete after 18s [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnov2rpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mdata.oci_core_private_ip.mount_target: Reading...[0m[0m
+[0m[1mmodule.export.oci_file_storage_export.this: Creating...[0m[0m
+[0m[1mdata.oci_core_private_ip.mount_target: Read complete after 0s [id=ocid1.privateip.oc1.eu-zurich-1.aaaaaaaa4c7aark2ec56ay35uykxzepivejnqyb5javk2ymddn2dv2shzeda][0m
+[0m[1mmodule.export.oci_file_storage_export.this: Creation complete after 4s [id=ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnovwapjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1m[32m
+Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
+[0m[0m[1m[32m
+Outputs:
+
+[0mexport_ocid = "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnovwapjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+export_path = "/sprint4-it2-export"
+filesystem_ocid = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7sspjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+mount_target_export_set_ocid = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnov2qpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+mount_target_ocid = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnov2rpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+mount_target_private_ip = "10.0.0.108"
+mount_target_private_ip_ids = tolist([
+  "ocid1.privateip.oc1.eu-zurich-1.aaaaaaaa4c7aark2ec56ay35uykxzepivejnqyb5javk2ymddn2dv2shzeda",
+])
+mount_target_vnic_id = "ocid1.vnic.oc1.eu-zurich-1.ab5heljre47k74ovt2vuvw7s24vycoprgvsw5yie3q6bo6qcngnufrdijosq"
+source_cidr = "10.0.0.0/24"
+PASS: IT-2 (export_ocid=ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnovwapjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, export_path=/sprint4-it2-export)
+INFO: terraform destroy (test teardown) in /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_4/generated_tf/it2_export
+[0m[1mdata.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mdata.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Refreshing state... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7sspjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Refreshing state... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnov2rpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mdata.oci_core_private_ip.mount_target: Reading...[0m[0m
+[0m[1mmodule.export.oci_file_storage_export.this: Refreshing state... [id=ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnovwapjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mdata.oci_core_private_ip.mount_target: Read complete after 0s [id=ocid1.privateip.oc1.eu-zurich-1.aaaaaaaa4c7aark2ec56ay35uykxzepivejnqyb5javk2ymddn2dv2shzeda][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [31m-[0m destroy[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.export.oci_file_storage_export.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_export" "this" {
+      [31m-[0m[0m export_set_id                = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnov2qpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m file_system_id               = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7sspjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m id                           = "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnovwapjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m is_idmap_groups_for_sys_auth = false [90m-> null[0m[0m
+      [31m-[0m[0m path                         = "/sprint4-it2-export" [90m-> null[0m[0m
+      [31m-[0m[0m state                        = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m time_created                 = "2026-04-28 08:19:21 +0000 UTC" [90m-> null[0m[0m
+
+      [31m-[0m[0m export_options {
+          [31m-[0m[0m access                         = "READ_WRITE" [90m-> null[0m[0m
+          [31m-[0m[0m allowed_auth                   = [
+              [31m-[0m[0m "SYS",
+            ] [90m-> null[0m[0m
+          [31m-[0m[0m anonymous_gid                  = "65534" [90m-> null[0m[0m
+          [31m-[0m[0m anonymous_uid                  = "65534" [90m-> null[0m[0m
+          [31m-[0m[0m identity_squash                = "ROOT" [90m-> null[0m[0m
+          [31m-[0m[0m is_anonymous_access_allowed    = false [90m-> null[0m[0m
+          [31m-[0m[0m require_privileged_source_port = false [90m-> null[0m[0m
+          [31m-[0m[0m source                         = "10.0.0.0/24" [90m-> null[0m[0m
+        }
+    }
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_file_system" "this" {
+      [31m-[0m[0m are_quota_rules_enabled  = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_domain      = "jJRq:EU-ZURICH-1-AD-1" [90m-> null[0m[0m
+      [31m-[0m[0m clone_attach_status      = "DETACHED" [90m-> null[0m[0m
+      [31m-[0m[0m clone_count              = 0 [90m-> null[0m[0m
+      [31m-[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+      [31m-[0m[0m defined_tags             = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com"
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-28T08:19:04.537Z"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m display_name             = "fss-sprint4-it2-export" [90m-> null[0m[0m
+      [31m-[0m[0m freeform_tags            = {} [90m-> null[0m[0m
+      [31m-[0m[0m id                       = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7sspjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m is_clone_parent          = false [90m-> null[0m[0m
+      [31m-[0m[0m is_hydrated              = true [90m-> null[0m[0m
+      [31m-[0m[0m is_targetable            = false [90m-> null[0m[0m
+      [31m-[0m[0m metered_bytes            = "0" [90m-> null[0m[0m
+      [31m-[0m[0m quota_enforcement_state  = "DISABLED" [90m-> null[0m[0m
+      [31m-[0m[0m replication_source_count = 0 [90m-> null[0m[0m
+      [31m-[0m[0m source_details           = [
+          [31m-[0m[0m {
+              [31m-[0m[0m parent_file_system_id = ""
+              [31m-[0m[0m source_snapshot_id    = ""
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m state                    = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m system_tags              = {} [90m-> null[0m[0m
+      [31m-[0m[0m time_created             = "2026-04-28 08:19:04.58 +0000 UTC" [90m-> null[0m[0m
+    }
+
+[1m  # module.mt.oci_file_storage_mount_target.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_mount_target" "this" {
+      [31m-[0m[0m availability_domain       = "jJRq:EU-ZURICH-1-AD-1" [90m-> null[0m[0m
+      [31m-[0m[0m compartment_id            = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+      [31m-[0m[0m defined_tags              = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com"
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-28T08:19:04.536Z"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m display_name              = "fss-sprint4-mt-it2-export" [90m-> null[0m[0m
+      [31m-[0m[0m export_set_id             = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnov2qpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m freeform_tags             = {} [90m-> null[0m[0m
+      [31m-[0m[0m id                        = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnov2rpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m idmap_type                = "NONE" [90m-> null[0m[0m
+      [31m-[0m[0m ip_address                = "10.0.0.108" [90m-> null[0m[0m
+      [31m-[0m[0m mount_target_ipv6ids      = [] [90m-> null[0m[0m
+      [31m-[0m[0m nsg_ids                   = [] [90m-> null[0m[0m
+      [31m-[0m[0m observed_throughput       = "1" [90m-> null[0m[0m
+      [31m-[0m[0m private_ip_ids            = [
+          [31m-[0m[0m "ocid1.privateip.oc1.eu-zurich-1.aaaaaaaa4c7aark2ec56ay35uykxzepivejnqyb5javk2ymddn2dv2shzeda",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m requested_throughput      = "1" [90m-> null[0m[0m
+      [31m-[0m[0m reserved_storage_capacity = "0" [90m-> null[0m[0m
+      [31m-[0m[0m security_attributes       = {} [90m-> null[0m[0m
+      [31m-[0m[0m state                     = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m subnet_id                 = "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaavsji5425xckgkwuxlzsxat3jdxx6bbrhprwi3dsgf6gr5f2aaudq" [90m-> null[0m[0m
+      [31m-[0m[0m system_tags               = {} [90m-> null[0m[0m
+      [31m-[0m[0m time_created              = "2026-04-28 08:19:04.983 +0000 UTC" [90m-> null[0m[0m
+    }
+
+[1mPlan:[0m 0 to add, 0 to change, 3 to destroy.
+[0m
+Changes to Outputs:
+  [31m-[0m[0m export_ocid                  = "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnovwapjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+  [31m-[0m[0m export_path                  = "/sprint4-it2-export" [90m-> null[0m[0m
+  [31m-[0m[0m filesystem_ocid              = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7sspjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+  [31m-[0m[0m mount_target_export_set_ocid = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnov2qpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+  [31m-[0m[0m mount_target_ocid            = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnov2rpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+  [31m-[0m[0m mount_target_private_ip      = "10.0.0.108" [90m-> null[0m[0m
+  [31m-[0m[0m mount_target_private_ip_ids  = [
+      [31m-[0m[0m "ocid1.privateip.oc1.eu-zurich-1.aaaaaaaa4c7aark2ec56ay35uykxzepivejnqyb5javk2ymddn2dv2shzeda",
+    ] [90m-> null[0m[0m
+  [31m-[0m[0m mount_target_vnic_id         = "ocid1.vnic.oc1.eu-zurich-1.ab5heljre47k74ovt2vuvw7s24vycoprgvsw5yie3q6bo6qcngnufrdijosq" [90m-> null[0m[0m
+  [31m-[0m[0m source_cidr                  = "10.0.0.0/24" [90m-> null[0m[0m
+[0m[1mmodule.export.oci_file_storage_export.this: Destroying... [id=ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnovwapjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.export.oci_file_storage_export.this: Destruction complete after 2s[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destroying... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7sspjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnov2rpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destruction complete after 1s[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Still destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaa...zgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, 10s elapsed][0m[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Still destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaa...zgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, 20s elapsed][0m[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Destruction complete after 23s[0m
+[0m[1m[32m
+Destroy complete! Resources: 3 destroyed.
+[0m=== IT-3: Network Path Analyzer reachability ===
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+- export in ../../../../terraform/modules/fss_sprint4_export
+- fs in ../../../../terraform/modules/fss_sprint3
+- mt in ../../../../terraform/modules/fss_sprint4_mount_target
+
+[0m[1mInitializing provider plugins...[0m
+- Finding latest version of oracle/oci...
+- Installing oracle/oci v8.10.0...
+- Installed oracle/oci v8.10.0 (signed by a HashiCorp partner, key ID [0m[1m1533A49284137CEB[0m[0m)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[0m[1mdata.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mdata.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+ [36m<=[0m read (data resources)[0m
+
+Terraform will perform the following actions:
+
+[1m  # data.oci_core_private_ip.mount_target[0m will be read during apply
+  # (config refers to values not yet known)
+[0m [36m<=[0m[0m data "oci_core_private_ip" "mount_target" {
+      [32m+[0m[0m availability_domain         = (known after apply)
+      [32m+[0m[0m cidr_prefix_length          = (known after apply)
+      [32m+[0m[0m compartment_id              = (known after apply)
+      [32m+[0m[0m defined_tags                = (known after apply)
+      [32m+[0m[0m display_name                = (known after apply)
+      [32m+[0m[0m freeform_tags               = (known after apply)
+      [32m+[0m[0m hostname_label              = (known after apply)
+      [32m+[0m[0m id                          = (known after apply)
+      [32m+[0m[0m ip_address                  = (known after apply)
+      [32m+[0m[0m ip_state                    = (known after apply)
+      [32m+[0m[0m ipv4subnet_cidr_at_creation = (known after apply)
+      [32m+[0m[0m is_primary                  = (known after apply)
+      [32m+[0m[0m is_reserved                 = (known after apply)
+      [32m+[0m[0m lifetime                    = (known after apply)
+      [32m+[0m[0m private_ip_id               = (known after apply)
+      [32m+[0m[0m route_table_id              = (known after apply)
+      [32m+[0m[0m subnet_id                   = (known after apply)
+      [32m+[0m[0m time_created                = (known after apply)
+      [32m+[0m[0m vlan_id                     = (known after apply)
+      [32m+[0m[0m vnic_id                     = (known after apply)
+    }
+
+[1m  # module.export.oci_file_storage_export.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_export" "this" {
+      [32m+[0m[0m export_set_id                = (known after apply)
+      [32m+[0m[0m file_system_id               = (known after apply)
+      [32m+[0m[0m id                           = (known after apply)
+      [32m+[0m[0m is_idmap_groups_for_sys_auth = (known after apply)
+      [32m+[0m[0m is_lock_override             = (known after apply)
+      [32m+[0m[0m path                         = "/sprint4-it3-path-analyzer"
+      [32m+[0m[0m state                        = (known after apply)
+      [32m+[0m[0m time_created                 = (known after apply)
+
+      [32m+[0m[0m export_options {
+          [32m+[0m[0m access                         = "READ_WRITE"
+          [32m+[0m[0m allowed_auth                   = [
+              [32m+[0m[0m "SYS",
+            ]
+          [32m+[0m[0m anonymous_gid                  = "65534"
+          [32m+[0m[0m anonymous_uid                  = "65534"
+          [32m+[0m[0m identity_squash                = "ROOT"
+          [32m+[0m[0m is_anonymous_access_allowed    = false
+          [32m+[0m[0m require_privileged_source_port = false
+          [32m+[0m[0m source                         = "10.0.0.0/24"
+        }
+    }
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_file_system" "this" {
+      [32m+[0m[0m are_quota_rules_enabled  = (known after apply)
+      [32m+[0m[0m availability_domain      = "jJRq:EU-ZURICH-1-AD-1"
+      [32m+[0m[0m clone_attach_status      = (known after apply)
+      [32m+[0m[0m clone_count              = (known after apply)
+      [32m+[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m defined_tags             = (known after apply)
+      [32m+[0m[0m display_name             = "fss-sprint4-it3-path-analyzer"
+      [32m+[0m[0m freeform_tags            = (known after apply)
+      [32m+[0m[0m id                       = (known after apply)
+      [32m+[0m[0m is_clone_parent          = (known after apply)
+      [32m+[0m[0m is_hydrated              = (known after apply)
+      [32m+[0m[0m is_lock_override         = (known after apply)
+      [32m+[0m[0m is_targetable            = (known after apply)
+      [32m+[0m[0m lifecycle_details        = (known after apply)
+      [32m+[0m[0m metered_bytes            = (known after apply)
+      [32m+[0m[0m quota_enforcement_state  = (known after apply)
+      [32m+[0m[0m replication_source_count = (known after apply)
+      [32m+[0m[0m replication_target_id    = (known after apply)
+      [32m+[0m[0m source_details           = (known after apply)
+      [32m+[0m[0m source_snapshot_id       = (known after apply)
+      [32m+[0m[0m state                    = (known after apply)
+      [32m+[0m[0m system_tags              = (known after apply)
+      [32m+[0m[0m time_created             = (known after apply)
+    }
+
+[1m  # module.mt.oci_file_storage_mount_target.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_mount_target" "this" {
+      [32m+[0m[0m availability_domain       = "jJRq:EU-ZURICH-1-AD-1"
+      [32m+[0m[0m compartment_id            = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m defined_tags              = (known after apply)
+      [32m+[0m[0m display_name              = "fss-sprint4-mt-it3-path-analyzer"
+      [32m+[0m[0m export_set_id             = (known after apply)
+      [32m+[0m[0m freeform_tags             = (known after apply)
+      [32m+[0m[0m hostname_label            = (known after apply)
+      [32m+[0m[0m id                        = (known after apply)
+      [32m+[0m[0m idmap_type                = (known after apply)
+      [32m+[0m[0m ip_address                = (known after apply)
+      [32m+[0m[0m is_lock_override          = (known after apply)
+      [32m+[0m[0m lifecycle_details         = (known after apply)
+      [32m+[0m[0m mount_target_ipv6ids      = (known after apply)
+      [32m+[0m[0m nsg_ids                   = (known after apply)
+      [32m+[0m[0m observed_throughput       = (known after apply)
+      [32m+[0m[0m private_ip_ids            = (known after apply)
+      [32m+[0m[0m requested_throughput      = (known after apply)
+      [32m+[0m[0m reserved_storage_capacity = (known after apply)
+      [32m+[0m[0m security_attributes       = (known after apply)
+      [32m+[0m[0m state                     = (known after apply)
+      [32m+[0m[0m subnet_id                 = "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaavsji5425xckgkwuxlzsxat3jdxx6bbrhprwi3dsgf6gr5f2aaudq"
+      [32m+[0m[0m system_tags               = (known after apply)
+      [32m+[0m[0m time_billing_cycle_end    = (known after apply)
+      [32m+[0m[0m time_created              = (known after apply)
+    }
+
+[1mPlan:[0m 3 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m export_ocid                  = (known after apply)
+  [32m+[0m[0m export_path                  = "/sprint4-it3-path-analyzer"
+  [32m+[0m[0m filesystem_ocid              = (known after apply)
+  [32m+[0m[0m mount_target_export_set_ocid = (known after apply)
+  [32m+[0m[0m mount_target_ocid            = (known after apply)
+  [32m+[0m[0m mount_target_private_ip      = (known after apply)
+  [32m+[0m[0m mount_target_private_ip_ids  = (known after apply)
+  [32m+[0m[0m mount_target_vnic_id         = (known after apply)
+  [32m+[0m[0m source_cidr                  = "10.0.0.0/24"
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Saved the plan to:
+/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_4/generated_tf/it3_path_analyzer/tf_test_artifacts/deploy.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_4/generated_tf/it3_path_analyzer/tf_test_artifacts/deploy.tfplan"
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creating...[0m[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Creating...[0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Creation complete after 2s [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7supjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Still creating... [10s elapsed][0m[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Creation complete after 11s [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnowajpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mdata.oci_core_private_ip.mount_target: Reading...[0m[0m
+[0m[1mmodule.export.oci_file_storage_export.this: Creating...[0m[0m
+[0m[1mdata.oci_core_private_ip.mount_target: Read complete after 0s [id=ocid1.privateip.oc1.eu-zurich-1.aaaaaaaagpa2xikb6uwtdk2ezzrcse5m57umv42r3s4ls5qhrnpj4mmgz7hq][0m
+[0m[1mmodule.export.oci_file_storage_export.this: Creation complete after 6s [id=ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnovwepjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1m[32m
+Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
+[0m[0m[1m[32m
+Outputs:
+
+[0mexport_ocid = "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnovwepjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+export_path = "/sprint4-it3-path-analyzer"
+filesystem_ocid = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7supjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+mount_target_export_set_ocid = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnowaipjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+mount_target_ocid = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnowajpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+mount_target_private_ip = "10.0.0.94"
+mount_target_private_ip_ids = tolist([
+  "ocid1.privateip.oc1.eu-zurich-1.aaaaaaaagpa2xikb6uwtdk2ezzrcse5m57umv42r3s4ls5qhrnpj4mmgz7hq",
+])
+mount_target_vnic_id = "ocid1.vnic.oc1.eu-zurich-1.ab5heljrbqcmrlmncg3ejjwxjct7rufjufoa4jnl6ht4vsqplmikcfacr4sq"
+source_cidr = "10.0.0.0/24"
+  [INFO] COMPARTMENT_OCID defaulted to tenancy: ocid1.tenancy.oc1..aaaaaaaay2b2tvqcmqmndvcbz5kuptzuo7sp4vufarqfgoru7qojdgywb27a
+  [INFO] OCI_REGION defaulted to home region: eu-zurich-1
+  [INFO] STATE_FILE: /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_4/scaffold/sprint4npa-it3-path-analyzer/state-sprint4npa-it3-path-analyzer.json
+  [INFO] Path Analyzer: sprint4-it3_path_analyzer-nfs (timeout 180s)...
+  [OK]   Path (sprint4-it3_path_analyzer-nfs): reachable
+INFO: path analyzer result=SUCCEEDED source=10.0.0.39 destination=10.0.0.94:2049
+INFO: terraform destroy (test teardown) in /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_4/generated_tf/it3_path_analyzer
+[0m[1mdata.oci_identity_availability_domains.ads: Reading...[0m[0m
+[0m[1mdata.oci_identity_availability_domains.ads: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Refreshing state... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7supjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Refreshing state... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnowajpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mdata.oci_core_private_ip.mount_target: Reading...[0m[0m
+[0m[1mmodule.export.oci_file_storage_export.this: Refreshing state... [id=ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnovwepjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mdata.oci_core_private_ip.mount_target: Read complete after 0s [id=ocid1.privateip.oc1.eu-zurich-1.aaaaaaaagpa2xikb6uwtdk2ezzrcse5m57umv42r3s4ls5qhrnpj4mmgz7hq][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [31m-[0m destroy[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.export.oci_file_storage_export.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_export" "this" {
+      [31m-[0m[0m export_set_id                = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnowaipjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m file_system_id               = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7supjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m id                           = "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnovwepjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m is_idmap_groups_for_sys_auth = false [90m-> null[0m[0m
+      [31m-[0m[0m path                         = "/sprint4-it3-path-analyzer" [90m-> null[0m[0m
+      [31m-[0m[0m state                        = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m time_created                 = "2026-04-28 08:20:12 +0000 UTC" [90m-> null[0m[0m
+
+      [31m-[0m[0m export_options {
+          [31m-[0m[0m access                         = "READ_WRITE" [90m-> null[0m[0m
+          [31m-[0m[0m allowed_auth                   = [
+              [31m-[0m[0m "SYS",
+            ] [90m-> null[0m[0m
+          [31m-[0m[0m anonymous_gid                  = "65534" [90m-> null[0m[0m
+          [31m-[0m[0m anonymous_uid                  = "65534" [90m-> null[0m[0m
+          [31m-[0m[0m identity_squash                = "ROOT" [90m-> null[0m[0m
+          [31m-[0m[0m is_anonymous_access_allowed    = false [90m-> null[0m[0m
+          [31m-[0m[0m require_privileged_source_port = false [90m-> null[0m[0m
+          [31m-[0m[0m source                         = "10.0.0.0/24" [90m-> null[0m[0m
+        }
+    }
+
+[1m  # module.fs.oci_file_storage_file_system.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_file_system" "this" {
+      [31m-[0m[0m are_quota_rules_enabled  = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_domain      = "jJRq:EU-ZURICH-1-AD-1" [90m-> null[0m[0m
+      [31m-[0m[0m clone_attach_status      = "DETACHED" [90m-> null[0m[0m
+      [31m-[0m[0m clone_count              = 0 [90m-> null[0m[0m
+      [31m-[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+      [31m-[0m[0m defined_tags             = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com"
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-28T08:20:01.048Z"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m display_name             = "fss-sprint4-it3-path-analyzer" [90m-> null[0m[0m
+      [31m-[0m[0m freeform_tags            = {} [90m-> null[0m[0m
+      [31m-[0m[0m id                       = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7supjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m is_clone_parent          = false [90m-> null[0m[0m
+      [31m-[0m[0m is_hydrated              = true [90m-> null[0m[0m
+      [31m-[0m[0m is_targetable            = false [90m-> null[0m[0m
+      [31m-[0m[0m metered_bytes            = "0" [90m-> null[0m[0m
+      [31m-[0m[0m quota_enforcement_state  = "DISABLED" [90m-> null[0m[0m
+      [31m-[0m[0m replication_source_count = 0 [90m-> null[0m[0m
+      [31m-[0m[0m source_details           = [
+          [31m-[0m[0m {
+              [31m-[0m[0m parent_file_system_id = ""
+              [31m-[0m[0m source_snapshot_id    = ""
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m state                    = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m system_tags              = {} [90m-> null[0m[0m
+      [31m-[0m[0m time_created             = "2026-04-28 08:20:01.085 +0000 UTC" [90m-> null[0m[0m
+    }
+
+[1m  # module.mt.oci_file_storage_mount_target.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_mount_target" "this" {
+      [31m-[0m[0m availability_domain       = "jJRq:EU-ZURICH-1-AD-1" [90m-> null[0m[0m
+      [31m-[0m[0m compartment_id            = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+      [31m-[0m[0m defined_tags              = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com"
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-28T08:20:01.053Z"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m display_name              = "fss-sprint4-mt-it3-path-analyzer" [90m-> null[0m[0m
+      [31m-[0m[0m export_set_id             = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnowaipjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m freeform_tags             = {} [90m-> null[0m[0m
+      [31m-[0m[0m id                        = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnowajpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m idmap_type                = "NONE" [90m-> null[0m[0m
+      [31m-[0m[0m ip_address                = "10.0.0.94" [90m-> null[0m[0m
+      [31m-[0m[0m mount_target_ipv6ids      = [] [90m-> null[0m[0m
+      [31m-[0m[0m nsg_ids                   = [] [90m-> null[0m[0m
+      [31m-[0m[0m observed_throughput       = "1" [90m-> null[0m[0m
+      [31m-[0m[0m private_ip_ids            = [
+          [31m-[0m[0m "ocid1.privateip.oc1.eu-zurich-1.aaaaaaaagpa2xikb6uwtdk2ezzrcse5m57umv42r3s4ls5qhrnpj4mmgz7hq",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m requested_throughput      = "1" [90m-> null[0m[0m
+      [31m-[0m[0m reserved_storage_capacity = "0" [90m-> null[0m[0m
+      [31m-[0m[0m security_attributes       = {} [90m-> null[0m[0m
+      [31m-[0m[0m state                     = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m subnet_id                 = "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaavsji5425xckgkwuxlzsxat3jdxx6bbrhprwi3dsgf6gr5f2aaudq" [90m-> null[0m[0m
+      [31m-[0m[0m system_tags               = {} [90m-> null[0m[0m
+      [31m-[0m[0m time_created              = "2026-04-28 08:20:01.504 +0000 UTC" [90m-> null[0m[0m
+    }
+
+[1mPlan:[0m 0 to add, 0 to change, 3 to destroy.
+[0m
+Changes to Outputs:
+  [31m-[0m[0m export_ocid                  = "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnovwepjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+  [31m-[0m[0m export_path                  = "/sprint4-it3-path-analyzer" [90m-> null[0m[0m
+  [31m-[0m[0m filesystem_ocid              = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7supjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+  [31m-[0m[0m mount_target_export_set_ocid = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnowaipjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+  [31m-[0m[0m mount_target_ocid            = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnowajpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+  [31m-[0m[0m mount_target_private_ip      = "10.0.0.94" [90m-> null[0m[0m
+  [31m-[0m[0m mount_target_private_ip_ids  = [
+      [31m-[0m[0m "ocid1.privateip.oc1.eu-zurich-1.aaaaaaaagpa2xikb6uwtdk2ezzrcse5m57umv42r3s4ls5qhrnpj4mmgz7hq",
+    ] [90m-> null[0m[0m
+  [31m-[0m[0m mount_target_vnic_id         = "ocid1.vnic.oc1.eu-zurich-1.ab5heljrbqcmrlmncg3ejjwxjct7rufjufoa4jnl6ht4vsqplmikcfacr4sq" [90m-> null[0m[0m
+  [31m-[0m[0m source_cidr                  = "10.0.0.0/24" [90m-> null[0m[0m
+[0m[1mmodule.export.oci_file_storage_export.this: Destroying... [id=ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnovwepjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.export.oci_file_storage_export.this: Destruction complete after 4s[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destroying... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2c7supjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnowajpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.fs.oci_file_storage_file_system.this: Destruction complete after 1s[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Still destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaa...zgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, 10s elapsed][0m[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Still destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaa...zgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, 20s elapsed][0m[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Still destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaa...zgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, 30s elapsed][0m[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Still destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaa...zgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, 40s elapsed][0m[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Still destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaa...zgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, 50s elapsed][0m[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Still destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaa...zgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, 1m0s elapsed][0m[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Still destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaa...zgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, 1m10s elapsed][0m[0m
+[0m[1mmodule.mt.oci_file_storage_mount_target.this: Destruction complete after 1m14s[0m
+[0m[1m[32m
+Destroy complete! Resources: 3 destroyed.
+[0mPASS: IT-3
+=== PASS integration:test_fss_sprint4_tf.sh ===
+=== SUMMARY suite=integration pass=4 fail=0 ===

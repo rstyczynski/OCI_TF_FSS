@@ -2,17 +2,17 @@
 
 ## Implementation Overview
 
-**Sprint Status:** implemented
+**Sprint Status:** tested
 
 **Backlog Items:**
 
-- PBI-002. Terraform module for FSS mount target - implemented
-- PBI-003. Terraform module for FSS export - implemented
-- PBI-004. Network Path Analyzer test for FSS availability - implemented
+- PBI-002. Terraform module for FSS mount target - tested
+- PBI-003. Terraform module for FSS export - tested
+- PBI-004. Network Path Analyzer test for FSS availability - tested
 
 ## PBI-002. Terraform module for FSS mount target
 
-Status: implemented
+Status: tested
 
 ### Implementation Summary
 
@@ -27,7 +27,7 @@ Implemented `terraform/modules/fss_sprint4_mount_target/` as an explicit-input m
 
 ## PBI-003. Terraform module for FSS export
 
-Status: implemented
+Status: tested
 
 ### Implementation Summary
 
@@ -42,11 +42,11 @@ Implemented `terraform/modules/fss_sprint4_export/` as an explicit-input module 
 
 ## PBI-004. Network Path Analyzer test for FSS availability
 
-Status: implemented
+Status: tested
 
 ### Implementation Summary
 
-Filled the Sprint 4 integration test skeletons. Each test creates a self-contained Terraform root under `progress/sprint_4/generated_tf/`, provisions a Sprint 3 filesystem, Sprint 4 mount target, and Sprint 4 export, then tears down Terraform resources while preserving generated `main.tf` for operator review. The path analyzer test creates transient oci_scaffold state under `progress/sprint_4/scaffold/` and runs `oci_scaffold/resource/ensure-path_analyzer.sh` against the mount target private IP on TCP/2049.
+Filled the Sprint 4 integration test skeletons. Each test creates a self-contained Terraform root under `progress/sprint_4/generated_tf/`, provisions a Sprint 3 filesystem, Sprint 4 mount target, and Sprint 4 export, then tears down Terraform resources while preserving generated `main.tf` for operator review. The path analyzer test creates transient oci_scaffold state under `progress/sprint_4/scaffold/` and runs `oci_scaffold/resource/ensure-path_analyzer.sh` from the foundation compute VNIC to the mount target VNIC on TCP/2049.
 
 ### Verification Before Quality Gates
 
@@ -54,6 +54,12 @@ Filled the Sprint 4 integration test skeletons. Each test creates a self-contain
 - `bash -n tests/integration/test_fss_sprint4_tf.sh`
 - Generated Sprint 4 Terraform root validation: `terraform validate` returned success.
 
+### Quality Gate Verification
+
+- A3 new-code integration: `progress/sprint_4/test_run_A3_integration_20260428_081015.log`, summary `pass=3 fail=0`.
+- B3 full integration regression: `progress/sprint_4/test_run_B3_integration_20260428_081543.log`, summary `pass=4 fail=0`.
+- NPA proof: `progress/sprint_4/sprint_4_npa_report.md`.
+
 ### Known Issues
 
-- Quality gates are not run yet. Managed-mode approval is required before Phase 4.
+- None.

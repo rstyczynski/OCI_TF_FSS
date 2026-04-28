@@ -31,7 +31,7 @@ Backlog Items:
 
 ## Sprint 3 - simplify sprint 2 product
 
-Status: Progress
+Status: Done
 Mode: managed
 Test: integration
 Regression: integration
@@ -58,12 +58,12 @@ Regression: integration
 
 ## Sprint 4 - FSS mount target module
 
-Status: Planned
+Status: Done
 Mode: managed
 Test: integration
 Regression: integration
 
-This sprint combines mount target, export, and availability validation to enable end-to-end testing of the FSS setup.
+This sprint combines mount target, export, and availability validation to enable end-to-end testing of the FSS setup. Product is kept in ./terraform directory with clear sprint4 location.
 
 Backlog Items:
 
