@@ -103,13 +103,20 @@ _tf_teardown_workdir() {
 _write_stack_tf() {
   local workdir="$1"
   local test_id="$2"
-  local root_dir filesystem_module mount_target_module export_module
+  local root_dir default_generated_root filesystem_module mount_target_module export_module
   local compartment_ocid subnet_ocid subnet_cidr export_path display_suffix
 
   root_dir="$(_root_dir)"
-  filesystem_module="${root_dir}/terraform/modules/fss_sprint3"
-  mount_target_module="${root_dir}/terraform/modules/fss_sprint4_mount_target"
-  export_module="${root_dir}/terraform/modules/fss_sprint4_export"
+  default_generated_root="${root_dir}/progress/sprint_4/generated_tf"
+  if [[ "$workdir" == "${default_generated_root}/"* ]]; then
+    filesystem_module="../../../../terraform/modules/fss_sprint3"
+    mount_target_module="../../../../terraform/modules/fss_sprint4_mount_target"
+    export_module="../../../../terraform/modules/fss_sprint4_export"
+  else
+    filesystem_module="${root_dir}/terraform/modules/fss_sprint3"
+    mount_target_module="${root_dir}/terraform/modules/fss_sprint4_mount_target"
+    export_module="${root_dir}/terraform/modules/fss_sprint4_export"
+  fi
 
   compartment_ocid="$(_foundation_value '.compartment.ocid')"
   subnet_ocid="$(_foundation_value '.subnet.ocid')"
