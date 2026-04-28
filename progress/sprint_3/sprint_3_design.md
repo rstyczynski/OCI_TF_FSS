@@ -2,7 +2,7 @@
 
 ## PBI-001. Terraform module for FSS filesystem
 
-Status: Proposed
+Status: Approved
 
 ### Requirement Summary
 
@@ -25,7 +25,7 @@ Create a simplified Terraform module for an OCI FSS filesystem at `terraform/mod
 
 **Risk Assessment:**
 
-- Ignoring `defined_tags` means the module should not expose user-defined tags in Sprint 3; otherwise user-specified defined tag changes would also be ignored.
+- Lifecycle ignore must target only the Oracle-managed defined tag keys, so user-managed defined tags are not broadly masked.
 - Integration tests require OCI credentials and permissions for `/oci_tf_fss`.
 
 ### Design Overview
@@ -35,14 +35,14 @@ Create a simplified Terraform module for an OCI FSS filesystem at `terraform/mod
 - Add a new module directory `terraform/modules/fss_sprint3/`.
 - The module creates exactly one OCI FSS filesystem.
 - Required inputs are explicit and minimal: `compartment_ocid`, `availability_domain`, and `display_name`.
-- Optional input: `freeform_tags` only.
+- Optional inputs: `freeform_tags` and `defined_tags`, both default `{}`.
 - No random provider, no AD data source, no file-system lookup data source, no `name_prefix`.
 
 **Key Components:**
 
 1. `terraform/modules/fss_sprint3/versions.tf` - Terraform/provider constraints.
-2. `terraform/modules/fss_sprint3/variables.tf` - explicit required inputs and freeform tags.
-3. `terraform/modules/fss_sprint3/main.tf` - one `oci_file_storage_file_system` resource with lifecycle ignore for `defined_tags`.
+2. `terraform/modules/fss_sprint3/variables.tf` - explicit required inputs, freeform tags, and defined tags.
+3. `terraform/modules/fss_sprint3/main.tf` - one `oci_file_storage_file_system` resource with lifecycle ignore for Oracle-managed `defined_tags` keys.
 4. `terraform/modules/fss_sprint3/outputs.tf` - stable outputs.
 
 ### Technical Specification
@@ -57,6 +57,7 @@ Create a simplified Terraform module for an OCI FSS filesystem at `terraform/mod
 - `availability_domain` (required)
 - `display_name` (required)
 - `freeform_tags` (optional, default `{}`)
+- `defined_tags` (optional, default `{}`)
 
 **Outputs:**
 
@@ -70,11 +71,14 @@ Use:
 
 ```hcl
 lifecycle {
-  ignore_changes = [defined_tags]
+  ignore_changes = [
+    defined_tags["Oracle-Tags.CreatedBy"],
+    defined_tags["Oracle-Tags.CreatedOn"]
+  ]
 }
 ```
 
-The module will not set `defined_tags` in Sprint 3. This keeps Oracle-managed defined tags out of Terraform drift without dynamic data-source recognition.
+The module will not use dynamic tag recognition in Sprint 3. This keeps Oracle-managed defined tags out of Terraform drift without masking all `defined_tags` changes.
 
 ### Implementation Approach
 
@@ -101,7 +105,7 @@ None. This repo currently tests Terraform modules through integration scripts.
 |----------|-----------------------------|------------------|--------------|
 | Missing required inputs fail | Terraform only | `terraform validate` fails when required inputs are omitted | < 1 min |
 | Happy path apply | OCI credentials, Terraform, `/oci_tf_fss` permissions | Filesystem is created and outputs are present | 1-5 min |
-| Tag lifecycle idempotency | OCI credentials, Terraform, `/oci_tf_fss` permissions | Plan after apply has no drift from Oracle-managed defined tags | 1-5 min |
+| Tag lifecycle idempotency | OCI credentials, Terraform, `/oci_tf_fss` permissions | Updating a harmless mutable field after Oracle-managed tag propagation succeeds with `defined_tags = {}` and no defined-tag conflict | 1-5 min |
 
 #### Smoke Test Candidates
 
@@ -196,9 +200,12 @@ Sprint Test Configuration:
 #### IT-3: Tag lifecycle idempotency
 
 - **Preconditions:** Terraform installed; OCI creds configured; permissions for `/oci_tf_fss`.
-- **Steps:** apply module, wait for Oracle-managed tags, run `terraform plan -detailed-exitcode`.
-- **Expected Outcome:** plan exits 0 despite Oracle-managed defined tags.
-- **Verification:** detailed exit code is 0.
+- **Steps:**
+  1. Apply module with explicit inputs and `defined_tags = {}`.
+  2. Wait 10 seconds for Oracle-managed tags to appear.
+  3. Update a harmless mutable field (`display_name`; OCI FSS has no Terraform `description` argument) while keeping `defined_tags = {}`.
+- **Expected Outcome:** update plan/apply succeeds and does not try to remove `Oracle-Tags.CreatedBy` or `Oracle-Tags.CreatedOn`.
+- **Verification:** update apply exits 0; post-update plan exits 0.
 - **Target file:** `tests/integration/test_fss_sprint3_tf.sh`
 
 ### Traceability
