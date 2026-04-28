@@ -1,6 +1,6 @@
 # Sprint 5 - Design
 
-Status: Proposed
+Status: Approved
 
 ## Overview
 
@@ -18,7 +18,7 @@ The Sprint 5 filesystem module will be based on the Sprint 3 filesystem module. 
 The local OCI provider schema for `oci_file_storage_file_system` identifies these configurable fields:
 
 - Required by provider: `availability_domain`, `compartment_id`
-- Optional configurable attributes: `display_name`, `defined_tags`, `freeform_tags`, `kms_key_id`, `are_quota_rules_enabled`, `clone_attach_status`, `detach_clone_trigger`, `filesystem_snapshot_policy_id`, `id`, `is_lock_override`, `source_snapshot_id`
+- Optional configurable attributes: `display_name`, `defined_tags`, `freeform_tags`, `kms_key_id`, `are_quota_rules_enabled`, `clone_attach_status`, `detach_clone_trigger`, `filesystem_snapshot_policy_id`, `is_lock_override`, `source_snapshot_id`
 - Optional nested blocks: `locks`, `timeouts`
 - Computed-only attributes include clone counts, lifecycle state, metered bytes, quota enforcement state, replication metadata, source details, system tags, and timestamps.
 
@@ -26,7 +26,7 @@ Sprint 5 will not expose computed-only attributes as inputs. It may expose selec
 
 ## PBI-007. FSS module - expose kms_key_id argument at mandatory variables
 
-Status: Proposed
+Status: Accepted
 
 ### Requirement
 
@@ -54,7 +54,7 @@ Create `terraform/modules/fss_sprint5_filesystem` with mandatory variables:
 
 ## PBI-008. FSS module - expose rest of all available arguments at with default values
 
-Status: Proposed
+Status: Accepted
 
 ### Requirement
 
@@ -68,7 +68,6 @@ The Sprint 5 filesystem module will expose these optional variables:
 - `clone_attach_status`, default `null`
 - `detach_clone_trigger`, default `null`
 - `filesystem_snapshot_policy_id`, default `null`
-- `id`, default `null`
 - `is_lock_override`, default `null`
 - `source_snapshot_id`, default `null`
 - `freeform_tags`, default `{}`
@@ -83,7 +82,7 @@ Optional scalar attributes will be assigned directly. Terraform omits `null` opt
 
 The `locks` variable will be a list of objects with required `type` plus optional `message`, `related_resource_id`, and `time_created` fields. The `timeouts` variable will be an object with optional `create`, `update`, and `delete` strings.
 
-`id` and `clone_attach_status` are optional/computed in the provider schema. Sprint 5 will expose them as advanced pass-through variables with `null` defaults to satisfy the broad interface requirement, but integration tests will not set them because the normal create path does not require them.
+`clone_attach_status` is optional/computed in the provider schema. Sprint 5 will expose it as an advanced pass-through variable with a `null` default to satisfy the broad interface requirement, but integration tests will not set it because the normal create path does not require it. The provider schema also reports `id` as optional/computed, but Terraform rejects it in resource configuration; Sprint 5 treats `id` as computed-only and exposes it through outputs as `filesystem_ocid`.
 
 The module will keep the narrowly scoped lifecycle ignore for Oracle-managed defined tags:
 
@@ -104,7 +103,7 @@ lifecycle {
 
 ## PBI-009. Create higher level module that accepts map of arguments to support multiple FSS with all mount points and exports
 
-Status: Proposed
+Status: Accepted
 
 ### Requirement
 
