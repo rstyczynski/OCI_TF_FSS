@@ -89,10 +89,18 @@ output "filesystems" {
       mount_target_display_name    = module.mount_target[key].mount_target_display_name
       mount_target_export_set_ocid = module.mount_target[key].mount_target_export_set_ocid
       mount_target_private_ip_ids  = module.mount_target[key].mount_target_private_ip_ids
+      mount_target_ip_address      = module.mount_target[key].mount_target_ip_address
+      mount_target_fqdn            = module.mount_target[key].mount_target_fqdn
+      mount_target_mount_address   = module.mount_target[key].mount_target_mount_address
 
       export_ocid     = module.export[key].export_ocid
       export_set_ocid = module.export[key].export_set_ocid
       export_path     = module.export[key].export_path
+      nfs_mount_source = format(
+        "%s:%s",
+        module.mount_target[key].mount_target_mount_address,
+        module.export[key].export_path
+      )
       source_cidr     = local.effective_source_cidrs[key]
     }
   }
@@ -100,6 +108,8 @@ output "filesystems" {
 ```
 
 Keep the composite output additive. Do not remove existing atomic outputs unless a sprint explicitly includes a breaking interface change.
+
+For stacks that create mount targets and exports, expose a direct `nfs_mount_sources` atomic map as well. Consumers should not need to resolve OCI private IP OCIDs through the OCI CLI just to mount an export.
 
 ## OCI Oracle-managed tags
 

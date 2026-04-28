@@ -147,6 +147,62 @@ sprint1__secret_ocid_by_name() {
     --raw-output 2>/dev/null || true
 }
 
+sprint1__oci_resource_exists() {
+  local kind="$1"
+  local ocid="$2"
+
+  [[ -z "$ocid" || "$ocid" == "null" ]] && return 1
+
+  case "$kind" in
+    vcn)
+      oci network vcn get --vcn-id "$ocid" >/dev/null 2>&1
+      ;;
+    subnet)
+      oci network subnet get --subnet-id "$ocid" >/dev/null 2>&1
+      ;;
+    compute)
+      oci compute instance get --instance-id "$ocid" >/dev/null 2>&1
+      ;;
+    *)
+      echo "FAIL: unsupported OCI resource kind for existence check: ${kind}" >&2
+      return 1
+      ;;
+  esac
+}
+
+sprint1__delete_state_paths() {
+  local jq_filter="$1"
+  local tmp
+
+  [[ -f "$STATE_FILE" ]] || return 0
+  tmp="$(mktemp)"
+  jq "$jq_filter" "$STATE_FILE" >"$tmp"
+  mv "$tmp" "$STATE_FILE"
+}
+
+sprint1__clear_stale_foundation_network_state() {
+  local vcn_ocid subnet_ocid compute_ocid
+
+  vcn_ocid="$(_state_get '.vcn.ocid')"
+  if [[ -n "$vcn_ocid" && "$vcn_ocid" != "null" ]] && ! sprint1__oci_resource_exists vcn "$vcn_ocid"; then
+    echo "WARN: state VCN is missing or inaccessible; clearing dependent network/compute state so infra_setup can recreate it: ${vcn_ocid}" >&2
+    sprint1__delete_state_paths 'del(.vcn, .sl, .igw, .rt, .subnet, .compute)'
+    return 0
+  fi
+
+  subnet_ocid="$(_state_get '.subnet.ocid')"
+  if [[ -n "$subnet_ocid" && "$subnet_ocid" != "null" ]] && ! sprint1__oci_resource_exists subnet "$subnet_ocid"; then
+    echo "WARN: state subnet is missing or inaccessible; clearing subnet/compute state so infra_setup can recreate it: ${subnet_ocid}" >&2
+    sprint1__delete_state_paths 'del(.subnet, .compute)'
+  fi
+
+  compute_ocid="$(_state_get '.compute.ocid')"
+  if [[ -n "$compute_ocid" && "$compute_ocid" != "null" ]] && ! sprint1__oci_resource_exists compute "$compute_ocid"; then
+    echo "WARN: state compute instance is missing or inaccessible; clearing compute state so infra_setup can recreate it: ${compute_ocid}" >&2
+    sprint1__delete_state_paths 'del(.compute)'
+  fi
+}
+
 # Post: state contains .compute.* ; public key at ./state-${NAME_PREFIX}-key.pub .
 # When FOUNDATION_STORE_SSH_PRIVATE_KEY_IN_VAULT=true (default), private key is not kept under ./state-${NAME_PREFIX}-key.
 sprint1_foundation_infra_setup() {
@@ -273,7 +329,11 @@ sprint1_foundation_infra_setup() {
   fi
 
   _state_set '.inputs.compute_ssh_authorized_keys_file' "$ssh_pub"
+  _state_set '.inputs.vcn_enable_dns' 'true'
+  _state_set '.inputs.vcn_dns_label' "${SPRINT1_VCN_DNS_LABEL:-infra}"
+  _state_set '.inputs.subnet_dns_label' "${SPRINT1_SUBNET_DNS_LABEL:-infra}"
 
+  sprint1__clear_stale_foundation_network_state
   ensure-vcn.sh
   ensure-sl.sh
   ensure-igw.sh

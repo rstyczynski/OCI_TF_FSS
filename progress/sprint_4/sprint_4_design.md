@@ -6,14 +6,14 @@ Status: Approved
 
 ### Requirement Summary
 
-Create a Terraform module that provisions an OCI FSS mount target that downstream exports can attach to. The module must keep an explicit interface and expose identifiers required by export and availability validation.
+Create a Terraform module that provisions an OCI FSS mount target that downstream exports can attach to. The module must keep an explicit interface and expose identifiers required by export and availability validation, plus the practical NFS server address operators need when mounting an export.
 
 ### Feasibility Analysis
 
 **API Availability:**
 
 - OCI Terraform provider supports `oci_file_storage_mount_target`.
-- Oracle provider documentation states that mount target creation requires `availability_domain`, `compartment_id`, and `subnet_id`; it exports `id`, `export_set_id`, and `private_ip_ids`.
+- Oracle provider documentation states that mount target creation requires `availability_domain`, `compartment_id`, and `subnet_id`; it exports `id`, `export_set_id`, `private_ip_ids`, and `ip_address`.
 - Oracle provider documentation states a file system can be associated with a mount target only when both are in the same availability domain.
 
 **References:**
@@ -47,6 +47,9 @@ Create a Terraform module that provisions an OCI FSS mount target that downstrea
 - `mount_target_display_name`
 - `mount_target_export_set_ocid`
 - `mount_target_private_ip_ids`
+- `mount_target_ip_address`
+- `mount_target_fqdn`
+- `mount_target_mount_address`
 - `availability_domain`
 - `subnet_ocid`
 
@@ -66,6 +69,13 @@ Create a Terraform module that provisions an OCI FSS mount target that downstrea
 - `nsg_ids` (optional, default `null`)
 - `freeform_tags` (optional, default `{}`)
 - `defined_tags` (optional, default `{}`)
+
+**Operator mount endpoint:**
+
+- `mount_target_ip_address` is the private IPv4 address that can be used as the NFS server address.
+- `mount_target_fqdn` is derived when `hostname_label` is set and the subnet exposes a DNS domain name.
+- `mount_target_mount_address` is the preferred server value for operators: FQDN when available, otherwise the private IP address.
+- A complete NFS source is formed by combining the mount address with the export path: `<mount_target_mount_address>:<export_path>`.
 
 **Lifecycle handling:**
 
@@ -213,7 +223,7 @@ None. This repository currently validates Terraform infrastructure through integ
 
 | Scenario | Infrastructure Dependencies | Expected Outcome | Est. Runtime |
 |----------|-----------------------------|------------------|--------------|
-| Mount target happy path | OCI credentials, foundation subnet, Terraform | Mount target is created and outputs include OCID, export set OCID, private IP IDs | 2-5 min |
+| Mount target happy path | OCI credentials, foundation subnet, Terraform | Mount target is created and outputs include OCID, export set OCID, private IP IDs, and a usable mount address | 2-5 min |
 | Export happy path | OCI credentials, filesystem, mount target, Terraform | Export is created with expected path and source CIDR | 2-5 min |
 | Path Analyzer reachability | OCI credentials, oci_scaffold, foundation state, mount target private IP | NPA result is `SUCCEEDED` for TCP/2049 from foundation subnet to mount target IP | 1-3 min |
 
@@ -245,7 +255,7 @@ Sprint Test Configuration:
 
 - **Preconditions:** Terraform installed; OCI credentials configured; Sprint 1 foundation state exposes compartment, subnet, and subnet CIDR.
 - **Steps:** create a filesystem using the Sprint 3 module, create a mount target in the foundation subnet using the Sprint 4 mount target module.
-- **Expected Outcome:** apply succeeds and outputs include mount target OCID, export set OCID, and at least one private IP ID.
+- **Expected Outcome:** apply succeeds and outputs include mount target OCID, export set OCID, at least one private IP ID, private IP address, and preferred mount address.
 - **Verification:** parse Terraform outputs.
 - **Target file:** `tests/integration/test_fss_sprint4_tf.sh`
 

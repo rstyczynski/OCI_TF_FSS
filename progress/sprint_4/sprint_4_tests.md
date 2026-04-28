@@ -25,6 +25,11 @@ Summary:
 - `test_IT3_path_analyzer_reachability`: PASS
 - Suite summary: `pass=3 fail=0`
 
+Operator mount endpoint note:
+
+- Sprint 4 mount target module now exposes `mount_target_ip_address`, `mount_target_fqdn`, and `mount_target_mount_address`.
+- These outputs were added after the recorded Sprint 4 quality gates. The module syntax was revalidated, but the historical A3/B3 logs above predate the new output names.
+
 NPA proof from A3:
 
 - Result: `SUCCEEDED`

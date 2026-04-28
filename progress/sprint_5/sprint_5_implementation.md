@@ -34,6 +34,12 @@ Implemented `terraform/modules/fss_sprint5_stack/` as a composition module. It a
 
 Per-entry `mount_target_display_name` is optional and defaults to `fss-mt-${each.key}`. Per-entry `source_cidr` is optional when `default_source_cidr` is provided.
 
+The stack output contract includes operator mount information:
+
+- `mount_target_mount_addresses`: preferred NFS server address per key, using FQDN when available and private IP otherwise.
+- `nfs_mount_sources`: ready-to-use `<mount-address>:<export-path>` strings per key.
+- `filesystems`: composite per-key output containing the same mount-ready values with the rest of the filesystem, mount target, and export identifiers.
+
 ## Test Implementation
 
 Filled `tests/integration/test_fss_sprint5_tf.sh`:

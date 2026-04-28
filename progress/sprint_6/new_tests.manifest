@@ -1,0 +1,4 @@
+# Sprint 6 new tests - used by tests/run.sh --new-only
+
+integration:test_fss_sprint6_mount.sh:test_IT1_mount_fss_export
+integration:test_fss_sprint6_mount.sh:test_IT2_admin_operations

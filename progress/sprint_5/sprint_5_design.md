@@ -144,8 +144,12 @@ Outputs will be maps keyed by the same stable keys:
 - `filesystem_ocids`
 - `mount_target_ocids`
 - `mount_target_export_set_ocids`
+- `mount_target_mount_addresses`
 - `export_ocids`
 - `export_paths`
+- `nfs_mount_sources`
+
+The `nfs_mount_sources` output is the operator-facing mount string in `<mount-address>:<export-path>` form. `mount-address` uses the mount target FQDN when available and falls back to the private IP address.
 
 ### Acceptance
 

@@ -18,6 +18,12 @@ Status: tested
 
 Implemented `terraform/modules/fss_sprint4_mount_target/` as an explicit-input module for one OCI FSS mount target. It requires `compartment_ocid`, `availability_domain`, `subnet_ocid`, and `display_name`, supports optional tags, hostname label, and NSG IDs, and ignores only Oracle-managed `defined_tags` keys.
 
+The module now exposes operator mount endpoint outputs in addition to OCI identifiers:
+
+- `mount_target_ip_address`: primary private IP address assigned to the mount target.
+- `mount_target_fqdn`: DNS name when `hostname_label` and subnet DNS are available.
+- `mount_target_mount_address`: preferred NFS server address, using FQDN when available and falling back to private IP.
+
 ### Code Artifacts
 
 | Artifact | Purpose | Status |
@@ -53,6 +59,13 @@ Filled the Sprint 4 integration test skeletons. Each test creates a self-contain
 - `terraform fmt -recursive terraform/modules/fss_sprint4_mount_target terraform/modules/fss_sprint4_export`
 - `bash -n tests/integration/test_fss_sprint4_tf.sh`
 - Generated Sprint 4 Terraform root validation: `terraform validate` returned success.
+
+### Post-Sprint Documentation Update
+
+Operator-facing mount outputs were added after reviewing the Sprint 5 stack outputs. The update is documentation/API-surface oriented and was validated with:
+
+- `terraform validate` in `terraform/modules/fss_sprint4_mount_target`
+- `terraform validate` in `terraform/modules/fss_sprint5_stack`
 
 ### Quality Gate Verification
 

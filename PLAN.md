@@ -85,3 +85,17 @@ Backlog Items:
 * PBI-007. FSS module - expose kms_key_id argument at mandatory variables
 * PBI-008. FSS module - expose rest of all available arguments at with default values
 * PBI-009. Create higher level module that accepts map of arguments to support multiple FSS with all mount points and exports
+
+## Sprint 6 - FSS mount and administration
+
+Status: Progress
+Mode: YOLO
+Test: integration
+Regression: integration
+
+Automate mounting FSS exports on compute instances and validate common administrator operations on mounted filesystems.
+
+Backlog Items:
+
+* PBI-010. Mount FSS file system(s) on a compute instance
+* PBI-011. Perform administrator tasks for FSS mount(s)
