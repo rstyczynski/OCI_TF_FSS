@@ -114,6 +114,142 @@ _module_source() {
   fi
 }
 
+_oci_tenancy_ocid() {
+  oci os ns get-metadata \
+    --query 'data."default-s3-compartment-id"' \
+    --raw-output
+}
+
+_fss_service_principal() {
+  local tenancy_ocid="$1"
+  local realm realm_number
+
+  realm="$(awk -F. '{print $3}' <<<"$tenancy_ocid")"
+  realm_number="${realm#oc}"
+  if [[ "$realm" =~ ^oc[0-9]+$ && "$realm_number" -le 10 ]]; then
+    echo "FssOc${realm_number}Prod"
+  else
+    echo "fssocprod"
+  fi
+}
+
+_state_set_sprint5_fss_kms_access() {
+  local state_file="$1"
+  local dynamic_group_ocid="$2"
+  local dynamic_group_name="$3"
+  local service_principal="$4"
+  local tmp
+
+  tmp="$(mktemp)"
+  jq \
+    --arg dynamic_group_ocid "$dynamic_group_ocid" \
+    --arg dynamic_group_name "$dynamic_group_name" \
+    --arg service_principal "$service_principal" \
+    '.fss_kms_access = {
+      dynamic_group_ocid: $dynamic_group_ocid,
+      dynamic_group_name: $dynamic_group_name,
+      policy_ocid: .iam_policy.ocid,
+      policy_name: .iam_policy.name,
+      service_principal: $service_principal
+    }' "$state_file" >"$tmp"
+  mv "$tmp" "$state_file"
+}
+
+_state_set_sprint5_fss_policy_inputs() {
+  local state_file="$1"
+  local compartment_ocid="$2"
+  local dynamic_group_name="$3"
+  local policy_name="$4"
+  local service_principal="$5"
+  local tmp
+
+  tmp="$(mktemp)"
+  jq \
+    --arg compartment_ocid "$compartment_ocid" \
+    --arg dynamic_group_name "$dynamic_group_name" \
+    --arg policy_name "$policy_name" \
+    --arg service_principal "$service_principal" \
+    '.inputs.iam_policy_name = $policy_name
+      | .inputs.iam_policy_description = "Sprint 5 FSS access to customer-managed KMS keys"
+      | .inputs.iam_policy_statements = [
+          "allow dynamic-group \($dynamic_group_name) to use keys in compartment id \($compartment_ocid)",
+          "allow service \($service_principal) to use keys in compartment id \($compartment_ocid)"
+        ]' "$state_file" >"$tmp"
+  mv "$tmp" "$state_file"
+}
+
+_ensure_sprint5_fss_kms_access() {
+  local compartment_ocid="$1"
+  local state_file="$2"
+  local name_prefix="$3"
+  local scaffold_dir="$4"
+  local tenancy_ocid dynamic_group_name dynamic_group_rule dynamic_group_ocid
+  local current_rule policy_name service_principal etag changed
+
+  tenancy_ocid="$(_oci_tenancy_ocid)"
+  dynamic_group_name="${SPRINT5_FSS_DYNAMIC_GROUP_NAME:-${name_prefix}-filesystems-dg}"
+  policy_name="${SPRINT5_FSS_KMS_POLICY_NAME:-${name_prefix}-fss-kms-policy}"
+  dynamic_group_rule="ALL { resource.type='filesystem', resource.compartment.id = '${compartment_ocid}' }"
+  service_principal="$(_fss_service_principal "$tenancy_ocid")"
+  changed=false
+
+  dynamic_group_ocid="$(oci iam dynamic-group list \
+    --compartment-id "$tenancy_ocid" \
+    --all \
+    --query "data[?name==\`${dynamic_group_name}\` && \"lifecycle-state\"==\`ACTIVE\`].id | [0]" \
+    --raw-output 2>/dev/null)" || true
+
+  if [[ -z "$dynamic_group_ocid" || "$dynamic_group_ocid" == "null" ]]; then
+    dynamic_group_ocid="$(oci iam dynamic-group create \
+      --compartment-id "$tenancy_ocid" \
+      --name "$dynamic_group_name" \
+      --description "Sprint 5 FSS filesystems using customer-managed KMS keys" \
+      --matching-rule "$dynamic_group_rule" \
+      --wait-for-state ACTIVE \
+      --query 'data.id' \
+      --raw-output)"
+    echo "INFO: created Sprint 5 FSS dynamic group: ${dynamic_group_ocid}" >&2
+    changed=true
+  else
+    current_rule="$(oci iam dynamic-group get \
+      --dynamic-group-id "$dynamic_group_ocid" \
+      --query 'data."matching-rule"' \
+      --raw-output)"
+    if [[ "$current_rule" != "$dynamic_group_rule" ]]; then
+      etag="$(oci iam dynamic-group get \
+        --dynamic-group-id "$dynamic_group_ocid" \
+        --query 'etag' \
+        --raw-output)"
+      oci iam dynamic-group update \
+        --dynamic-group-id "$dynamic_group_ocid" \
+        --if-match "$etag" \
+        --matching-rule "$dynamic_group_rule" \
+        --force >/dev/null
+      echo "INFO: updated Sprint 5 FSS dynamic group: ${dynamic_group_ocid}" >&2
+      changed=true
+    else
+      echo "INFO: existing Sprint 5 FSS dynamic group: ${dynamic_group_ocid}" >&2
+    fi
+  fi
+
+  _state_set_sprint5_fss_policy_inputs \
+    "$state_file" \
+    "$compartment_ocid" \
+    "$dynamic_group_name" \
+    "$policy_name" \
+    "$service_principal"
+
+  (cd "$(dirname "$state_file")" && NAME_PREFIX="$name_prefix" "${scaffold_dir}/resource/ensure-iam_policy.sh" >&2)
+
+  _state_set_sprint5_fss_kms_access \
+    "$state_file" \
+    "$dynamic_group_ocid" \
+    "$dynamic_group_name" \
+    "$service_principal"
+
+  sleep "${SPRINT5_IAM_PROPAGATION_WAIT_SECONDS:-20}"
+}
+
 _ensure_sprint5_mek() {
   local root_dir scaffold_dir foundation_state mek_prefix mek_dir mek_state
   local compartment_ocid vault_mgmt_endpoint key_ocid
@@ -156,6 +292,7 @@ _ensure_sprint5_mek() {
     }' >"$mek_state"
 
   (cd "$mek_dir" && NAME_PREFIX="$mek_prefix" "${scaffold_dir}/resource/ensure-key.sh" >&2)
+  _ensure_sprint5_fss_kms_access "$compartment_ocid" "$mek_state" "$mek_prefix" "$scaffold_dir"
   key_ocid="$(jq -r '.key.ocid // empty' "$mek_state")"
   if [[ -z "$key_ocid" || "$key_ocid" == "null" ]]; then
     echo "FAIL: Sprint 5 MEK state missing .key.ocid: ${mek_state}" >&2

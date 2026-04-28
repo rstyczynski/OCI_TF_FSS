@@ -73,7 +73,7 @@ Backlog Items:
 
 ## Sprint 5 - FSS filesystem extended configuration
 
-Status: Progress
+Status: Done
 Mode: managed
 Test: integration
 Regression: integration

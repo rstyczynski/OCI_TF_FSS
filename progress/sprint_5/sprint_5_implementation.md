@@ -16,6 +16,8 @@ Status: implemented
 
 Implemented `terraform/modules/fss_sprint5_filesystem/` with mandatory `kms_key_id`. The Sprint 5 integration harness includes `_ensure_sprint5_mek`, which creates or ensures an FSS MEK in the Sprint 1 Vault and stores recoverable runtime state under `progress/sprint_5/scaffold/fss-mek/`.
 
+After the first A3 gate attempt, the harness was extended to ensure the OCI File Storage customer-managed-key IAM prerequisites. It creates or updates a filesystem dynamic group, writes explicit KMS-use statements into the Sprint 5 scaffold state, and calls `oci_scaffold/resource/ensure-iam_policy.sh` to create or update the policy.
+
 ## PBI-008. FSS module - expose rest of all available arguments at with default values
 
 Status: implemented
@@ -39,6 +41,7 @@ Filled `tests/integration/test_fss_sprint5_tf.sh`:
 - IT-1 verifies missing `kms_key_id` fails Terraform validation.
 - IT-2 provisions one filesystem with the Sprint 5 MEK and an optional tag argument.
 - IT-3 provisions two full FSS stack entries from one map input.
+- The shared setup creates or ensures the Sprint 5 MEK with `oci_scaffold/resource/ensure-key.sh` and the required FSS KMS-use policy with `oci_scaffold/resource/ensure-iam_policy.sh`.
 
 Generated Terraform roots are written under `progress/sprint_5/generated_tf/` and `main.tf` files are preserved for operator review.
 
@@ -55,4 +58,5 @@ Evidence log:
 
 ## Known Issues
 
-- Quality gates are not run yet. Managed-mode approval is required before Phase 4.
+- A3 quality gate attempt `progress/sprint_5/test_run_A3_integration_20260428_094845.log` failed before the FSS KMS-use policy was embedded through `ensure-iam_policy.sh`; see `BUG-002`.
+- The issue was fixed and verified by A3 retry `progress/sprint_5/test_run_A3_integration_20260428_095544.log` and B3 regression `progress/sprint_5/test_run_B3_integration_20260428_095918.log`.

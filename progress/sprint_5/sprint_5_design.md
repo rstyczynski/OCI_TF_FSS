@@ -36,6 +36,8 @@ The Sprint 5 filesystem module must require a `kms_key_id` input and pass it to 
 
 Sprint 5 integration must create or ensure a dedicated FSS master encryption key (MEK) in the Sprint 1 foundation Vault before applying filesystems. The MEK state will live under `progress/sprint_5/scaffold/fss-mek/` so it is recoverable and follows `RUP_patch.md` P7. The test setup will reuse the Sprint 1 Vault OCID and management endpoint, then run the oci_scaffold KMS key ensure flow with a Sprint 5-specific prefix such as `sprint5-fss-mek`.
 
+OCI File Storage customer-managed key usage also requires IAM access for File Storage resource principals. The Sprint 5 integration harness will ensure a dynamic group for filesystems in the Sprint 1 compartment and will call `oci_scaffold/resource/ensure-iam_policy.sh` with explicit statements that grant that dynamic group and the realm-specific File Storage service principal access to use keys in the key compartment.
+
 Create `terraform/modules/fss_sprint5_filesystem` with mandatory variables:
 
 - `compartment_ocid`
@@ -49,6 +51,7 @@ Create `terraform/modules/fss_sprint5_filesystem` with mandatory variables:
 
 - Missing `kms_key_id` fails Terraform validation.
 - Sprint 5 creates or ensures an FSS MEK in the Sprint 1 foundation Vault and records its OCID under Sprint 5 scaffold state.
+- Sprint 5 ensures the IAM dynamic group and KMS-use policy required by OCI File Storage customer-managed keys.
 - The Sprint 5 MEK OCID allows filesystem creation.
 - Module output includes the filesystem OCID and the effective KMS key OCID.
 
