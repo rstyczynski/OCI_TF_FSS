@@ -1,3 +1,7 @@
+#
+# Mandatory variables
+#
+
 variable "compartment_ocid" {
   description = "Target OCI compartment OCID (expected: /oci_tf_fss)."
   type        = string
@@ -12,6 +16,10 @@ variable "display_name" {
   description = "Filesystem display name."
   type        = string
 }
+
+#
+# Optional variables
+#
 
 variable "freeform_tags" {
   description = "Freeform tags to apply to the filesystem."

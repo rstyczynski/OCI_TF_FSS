@@ -1,3 +1,7 @@
+#
+# Mandatory variables
+#
+
 variable "compartment_ocid" {
   description = "Target OCI compartment OCID."
   type        = string
@@ -17,6 +21,10 @@ variable "display_name" {
   description = "Mount target display name."
   type        = string
 }
+
+#
+# Optional variables
+#
 
 variable "hostname_label" {
   description = "Optional hostname label for the mount target private IP."

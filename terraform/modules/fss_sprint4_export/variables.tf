@@ -1,3 +1,7 @@
+#
+# Mandatory variables
+#
+
 variable "export_set_ocid" {
   description = "Export set OCID associated with the mount target."
   type        = string
@@ -17,6 +21,10 @@ variable "source_cidr" {
   description = "Client IPv4 CIDR allowed by the export option."
   type        = string
 }
+
+#
+# Optional variables
+#
 
 variable "access" {
   description = "Access mode for clients matching source_cidr."
