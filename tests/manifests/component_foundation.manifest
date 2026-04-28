@@ -1,3 +1,2 @@
 integration:test_foundation.sh
-integration:test_fss_filesystem_tf.sh
-
+integration:test_fss_sprint2_tf.sh

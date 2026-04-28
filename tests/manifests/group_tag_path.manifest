@@ -1,2 +1,2 @@
 # tag_path — Oracle tag merge / idempotency (waits for Oracle-Tags.* propagation)
-integration:test_fss_filesystem_tf.sh:test_IT5_defaults_path_tags_create_then_update_same_tags
+integration:test_fss_sprint2_tf.sh:test_IT5_defaults_path_tags_create_then_update_same_tags

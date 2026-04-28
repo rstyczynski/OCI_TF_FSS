@@ -34,12 +34,12 @@ Provide a Terraform module that provisions an OCI File Storage Service (FSS) fil
 
 **Key Components:**
 
-1. `terraform/modules/fss_filesystem/` — module code
+1. `terraform/modules/fss_sprint2/` — module code
 2. A minimal example root module for integration testing (kept small; used by tests)
 
 ### Technical Specification
 
-**Terraform module design (`terraform/modules/fss_filesystem/`)**
+**Terraform module design (`terraform/modules/fss_sprint2/`)**
 
 - **Resources:**
   - One OCI FSS filesystem resource.
@@ -73,11 +73,11 @@ Provide a Terraform module that provisions an OCI File Storage Service (FSS) fil
 
 - Fail fast on missing required variables and provider auth errors (Terraform defaults).
 
-**Integration test root config design (used by `tests/integration/test_fss_filesystem_tf.sh`):**
+**Integration test root config design (used by `tests/integration/test_fss_sprint2_tf.sh`):**
 
 - A minimal Terraform root configuration that:
   - configures the provider (via environment / standard Terraform provider auth)
-  - calls `terraform/modules/fss_filesystem/`
+  - calls `terraform/modules/fss_sprint2/`
   - outputs `filesystem_ocid`
 
 **Integration test required inputs (test runner environment):**
@@ -230,7 +230,7 @@ Sprint Test Configuration:
 - **Steps:** run `terraform validate` with `compartment_ocid` omitted.
 - **Expected Outcome:** validation fails.
 - **Verification:** validate returns non-zero.
-- **Target file:** `tests/integration/test_fss_filesystem_tf.sh`
+- **Target file:** `tests/integration/test_fss_sprint2_tf.sh`
 
 #### IT-2: Defaults path — missing name inputs uses defaults
 
@@ -238,7 +238,7 @@ Sprint Test Configuration:
 - **Steps:** apply module with `display_name` and `name_prefix` omitted.
 - **Expected Outcome:** apply succeeds and `filesystem_display_name` output is non-empty.
 - **Verification:** parse outputs and assert display name and OCID are present.
-- **Target file:** `tests/integration/test_fss_filesystem_tf.sh`
+- **Target file:** `tests/integration/test_fss_sprint2_tf.sh`
 
 #### IT-3: Defaults path — AD behavior sequence (apply, no-change, plan replace)
 
@@ -249,7 +249,7 @@ Sprint Test Configuration:
   - run plan with a different AD expecting destroy+create replacement, without apply
 - **Expected Outcome:** second run has no changes; override run produces a replace plan.
 - **Verification:** use `terraform plan -detailed-exitcode` and parse `terraform show -no-color` output.
-- **Target file:** `tests/integration/test_fss_filesystem_tf.sh`
+- **Target file:** `tests/integration/test_fss_sprint2_tf.sh`
 
 #### IT-4: Happy path — terraform apply creates filesystem and returns OCID
 
@@ -257,7 +257,7 @@ Sprint Test Configuration:
 - **Steps:** run `terraform init` and `terraform apply` against a minimal root config using the module.
 - **Expected Outcome:** apply succeeds and filesystem OCID output is non-empty.
 - **Verification:** parse outputs and assert filesystem OCID is present.
-- **Target file:** `tests/integration/test_fss_filesystem_tf.sh`
+- **Target file:** `tests/integration/test_fss_sprint2_tf.sh`
 
 ### Traceability
 
@@ -265,4 +265,3 @@ Sprint Test Configuration:
 |--------------|-------|------------|-------------------|
 | PBI-001 | — | — | IT-1, IT-2, IT-3, IT-4 |
 | PBI-006 | — | — | (process) |
-

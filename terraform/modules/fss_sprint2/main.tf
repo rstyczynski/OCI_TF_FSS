@@ -1,8 +1,8 @@
 
 
 locals {
-  display_name          = var.display_name != null ? var.display_name : "${var.name_prefix}-filesystem"
-  availability_domain   = coalesce(var.availability_domain, local.random_ad_name)
+  display_name        = var.display_name != null ? var.display_name : "${var.name_prefix}-filesystem"
+  availability_domain = coalesce(var.availability_domain, local.random_ad_name)
 }
 
 resource "oci_file_storage_file_system" "this" {

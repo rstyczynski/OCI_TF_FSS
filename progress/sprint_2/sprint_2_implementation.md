@@ -15,14 +15,14 @@ Status: implemented
 
 ### Implementation Summary
 
-Implemented the initial Terraform module `terraform/modules/fss_filesystem/` that creates a single OCI FSS filesystem with a minimal interface and stable outputs.
+Implemented the initial Terraform module `terraform/modules/fss_sprint2/` that creates a single OCI FSS filesystem with a minimal interface and stable outputs.
 
 ### Code Artifacts
 
 | Artifact | Purpose | Status | Tested |
 |----------|---------|--------|--------|
-| `terraform/modules/fss_filesystem/` | Terraform module for OCI FSS filesystem | Complete | Yes (`sprint_2_tests.md`) |
-| `tests/integration/test_fss_filesystem_tf.sh` | Integration test that applies module and asserts OCID output | Complete | Yes (`sprint_2_tests.md`) |
+| `terraform/modules/fss_sprint2/` | Terraform module for OCI FSS filesystem | Complete | Yes (`sprint_2_tests.md`) |
+| `tests/integration/test_fss_sprint2_tf.sh` | Integration test that applies module and asserts OCID output | Complete | Yes (`sprint_2_tests.md`) |
 
 ### User Documentation
 
@@ -38,7 +38,7 @@ Module usage (example):
 
 ```hcl
 module "fs" {
-  source           = "./terraform/modules/fss_filesystem"
+  source           = "./terraform/modules/fss_sprint2"
   compartment_ocid = var.compartment_ocid
   name_prefix      = "myapp"
 }

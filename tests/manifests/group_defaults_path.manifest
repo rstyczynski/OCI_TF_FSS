@@ -1,4 +1,3 @@
 # defaults_path group (tag scenario lives in group_tag_path for faster targeted runs)
-integration:test_fss_filesystem_tf.sh:test_IT2_defaults_when_name_missing
-integration:test_fss_filesystem_tf.sh:test_IT3_defaults_path_ad_behavior_sequence_plan_replace
-
+integration:test_fss_sprint2_tf.sh:test_IT2_defaults_when_name_missing
+integration:test_fss_sprint2_tf.sh:test_IT3_defaults_path_ad_behavior_sequence_plan_replace
