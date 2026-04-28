@@ -60,6 +60,6 @@
 ### Overall sprint assessment
 
 - **Feasibility:** High. OCI Terraform provider supports mount target and export resources. `oci_scaffold/resource/ensure-path_analyzer.sh` already wraps `oci vn-monitoring path-analysis get-path-analysis-adhoc`.
-- **Estimated complexity:** Moderate. The main risk is wiring Terraform-created mount target IP output into the shell-based path analyzer while keeping Terraform state under `progress/sprint_4/tf_state/` and oci_scaffold state under `progress/sprint_1/scaffold/`.
+- **Estimated complexity:** Moderate. The main risk is wiring Terraform-created mount target IP output into the shell-based path analyzer while keeping generated Terraform test roots visible under `progress/sprint_4/generated_tf/` and oci_scaffold state under `progress/sprint_1/scaffold/`.
 - **Prerequisites met:** Sprint 1 foundation and Sprint 3 filesystem module exist.
 - **Readiness for design:** Confirmed ready.

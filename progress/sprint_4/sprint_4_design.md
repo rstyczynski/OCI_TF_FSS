@@ -171,7 +171,8 @@ Add an integration validation that uses OCI Network Path Analyzer through the ex
 **Technical Constraints:**
 
 - Use `oci_scaffold` for NPA because Terraform support is not available in this sprint.
-- Keep Terraform state under `progress/sprint_4/tf_state/`.
+- Generate executable Terraform root modules under `progress/sprint_4/generated_tf/` so operators can review the generated `main.tf` files after test execution.
+- Keep only runtime Terraform byproducts ignored: `.terraform/`, `terraform.tfstate*`, binary plans, generated lock files, and `tf_test_artifacts/`.
 - Reuse Sprint 1 foundation scaffold state from `progress/sprint_1/scaffold/infra/state-infra.json`.
 - The NPA source is the foundation subnet endpoint used by `ensure-path_analyzer.sh`; the destination is the mount target private IP resolved after Terraform apply.
 
@@ -188,12 +189,13 @@ Add an integration validation that uses OCI Network Path Analyzer through the ex
 2. Integration test creates a mount target with `terraform/modules/fss_sprint4_mount_target` in the foundation subnet and same AD.
 3. Integration test creates an export with `terraform/modules/fss_sprint4_export`.
 4. Integration test resolves the mount target private IP from `private_ip_ids`.
-5. Integration test prepares a transient Sprint 4 NPA workdir by copying the needed foundation state fields and setting:
+5. Integration test keeps the generated Terraform root at `progress/sprint_4/generated_tf/<test_id>/main.tf` for operator review.
+6. Integration test prepares a transient Sprint 4 NPA workdir by copying the needed foundation state fields and setting:
    - `.inputs.path_analyzer_dst_ip` to the mount target private IP
    - `.inputs.path_analyzer_protocol` to `tcp`
    - `.inputs.path_analyzer_port` to `2049`
    - `.inputs.path_analyzer_label` to a Sprint 4 label
-6. Integration test runs `oci_scaffold/resource/ensure-path_analyzer.sh` and asserts the latest result is `SUCCEEDED`.
+7. Integration test runs `oci_scaffold/resource/ensure-path_analyzer.sh` and asserts the latest result is `SUCCEEDED`.
 
 ### Testing Strategy
 
@@ -224,6 +226,7 @@ None. Sprint `Test:` is integration only.
 - New-code integration gate passes all Sprint 4 tests.
 - Full integration regression gate passes.
 - Sprint 4 docs include operator usage for mount target/export and NPA validation.
+- Generated Terraform test roots remain visible under `progress/sprint_4/generated_tf/` for operator review.
 
 ### Open Design Questions
 

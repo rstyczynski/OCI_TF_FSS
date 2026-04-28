@@ -2,3 +2,8 @@ progress/**/tf_state/
 progress/**/scaffold/
 progress/.DS_Store
 **/.terraform/
+progress/**/generated_tf/**/*.tfstate
+progress/**/generated_tf/**/*.tfstate.*
+progress/**/generated_tf/**/*.tfplan
+progress/**/generated_tf/**/.terraform.lock.hcl
+progress/**/generated_tf/**/tf_test_artifacts/

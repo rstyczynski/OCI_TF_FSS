@@ -46,7 +46,7 @@ Status: implemented
 
 ### Implementation Summary
 
-Filled the Sprint 4 integration test skeletons. Each test creates a self-contained Terraform root under `progress/sprint_4/tf_state/`, provisions a Sprint 3 filesystem, Sprint 4 mount target, and Sprint 4 export, then tears down Terraform resources. The path analyzer test creates transient oci_scaffold state under `progress/sprint_4/scaffold/` and runs `oci_scaffold/resource/ensure-path_analyzer.sh` against the mount target private IP on TCP/2049.
+Filled the Sprint 4 integration test skeletons. Each test creates a self-contained Terraform root under `progress/sprint_4/generated_tf/`, provisions a Sprint 3 filesystem, Sprint 4 mount target, and Sprint 4 export, then tears down Terraform resources while preserving generated `main.tf` for operator review. The path analyzer test creates transient oci_scaffold state under `progress/sprint_4/scaffold/` and runs `oci_scaffold/resource/ensure-path_analyzer.sh` against the mount target private IP on TCP/2049.
 
 ### Verification Before Quality Gates
 

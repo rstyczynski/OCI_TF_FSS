@@ -54,11 +54,14 @@ _tf_workdir() {
   local root_dir base dir
 
   root_dir="$(_root_dir)"
-  base="${TF_STATE_ROOT:-${root_dir}/progress/sprint_4/tf_state}"
+  base="${TF_GENERATED_ROOT:-${root_dir}/progress/sprint_4/generated_tf}"
   dir="${base}/${test_id}"
 
   if [[ "${TF_RESET_TF_STATE:-true}" == "true" ]]; then
-    rm -rf "$dir"
+    find "$dir" -mindepth 1 \
+      ! -name main.tf \
+      ! -name README.md \
+      -exec rm -rf {} + 2>/dev/null || true
   fi
   mkdir -p "$dir"
   echo "$dir"
