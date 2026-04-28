@@ -1,0 +1,14 @@
+=== RUN integration:test_fss_sprint5_tf.sh:test_IT1_missing_kms_key_fails ===
+=== IT-1: Missing mandatory KMS key fails ===
+FAIL: TODO implement Sprint 5 IT-1 after design approval
+=== FAIL integration:test_fss_sprint5_tf.sh:test_IT1_missing_kms_key_fails ===
+=== RUN integration:test_fss_sprint5_tf.sh:test_IT2_filesystem_with_kms_and_optional_argument ===
+=== IT-2: Filesystem applies with mandatory KMS key and optional argument ===
+FAIL: TODO implement Sprint 5 IT-2 after design approval
+=== FAIL integration:test_fss_sprint5_tf.sh:test_IT2_filesystem_with_kms_and_optional_argument ===
+=== RUN integration:test_fss_sprint5_tf.sh:test_IT3_stack_creates_multiple_entries ===
+=== IT-3: Stack module creates multiple FSS entries from map input ===
+FAIL: TODO implement Sprint 5 IT-3 after design approval
+=== FAIL integration:test_fss_sprint5_tf.sh:test_IT3_stack_creates_multiple_entries ===
+=== SUMMARY suite=integration pass=0 fail=3 ===
+Skeleton red run exit: 1

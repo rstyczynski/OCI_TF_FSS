@@ -1,0 +1,5 @@
+# Sprint 5 new tests - used by tests/run.sh --new-only
+
+integration:test_fss_sprint5_tf.sh:test_IT1_missing_kms_key_fails
+integration:test_fss_sprint5_tf.sh:test_IT2_filesystem_with_kms_and_optional_argument
+integration:test_fss_sprint5_tf.sh:test_IT3_stack_creates_multiple_entries

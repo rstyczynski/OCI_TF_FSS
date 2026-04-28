@@ -70,3 +70,18 @@ Backlog Items:
 * PBI-002. Terraform module for FSS mount target
 * PBI-003. Terraform module for FSS export
 * PBI-004. Network Path Analyzer test for FSS availability
+
+## Sprint 5 - FSS filesystem extended configuration
+
+Status: Progress
+Mode: managed
+Test: integration
+Regression: integration
+
+Extend the filesystem module interface and add a higher-level composition module for multiple FSS definitions. Keep the product under `terraform/modules/` with a clear Sprint 5 module path and preserve the Sprint 3 and Sprint 4 products as compatibility baselines.
+
+Backlog Items:
+
+* PBI-007. FSS module - expose kms_key_id argument at mandatory variables
+* PBI-008. FSS module - expose rest of all available arguments at with default values
+* PBI-009. Create higher level module that accepts map of arguments to support multiple FSS with all mount points and exports
