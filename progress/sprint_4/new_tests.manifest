@@ -1,0 +1,5 @@
+# Sprint 4 new tests - used by tests/run.sh --new-only
+
+integration:test_fss_sprint4_tf.sh:test_IT1_mount_target_happy_path
+integration:test_fss_sprint4_tf.sh:test_IT2_export_happy_path
+integration:test_fss_sprint4_tf.sh:test_IT3_path_analyzer_reachability
