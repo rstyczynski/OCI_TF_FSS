@@ -1,15 +1,13 @@
-# FSS v2 Stack Module
+# FSS Stack Module
 
 ## Purpose
 
-`fss_v2_stack` creates OCI File Storage Service topologies from two maps:
+This module creates OCI File Storage Service topologies from two maps:
 
 - `mount_targets`: mount targets keyed by stable operator names
 - `filesystems`: filesystems keyed by stable operator names, each with nested exports
 
-Exports reference mount targets by key. v2 keeps the current v1 stack shape and reduces mandatory operator input by deriving the Availability Domain, allowing Oracle-managed filesystem encryption, and defaulting export source CIDR.
-
-Use this module for new operator-facing stacks. Keep `fss_v1_stack` for consumers that need the v1 contract.
+Exports reference mount targets by key. The module reduces mandatory operator input by deriving the Availability Domain, allowing Oracle-managed filesystem encryption, and defaulting export source CIDR.
 
 ## Mandatory Inputs
 
@@ -22,7 +20,7 @@ Use this module for new operator-facing stacks. Keep `fss_v1_stack` for consumer
 
 | Name | Default | Description |
 |---|---:|---|
-| `availability_domain` | `null` | Explicit AD override. When omitted, v2 uses the subnet AD when available, otherwise selects from sorted AD names using `random_shuffle`. |
+| `availability_domain` | `null` | Explicit AD override. When omitted, the module uses the subnet AD when available, otherwise selects from sorted AD names using `random_shuffle`. |
 | `kms_key_id` | `null` | Customer-managed KMS key OCID. When omitted, OCI File Storage uses Oracle-managed encryption. |
 | `default_source_cidr` | `0.0.0.0/0` | Default client IPv4 CIDR for exports that omit `source`. FSS is private VCN reachable, not public-internet reachable. |
 | `mount_targets` | `{}` | Map of mount targets to create. |
@@ -103,7 +101,7 @@ Each export entry may set:
 
 ```hcl
 module "fss" {
-  source           = "../../../terraform/modules/fss_v2_stack"
+  source           = "<module-source>"
   compartment_ocid = var.compartment_ocid
   subnet_ocid      = var.subnet_ocid
 
@@ -129,7 +127,7 @@ module "fss" {
 
 ```hcl
 module "fss" {
-  source              = "../../../terraform/modules/fss_v2_stack"
+  source              = "<module-source>"
   compartment_ocid    = var.compartment_ocid
   subnet_ocid         = var.subnet_ocid
   availability_domain = var.availability_domain
@@ -175,13 +173,6 @@ module "fss" {
   }
 }
 ```
-
-## Migration From v1
-
-- Remove `availability_domain` when you want v2 to derive it from the subnet or select it for a regional subnet.
-- Remove `kms_key_id` when Oracle-managed encryption is acceptable.
-- Remove `default_source_cidr` when the v2 default `0.0.0.0/0` is acceptable for private VCN-reachable FSS exports.
-- Keep the same `mount_targets` and `filesystems` map shape used by the latest v1 stack.
 
 ## Operator Notes
 
