@@ -22,6 +22,10 @@ The stack creates one filesystem and one to six exports against an existing moun
 
 Terraform builds an internal enabled-export map and validates that enabled export paths are non-empty, start with `/`, and are unique. Optional exports no longer carry usable default paths; enabling an export without providing a path fails validation instead of silently creating `/dataN`.
 
+## Tag Inputs
+
+Both Resource Manager stacks expose freeform tags as bounded key/value inputs instead of raw map editing. Tag 1 is visible by default. Tag pairs 2-10 are controlled by chained `add_tag_N` checkboxes. Terraform validates that every enabled tag slot has both key and value, and that tag keys are unique.
+
 ## Generated Review Roots
 
 Generated Resource Manager package/application artifacts are written under:

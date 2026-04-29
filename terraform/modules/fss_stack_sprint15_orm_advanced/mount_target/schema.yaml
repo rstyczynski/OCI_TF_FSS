@@ -25,7 +25,35 @@ variableGroups:
       - ${log_retention_duration}
   - title: "Tags"
     variables:
-      - ${freeform_tags}
+      - ${tag_1_key}
+      - ${tag_1_value}
+      - ${add_tag_2}
+      - ${tag_2_key}
+      - ${tag_2_value}
+      - ${add_tag_3}
+      - ${tag_3_key}
+      - ${tag_3_value}
+      - ${add_tag_4}
+      - ${tag_4_key}
+      - ${tag_4_value}
+      - ${add_tag_5}
+      - ${tag_5_key}
+      - ${tag_5_value}
+      - ${add_tag_6}
+      - ${tag_6_key}
+      - ${tag_6_value}
+      - ${add_tag_7}
+      - ${tag_7_key}
+      - ${tag_7_value}
+      - ${add_tag_8}
+      - ${tag_8_key}
+      - ${tag_8_value}
+      - ${add_tag_9}
+      - ${tag_9_key}
+      - ${tag_9_value}
+      - ${add_tag_10}
+      - ${tag_10_key}
+      - ${tag_10_value}
 
 variables:
   region:
@@ -108,12 +136,205 @@ variables:
     default: 30
     visible: ${enable_mount_target_logging}
 
-  freeform_tags:
-    type: map
-    valueType: string
-    title: "Freeform tags"
+  tag_1_key:
+    type: string
+    title: "Tag 1 key"
     required: false
-    default: "{}"
+    default: ""
+
+  tag_1_value:
+    type: string
+    title: "Tag 1 value"
+    required: false
+    default: ""
+
+  add_tag_2:
+    type: boolean
+    title: "Add another tag"
+    required: false
+    default: false
+
+  tag_2_key:
+    type: string
+    title: "Tag 2 key"
+    required: false
+    default: ""
+    visible: ${add_tag_2}
+
+  tag_2_value:
+    type: string
+    title: "Tag 2 value"
+    required: false
+    default: ""
+    visible: ${add_tag_2}
+
+  add_tag_3:
+    type: boolean
+    title: "Add another tag"
+    required: false
+    default: false
+    visible: ${add_tag_2}
+
+  tag_3_key:
+    type: string
+    title: "Tag 3 key"
+    required: false
+    default: ""
+    visible: ${add_tag_3}
+
+  tag_3_value:
+    type: string
+    title: "Tag 3 value"
+    required: false
+    default: ""
+    visible: ${add_tag_3}
+
+  add_tag_4:
+    type: boolean
+    title: "Add another tag"
+    required: false
+    default: false
+    visible: ${add_tag_3}
+
+  tag_4_key:
+    type: string
+    title: "Tag 4 key"
+    required: false
+    default: ""
+    visible: ${add_tag_4}
+
+  tag_4_value:
+    type: string
+    title: "Tag 4 value"
+    required: false
+    default: ""
+    visible: ${add_tag_4}
+
+  add_tag_5:
+    type: boolean
+    title: "Add another tag"
+    required: false
+    default: false
+    visible: ${add_tag_4}
+
+  tag_5_key:
+    type: string
+    title: "Tag 5 key"
+    required: false
+    default: ""
+    visible: ${add_tag_5}
+
+  tag_5_value:
+    type: string
+    title: "Tag 5 value"
+    required: false
+    default: ""
+    visible: ${add_tag_5}
+
+  add_tag_6:
+    type: boolean
+    title: "Add another tag"
+    required: false
+    default: false
+    visible: ${add_tag_5}
+
+  tag_6_key:
+    type: string
+    title: "Tag 6 key"
+    required: false
+    default: ""
+    visible: ${add_tag_6}
+
+  tag_6_value:
+    type: string
+    title: "Tag 6 value"
+    required: false
+    default: ""
+    visible: ${add_tag_6}
+
+  add_tag_7:
+    type: boolean
+    title: "Add another tag"
+    required: false
+    default: false
+    visible: ${add_tag_6}
+
+  tag_7_key:
+    type: string
+    title: "Tag 7 key"
+    required: false
+    default: ""
+    visible: ${add_tag_7}
+
+  tag_7_value:
+    type: string
+    title: "Tag 7 value"
+    required: false
+    default: ""
+    visible: ${add_tag_7}
+
+  add_tag_8:
+    type: boolean
+    title: "Add another tag"
+    required: false
+    default: false
+    visible: ${add_tag_7}
+
+  tag_8_key:
+    type: string
+    title: "Tag 8 key"
+    required: false
+    default: ""
+    visible: ${add_tag_8}
+
+  tag_8_value:
+    type: string
+    title: "Tag 8 value"
+    required: false
+    default: ""
+    visible: ${add_tag_8}
+
+  add_tag_9:
+    type: boolean
+    title: "Add another tag"
+    required: false
+    default: false
+    visible: ${add_tag_8}
+
+  tag_9_key:
+    type: string
+    title: "Tag 9 key"
+    required: false
+    default: ""
+    visible: ${add_tag_9}
+
+  tag_9_value:
+    type: string
+    title: "Tag 9 value"
+    required: false
+    default: ""
+    visible: ${add_tag_9}
+
+  add_tag_10:
+    type: boolean
+    title: "Add another tag"
+    required: false
+    default: false
+    visible: ${add_tag_9}
+
+  tag_10_key:
+    type: string
+    title: "Tag 10 key"
+    required: false
+    default: ""
+    visible: ${add_tag_10}
+
+  tag_10_value:
+    type: string
+    title: "Tag 10 value"
+    required: false
+    default: ""
+    visible: ${add_tag_10}
 
 outputGroups:
   - title: "Mount target details"

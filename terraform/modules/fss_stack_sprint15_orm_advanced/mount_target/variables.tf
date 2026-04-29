@@ -67,7 +67,124 @@ variable "log_retention_duration" {
 }
 
 variable "freeform_tags" {
-  description = "Freeform tags applied to created resources."
+  description = "Programmatic freeform tags merged with Resource Manager tag pair inputs."
   type        = map(string)
   default     = {}
+}
+
+variable "tag_1_key" {
+  type    = string
+  default = ""
+}
+variable "tag_1_value" {
+  type    = string
+  default = ""
+}
+variable "add_tag_2" {
+  type    = bool
+  default = false
+}
+variable "tag_2_key" {
+  type    = string
+  default = ""
+}
+variable "tag_2_value" {
+  type    = string
+  default = ""
+}
+variable "add_tag_3" {
+  type    = bool
+  default = false
+}
+variable "tag_3_key" {
+  type    = string
+  default = ""
+}
+variable "tag_3_value" {
+  type    = string
+  default = ""
+}
+variable "add_tag_4" {
+  type    = bool
+  default = false
+}
+variable "tag_4_key" {
+  type    = string
+  default = ""
+}
+variable "tag_4_value" {
+  type    = string
+  default = ""
+}
+variable "add_tag_5" {
+  type    = bool
+  default = false
+}
+variable "tag_5_key" {
+  type    = string
+  default = ""
+}
+variable "tag_5_value" {
+  type    = string
+  default = ""
+}
+variable "add_tag_6" {
+  type    = bool
+  default = false
+}
+variable "tag_6_key" {
+  type    = string
+  default = ""
+}
+variable "tag_6_value" {
+  type    = string
+  default = ""
+}
+variable "add_tag_7" {
+  type    = bool
+  default = false
+}
+variable "tag_7_key" {
+  type    = string
+  default = ""
+}
+variable "tag_7_value" {
+  type    = string
+  default = ""
+}
+variable "add_tag_8" {
+  type    = bool
+  default = false
+}
+variable "tag_8_key" {
+  type    = string
+  default = ""
+}
+variable "tag_8_value" {
+  type    = string
+  default = ""
+}
+variable "add_tag_9" {
+  type    = bool
+  default = false
+}
+variable "tag_9_key" {
+  type    = string
+  default = ""
+}
+variable "tag_9_value" {
+  type    = string
+  default = ""
+}
+variable "add_tag_10" {
+  type    = bool
+  default = false
+}
+variable "tag_10_key" {
+  type    = string
+  default = ""
+}
+variable "tag_10_value" {
+  type    = string
+  default = ""
 }

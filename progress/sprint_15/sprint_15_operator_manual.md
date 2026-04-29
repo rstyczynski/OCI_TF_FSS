@@ -19,8 +19,9 @@ Use the mount target stack first, then use the filesystem/export stack to create
 4. Select the mount target in the Resource Manager form.
 5. Enter export 1 path.
 6. Enable optional exports with the chained `Add another export` checkboxes and enter each enabled export path explicitly.
-7. Apply and read `nfs_mount_sources`.
-8. Destroy `filesystem_export/`, then destroy `mount_target/`.
+7. Add freeform tags with the chained tag key/value controls when needed.
+8. Apply and read `nfs_mount_sources`.
+9. Destroy `filesystem_export/`, then destroy `mount_target/`.
 
 ## CLI Packaging Pattern
 
@@ -40,6 +41,6 @@ zip -qr "${PACKAGE_OUT}/fss-filesystem-export.zip" .
 popd
 ```
 
-Evidence: package snippet executed successfully from a module subdirectory in `progress/sprint_15/operator_manual_package_git_root_20260429_174351.log`.
+Evidence: package snippet executed successfully from a module subdirectory in `progress/sprint_15/operator_manual_package_git_root_20260429_181656.log`.
 
 Sprint 15 quality gates execute the Resource Manager apply/destroy paths with sprint-scoped artifacts under `progress/sprint_15/generated_tf/`.

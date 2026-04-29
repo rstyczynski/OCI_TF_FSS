@@ -52,6 +52,19 @@ for stack in ("mount_target", "filesystem_export"):
                 raise SystemExit(f"export_{idx}_path visibility must depend on add_export_{idx}")
             if variables[f"export_{idx}_path"].get("default") != "":
                 raise SystemExit(f"export_{idx}_path must not hide a usable default path")
+    variables = schema["variables"]
+    if "freeform_tags" in variables:
+        raise SystemExit(f"{schema_path} must expose tag pairs instead of raw freeform_tags map")
+    for idx in range(1, 11):
+        if f"tag_{idx}_key" not in variables or f"tag_{idx}_value" not in variables:
+            raise SystemExit(f"{schema_path} missing tag pair {idx}")
+    for idx in range(2, 11):
+        if f"add_tag_{idx}" not in variables:
+            raise SystemExit(f"{schema_path} missing chained checkbox add_tag_{idx}")
+        if variables[f"tag_{idx}_key"].get("visible") != f"${{add_tag_{idx}}}":
+            raise SystemExit(f"tag_{idx}_key visibility must depend on add_tag_{idx}")
+        if variables[f"tag_{idx}_value"].get("visible") != f"${{add_tag_{idx}}}":
+            raise SystemExit(f"tag_{idx}_value visibility must depend on add_tag_{idx}")
     missing = expected_outputs - set(schema["outputs"])
     if missing:
         raise SystemExit(f"{schema_path} missing outputs {sorted(missing)}")
