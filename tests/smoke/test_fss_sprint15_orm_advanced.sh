@@ -43,11 +43,15 @@ for stack in ("mount_target", "filesystem_export"):
         variables = schema["variables"]
         if variables["existing_mount_target_ocid"].get("type") != "oci:mount:target:id":
             raise SystemExit("filesystem_export must use oci:mount:target:id for mount target selection")
+        if variables["export_1_path"].get("default") is not None:
+            raise SystemExit("export_1_path must be explicitly supplied by the operator")
         for idx in range(2, 7):
             if f"add_export_{idx}" not in variables:
                 raise SystemExit(f"missing chained checkbox add_export_{idx}")
             if variables[f"export_{idx}_path"].get("visible") != f"${{add_export_{idx}}}":
                 raise SystemExit(f"export_{idx}_path visibility must depend on add_export_{idx}")
+            if variables[f"export_{idx}_path"].get("default") != "":
+                raise SystemExit(f"export_{idx}_path must not hide a usable default path")
     missing = expected_outputs - set(schema["outputs"])
     if missing:
         raise SystemExit(f"{schema_path} missing outputs {sorted(missing)}")

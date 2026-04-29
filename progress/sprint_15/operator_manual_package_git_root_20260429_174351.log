@@ -1,0 +1,3 @@
+REPO_ROOT=/Users/rstyczynski/projects/OCI_TF_FSS
+PACKAGE_OUT=/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_15/generated_tf/manual
+PASS: package snippet works from filesystem_export subdirectory without module-local artifacts

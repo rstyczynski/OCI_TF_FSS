@@ -39,7 +39,6 @@ variable "default_source_cidr" {
 variable "export_1_path" {
   description = "Mandatory export 1 path."
   type        = string
-  default     = "/data"
 }
 
 variable "export_1_source_cidr" {
@@ -69,7 +68,7 @@ variable "add_export_2" {
 variable "export_2_path" {
   description = "Export 2 path."
   type        = string
-  default     = "/data2"
+  default     = ""
 }
 
 variable "export_2_source_cidr" {
@@ -99,7 +98,7 @@ variable "add_export_3" {
 variable "export_3_path" {
   description = "Export 3 path."
   type        = string
-  default     = "/data3"
+  default     = ""
 }
 
 variable "export_3_source_cidr" {
@@ -129,7 +128,7 @@ variable "add_export_4" {
 variable "export_4_path" {
   description = "Export 4 path."
   type        = string
-  default     = "/data4"
+  default     = ""
 }
 
 variable "export_4_source_cidr" {
@@ -159,7 +158,7 @@ variable "add_export_5" {
 variable "export_5_path" {
   description = "Export 5 path."
   type        = string
-  default     = "/data5"
+  default     = ""
 }
 
 variable "export_5_source_cidr" {
@@ -189,7 +188,7 @@ variable "add_export_6" {
 variable "export_6_path" {
   description = "Export 6 path."
   type        = string
-  default     = "/data6"
+  default     = ""
 }
 
 variable "export_6_source_cidr" {

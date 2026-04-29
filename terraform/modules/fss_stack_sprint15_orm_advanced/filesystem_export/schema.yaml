@@ -137,7 +137,6 @@ variables:
     type: string
     title: "Export 1 path"
     required: true
-    default: "/data"
 
   export_1_source_cidr:
     type: string
@@ -173,7 +172,7 @@ variables:
     type: string
     title: "Export 2 path"
     required: false
-    default: "/data2"
+    default: ""
     visible: ${add_export_2}
 
   export_2_source_cidr:
@@ -214,7 +213,7 @@ variables:
     type: string
     title: "Export 3 path"
     required: false
-    default: "/data3"
+    default: ""
     visible: ${add_export_3}
 
   export_3_source_cidr:
@@ -255,7 +254,7 @@ variables:
     type: string
     title: "Export 4 path"
     required: false
-    default: "/data4"
+    default: ""
     visible: ${add_export_4}
 
   export_4_source_cidr:
@@ -296,7 +295,7 @@ variables:
     type: string
     title: "Export 5 path"
     required: false
-    default: "/data5"
+    default: ""
     visible: ${add_export_5}
 
   export_5_source_cidr:
@@ -337,7 +336,7 @@ variables:
     type: string
     title: "Export 6 path"
     required: false
-    default: "/data6"
+    default: ""
     visible: ${add_export_6}
 
   export_6_source_cidr:

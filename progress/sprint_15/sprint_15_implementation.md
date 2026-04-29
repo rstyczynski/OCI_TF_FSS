@@ -12,7 +12,7 @@ The stack creates one FSS mount target and optionally creates/enables OCI Loggin
 
 Implemented `terraform/modules/fss_stack_sprint15_orm_advanced/filesystem_export/`.
 
-The stack creates one filesystem and one to six exports against an existing mount target selected by OCID. Export 1 is mandatory. Exports 2-6 are controlled by chained Resource Manager schema visibility flags:
+The stack creates one filesystem and one to six exports against an existing mount target selected by OCID. Export 1 is mandatory and its path must be supplied explicitly. Exports 2-6 are controlled by chained Resource Manager schema visibility flags:
 
 - `add_export_2`
 - `add_export_3`
@@ -20,7 +20,7 @@ The stack creates one filesystem and one to six exports against an existing moun
 - `add_export_5`
 - `add_export_6`
 
-Terraform builds an internal enabled-export map and validates that enabled export paths are non-empty, start with `/`, and are unique.
+Terraform builds an internal enabled-export map and validates that enabled export paths are non-empty, start with `/`, and are unique. Optional exports no longer carry usable default paths; enabling an export without providing a path fails validation instead of silently creating `/dataN`.
 
 ## Generated Review Roots
 

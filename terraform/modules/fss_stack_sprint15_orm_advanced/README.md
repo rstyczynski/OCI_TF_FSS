@@ -21,7 +21,7 @@ Primary outputs:
 
 Creates one FSS filesystem and one to six exports against an existing mount target.
 
-The first export is always enabled. Exports 2-6 are controlled by chained `Add another export` checkboxes in the Resource Manager UI.
+The first export is always enabled and requires an explicit export path. Exports 2-6 are controlled by chained `Add another export` checkboxes in the Resource Manager UI. When an optional export is enabled, its path must be provided explicitly.
 
 Primary outputs:
 
