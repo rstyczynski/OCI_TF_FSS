@@ -152,3 +152,17 @@ Repeat the v1 stack packaging using the latest Sprint 8 stack interface. Sprint 
 Backlog Items:
 
 * PBI-020. Rebase v1 stack on latest Sprint 8 stack interface
+
+## Sprint 11 - FSS v2 stack mandatory input optimization
+
+Status: Done
+Mode: YOLO
+Test: integration
+Regression: none
+
+Create an operator-facing v2 stack from the latest v1 stack behavior. Sprint 11 reduces mandatory inputs by deriving the effective availability domain from the subnet or Sprint 2 AD randomization, making `kms_key_id` optional for OCI-managed encryption, and defaulting export source CIDR to `0.0.0.0/0`. It also completes the v2 README and generated Terraform examples for operator review.
+
+Backlog Items:
+
+* PBI-021. Create v2 stack with optimized mandatory parameters
+* PBI-022. Complete v2 stack package and README

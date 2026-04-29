@@ -1,0 +1,1037 @@
+=== RUN integration:test_fss_sprint11_v2.sh ===
+=== IT-1: minimal v2 example validates ===
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+- fss in ../../../../terraform/modules/fss_v2_stack
+- fss.export in ../../../../terraform/modules/fss_v1_export
+- fss.filesystem in ../../../../terraform/modules/fss_v1_filesystem
+- fss.mount_target in ../../../../terraform/modules/fss_v1_mount_target
+
+[0m[1mInitializing provider plugins...[0m
+- Finding latest version of oracle/oci...
+- Finding latest version of hashicorp/random...
+- Installing oracle/oci v8.11.0...
+- Installed oracle/oci v8.11.0 (signed by a HashiCorp partner, key ID [0m[1m1533A49284137CEB[0m[0m)
+- Installing hashicorp/random v3.8.1...
+- Installed hashicorp/random v3.8.1 (signed by HashiCorp)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+PASS: IT-1
+INFO: no Terraform-managed resources in state - skipping terraform destroy (/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_11/generated_tf/it1_minimal_validate)
+=== IT-2: full v2 stack applies with optimized defaults ===
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+- stack in ../../../../terraform/modules/fss_v2_stack
+- stack.export in ../../../../terraform/modules/fss_v1_export
+- stack.filesystem in ../../../../terraform/modules/fss_v1_filesystem
+- stack.mount_target in ../../../../terraform/modules/fss_v1_mount_target
+
+[0m[1mInitializing provider plugins...[0m
+- Finding latest version of oracle/oci...
+- Finding latest version of hashicorp/random...
+- Installing oracle/oci v8.11.0...
+- Installed oracle/oci v8.11.0 (signed by a HashiCorp partner, key ID [0m[1m1533A49284137CEB[0m[0m)
+- Installing hashicorp/random v3.8.1...
+- Installed hashicorp/random v3.8.1 (signed by HashiCorp)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+[0m[1mmodule.stack.data.oci_identity_availability_domains.ads[0]: Reading...[0m[0m
+[0m[1mmodule.stack.module.mount_target["mt_secondary"].data.oci_core_subnet.this: Reading...[0m[0m
+[0m[1mmodule.stack.data.oci_core_subnet.selected: Reading...[0m[0m
+[0m[1mmodule.stack.module.mount_target["mt_primary"].data.oci_core_subnet.this: Reading...[0m[0m
+[0m[1mmodule.stack.data.oci_identity_availability_domains.ads[0]: Read complete after 1s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+[0m[1mmodule.stack.module.mount_target["mt_secondary"].data.oci_core_subnet.this: Read complete after 1s [id=ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q][0m
+[0m[1mmodule.stack.data.oci_core_subnet.selected: Read complete after 1s [id=ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q][0m
+[0m[1mmodule.stack.module.mount_target["mt_primary"].data.oci_core_subnet.this: Read complete after 1s [id=ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.stack.oci_logging_log.mount_target["mt_primary"][0m will be created
+[0m  [32m+[0m[0m resource "oci_logging_log" "mount_target" {
+      [32m+[0m[0m compartment_id     = (known after apply)
+      [32m+[0m[0m defined_tags       = (known after apply)
+      [32m+[0m[0m display_name       = "fss-v2-primary-nfs"
+      [32m+[0m[0m freeform_tags      = {
+          [32m+[0m[0m "entry"   = "mt_primary"
+          [32m+[0m[0m "release" = "v2"
+        }
+      [32m+[0m[0m id                 = (known after apply)
+      [32m+[0m[0m is_enabled         = true
+      [32m+[0m[0m log_group_id       = (known after apply)
+      [32m+[0m[0m log_type           = "SERVICE"
+      [32m+[0m[0m retention_duration = 30
+      [32m+[0m[0m state              = (known after apply)
+      [32m+[0m[0m tenancy_id         = (known after apply)
+      [32m+[0m[0m time_created       = (known after apply)
+      [32m+[0m[0m time_last_modified = (known after apply)
+
+      [32m+[0m[0m configuration {
+          [32m+[0m[0m compartment_id = (known after apply)
+
+          [32m+[0m[0m source {
+              [32m+[0m[0m category    = "nfslogs"
+              [32m+[0m[0m parameters  = (known after apply)
+              [32m+[0m[0m resource    = (known after apply)
+              [32m+[0m[0m service     = "filestorage"
+              [32m+[0m[0m source_type = "OCISERVICE"
+            }
+        }
+    }
+
+[1m  # module.stack.oci_logging_log_group.mount_target["mt_primary"][0m will be created
+[0m  [32m+[0m[0m resource "oci_logging_log_group" "mount_target" {
+      [32m+[0m[0m compartment_id     = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m defined_tags       = (known after apply)
+      [32m+[0m[0m description        = "FSS mount target logs for mt_primary."
+      [32m+[0m[0m display_name       = "fss-v2-primary-logs"
+      [32m+[0m[0m freeform_tags      = {
+          [32m+[0m[0m "entry"   = "mt_primary"
+          [32m+[0m[0m "release" = "v2"
+        }
+      [32m+[0m[0m id                 = (known after apply)
+      [32m+[0m[0m state              = (known after apply)
+      [32m+[0m[0m time_created       = (known after apply)
+      [32m+[0m[0m time_last_modified = (known after apply)
+    }
+
+[1m  # module.stack.random_shuffle.picked_ad[0][0m will be created
+[0m  [32m+[0m[0m resource "random_shuffle" "picked_ad" {
+      [32m+[0m[0m id           = (known after apply)
+      [32m+[0m[0m input        = [
+          [32m+[0m[0m "jJRq:EU-ZURICH-1-AD-1",
+        ]
+      [32m+[0m[0m result       = (known after apply)
+      [32m+[0m[0m result_count = 1
+    }
+
+[1m  # module.stack.module.export["fs_backup__to_primary"].oci_file_storage_export.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_export" "this" {
+      [32m+[0m[0m export_set_id                = (known after apply)
+      [32m+[0m[0m file_system_id               = (known after apply)
+      [32m+[0m[0m id                           = (known after apply)
+      [32m+[0m[0m is_idmap_groups_for_sys_auth = (known after apply)
+      [32m+[0m[0m is_lock_override             = (known after apply)
+      [32m+[0m[0m path                         = "/v2-backup"
+      [32m+[0m[0m state                        = (known after apply)
+      [32m+[0m[0m time_created                 = (known after apply)
+
+      [32m+[0m[0m export_options {
+          [32m+[0m[0m access                         = "READ_WRITE"
+          [32m+[0m[0m allowed_auth                   = [
+              [32m+[0m[0m "SYS",
+            ]
+          [32m+[0m[0m anonymous_gid                  = "65534"
+          [32m+[0m[0m anonymous_uid                  = "65534"
+          [32m+[0m[0m identity_squash                = "ROOT"
+          [32m+[0m[0m is_anonymous_access_allowed    = false
+          [32m+[0m[0m require_privileged_source_port = false
+          [32m+[0m[0m source                         = "0.0.0.0/0"
+        }
+    }
+
+[1m  # module.stack.module.export["fs_data__to_primary"].oci_file_storage_export.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_export" "this" {
+      [32m+[0m[0m export_set_id                = (known after apply)
+      [32m+[0m[0m file_system_id               = (known after apply)
+      [32m+[0m[0m id                           = (known after apply)
+      [32m+[0m[0m is_idmap_groups_for_sys_auth = (known after apply)
+      [32m+[0m[0m is_lock_override             = (known after apply)
+      [32m+[0m[0m path                         = "/v2-data-primary"
+      [32m+[0m[0m state                        = (known after apply)
+      [32m+[0m[0m time_created                 = (known after apply)
+
+      [32m+[0m[0m export_options {
+          [32m+[0m[0m access                         = "READ_WRITE"
+          [32m+[0m[0m allowed_auth                   = [
+              [32m+[0m[0m "SYS",
+            ]
+          [32m+[0m[0m anonymous_gid                  = "65534"
+          [32m+[0m[0m anonymous_uid                  = "65534"
+          [32m+[0m[0m identity_squash                = "NONE"
+          [32m+[0m[0m is_anonymous_access_allowed    = false
+          [32m+[0m[0m require_privileged_source_port = false
+          [32m+[0m[0m source                         = "0.0.0.0/0"
+        }
+    }
+
+[1m  # module.stack.module.export["fs_data__to_secondary"].oci_file_storage_export.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_export" "this" {
+      [32m+[0m[0m export_set_id                = (known after apply)
+      [32m+[0m[0m file_system_id               = (known after apply)
+      [32m+[0m[0m id                           = (known after apply)
+      [32m+[0m[0m is_idmap_groups_for_sys_auth = (known after apply)
+      [32m+[0m[0m is_lock_override             = (known after apply)
+      [32m+[0m[0m path                         = "/v2-data-secondary"
+      [32m+[0m[0m state                        = (known after apply)
+      [32m+[0m[0m time_created                 = (known after apply)
+
+      [32m+[0m[0m export_options {
+          [32m+[0m[0m access                         = "READ_WRITE"
+          [32m+[0m[0m allowed_auth                   = [
+              [32m+[0m[0m "SYS",
+            ]
+          [32m+[0m[0m anonymous_gid                  = "65534"
+          [32m+[0m[0m anonymous_uid                  = "65534"
+          [32m+[0m[0m identity_squash                = "ROOT"
+          [32m+[0m[0m is_anonymous_access_allowed    = false
+          [32m+[0m[0m require_privileged_source_port = false
+          [32m+[0m[0m source                         = "0.0.0.0/0"
+        }
+    }
+
+[1m  # module.stack.module.filesystem["fs_backup"].oci_file_storage_file_system.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_file_system" "this" {
+      [32m+[0m[0m are_quota_rules_enabled  = (known after apply)
+      [32m+[0m[0m availability_domain      = (known after apply)
+      [32m+[0m[0m clone_attach_status      = (known after apply)
+      [32m+[0m[0m clone_count              = (known after apply)
+      [32m+[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m defined_tags             = (known after apply)
+      [32m+[0m[0m display_name             = "fss-v2-backup"
+      [32m+[0m[0m freeform_tags            = {
+          [32m+[0m[0m "entry"   = "fs_backup"
+          [32m+[0m[0m "release" = "v2"
+        }
+      [32m+[0m[0m id                       = (known after apply)
+      [32m+[0m[0m is_clone_parent          = (known after apply)
+      [32m+[0m[0m is_hydrated              = (known after apply)
+      [32m+[0m[0m is_lock_override         = (known after apply)
+      [32m+[0m[0m is_targetable            = (known after apply)
+      [32m+[0m[0m lifecycle_details        = (known after apply)
+      [32m+[0m[0m metered_bytes            = (known after apply)
+      [32m+[0m[0m quota_enforcement_state  = (known after apply)
+      [32m+[0m[0m replication_source_count = (known after apply)
+      [32m+[0m[0m replication_target_id    = (known after apply)
+      [32m+[0m[0m source_details           = (known after apply)
+      [32m+[0m[0m source_snapshot_id       = (known after apply)
+      [32m+[0m[0m state                    = (known after apply)
+      [32m+[0m[0m system_tags              = (known after apply)
+      [32m+[0m[0m time_created             = (known after apply)
+    }
+
+[1m  # module.stack.module.filesystem["fs_data"].oci_file_storage_file_system.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_file_system" "this" {
+      [32m+[0m[0m are_quota_rules_enabled  = (known after apply)
+      [32m+[0m[0m availability_domain      = (known after apply)
+      [32m+[0m[0m clone_attach_status      = (known after apply)
+      [32m+[0m[0m clone_count              = (known after apply)
+      [32m+[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m defined_tags             = (known after apply)
+      [32m+[0m[0m display_name             = "fss-v2-data"
+      [32m+[0m[0m freeform_tags            = {
+          [32m+[0m[0m "entry"   = "fs_data"
+          [32m+[0m[0m "release" = "v2"
+        }
+      [32m+[0m[0m id                       = (known after apply)
+      [32m+[0m[0m is_clone_parent          = (known after apply)
+      [32m+[0m[0m is_hydrated              = (known after apply)
+      [32m+[0m[0m is_lock_override         = (known after apply)
+      [32m+[0m[0m is_targetable            = (known after apply)
+      [32m+[0m[0m lifecycle_details        = (known after apply)
+      [32m+[0m[0m metered_bytes            = (known after apply)
+      [32m+[0m[0m quota_enforcement_state  = (known after apply)
+      [32m+[0m[0m replication_source_count = (known after apply)
+      [32m+[0m[0m replication_target_id    = (known after apply)
+      [32m+[0m[0m source_details           = (known after apply)
+      [32m+[0m[0m source_snapshot_id       = (known after apply)
+      [32m+[0m[0m state                    = (known after apply)
+      [32m+[0m[0m system_tags              = (known after apply)
+      [32m+[0m[0m time_created             = (known after apply)
+    }
+
+[1m  # module.stack.module.mount_target["mt_primary"].oci_file_storage_mount_target.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_mount_target" "this" {
+      [32m+[0m[0m availability_domain       = (known after apply)
+      [32m+[0m[0m compartment_id            = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m defined_tags              = (known after apply)
+      [32m+[0m[0m display_name              = "fss-v2-mt-primary"
+      [32m+[0m[0m export_set_id             = (known after apply)
+      [32m+[0m[0m freeform_tags             = (known after apply)
+      [32m+[0m[0m hostname_label            = (known after apply)
+      [32m+[0m[0m id                        = (known after apply)
+      [32m+[0m[0m idmap_type                = (known after apply)
+      [32m+[0m[0m ip_address                = (known after apply)
+      [32m+[0m[0m is_lock_override          = (known after apply)
+      [32m+[0m[0m lifecycle_details         = (known after apply)
+      [32m+[0m[0m mount_target_ipv6ids      = (known after apply)
+      [32m+[0m[0m nsg_ids                   = (known after apply)
+      [32m+[0m[0m observed_throughput       = (known after apply)
+      [32m+[0m[0m private_ip_ids            = (known after apply)
+      [32m+[0m[0m requested_throughput      = (known after apply)
+      [32m+[0m[0m reserved_storage_capacity = (known after apply)
+      [32m+[0m[0m security_attributes       = (known after apply)
+      [32m+[0m[0m state                     = (known after apply)
+      [32m+[0m[0m subnet_id                 = "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q"
+      [32m+[0m[0m system_tags               = (known after apply)
+      [32m+[0m[0m time_billing_cycle_end    = (known after apply)
+      [32m+[0m[0m time_created              = (known after apply)
+    }
+
+[1m  # module.stack.module.mount_target["mt_secondary"].oci_file_storage_mount_target.this[0m will be created
+[0m  [32m+[0m[0m resource "oci_file_storage_mount_target" "this" {
+      [32m+[0m[0m availability_domain       = (known after apply)
+      [32m+[0m[0m compartment_id            = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+      [32m+[0m[0m defined_tags              = (known after apply)
+      [32m+[0m[0m display_name              = "fss-v2-mt-secondary"
+      [32m+[0m[0m export_set_id             = (known after apply)
+      [32m+[0m[0m freeform_tags             = (known after apply)
+      [32m+[0m[0m hostname_label            = (known after apply)
+      [32m+[0m[0m id                        = (known after apply)
+      [32m+[0m[0m idmap_type                = (known after apply)
+      [32m+[0m[0m ip_address                = (known after apply)
+      [32m+[0m[0m is_lock_override          = (known after apply)
+      [32m+[0m[0m lifecycle_details         = (known after apply)
+      [32m+[0m[0m mount_target_ipv6ids      = (known after apply)
+      [32m+[0m[0m nsg_ids                   = (known after apply)
+      [32m+[0m[0m observed_throughput       = (known after apply)
+      [32m+[0m[0m private_ip_ids            = (known after apply)
+      [32m+[0m[0m requested_throughput      = (known after apply)
+      [32m+[0m[0m reserved_storage_capacity = (known after apply)
+      [32m+[0m[0m security_attributes       = (known after apply)
+      [32m+[0m[0m state                     = (known after apply)
+      [32m+[0m[0m subnet_id                 = "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q"
+      [32m+[0m[0m system_tags               = (known after apply)
+      [32m+[0m[0m time_billing_cycle_end    = (known after apply)
+      [32m+[0m[0m time_created              = (known after apply)
+    }
+
+[1mPlan:[0m 10 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m availability_domain_source    = "random"
+  [32m+[0m[0m default_source_cidr           = "0.0.0.0/0"
+  [32m+[0m[0m effective_availability_domain = (known after apply)
+  [32m+[0m[0m export_paths                  = {
+      [32m+[0m[0m fs_backup__to_primary = "/v2-backup"
+      [32m+[0m[0m fs_data__to_primary   = "/v2-data-primary"
+      [32m+[0m[0m fs_data__to_secondary = "/v2-data-secondary"
+    }
+  [32m+[0m[0m filesystem_ocids              = {
+      [32m+[0m[0m fs_backup = (known after apply)
+      [32m+[0m[0m fs_data   = (known after apply)
+    }
+  [32m+[0m[0m filesystems                   = {
+      [32m+[0m[0m fs_backup = {
+          [32m+[0m[0m availability_domain     = (known after apply)
+          [32m+[0m[0m compartment_ocid        = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+          [32m+[0m[0m exports                 = {
+              [32m+[0m[0m to_primary = {
+                  [32m+[0m[0m export_ocid      = (known after apply)
+                  [32m+[0m[0m identity_squash  = "ROOT"
+                  [32m+[0m[0m mount_target_key = "mt_primary"
+                  [32m+[0m[0m nfs_mount_source = (known after apply)
+                  [32m+[0m[0m path             = "/v2-backup"
+                  [32m+[0m[0m source_cidr      = "0.0.0.0/0"
+                }
+            }
+          [32m+[0m[0m filesystem_display_name = "fss-v2-backup"
+          [32m+[0m[0m filesystem_ocid         = (known after apply)
+          [32m+[0m[0m kms_key_id              = [90mnull[0m[0m
+          [32m+[0m[0m kms_key_mode            = "ORACLE_MANAGED"
+        }
+      [32m+[0m[0m fs_data   = {
+          [32m+[0m[0m availability_domain     = (known after apply)
+          [32m+[0m[0m compartment_ocid        = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+          [32m+[0m[0m exports                 = {
+              [32m+[0m[0m to_primary   = {
+                  [32m+[0m[0m export_ocid      = (known after apply)
+                  [32m+[0m[0m identity_squash  = "NONE"
+                  [32m+[0m[0m mount_target_key = "mt_primary"
+                  [32m+[0m[0m nfs_mount_source = (known after apply)
+                  [32m+[0m[0m path             = "/v2-data-primary"
+                  [32m+[0m[0m source_cidr      = "0.0.0.0/0"
+                }
+              [32m+[0m[0m to_secondary = {
+                  [32m+[0m[0m export_ocid      = (known after apply)
+                  [32m+[0m[0m identity_squash  = "ROOT"
+                  [32m+[0m[0m mount_target_key = "mt_secondary"
+                  [32m+[0m[0m nfs_mount_source = (known after apply)
+                  [32m+[0m[0m path             = "/v2-data-secondary"
+                  [32m+[0m[0m source_cidr      = "0.0.0.0/0"
+                }
+            }
+          [32m+[0m[0m filesystem_display_name = "fss-v2-data"
+          [32m+[0m[0m filesystem_ocid         = (known after apply)
+          [32m+[0m[0m kms_key_id              = [90mnull[0m[0m
+          [32m+[0m[0m kms_key_mode            = "ORACLE_MANAGED"
+        }
+    }
+  [32m+[0m[0m kms_key_mode                  = "ORACLE_MANAGED"
+  [32m+[0m[0m mount_target_log_ocids        = {
+      [32m+[0m[0m mt_primary = (known after apply)
+    }
+  [32m+[0m[0m mount_target_ocids            = {
+      [32m+[0m[0m mt_primary   = (known after apply)
+      [32m+[0m[0m mt_secondary = (known after apply)
+    }
+  [32m+[0m[0m mount_targets                 = {
+      [32m+[0m[0m mt_primary   = {
+          [32m+[0m[0m availability_domain        = (known after apply)
+          [32m+[0m[0m availability_domain_source = "random"
+          [32m+[0m[0m compartment_ocid           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+          [32m+[0m[0m display_name               = "fss-v2-mt-primary"
+          [32m+[0m[0m export_set_ocid            = (known after apply)
+          [32m+[0m[0m fqdn                       = [90mnull[0m[0m
+          [32m+[0m[0m ip_address                 = (known after apply)
+          [32m+[0m[0m logging                    = (known after apply)
+          [32m+[0m[0m mount_address              = (known after apply)
+          [32m+[0m[0m ocid                       = (known after apply)
+          [32m+[0m[0m private_ip_ids             = (known after apply)
+          [32m+[0m[0m subnet_ocid                = "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q"
+        }
+      [32m+[0m[0m mt_secondary = {
+          [32m+[0m[0m availability_domain        = (known after apply)
+          [32m+[0m[0m availability_domain_source = "random"
+          [32m+[0m[0m compartment_ocid           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+          [32m+[0m[0m display_name               = "fss-v2-mt-secondary"
+          [32m+[0m[0m export_set_ocid            = (known after apply)
+          [32m+[0m[0m fqdn                       = [90mnull[0m[0m
+          [32m+[0m[0m ip_address                 = (known after apply)
+          [32m+[0m[0m logging                    = (known after apply)
+          [32m+[0m[0m mount_address              = (known after apply)
+          [32m+[0m[0m ocid                       = (known after apply)
+          [32m+[0m[0m private_ip_ids             = (known after apply)
+          [32m+[0m[0m subnet_ocid                = "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q"
+        }
+    }
+  [32m+[0m[0m nfs_mount_sources             = {
+      [32m+[0m[0m fs_backup__to_primary = (known after apply)
+      [32m+[0m[0m fs_data__to_primary   = (known after apply)
+      [32m+[0m[0m fs_data__to_secondary = (known after apply)
+    }
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Saved the plan to:
+/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_11/generated_tf/it2_full_apply/tf_test_artifacts/deploy.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_11/generated_tf/it2_full_apply/tf_test_artifacts/deploy.tfplan"
+[0m[1mmodule.stack.oci_logging_log_group.mount_target["mt_primary"]: Creating...[0m[0m
+[0m[1mmodule.stack.random_shuffle.picked_ad[0]: Creating...[0m[0m
+[0m[1mmodule.stack.random_shuffle.picked_ad[0]: Creation complete after 0s [id=-][0m
+[0m[1mmodule.stack.module.filesystem["fs_backup"].oci_file_storage_file_system.this: Creating...[0m[0m
+[0m[1mmodule.stack.module.filesystem["fs_data"].oci_file_storage_file_system.this: Creating...[0m[0m
+[0m[1mmodule.stack.module.mount_target["mt_secondary"].oci_file_storage_mount_target.this: Creating...[0m[0m
+[0m[1mmodule.stack.module.mount_target["mt_primary"].oci_file_storage_mount_target.this: Creating...[0m[0m
+[0m[1mmodule.stack.oci_logging_log_group.mount_target["mt_primary"]: Creation complete after 0s [id=ocid1.loggroup.oc1.eu-zurich-1.amaaaaaaknhfuyiaz4uzxy5rzvo52rtx4lzzjykgnattvczt2ijkvxndhcka][0m
+[0m[1mmodule.stack.module.filesystem["fs_backup"].oci_file_storage_file_system.this: Creation complete after 1s [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2moutpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mmodule.stack.module.filesystem["fs_data"].oci_file_storage_file_system.this: Creation complete after 3s [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2mouupjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mmodule.stack.module.mount_target["mt_primary"].oci_file_storage_mount_target.this: Still creating... [10s elapsed][0m[0m
+[0m[1mmodule.stack.module.mount_target["mt_secondary"].oci_file_storage_mount_target.this: Still creating... [10s elapsed][0m[0m
+[0m[1mmodule.stack.module.mount_target["mt_primary"].oci_file_storage_mount_target.this: Creation complete after 10s [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrdoopjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mmodule.stack.module.mount_target["mt_secondary"].oci_file_storage_mount_target.this: Still creating... [20s elapsed][0m[0m
+[0m[1mmodule.stack.module.mount_target["mt_secondary"].oci_file_storage_mount_target.this: Still creating... [30s elapsed][0m[0m
+[0m[1mmodule.stack.module.mount_target["mt_secondary"].oci_file_storage_mount_target.this: Creation complete after 34s [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrdompjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mmodule.stack.module.export["fs_data__to_secondary"].oci_file_storage_export.this: Creating...[0m[0m
+[0m[1mmodule.stack.module.export["fs_backup__to_primary"].oci_file_storage_export.this: Creating...[0m[0m
+[0m[1mmodule.stack.oci_logging_log.mount_target["mt_primary"]: Creating...[0m[0m
+[0m[1mmodule.stack.module.export["fs_data__to_primary"].oci_file_storage_export.this: Creating...[0m[0m
+[0m[1mmodule.stack.module.export["fs_backup__to_primary"].oci_file_storage_export.this: Creation complete after 2s [id=ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrdvhpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mmodule.stack.module.export["fs_data__to_secondary"].oci_file_storage_export.this: Creation complete after 6s [id=ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrdjypjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mmodule.stack.module.export["fs_data__to_primary"].oci_file_storage_export.this: Still creating... [10s elapsed][0m[0m
+[0m[1mmodule.stack.oci_logging_log.mount_target["mt_primary"]: Still creating... [10s elapsed][0m[0m
+[0m[1mmodule.stack.oci_logging_log.mount_target["mt_primary"]: Creation complete after 13s [id=ocid1.log.oc1.eu-zurich-1.amaaaaaaknhfuyiajxsnetkt46eqnbclga4brmcyqzuqpa62ndqslxntzg5a][0m
+[0m[1mmodule.stack.module.export["fs_data__to_primary"].oci_file_storage_export.this: Creation complete after 13s [id=ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrdvppjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1m[32m
+Apply complete! Resources: 10 added, 0 changed, 0 destroyed.
+[0m[0m[1m[32m
+Outputs:
+
+[0mavailability_domain_source = "random"
+default_source_cidr = "0.0.0.0/0"
+effective_availability_domain = "jJRq:EU-ZURICH-1-AD-1"
+export_paths = {
+  "fs_backup__to_primary" = "/v2-backup"
+  "fs_data__to_primary" = "/v2-data-primary"
+  "fs_data__to_secondary" = "/v2-data-secondary"
+}
+filesystem_ocids = {
+  "fs_backup" = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2moutpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+  "fs_data" = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2mouupjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+}
+filesystems = {
+  "fs_backup" = {
+    "availability_domain" = "jJRq:EU-ZURICH-1-AD-1"
+    "compartment_ocid" = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+    "exports" = {
+      "to_primary" = {
+        "export_ocid" = "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrdvhpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+        "identity_squash" = "ROOT"
+        "mount_target_key" = "mt_primary"
+        "nfs_mount_source" = "10.0.0.245:/v2-backup"
+        "path" = "/v2-backup"
+        "source_cidr" = "0.0.0.0/0"
+      }
+    }
+    "filesystem_display_name" = "fss-v2-backup"
+    "filesystem_ocid" = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2moutpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+    "kms_key_id" = ""
+    "kms_key_mode" = "ORACLE_MANAGED"
+  }
+  "fs_data" = {
+    "availability_domain" = "jJRq:EU-ZURICH-1-AD-1"
+    "compartment_ocid" = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+    "exports" = {
+      "to_primary" = {
+        "export_ocid" = "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrdvppjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+        "identity_squash" = "NONE"
+        "mount_target_key" = "mt_primary"
+        "nfs_mount_source" = "10.0.0.245:/v2-data-primary"
+        "path" = "/v2-data-primary"
+        "source_cidr" = "0.0.0.0/0"
+      }
+      "to_secondary" = {
+        "export_ocid" = "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrdjypjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+        "identity_squash" = "ROOT"
+        "mount_target_key" = "mt_secondary"
+        "nfs_mount_source" = "10.0.0.121:/v2-data-secondary"
+        "path" = "/v2-data-secondary"
+        "source_cidr" = "0.0.0.0/0"
+      }
+    }
+    "filesystem_display_name" = "fss-v2-data"
+    "filesystem_ocid" = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2mouupjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+    "kms_key_id" = ""
+    "kms_key_mode" = "ORACLE_MANAGED"
+  }
+}
+kms_key_mode = "ORACLE_MANAGED"
+mount_target_log_ocids = {
+  "mt_primary" = "ocid1.log.oc1.eu-zurich-1.amaaaaaaknhfuyiajxsnetkt46eqnbclga4brmcyqzuqpa62ndqslxntzg5a"
+}
+mount_target_ocids = {
+  "mt_primary" = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrdoopjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+  "mt_secondary" = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrdompjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+}
+mount_targets = {
+  "mt_primary" = {
+    "availability_domain" = "jJRq:EU-ZURICH-1-AD-1"
+    "availability_domain_source" = "random"
+    "compartment_ocid" = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+    "display_name" = "fss-v2-mt-primary"
+    "export_set_ocid" = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnrdonpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+    "fqdn" = tostring(null)
+    "ip_address" = "10.0.0.245"
+    "logging" = {
+      "category" = "nfslogs"
+      "is_enabled" = true
+      "log_display_name" = "fss-v2-primary-nfs"
+      "log_group_ocid" = "ocid1.loggroup.oc1.eu-zurich-1.amaaaaaaknhfuyiaz4uzxy5rzvo52rtx4lzzjykgnattvczt2ijkvxndhcka"
+      "log_ocid" = "ocid1.log.oc1.eu-zurich-1.amaaaaaaknhfuyiajxsnetkt46eqnbclga4brmcyqzuqpa62ndqslxntzg5a"
+      "resource" = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrdoopjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+      "retention_duration" = 30
+      "service" = "filestorage"
+    }
+    "mount_address" = "10.0.0.245"
+    "ocid" = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrdoopjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+    "private_ip_ids" = tolist([
+      "ocid1.privateip.oc1.eu-zurich-1.aaaaaaaar4ss7msqx35qqtl2pznebgufounhlvcqra4k5bos2vbfh3zizluq",
+    ])
+    "subnet_ocid" = "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q"
+  }
+  "mt_secondary" = {
+    "availability_domain" = "jJRq:EU-ZURICH-1-AD-1"
+    "availability_domain_source" = "random"
+    "compartment_ocid" = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+    "display_name" = "fss-v2-mt-secondary"
+    "export_set_ocid" = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnrdolpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+    "fqdn" = tostring(null)
+    "ip_address" = "10.0.0.121"
+    "logging" = null
+    "mount_address" = "10.0.0.121"
+    "ocid" = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrdompjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+    "private_ip_ids" = tolist([
+      "ocid1.privateip.oc1.eu-zurich-1.aaaaaaaazb5ifbjgbgumtdglctzzgch57qcx7ecx5rdirs4z6qu4yv2zer7q",
+    ])
+    "subnet_ocid" = "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q"
+  }
+}
+nfs_mount_sources = {
+  "fs_backup__to_primary" = "10.0.0.245:/v2-backup"
+  "fs_data__to_primary" = "10.0.0.245:/v2-data-primary"
+  "fs_data__to_secondary" = "10.0.0.121:/v2-data-secondary"
+}
+PASS: IT-2
+INFO: terraform destroy (test teardown) in /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_11/generated_tf/it2_full_apply
+[0m[1mmodule.stack.data.oci_core_subnet.selected: Reading...[0m[0m
+[0m[1mmodule.stack.module.mount_target["mt_secondary"].data.oci_core_subnet.this: Reading...[0m[0m
+[0m[1mmodule.stack.module.mount_target["mt_primary"].data.oci_core_subnet.this: Reading...[0m[0m
+[0m[1mmodule.stack.data.oci_identity_availability_domains.ads[0]: Reading...[0m[0m
+[0m[1mmodule.stack.oci_logging_log_group.mount_target["mt_primary"]: Refreshing state... [id=ocid1.loggroup.oc1.eu-zurich-1.amaaaaaaknhfuyiaz4uzxy5rzvo52rtx4lzzjykgnattvczt2ijkvxndhcka][0m
+[0m[1mmodule.stack.data.oci_identity_availability_domains.ads[0]: Read complete after 0s [id=IdentityAvailabilityDomainsDataSource-1771944586][0m
+[0m[1mmodule.stack.random_shuffle.picked_ad[0]: Refreshing state... [id=-][0m
+[0m[1mmodule.stack.module.mount_target["mt_secondary"].data.oci_core_subnet.this: Read complete after 0s [id=ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q][0m
+[0m[1mmodule.stack.data.oci_core_subnet.selected: Read complete after 0s [id=ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q][0m
+[0m[1mmodule.stack.module.filesystem["fs_backup"].oci_file_storage_file_system.this: Refreshing state... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2moutpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mmodule.stack.module.mount_target["mt_primary"].oci_file_storage_mount_target.this: Refreshing state... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrdoopjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mmodule.stack.module.mount_target["mt_secondary"].oci_file_storage_mount_target.this: Refreshing state... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrdompjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mmodule.stack.module.filesystem["fs_data"].oci_file_storage_file_system.this: Refreshing state... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2mouupjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mmodule.stack.module.mount_target["mt_primary"].data.oci_core_subnet.this: Read complete after 0s [id=ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q][0m
+[0m[1mmodule.stack.module.export["fs_data__to_secondary"].oci_file_storage_export.this: Refreshing state... [id=ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrdjypjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mmodule.stack.oci_logging_log.mount_target["mt_primary"]: Refreshing state... [id=ocid1.log.oc1.eu-zurich-1.amaaaaaaknhfuyiajxsnetkt46eqnbclga4brmcyqzuqpa62ndqslxntzg5a][0m
+[0m[1mmodule.stack.module.export["fs_data__to_primary"].oci_file_storage_export.this: Refreshing state... [id=ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrdvppjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+[0m[1mmodule.stack.module.export["fs_backup__to_primary"].oci_file_storage_export.this: Refreshing state... [id=ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrdvhpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [31m-[0m destroy[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.stack.oci_logging_log.mount_target["mt_primary"][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_logging_log" "mount_target" {
+      [31m-[0m[0m compartment_id     = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+      [31m-[0m[0m defined_tags       = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com"
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-29T07:52:29.980Z"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m display_name       = "fss-v2-primary-nfs" [90m-> null[0m[0m
+      [31m-[0m[0m freeform_tags      = {
+          [31m-[0m[0m "entry"   = "mt_primary"
+          [31m-[0m[0m "release" = "v2"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m id                 = "ocid1.log.oc1.eu-zurich-1.amaaaaaaknhfuyiajxsnetkt46eqnbclga4brmcyqzuqpa62ndqslxntzg5a" [90m-> null[0m[0m
+      [31m-[0m[0m is_enabled         = true [90m-> null[0m[0m
+      [31m-[0m[0m log_group_id       = "ocid1.loggroup.oc1.eu-zurich-1.amaaaaaaknhfuyiaz4uzxy5rzvo52rtx4lzzjykgnattvczt2ijkvxndhcka" [90m-> null[0m[0m
+      [31m-[0m[0m log_type           = "SERVICE" [90m-> null[0m[0m
+      [31m-[0m[0m retention_duration = 30 [90m-> null[0m[0m
+      [31m-[0m[0m state              = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m tenancy_id         = "ocid1.tenancy.oc1..aaaaaaaay2b2tvqcmqmndvcbz5kuptzuo7sp4vufarqfgoru7qojdgywb27a" [90m-> null[0m[0m
+      [31m-[0m[0m time_created       = "2026-04-29 07:53:03.853 +0000 UTC" [90m-> null[0m[0m
+      [31m-[0m[0m time_last_modified = "2026-04-29 07:53:03.853 +0000 UTC" [90m-> null[0m[0m
+
+      [31m-[0m[0m configuration {
+          [31m-[0m[0m compartment_id = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+
+          [31m-[0m[0m source {
+              [31m-[0m[0m category    = "nfslogs" [90m-> null[0m[0m
+              [31m-[0m[0m parameters  = {} [90m-> null[0m[0m
+              [31m-[0m[0m resource    = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrdoopjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+              [31m-[0m[0m service     = "filestorage" [90m-> null[0m[0m
+              [31m-[0m[0m source_type = "OCISERVICE" [90m-> null[0m[0m
+            }
+        }
+    }
+
+[1m  # module.stack.oci_logging_log_group.mount_target["mt_primary"][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_logging_log_group" "mount_target" {
+      [31m-[0m[0m compartment_id     = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+      [31m-[0m[0m defined_tags       = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com"
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-29T07:52:29.980Z"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m description        = "FSS mount target logs for mt_primary." [90m-> null[0m[0m
+      [31m-[0m[0m display_name       = "fss-v2-primary-logs" [90m-> null[0m[0m
+      [31m-[0m[0m freeform_tags      = {
+          [31m-[0m[0m "entry"   = "mt_primary"
+          [31m-[0m[0m "release" = "v2"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m id                 = "ocid1.loggroup.oc1.eu-zurich-1.amaaaaaaknhfuyiaz4uzxy5rzvo52rtx4lzzjykgnattvczt2ijkvxndhcka" [90m-> null[0m[0m
+      [31m-[0m[0m state              = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m time_created       = "2026-04-29 07:52:30.017 +0000 UTC" [90m-> null[0m[0m
+      [31m-[0m[0m time_last_modified = "2026-04-29 07:52:30.017 +0000 UTC" [90m-> null[0m[0m
+    }
+
+[1m  # module.stack.random_shuffle.picked_ad[0][0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "random_shuffle" "picked_ad" {
+      [31m-[0m[0m id           = "-" [90m-> null[0m[0m
+      [31m-[0m[0m input        = [
+          [31m-[0m[0m "jJRq:EU-ZURICH-1-AD-1",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m result       = [
+          [31m-[0m[0m "jJRq:EU-ZURICH-1-AD-1",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m result_count = 1 [90m-> null[0m[0m
+    }
+
+[1m  # module.stack.module.export["fs_backup__to_primary"].oci_file_storage_export.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_export" "this" {
+      [31m-[0m[0m export_set_id                = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnrdonpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m file_system_id               = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2moutpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m id                           = "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrdvhpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m is_idmap_groups_for_sys_auth = false [90m-> null[0m[0m
+      [31m-[0m[0m path                         = "/v2-backup" [90m-> null[0m[0m
+      [31m-[0m[0m state                        = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m time_created                 = "2026-04-29 07:53:03 +0000 UTC" [90m-> null[0m[0m
+
+      [31m-[0m[0m export_options {
+          [31m-[0m[0m access                         = "READ_WRITE" [90m-> null[0m[0m
+          [31m-[0m[0m allowed_auth                   = [
+              [31m-[0m[0m "SYS",
+            ] [90m-> null[0m[0m
+          [31m-[0m[0m anonymous_gid                  = "65534" [90m-> null[0m[0m
+          [31m-[0m[0m anonymous_uid                  = "65534" [90m-> null[0m[0m
+          [31m-[0m[0m identity_squash                = "ROOT" [90m-> null[0m[0m
+          [31m-[0m[0m is_anonymous_access_allowed    = false [90m-> null[0m[0m
+          [31m-[0m[0m require_privileged_source_port = false [90m-> null[0m[0m
+          [31m-[0m[0m source                         = "0.0.0.0/0" [90m-> null[0m[0m
+        }
+    }
+
+[1m  # module.stack.module.export["fs_data__to_primary"].oci_file_storage_export.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_export" "this" {
+      [31m-[0m[0m export_set_id                = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnrdonpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m file_system_id               = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2mouupjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m id                           = "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrdvppjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m is_idmap_groups_for_sys_auth = false [90m-> null[0m[0m
+      [31m-[0m[0m path                         = "/v2-data-primary" [90m-> null[0m[0m
+      [31m-[0m[0m state                        = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m time_created                 = "2026-04-29 07:53:10 +0000 UTC" [90m-> null[0m[0m
+
+      [31m-[0m[0m export_options {
+          [31m-[0m[0m access                         = "READ_WRITE" [90m-> null[0m[0m
+          [31m-[0m[0m allowed_auth                   = [
+              [31m-[0m[0m "SYS",
+            ] [90m-> null[0m[0m
+          [31m-[0m[0m anonymous_gid                  = "65534" [90m-> null[0m[0m
+          [31m-[0m[0m anonymous_uid                  = "65534" [90m-> null[0m[0m
+          [31m-[0m[0m identity_squash                = "NONE" [90m-> null[0m[0m
+          [31m-[0m[0m is_anonymous_access_allowed    = false [90m-> null[0m[0m
+          [31m-[0m[0m require_privileged_source_port = false [90m-> null[0m[0m
+          [31m-[0m[0m source                         = "0.0.0.0/0" [90m-> null[0m[0m
+        }
+    }
+
+[1m  # module.stack.module.export["fs_data__to_secondary"].oci_file_storage_export.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_export" "this" {
+      [31m-[0m[0m export_set_id                = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnrdolpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m file_system_id               = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2mouupjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m id                           = "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrdjypjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m is_idmap_groups_for_sys_auth = false [90m-> null[0m[0m
+      [31m-[0m[0m path                         = "/v2-data-secondary" [90m-> null[0m[0m
+      [31m-[0m[0m state                        = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m time_created                 = "2026-04-29 07:53:03 +0000 UTC" [90m-> null[0m[0m
+
+      [31m-[0m[0m export_options {
+          [31m-[0m[0m access                         = "READ_WRITE" [90m-> null[0m[0m
+          [31m-[0m[0m allowed_auth                   = [
+              [31m-[0m[0m "SYS",
+            ] [90m-> null[0m[0m
+          [31m-[0m[0m anonymous_gid                  = "65534" [90m-> null[0m[0m
+          [31m-[0m[0m anonymous_uid                  = "65534" [90m-> null[0m[0m
+          [31m-[0m[0m identity_squash                = "ROOT" [90m-> null[0m[0m
+          [31m-[0m[0m is_anonymous_access_allowed    = false [90m-> null[0m[0m
+          [31m-[0m[0m require_privileged_source_port = false [90m-> null[0m[0m
+          [31m-[0m[0m source                         = "0.0.0.0/0" [90m-> null[0m[0m
+        }
+    }
+
+[1m  # module.stack.module.filesystem["fs_backup"].oci_file_storage_file_system.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_file_system" "this" {
+      [31m-[0m[0m are_quota_rules_enabled  = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_domain      = "jJRq:EU-ZURICH-1-AD-1" [90m-> null[0m[0m
+      [31m-[0m[0m clone_attach_status      = "DETACHED" [90m-> null[0m[0m
+      [31m-[0m[0m clone_count              = 0 [90m-> null[0m[0m
+      [31m-[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+      [31m-[0m[0m defined_tags             = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com"
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-29T07:52:29.998Z"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m display_name             = "fss-v2-backup" [90m-> null[0m[0m
+      [31m-[0m[0m freeform_tags            = {
+          [31m-[0m[0m "entry"   = "fs_backup"
+          [31m-[0m[0m "release" = "v2"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m id                       = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2moutpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m is_clone_parent          = false [90m-> null[0m[0m
+      [31m-[0m[0m is_hydrated              = true [90m-> null[0m[0m
+      [31m-[0m[0m is_targetable            = false [90m-> null[0m[0m
+      [31m-[0m[0m metered_bytes            = "0" [90m-> null[0m[0m
+      [31m-[0m[0m quota_enforcement_state  = "DISABLED" [90m-> null[0m[0m
+      [31m-[0m[0m replication_source_count = 0 [90m-> null[0m[0m
+      [31m-[0m[0m source_details           = [
+          [31m-[0m[0m {
+              [31m-[0m[0m parent_file_system_id = ""
+              [31m-[0m[0m source_snapshot_id    = ""
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m state                    = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m system_tags              = {} [90m-> null[0m[0m
+      [31m-[0m[0m time_created             = "2026-04-29 07:52:30.051 +0000 UTC" [90m-> null[0m[0m
+    }
+
+[1m  # module.stack.module.filesystem["fs_data"].oci_file_storage_file_system.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_file_system" "this" {
+      [31m-[0m[0m are_quota_rules_enabled  = false [90m-> null[0m[0m
+      [31m-[0m[0m availability_domain      = "jJRq:EU-ZURICH-1-AD-1" [90m-> null[0m[0m
+      [31m-[0m[0m clone_attach_status      = "DETACHED" [90m-> null[0m[0m
+      [31m-[0m[0m clone_count              = 0 [90m-> null[0m[0m
+      [31m-[0m[0m compartment_id           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+      [31m-[0m[0m defined_tags             = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com"
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-29T07:52:31.787Z"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m display_name             = "fss-v2-data" [90m-> null[0m[0m
+      [31m-[0m[0m freeform_tags            = {
+          [31m-[0m[0m "entry"   = "fs_data"
+          [31m-[0m[0m "release" = "v2"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m id                       = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2mouupjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m is_clone_parent          = false [90m-> null[0m[0m
+      [31m-[0m[0m is_hydrated              = true [90m-> null[0m[0m
+      [31m-[0m[0m is_targetable            = false [90m-> null[0m[0m
+      [31m-[0m[0m metered_bytes            = "0" [90m-> null[0m[0m
+      [31m-[0m[0m quota_enforcement_state  = "DISABLED" [90m-> null[0m[0m
+      [31m-[0m[0m replication_source_count = 0 [90m-> null[0m[0m
+      [31m-[0m[0m source_details           = [
+          [31m-[0m[0m {
+              [31m-[0m[0m parent_file_system_id = ""
+              [31m-[0m[0m source_snapshot_id    = ""
+            },
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m state                    = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m system_tags              = {} [90m-> null[0m[0m
+      [31m-[0m[0m time_created             = "2026-04-29 07:52:31.843 +0000 UTC" [90m-> null[0m[0m
+    }
+
+[1m  # module.stack.module.mount_target["mt_primary"].oci_file_storage_mount_target.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_mount_target" "this" {
+      [31m-[0m[0m availability_domain       = "jJRq:EU-ZURICH-1-AD-1" [90m-> null[0m[0m
+      [31m-[0m[0m compartment_id            = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+      [31m-[0m[0m defined_tags              = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com"
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-29T07:52:29.996Z"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m display_name              = "fss-v2-mt-primary" [90m-> null[0m[0m
+      [31m-[0m[0m export_set_id             = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnrdonpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m freeform_tags             = {} [90m-> null[0m[0m
+      [31m-[0m[0m id                        = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrdoopjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m idmap_type                = "NONE" [90m-> null[0m[0m
+      [31m-[0m[0m ip_address                = "10.0.0.245" [90m-> null[0m[0m
+      [31m-[0m[0m mount_target_ipv6ids      = [] [90m-> null[0m[0m
+      [31m-[0m[0m nsg_ids                   = [] [90m-> null[0m[0m
+      [31m-[0m[0m observed_throughput       = "1" [90m-> null[0m[0m
+      [31m-[0m[0m private_ip_ids            = [
+          [31m-[0m[0m "ocid1.privateip.oc1.eu-zurich-1.aaaaaaaar4ss7msqx35qqtl2pznebgufounhlvcqra4k5bos2vbfh3zizluq",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m requested_throughput      = "1" [90m-> null[0m[0m
+      [31m-[0m[0m reserved_storage_capacity = "0" [90m-> null[0m[0m
+      [31m-[0m[0m security_attributes       = {} [90m-> null[0m[0m
+      [31m-[0m[0m state                     = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m subnet_id                 = "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q" [90m-> null[0m[0m
+      [31m-[0m[0m system_tags               = {} [90m-> null[0m[0m
+      [31m-[0m[0m time_created              = "2026-04-29 07:52:30.457 +0000 UTC" [90m-> null[0m[0m
+    }
+
+[1m  # module.stack.module.mount_target["mt_secondary"].oci_file_storage_mount_target.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "oci_file_storage_mount_target" "this" {
+      [31m-[0m[0m availability_domain       = "jJRq:EU-ZURICH-1-AD-1" [90m-> null[0m[0m
+      [31m-[0m[0m compartment_id            = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q" [90m-> null[0m[0m
+      [31m-[0m[0m defined_tags              = {
+          [31m-[0m[0m "Oracle-Tags.CreatedBy" = "default/ryszard.styczynski@avaloq.com"
+          [31m-[0m[0m "Oracle-Tags.CreatedOn" = "2026-04-29T07:52:29.990Z"
+        } [90m-> null[0m[0m
+      [31m-[0m[0m display_name              = "fss-v2-mt-secondary" [90m-> null[0m[0m
+      [31m-[0m[0m export_set_id             = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnrdolpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m freeform_tags             = {} [90m-> null[0m[0m
+      [31m-[0m[0m id                        = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrdompjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr" [90m-> null[0m[0m
+      [31m-[0m[0m idmap_type                = "NONE" [90m-> null[0m[0m
+      [31m-[0m[0m ip_address                = "10.0.0.121" [90m-> null[0m[0m
+      [31m-[0m[0m mount_target_ipv6ids      = [] [90m-> null[0m[0m
+      [31m-[0m[0m nsg_ids                   = [] [90m-> null[0m[0m
+      [31m-[0m[0m observed_throughput       = "1" [90m-> null[0m[0m
+      [31m-[0m[0m private_ip_ids            = [
+          [31m-[0m[0m "ocid1.privateip.oc1.eu-zurich-1.aaaaaaaazb5ifbjgbgumtdglctzzgch57qcx7ecx5rdirs4z6qu4yv2zer7q",
+        ] [90m-> null[0m[0m
+      [31m-[0m[0m requested_throughput      = "1" [90m-> null[0m[0m
+      [31m-[0m[0m reserved_storage_capacity = "0" [90m-> null[0m[0m
+      [31m-[0m[0m security_attributes       = {} [90m-> null[0m[0m
+      [31m-[0m[0m state                     = "ACTIVE" [90m-> null[0m[0m
+      [31m-[0m[0m subnet_id                 = "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q" [90m-> null[0m[0m
+      [31m-[0m[0m system_tags               = {} [90m-> null[0m[0m
+      [31m-[0m[0m time_created              = "2026-04-29 07:52:30.441 +0000 UTC" [90m-> null[0m[0m
+    }
+
+[1mPlan:[0m 0 to add, 0 to change, 10 to destroy.
+[0m
+Changes to Outputs:
+  [31m-[0m[0m availability_domain_source    = "random" [90m-> null[0m[0m
+  [31m-[0m[0m default_source_cidr           = "0.0.0.0/0" [90m-> null[0m[0m
+  [31m-[0m[0m effective_availability_domain = "jJRq:EU-ZURICH-1-AD-1" [90m-> null[0m[0m
+  [31m-[0m[0m export_paths                  = {
+      [31m-[0m[0m fs_backup__to_primary = "/v2-backup"
+      [31m-[0m[0m fs_data__to_primary   = "/v2-data-primary"
+      [31m-[0m[0m fs_data__to_secondary = "/v2-data-secondary"
+    } [90m-> null[0m[0m
+  [31m-[0m[0m filesystem_ocids              = {
+      [31m-[0m[0m fs_backup = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2moutpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+      [31m-[0m[0m fs_data   = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2mouupjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+    } [90m-> null[0m[0m
+  [31m-[0m[0m filesystems                   = {
+      [31m-[0m[0m fs_backup = {
+          [31m-[0m[0m availability_domain     = "jJRq:EU-ZURICH-1-AD-1"
+          [31m-[0m[0m compartment_ocid        = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+          [31m-[0m[0m exports                 = {
+              [31m-[0m[0m to_primary = {
+                  [31m-[0m[0m export_ocid      = "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrdvhpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+                  [31m-[0m[0m identity_squash  = "ROOT"
+                  [31m-[0m[0m mount_target_key = "mt_primary"
+                  [31m-[0m[0m nfs_mount_source = "10.0.0.245:/v2-backup"
+                  [31m-[0m[0m path             = "/v2-backup"
+                  [31m-[0m[0m source_cidr      = "0.0.0.0/0"
+                }
+            }
+          [31m-[0m[0m filesystem_display_name = "fss-v2-backup"
+          [31m-[0m[0m filesystem_ocid         = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2moutpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+          [31m-[0m[0m kms_key_id              = ""
+          [31m-[0m[0m kms_key_mode            = "ORACLE_MANAGED"
+        }
+      [31m-[0m[0m fs_data   = {
+          [31m-[0m[0m availability_domain     = "jJRq:EU-ZURICH-1-AD-1"
+          [31m-[0m[0m compartment_ocid        = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+          [31m-[0m[0m exports                 = {
+              [31m-[0m[0m to_primary   = {
+                  [31m-[0m[0m export_ocid      = "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrdvppjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+                  [31m-[0m[0m identity_squash  = "NONE"
+                  [31m-[0m[0m mount_target_key = "mt_primary"
+                  [31m-[0m[0m nfs_mount_source = "10.0.0.245:/v2-data-primary"
+                  [31m-[0m[0m path             = "/v2-data-primary"
+                  [31m-[0m[0m source_cidr      = "0.0.0.0/0"
+                }
+              [31m-[0m[0m to_secondary = {
+                  [31m-[0m[0m export_ocid      = "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrdjypjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+                  [31m-[0m[0m identity_squash  = "ROOT"
+                  [31m-[0m[0m mount_target_key = "mt_secondary"
+                  [31m-[0m[0m nfs_mount_source = "10.0.0.121:/v2-data-secondary"
+                  [31m-[0m[0m path             = "/v2-data-secondary"
+                  [31m-[0m[0m source_cidr      = "0.0.0.0/0"
+                }
+            }
+          [31m-[0m[0m filesystem_display_name = "fss-v2-data"
+          [31m-[0m[0m filesystem_ocid         = "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2mouupjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+          [31m-[0m[0m kms_key_id              = ""
+          [31m-[0m[0m kms_key_mode            = "ORACLE_MANAGED"
+        }
+    } [90m-> null[0m[0m
+  [31m-[0m[0m kms_key_mode                  = "ORACLE_MANAGED" [90m-> null[0m[0m
+  [31m-[0m[0m mount_target_log_ocids        = {
+      [31m-[0m[0m mt_primary = "ocid1.log.oc1.eu-zurich-1.amaaaaaaknhfuyiajxsnetkt46eqnbclga4brmcyqzuqpa62ndqslxntzg5a"
+    } [90m-> null[0m[0m
+  [31m-[0m[0m mount_target_ocids            = {
+      [31m-[0m[0m mt_primary   = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrdoopjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+      [31m-[0m[0m mt_secondary = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrdompjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+    } [90m-> null[0m[0m
+  [31m-[0m[0m mount_targets                 = {
+      [31m-[0m[0m mt_primary   = {
+          [31m-[0m[0m availability_domain        = "jJRq:EU-ZURICH-1-AD-1"
+          [31m-[0m[0m availability_domain_source = "random"
+          [31m-[0m[0m compartment_ocid           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+          [31m-[0m[0m display_name               = "fss-v2-mt-primary"
+          [31m-[0m[0m export_set_ocid            = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnrdonpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+          [31m-[0m[0m fqdn                       = [90mnull[0m[0m
+          [31m-[0m[0m ip_address                 = "10.0.0.245"
+          [31m-[0m[0m logging                    = {
+              [31m-[0m[0m category           = "nfslogs"
+              [31m-[0m[0m is_enabled         = true
+              [31m-[0m[0m log_display_name   = "fss-v2-primary-nfs"
+              [31m-[0m[0m log_group_ocid     = "ocid1.loggroup.oc1.eu-zurich-1.amaaaaaaknhfuyiaz4uzxy5rzvo52rtx4lzzjykgnattvczt2ijkvxndhcka"
+              [31m-[0m[0m log_ocid           = "ocid1.log.oc1.eu-zurich-1.amaaaaaaknhfuyiajxsnetkt46eqnbclga4brmcyqzuqpa62ndqslxntzg5a"
+              [31m-[0m[0m resource           = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrdoopjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+              [31m-[0m[0m retention_duration = 30
+              [31m-[0m[0m service            = "filestorage"
+            }
+          [31m-[0m[0m mount_address              = "10.0.0.245"
+          [31m-[0m[0m ocid                       = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrdoopjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+          [31m-[0m[0m private_ip_ids             = [
+              [31m-[0m[0m "ocid1.privateip.oc1.eu-zurich-1.aaaaaaaar4ss7msqx35qqtl2pznebgufounhlvcqra4k5bos2vbfh3zizluq",
+            ]
+          [31m-[0m[0m subnet_ocid                = "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q"
+        }
+      [31m-[0m[0m mt_secondary = {
+          [31m-[0m[0m availability_domain        = "jJRq:EU-ZURICH-1-AD-1"
+          [31m-[0m[0m availability_domain_source = "random"
+          [31m-[0m[0m compartment_ocid           = "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q"
+          [31m-[0m[0m display_name               = "fss-v2-mt-secondary"
+          [31m-[0m[0m export_set_ocid            = "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnrdolpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+          [31m-[0m[0m fqdn                       = [90mnull[0m[0m
+          [31m-[0m[0m ip_address                 = "10.0.0.121"
+          [31m-[0m[0m logging                    = [90mnull[0m[0m
+          [31m-[0m[0m mount_address              = "10.0.0.121"
+          [31m-[0m[0m ocid                       = "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrdompjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr"
+          [31m-[0m[0m private_ip_ids             = [
+              [31m-[0m[0m "ocid1.privateip.oc1.eu-zurich-1.aaaaaaaazb5ifbjgbgumtdglctzzgch57qcx7ecx5rdirs4z6qu4yv2zer7q",
+            ]
+          [31m-[0m[0m subnet_ocid                = "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q"
+        }
+    } [90m-> null[0m[0m
+  [31m-[0m[0m nfs_mount_sources             = {
+      [31m-[0m[0m fs_backup__to_primary = "10.0.0.245:/v2-backup"
+      [31m-[0m[0m fs_data__to_primary   = "10.0.0.245:/v2-data-primary"
+      [31m-[0m[0m fs_data__to_secondary = "10.0.0.121:/v2-data-secondary"
+    } [90m-> null[0m[0m
+[0m[1mmodule.stack.module.export["fs_backup__to_primary"].oci_file_storage_export.this: Destroying... [id=ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrdvhpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.stack.oci_logging_log.mount_target["mt_primary"]: Destroying... [id=ocid1.log.oc1.eu-zurich-1.amaaaaaaknhfuyiajxsnetkt46eqnbclga4brmcyqzuqpa62ndqslxntzg5a][0m[0m
+[0m[1mmodule.stack.module.export["fs_data__to_primary"].oci_file_storage_export.this: Destroying... [id=ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrdvppjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.stack.module.export["fs_data__to_secondary"].oci_file_storage_export.this: Destroying... [id=ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrdjypjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.stack.module.export["fs_data__to_primary"].oci_file_storage_export.this: Destruction complete after 2s[0m
+[0m[1mmodule.stack.module.export["fs_backup__to_primary"].oci_file_storage_export.this: Destruction complete after 2s[0m
+[0m[1mmodule.stack.module.export["fs_data__to_secondary"].oci_file_storage_export.this: Destruction complete after 8s[0m
+[0m[1mmodule.stack.module.filesystem["fs_backup"].oci_file_storage_file_system.this: Destroying... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2moutpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.stack.module.filesystem["fs_data"].oci_file_storage_file_system.this: Destroying... [id=ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2mouupjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.stack.oci_logging_log.mount_target["mt_primary"]: Still destroying... [id=ocid1.log.oc1.eu-zurich-1.amaaaaaaknhfu...kt46eqnbclga4brmcyqzuqpa62ndqslxntzg5a, 10s elapsed][0m[0m
+[0m[1mmodule.stack.module.filesystem["fs_backup"].oci_file_storage_file_system.this: Destruction complete after 2s[0m
+[0m[1mmodule.stack.module.filesystem["fs_data"].oci_file_storage_file_system.this: Destruction complete after 2s[0m
+[0m[1mmodule.stack.oci_logging_log.mount_target["mt_primary"]: Destruction complete after 13s[0m
+[0m[1mmodule.stack.oci_logging_log_group.mount_target["mt_primary"]: Destroying... [id=ocid1.loggroup.oc1.eu-zurich-1.amaaaaaaknhfuyiaz4uzxy5rzvo52rtx4lzzjykgnattvczt2ijkvxndhcka][0m[0m
+[0m[1mmodule.stack.module.mount_target["mt_primary"].oci_file_storage_mount_target.this: Destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrdoopjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.stack.module.mount_target["mt_secondary"].oci_file_storage_mount_target.this: Destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrdompjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr][0m[0m
+[0m[1mmodule.stack.oci_logging_log_group.mount_target["mt_primary"]: Destruction complete after 0s[0m
+[0m[1mmodule.stack.module.mount_target["mt_secondary"].oci_file_storage_mount_target.this: Still destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaa...zgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, 10s elapsed][0m[0m
+[0m[1mmodule.stack.module.mount_target["mt_primary"].oci_file_storage_mount_target.this: Still destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaa...zgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, 10s elapsed][0m[0m
+[0m[1mmodule.stack.module.mount_target["mt_primary"].oci_file_storage_mount_target.this: Still destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaa...zgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, 20s elapsed][0m[0m
+[0m[1mmodule.stack.module.mount_target["mt_secondary"].oci_file_storage_mount_target.this: Still destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaa...zgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, 20s elapsed][0m[0m
+[0m[1mmodule.stack.module.mount_target["mt_secondary"].oci_file_storage_mount_target.this: Still destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaa...zgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, 30s elapsed][0m[0m
+[0m[1mmodule.stack.module.mount_target["mt_primary"].oci_file_storage_mount_target.this: Still destroying... [id=ocid1.mounttarget.oc1.eu_zurich_1.aaaaa...zgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, 30s elapsed][0m[0m
+[0m[1mmodule.stack.module.mount_target["mt_primary"].oci_file_storage_mount_target.this: Destruction complete after 33s[0m
+[0m[1mmodule.stack.module.mount_target["mt_secondary"].oci_file_storage_mount_target.this: Destruction complete after 33s[0m
+[0m[1mmodule.stack.random_shuffle.picked_ad[0]: Destroying... [id=-][0m[0m
+[0m[1mmodule.stack.random_shuffle.picked_ad[0]: Destruction complete after 0s[0m
+[0m[1m[32m
+Destroy complete! Resources: 10 destroyed.
+[0m=== PASS integration:test_fss_sprint11_v2.sh ===
+=== SUMMARY suite=integration pass=1 fail=0 ===

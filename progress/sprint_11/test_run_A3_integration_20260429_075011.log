@@ -1,0 +1,44 @@
+=== RUN integration:test_fss_sprint11_v2.sh ===
+=== IT-1: minimal v2 example validates ===
+
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+- fss in ../../../../terraform/modules/fss_v2_stack
+- fss.export in ../../../../terraform/modules/fss_v1_export
+- fss.filesystem in ../../../../terraform/modules/fss_v1_filesystem
+- fss.mount_target in ../../../../terraform/modules/fss_v1_mount_target
+
+[0m[1mInitializing provider plugins...[0m
+- Finding latest version of oracle/oci...
+- Finding latest version of hashicorp/random...
+- Installing oracle/oci v8.11.0...
+- Installing hashicorp/random v3.8.1...
+- Installed hashicorp/random v3.8.1 (signed by HashiCorp)
+[31m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mFailed to install provider[0m
+[31m│[0m [0m
+[31m│[0m [0m[0mError while installing oracle/oci v8.11.0: unsuccessful request to
+[31m│[0m [0mhttps://github.com/oracle/terraform-provider-oci/releases/download/v8.11.0/terraform-provider-oci_8.11.0_darwin_arm64.zip:
+[31m│[0m [0m502 Bad Gateway
+[31m╵[0m[0m
+[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mMissing required provider[0m
+[31m│[0m [0m
+[31m│[0m [0m[0mThis configuration requires provider
+[31m│[0m [0mregistry.terraform.io/hashicorp/random, but that provider isn't available.
+[31m│[0m [0mYou may be able to install it automatically by running:
+[31m│[0m [0m  terraform init
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mMissing required provider[0m
+[31m│[0m [0m
+[31m│[0m [0m[0mThis configuration requires provider registry.terraform.io/oracle/oci, but
+[31m│[0m [0mthat provider isn't available. You may be able to install it automatically
+[31m│[0m [0mby running:
+[31m│[0m [0m  terraform init
+[31m╵[0m[0m
+FAIL: validate output does not confirm minimal v2 example success
+INFO: no Terraform-managed resources in state - skipping terraform destroy (/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_11/generated_tf/it1_minimal_validate)
+=== FAIL integration:test_fss_sprint11_v2.sh ===
+=== SUMMARY suite=integration pass=0 fail=1 ===

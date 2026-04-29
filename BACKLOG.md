@@ -176,3 +176,29 @@ Repeat the v1 packaging work for the latest approved stack interface from Sprint
 This item is complete when `terraform/modules/fss_v1_stack` accepts the Sprint 8 stack input shape, uses v1 lower-level modules internally, documents the current interface, and passes integration validation that proves nested exports and mount target logging work through the v1 path.
 
 Test: integration apply using `fss_v1_stack` provisions two mount targets, two filesystems, three exports, one logging-enabled mount target, and verifies the current composite outputs including `mount_targets[*].logging` and `nfs_mount_sources`.
+
+### PBI-021. Create v2 stack with optimized mandatory parameters
+
+Create `terraform/modules/fss_v2_stack` from the latest v1 stack behavior and reduce the number of mandatory operator inputs while preserving deterministic behavior. The stack should derive the effective availability domain from the subnet when the subnet is AD-specific. If the subnet is regional and no explicit availability domain is provided, the stack should use the Sprint 2 randomization pattern from `terraform/modules/fss_sprint2/ad.tf`: build a stable sorted AD list and select one AD with `random_shuffle`.
+
+`kms_key_id` should become optional. When it is omitted, the stack should pass no customer-managed key to the filesystem resource so OCI File Storage uses the Oracle-managed encryption key. `default_source_cidr` should also become optional and default to `0.0.0.0/0`. This is acceptable for this module because FSS exports are reachable only through private VCN networking, not directly from the public internet.
+
+This item is complete when the v2 stack can be consumed with only compartment, subnet, mount target, and filesystem/export intent supplied by the operator; the effective AD, encryption key mode, and default export source are visible in outputs or documentation; and explicit overrides for AD, KMS key, and export source continue to work.
+
+Test: `terraform validate` accepts a minimal v2 stack configuration without `availability_domain`, `kms_key_id`, or `default_source_cidr`; integration apply proves filesystem creation succeeds with OCI-managed encryption, exports inherit `0.0.0.0/0` when no source is set, and regional-subnet AD selection follows the Sprint 2 randomization pattern.
+
+### PBI-022. Complete v2 stack package and README
+
+Package the v2 stack created by PBI-021 as the operator-facing successor to the v1 stack. The v2 package should preserve the latest approved stack capabilities from v1, including independent `mount_targets` and `filesystems` maps, nested filesystem exports that reference mount targets by key, optional mount target logging surfaced through `mount_targets[*].logging`, and the optimized mandatory parameter behavior introduced by PBI-021.
+
+This item is complete when `terraform/modules/fss_v2_stack` has a complete README, executable examples, clear mandatory and optional variable sections, output documentation, migration notes from v1, and integration evidence that proves the documented examples match the implemented interface.
+
+Test: integration validation uses the README-shaped v2 examples under the sprint generated Terraform directory, verifies the minimal v2 configuration without `availability_domain`, `kms_key_id`, or `default_source_cidr`, and verifies a full v2 configuration with two mount targets, two filesystems, three exports, and one logging-enabled mount target.
+
+### PBI-023. Package v2 stack for OCI Resource Manager
+
+Add a `schema.yaml` alongside the v2 stack module so operators can deploy it directly from the OCI Console via Resource Manager without writing Terraform by hand. The schema must declare UI metadata for all mandatory variables (`compartment_ocid`, `subnet_ocid`), group and label optional variables clearly, and handle the complex map variables (`mount_targets`, `filesystems`) in a way Resource Manager can accept — either by exposing them as freeform JSON string inputs or by providing a simplified fixed-topology variant of the stack alongside the full map-based interface.
+
+The schema must be validated against the OCI Resource Manager schema specification and must produce a deployable stack when uploaded to OCI Resource Manager or referenced via a Git-based configuration source. The schema must also declare at least the key outputs (`nfs_mount_sources`, `mount_targets`) so operators can read mount information directly from the Resource Manager job page.
+
+Test: `oci resource-manager stack create` (or equivalent Resource Manager CLI/console upload) succeeds with the packaged stack zip; the Resource Manager job completes without schema validation errors; outputs including `nfs_mount_sources` are visible in the job result; a destroy job cleans up all created resources.
