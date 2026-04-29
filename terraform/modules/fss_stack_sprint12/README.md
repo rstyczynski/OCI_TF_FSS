@@ -142,13 +142,16 @@ Located in `examples/basic_fss/`.
 #### Run it
 
 ```bash
+export compartment_ocid=
+export subnet_ocid=
+
 cd terraform/modules/fss_stack_sprint12/examples/basic_fss
 
 terraform init
 
 terraform apply \
-  -var="compartment_ocid=ocid1.compartment.oc1..YOUR_COMPARTMENT" \
-  -var="subnet_ocid=ocid1.subnet.oc1..YOUR_SUBNET"
+  -var="compartment_ocid=${compartment_ocid}" \
+  -var="subnet_ocid=${subnet_ocid}"
 ```
 
 #### What the code does
@@ -210,8 +213,8 @@ ssh opc@<COMPUTE_IP> "sudo mkdir -p /mnt/data && \
 
 ```bash
 terraform destroy \
-  -var="compartment_ocid=ocid1.compartment.oc1..YOUR_COMPARTMENT" \
-  -var="subnet_ocid=ocid1.subnet.oc1..YOUR_SUBNET"
+  -var="compartment_ocid=${compartment_ocid}" \
+  -var="subnet_ocid=${subnet_ocid}"
 ```
 
 ---
@@ -227,21 +230,26 @@ Located in `examples/multi_fss_with_logging/`.
 #### Run
 
 ```bash
+export compartment_ocid=
+export subnet_ocid=
+export kms_key_id=          # optional — leave empty for Oracle-managed encryption
+export availability_domain= # optional — leave empty to derive from subnet
+
 cd terraform/modules/fss_stack_sprint12/examples/multi_fss_with_logging
 
 terraform init
 
-# Minimal — Oracle-managed encryption, no explicit AD
+# Minimal — Oracle-managed encryption, AD derived automatically
 terraform apply \
-  -var="compartment_ocid=ocid1.compartment.oc1..YOUR_COMPARTMENT" \
-  -var="subnet_ocid=ocid1.subnet.oc1..YOUR_SUBNET"
+  -var="compartment_ocid=${compartment_ocid}" \
+  -var="subnet_ocid=${subnet_ocid}"
 
 # With customer-managed KMS key and explicit AD
 terraform apply \
-  -var="compartment_ocid=ocid1.compartment.oc1..YOUR_COMPARTMENT" \
-  -var="subnet_ocid=ocid1.subnet.oc1..YOUR_SUBNET" \
-  -var="kms_key_id=ocid1.key.oc1..YOUR_KEY" \
-  -var="availability_domain=YOUR_AD_NAME"
+  -var="compartment_ocid=${compartment_ocid}" \
+  -var="subnet_ocid=${subnet_ocid}" \
+  -var="kms_key_id=${kms_key_id}" \
+  -var="availability_domain=${availability_domain}"
 ```
 
 #### Code walkthrough
@@ -366,6 +374,6 @@ oci logging log get \
 
 ```bash
 terraform destroy \
-  -var="compartment_ocid=ocid1.compartment.oc1..YOUR_COMPARTMENT" \
-  -var="subnet_ocid=ocid1.subnet.oc1..YOUR_SUBNET"
+  -var="compartment_ocid=${compartment_ocid}" \
+  -var="subnet_ocid=${subnet_ocid}"
 ```
