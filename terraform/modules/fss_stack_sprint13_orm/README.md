@@ -25,14 +25,19 @@ For multi-filesystem, multi-mount-target, or M:N export topologies, use `terrafo
 Create the upload zip from the repository root so the package can reference the current stack package as a sibling module:
 
 ```bash
+PACKAGE_OUT="$(pwd)/progress/sprint_13/generated_tf"
+mkdir -p "${PACKAGE_OUT}"
+
 cd terraform/modules/fss_stack_sprint13_orm
 
-zip -r ../../../progress/sprint_13/generated_tf/fss_stack_sprint13_orm.zip . \
+zip -r "${PACKAGE_OUT}/fss_stack_sprint13_orm.zip" . \
   -x '*/.terraform/*' \
   -x '*/terraform.tfstate' \
   -x '*/terraform.tfstate.*' \
   -x '*.tfplan' \
   -x '*.log'
+
+cd -
 ```
 
 Upload the zip as a `.zip file` in OCI Resource Manager. The zip root contains `schema.yaml`, `main.tf`, and the embedded `modules/fss_stack_sprint12/` implementation.

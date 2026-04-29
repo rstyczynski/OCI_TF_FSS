@@ -13,11 +13,12 @@ This package is intentionally console-friendly. It creates one mount target, one
 From the repository root:
 
 ```bash
-mkdir -p progress/sprint_13/generated_tf/manual
+PACKAGE_OUT="$(pwd)/progress/sprint_13/generated_tf/manual"
+mkdir -p "${PACKAGE_OUT}"
 
 cd terraform/modules/fss_stack_sprint13_orm
 
-zip -r ../../../progress/sprint_13/generated_tf/manual/fss_stack_sprint13_orm.zip . \
+zip -r "${PACKAGE_OUT}/fss_stack_sprint13_orm.zip" . \
   -x '*/.terraform/*' \
   -x '*/terraform.tfstate' \
   -x '*/terraform.tfstate.*' \
@@ -27,9 +28,15 @@ zip -r ../../../progress/sprint_13/generated_tf/manual/fss_stack_sprint13_orm.zi
 cd -
 ```
 
+Evidence: package creation snippet rerun successfully in `progress/sprint_13/operator_manual_package_fix_20260429_172327.log`.
+
 ## Create Resource Manager Stack
 
 ```bash
+export OCI_REGION=
+export COMPARTMENT_OCID=
+export SUBNET_OCID=
+
 cat > progress/sprint_13/generated_tf/manual/variables.json <<EOF
 {
   "region": "${OCI_REGION}",
