@@ -168,3 +168,11 @@ variable "filesystems" {
 The stack must retain the `default_source_cidr` module-level variable so that exports with `source = null` inherit a meaningful CIDR rather than failing at plan time.
 
 Test: `terraform validate` accepts a configuration with two `mount_targets` entries and two `filesystems` entries where one filesystem has exports pointing to different mount targets via `mount_target_key`; `terraform apply` provisions all resources, and outputs correctly associate each export with its referenced mount target; a second apply with one filesystem entry removed destroys only the targeted resources without affecting the remaining stack.
+
+### PBI-020. Rebase v1 stack on latest Sprint 8 stack interface
+
+Repeat the v1 packaging work for the latest approved stack interface from Sprint 8. Sprint 9 produced v1 module paths and documentation, but it used the older Sprint 5 stack shape. The corrected v1 stack must use the Sprint 8 interface with independent `mount_targets` and `filesystems` maps, nested filesystem exports that reference mount targets by key, and optional mount target logging surfaced through `mount_targets[*].logging`.
+
+This item is complete when `terraform/modules/fss_v1_stack` accepts the Sprint 8 stack input shape, uses v1 lower-level modules internally, documents the current interface, and passes integration validation that proves nested exports and mount target logging work through the v1 path.
+
+Test: integration apply using `fss_v1_stack` provisions two mount targets, two filesystems, three exports, one logging-enabled mount target, and verifies the current composite outputs including `mount_targets[*].logging` and `nfs_mount_sources`.

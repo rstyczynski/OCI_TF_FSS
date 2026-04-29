@@ -1,0 +1,5 @@
+# Sprint 10 new tests - used by tests/run.sh --new-only
+
+integration:test_fss_sprint10_v1_latest.sh:test_IT1_v1_latest_stack_applies
+integration:test_fss_sprint10_v1_latest.sh:test_IT2_latest_documented_example_validates
+

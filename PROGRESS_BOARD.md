@@ -21,3 +21,4 @@ Progress board is a table showing sprint, and backlog items state. It's the only
 | Sprint 8 | tested | PBI-016. Add logging to mount targets | tested |
 | Sprint 9 | tested | PBI-013. Pack sprint 5 terraform stack and lower level modules into v1 module | tested |
 | Sprint 9 | tested | PBI-014. Prepare comprehensive user documentation for v1 modules | tested |
+| Sprint 10 | tested | PBI-020. Rebase v1 stack on latest Sprint 8 stack interface | tested |

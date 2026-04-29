@@ -139,3 +139,16 @@ Backlog Items:
 
 * PBI-013. Pack sprint 5 terraform stack and lower level modules into v1 module
 * PBI-014. Prepare comprehensive user documentation for v1 modules
+
+## Sprint 10 - Rebase v1 stack on Sprint 8 interface
+
+Status: Done
+Mode: YOLO
+Test: integration
+Regression: none
+
+Repeat the v1 stack packaging using the latest Sprint 8 stack interface. Sprint 9 created the v1 module set and docs, but used the older Sprint 5 stack shape. Sprint 10 updates `fss_v1_stack` to the current interface with independent mount targets, nested filesystem exports, and optional mount target logging.
+
+Backlog Items:
+
+* PBI-020. Rebase v1 stack on latest Sprint 8 stack interface
