@@ -1,0 +1,146 @@
+title: "FSS Mount Target"
+description: "Create one OCI File Storage mount target for downstream filesystem and export workflows."
+schemaVersion: 1.1.0
+version: "20260429"
+locale: "en"
+
+variableGroups:
+  - title: "Required OCI Placement"
+    variables:
+      - ${region}
+      - ${compartment_ocid}
+      - ${availability_domain}
+      - ${subnet_ocid}
+  - title: "Mount Target"
+    variables:
+      - ${mount_target_display_name}
+      - ${hostname_label}
+      - ${nsg_ids}
+  - title: "Logging"
+    variables:
+      - ${enable_mount_target_logging}
+      - ${log_group_id}
+      - ${log_group_name}
+      - ${log_display_name}
+      - ${log_retention_duration}
+  - title: "Tags"
+    variables:
+      - ${freeform_tags}
+
+variables:
+  region:
+    type: oci:identity:region:name
+    title: "Region"
+    required: true
+
+  compartment_ocid:
+    type: oci:identity:compartment:id
+    title: "Compartment"
+    required: true
+
+  availability_domain:
+    type: oci:identity:availabilitydomain:name
+    title: "Availability Domain"
+    required: true
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+
+  subnet_ocid:
+    type: oci:core:subnet:id
+    title: "Subnet"
+    required: true
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+
+  mount_target_display_name:
+    type: string
+    title: "Mount target display name"
+    required: false
+    default: "fss-orm-mount-target"
+
+  hostname_label:
+    type: string
+    title: "Hostname label"
+    required: false
+    default: ""
+
+  nsg_ids:
+    type: array
+    title: "Network Security Group OCIDs"
+    required: false
+    items:
+      type: string
+    default: []
+
+  enable_mount_target_logging:
+    type: boolean
+    title: "Enable NFS logging"
+    required: false
+    default: false
+
+  log_group_id:
+    type: string
+    title: "Existing log group OCID"
+    required: false
+    default: ""
+    visible: ${enable_mount_target_logging}
+
+  log_group_name:
+    type: string
+    title: "New log group name"
+    required: false
+    default: "fss-orm-mount-target-logs"
+    visible: ${enable_mount_target_logging}
+
+  log_display_name:
+    type: string
+    title: "NFS log display name"
+    required: false
+    default: "fss-orm-mount-target-nfs"
+    visible: ${enable_mount_target_logging}
+
+  log_retention_duration:
+    type: integer
+    title: "Log retention days"
+    required: false
+    minimum: 30
+    maximum: 365
+    default: 30
+    visible: ${enable_mount_target_logging}
+
+  freeform_tags:
+    type: map
+    valueType: string
+    title: "Freeform tags"
+    required: false
+    default: "{}"
+
+outputGroups:
+  - title: "Mount target details"
+    outputs:
+      - mount_target_ocid
+      - export_set_ocid
+      - mount_address
+      - ip_address
+      - logging
+      - mount_target_summary
+
+outputs:
+  mount_target_ocid:
+    type: string
+    title: "Mount target OCID"
+  export_set_ocid:
+    type: string
+    title: "Export set OCID"
+  mount_address:
+    type: string
+    title: "Mount address"
+  ip_address:
+    type: string
+    title: "Private IP address"
+  logging:
+    type: json
+    title: "Logging"
+  mount_target_summary:
+    type: json
+    title: "Mount target summary"

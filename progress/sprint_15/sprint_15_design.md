@@ -1,12 +1,12 @@
 # Sprint 15 - Design
 
-Status: Proposed
+Status: Accepted
 
 Mode: managed
 
 ## PBI-026. Add Resource Manager mount target stack
 
-Status: Proposed
+Status: Accepted
 
 ### Requirement
 
@@ -14,7 +14,7 @@ Create a focused OCI Resource Manager stack for FSS mount target creation. The s
 
 ## PBI-028. Add Resource Manager filesystem stack with chained exports
 
-Status: Proposed
+Status: Accepted
 
 ### Requirement
 

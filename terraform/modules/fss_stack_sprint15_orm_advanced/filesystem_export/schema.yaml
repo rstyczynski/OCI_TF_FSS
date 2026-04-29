@@ -1,0 +1,404 @@
+title: "FSS Filesystem with Exports"
+description: "Create one OCI File Storage filesystem and one or more exports against an existing mount target."
+schemaVersion: 1.1.0
+version: "20260429"
+locale: "en"
+
+variableGroups:
+  - title: "Required OCI Placement"
+    variables:
+      - ${region}
+      - ${compartment_ocid}
+      - ${availability_domain}
+      - ${existing_mount_target_ocid}
+  - title: "Filesystem"
+    variables:
+      - ${filesystem_display_name}
+      - ${kms_key_id}
+      - ${freeform_tags}
+  - title: "Export Defaults"
+    variables:
+      - ${default_source_cidr}
+      - ${anonymous_uid}
+      - ${anonymous_gid}
+      - ${require_privileged_source_port}
+  - title: "Export 1"
+    variables:
+      - ${export_1_path}
+      - ${export_1_source_cidr}
+      - ${export_1_access}
+      - ${export_1_identity_squash}
+      - ${add_export_2}
+  - title: "Export 2"
+    variables:
+      - ${export_2_path}
+      - ${export_2_source_cidr}
+      - ${export_2_access}
+      - ${export_2_identity_squash}
+      - ${add_export_3}
+  - title: "Export 3"
+    variables:
+      - ${export_3_path}
+      - ${export_3_source_cidr}
+      - ${export_3_access}
+      - ${export_3_identity_squash}
+      - ${add_export_4}
+  - title: "Export 4"
+    variables:
+      - ${export_4_path}
+      - ${export_4_source_cidr}
+      - ${export_4_access}
+      - ${export_4_identity_squash}
+      - ${add_export_5}
+  - title: "Export 5"
+    variables:
+      - ${export_5_path}
+      - ${export_5_source_cidr}
+      - ${export_5_access}
+      - ${export_5_identity_squash}
+      - ${add_export_6}
+  - title: "Export 6"
+    variables:
+      - ${export_6_path}
+      - ${export_6_source_cidr}
+      - ${export_6_access}
+      - ${export_6_identity_squash}
+
+variables:
+  region:
+    type: oci:identity:region:name
+    title: "Region"
+    required: true
+
+  compartment_ocid:
+    type: oci:identity:compartment:id
+    title: "Compartment"
+    required: true
+
+  availability_domain:
+    type: oci:identity:availabilitydomain:name
+    title: "Availability Domain"
+    required: true
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+
+  existing_mount_target_ocid:
+    type: oci:mount:target:id
+    title: "Existing mount target"
+    required: true
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+      availabilityDomain: ${availability_domain}
+
+  filesystem_display_name:
+    type: string
+    title: "Filesystem display name"
+    required: false
+    default: "fss-orm-filesystem"
+
+  kms_key_id:
+    type: string
+    title: "KMS key"
+    required: false
+    default: ""
+
+  default_source_cidr:
+    type: string
+    title: "Default source CIDR"
+    required: false
+    default: "0.0.0.0/0"
+
+  anonymous_uid:
+    type: integer
+    title: "Anonymous UID"
+    required: false
+    default: 65534
+
+  anonymous_gid:
+    type: integer
+    title: "Anonymous GID"
+    required: false
+    default: 65534
+
+  require_privileged_source_port:
+    type: boolean
+    title: "Require privileged source port"
+    required: false
+    default: false
+
+  freeform_tags:
+    type: map
+    valueType: string
+    title: "Freeform tags"
+    required: false
+    default: "{}"
+
+  export_1_path:
+    type: string
+    title: "Export 1 path"
+    required: true
+    default: "/data"
+
+  export_1_source_cidr:
+    type: string
+    title: "Export 1 source CIDR"
+    required: false
+    default: ""
+
+  export_1_access:
+    type: enum
+    title: "Export 1 access"
+    enum:
+      - READ_WRITE
+      - READ_ONLY
+    required: false
+    default: READ_WRITE
+
+  export_1_identity_squash:
+    type: enum
+    title: "Export 1 identity squash"
+    enum:
+      - ROOT
+      - NONE
+    required: false
+    default: ROOT
+
+  add_export_2:
+    type: boolean
+    title: "Add another export"
+    required: false
+    default: false
+
+  export_2_path:
+    type: string
+    title: "Export 2 path"
+    required: false
+    default: "/data2"
+    visible: ${add_export_2}
+
+  export_2_source_cidr:
+    type: string
+    title: "Export 2 source CIDR"
+    required: false
+    default: ""
+    visible: ${add_export_2}
+
+  export_2_access:
+    type: enum
+    title: "Export 2 access"
+    enum:
+      - READ_WRITE
+      - READ_ONLY
+    required: false
+    default: READ_WRITE
+    visible: ${add_export_2}
+
+  export_2_identity_squash:
+    type: enum
+    title: "Export 2 identity squash"
+    enum:
+      - ROOT
+      - NONE
+    required: false
+    default: ROOT
+    visible: ${add_export_2}
+
+  add_export_3:
+    type: boolean
+    title: "Add another export"
+    required: false
+    default: false
+    visible: ${add_export_2}
+
+  export_3_path:
+    type: string
+    title: "Export 3 path"
+    required: false
+    default: "/data3"
+    visible: ${add_export_3}
+
+  export_3_source_cidr:
+    type: string
+    title: "Export 3 source CIDR"
+    required: false
+    default: ""
+    visible: ${add_export_3}
+
+  export_3_access:
+    type: enum
+    title: "Export 3 access"
+    enum:
+      - READ_WRITE
+      - READ_ONLY
+    required: false
+    default: READ_WRITE
+    visible: ${add_export_3}
+
+  export_3_identity_squash:
+    type: enum
+    title: "Export 3 identity squash"
+    enum:
+      - ROOT
+      - NONE
+    required: false
+    default: ROOT
+    visible: ${add_export_3}
+
+  add_export_4:
+    type: boolean
+    title: "Add another export"
+    required: false
+    default: false
+    visible: ${add_export_3}
+
+  export_4_path:
+    type: string
+    title: "Export 4 path"
+    required: false
+    default: "/data4"
+    visible: ${add_export_4}
+
+  export_4_source_cidr:
+    type: string
+    title: "Export 4 source CIDR"
+    required: false
+    default: ""
+    visible: ${add_export_4}
+
+  export_4_access:
+    type: enum
+    title: "Export 4 access"
+    enum:
+      - READ_WRITE
+      - READ_ONLY
+    required: false
+    default: READ_WRITE
+    visible: ${add_export_4}
+
+  export_4_identity_squash:
+    type: enum
+    title: "Export 4 identity squash"
+    enum:
+      - ROOT
+      - NONE
+    required: false
+    default: ROOT
+    visible: ${add_export_4}
+
+  add_export_5:
+    type: boolean
+    title: "Add another export"
+    required: false
+    default: false
+    visible: ${add_export_4}
+
+  export_5_path:
+    type: string
+    title: "Export 5 path"
+    required: false
+    default: "/data5"
+    visible: ${add_export_5}
+
+  export_5_source_cidr:
+    type: string
+    title: "Export 5 source CIDR"
+    required: false
+    default: ""
+    visible: ${add_export_5}
+
+  export_5_access:
+    type: enum
+    title: "Export 5 access"
+    enum:
+      - READ_WRITE
+      - READ_ONLY
+    required: false
+    default: READ_WRITE
+    visible: ${add_export_5}
+
+  export_5_identity_squash:
+    type: enum
+    title: "Export 5 identity squash"
+    enum:
+      - ROOT
+      - NONE
+    required: false
+    default: ROOT
+    visible: ${add_export_5}
+
+  add_export_6:
+    type: boolean
+    title: "Add another export"
+    required: false
+    default: false
+    visible: ${add_export_5}
+
+  export_6_path:
+    type: string
+    title: "Export 6 path"
+    required: false
+    default: "/data6"
+    visible: ${add_export_6}
+
+  export_6_source_cidr:
+    type: string
+    title: "Export 6 source CIDR"
+    required: false
+    default: ""
+    visible: ${add_export_6}
+
+  export_6_access:
+    type: enum
+    title: "Export 6 access"
+    enum:
+      - READ_WRITE
+      - READ_ONLY
+    required: false
+    default: READ_WRITE
+    visible: ${add_export_6}
+
+  export_6_identity_squash:
+    type: enum
+    title: "Export 6 identity squash"
+    enum:
+      - ROOT
+      - NONE
+    required: false
+    default: ROOT
+    visible: ${add_export_6}
+
+outputGroups:
+  - title: "Mount information"
+    outputs:
+      - nfs_mount_sources
+      - filesystem_export_summary
+  - title: "Created resources"
+    outputs:
+      - filesystem_ocid
+      - export_ocids
+      - export_paths
+      - mount_target_ocid
+      - export_set_ocid
+
+outputs:
+  filesystem_ocid:
+    type: string
+    title: "Filesystem OCID"
+  export_ocids:
+    type: map
+    title: "Export OCIDs"
+  export_paths:
+    type: map
+    title: "Export paths"
+  mount_target_ocid:
+    type: string
+    title: "Mount target OCID"
+  export_set_ocid:
+    type: string
+    title: "Export set OCID"
+  nfs_mount_sources:
+    type: map
+    title: "NFS mount sources"
+  filesystem_export_summary:
+    type: json
+    title: "Filesystem export summary"

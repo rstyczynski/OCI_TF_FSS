@@ -11,3 +11,11 @@ Answer: Not required for Sprint 15 after backlog split. Existing mount target se
 Product Owner opinion: Provide filesystem name from current compartment
 
 Resolution: Deferred to future PBI-029. Sprint 15 does not implement export-only workflow.
+
+## Approval to run quality gates
+
+Status: Proposed
+
+Problem to clarify: Sprint 15 construction is complete. Managed mode requires Product Owner approval before Phase 4 quality gates.
+
+Answer: Pending Product Owner approval.
