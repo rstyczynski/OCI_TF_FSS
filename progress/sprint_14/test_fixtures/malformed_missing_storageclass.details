@@ -1,0 +1,7 @@
+NAME                   STATUS   ROLES    AGE      VERSION            ZONE
+node-test-001.example  Ready    worker   1d       v1.27.11+example   test
+##########
+PV Name: pvc-bad
+path: /legacy/bad/pvc-bad
+server: 10.0.9.10
+##########

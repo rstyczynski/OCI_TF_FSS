@@ -1,0 +1,11 @@
+NAME                   STATUS   ROLES    AGE      VERSION            ZONE
+node-front-001.example.internal  Ready    worker   4y261d   v1.27.11+example   front
+node-front-002.example.internal  Ready    worker   4y261d   v1.27.11+example   front
+node-front-003.example.internal  Ready    worker   4y261d   v1.27.11+example   front
+node-front-004.example.internal  Ready    worker   3y338d   v1.27.11+example   front
+##########
+PV Name: pv-static-007
+path: /legacy-nas-b/tenant-gamma/pv-static-007
+server: 10.0.2.10
+storageclass: prisma
+##########

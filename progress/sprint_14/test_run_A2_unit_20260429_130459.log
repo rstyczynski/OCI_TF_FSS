@@ -1,0 +1,7 @@
+=== RUN unit:test_pv_report_converter.sh ===
+=== UT-1: templates convert to FSS stack tfvars ===
+PASS: UT-1
+=== UT-2: malformed report fails clearly ===
+PASS: UT-2
+=== PASS unit:test_pv_report_converter.sh ===
+=== SUMMARY suite=unit pass=1 fail=0 ===

@@ -234,3 +234,15 @@ The design may later add bounded multi-entry forms, but JSON-only input is not p
 This item is complete when the advanced Resource Manager package set exists alongside the simple Sprint 13 package, the README clearly explains when to use each stack, and Resource Manager Console shows grouped controls and existing-resource dropdowns instead of raw `mount_targets` and `filesystems` map text boxes.
 
 Test: Resource Manager stack upload validates each schema; integration apply creates a mount target through the mount target stack, creates a filesystem+export by selecting that mount target, and creates an additional export by selecting the existing filesystem and mount target; outputs expose `nfs_mount_sources`, mount target details, filesystem OCIDs, and export associations; destroy jobs remove all created resources.
+
+### PBI-027. Add legacy PV report to FSS stack variables converter
+
+Create a conversion tool that reads legacy Kubernetes/NFS PV report files and generates Terraform variable files compatible with the current FSS stack package.
+
+Template files used by real reports are at `etc/pv-template1-details`, `etc/pv-template2-details`, and `etc/pv-template3-details`. These templates cover a multi-PV single-server case, a single static PV case, and a larger multi-PV case. The converter must parse node sections and PV blocks from reports containing node tables, repeated `##########` separators, and PV fields such as `PV Name`, `path`, `server`, and `storageclass`. It must generate an `.auto.tfvars` file with `mount_targets` and `filesystems` maps matching `terraform/modules/fss_stack_sprint12` input shape. Legacy source metadata such as NFS server, PV name, storage class, and original export path should be preserved as freeform tags where useful.
+
+The converter should group PVs by legacy NFS server so each distinct server becomes one generated mount target key, and each PV becomes one filesystem with one `primary` export. The legacy `path` value is the generated export path, preserving the old NFS mount contract. Generated keys must be Terraform-safe and stable. The tool should validate required fields, report malformed blocks clearly, and avoid silently dropping PVs. The tool goes to `./tools`. The project README must include a chapter explaining how to use the tool with example usage of the template files.
+
+This item is complete when operators can run one command against a report file and receive a reviewed `.auto.tfvars` file ready to use with the FSS stack module.
+
+Test: unit tests cover all three templates, parsing of node sections, multiple PV blocks, multiple legacy servers, malformed or incomplete PV blocks, key sanitization, and generated HCL formatting. Integration testing applies the produced `.auto.tfvars` with the current `terraform/modules/fss_stack_sprint12` stack, verifies the created mount target, filesystem, export, and NFS mount source outputs, and destroys the created resources.

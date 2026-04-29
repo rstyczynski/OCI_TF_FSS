@@ -1,0 +1,45 @@
+NAME                   STATUS   ROLES    AGE      VERSION            ZONE
+node-core-001.example.internal   Ready    worker   4y261d   v1.27.11+example   core
+node-core-002.example.internal   Ready    worker   4y261d   v1.27.11+example   core
+node-core-003.example.internal   Ready    worker   4y261d   v1.27.11+example   core
+node-core-004.example.internal   Ready    worker   3y352d   v1.27.11+example   core
+NAME                   STATUS   ROLES    AGE      VERSION            ZONE
+node-core-infra-001.example.internal Ready    worker   4y261d   v1.27.11+example   core-infra
+node-core-infra-002.example.internal Ready    worker   4y261d   v1.27.11+example   core-infra
+node-core-infra-003.example.internal Ready    worker   4y261d   v1.27.11+example   core-infra
+##########
+PV Name: pvc-00000001-0001-0001-0001-000000000001
+path: /legacy-nas-a/tenant-alpha/app-env-b-web-cache-0-pvc-00000001-0001-0001-0001-000000000001
+server: 10.0.1.10
+storageclass: core
+##########
+##########
+PV Name: pvc-00000002-0002-0002-0002-000000000002
+path: /legacy-nas-a/tenant-alpha/platform-monitoring-grafana-storage-pvc-00000002-0002-0002-0002-000000000002
+server: 10.0.1.10
+storageclass: core
+##########
+##########
+PV Name: pvc-00000003-0003-0003-0003-000000000003
+path: /legacy-nas-a/tenant-alpha/platform-monitoring-alertmanager-db-0-pvc-00000003-0003-0003-0003-000000000003
+server: 10.0.1.10
+storageclass: core
+##########
+##########
+PV Name: pvc-00000004-0004-0004-0004-000000000004
+path: /legacy-nas-a/tenant-alpha/app-env-c-web-cache-0-pvc-00000004-0004-0004-0004-000000000004
+server: 10.0.1.10
+storageclass: core
+##########
+##########
+PV Name: pvc-00000005-0005-0005-0005-000000000005
+path: /legacy-nas-a/tenant-alpha/platform-monitoring-prometheus-db-0-pvc-00000005-0005-0005-0005-000000000005
+server: 10.0.1.10
+storageclass: core
+##########
+##########
+PV Name: pvc-00000006-0006-0006-0006-000000000006
+path: /legacy-nas-a/tenant-alpha/app-env-a-web-cache-0-pvc-00000006-0006-0006-0006-000000000006
+server: 10.0.1.10
+storageclass: core
+##########

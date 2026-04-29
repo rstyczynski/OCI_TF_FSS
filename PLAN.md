@@ -192,3 +192,16 @@ Package the current `terraform/modules/fss_stack_sprint12/` stack for OCI Resour
 Backlog Items:
 
 * PBI-023. Package current FSS stack package for OCI Resource Manager
+
+## Sprint 14 - Legacy PV report converter
+
+Status: Done
+Mode: YOLO
+Test: unit, integration
+Regression: none
+
+Create a converter that turns legacy Kubernetes/NFS PV report files into `.auto.tfvars` files for the current `terraform/modules/fss_stack_sprint12/` package. Integration testing applies the generated variables with the Sprint 12 Terraform stack and verifies the created mount targets, filesystems, exports, and mount source outputs.
+
+Backlog Items:
+
+* PBI-027. Add legacy PV report to FSS stack variables converter

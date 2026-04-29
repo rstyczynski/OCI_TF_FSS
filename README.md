@@ -11,6 +11,20 @@ Start with the executable examples:
 
 The Sprint 12 product root is `terraform/modules/fss_stack_sprint12/`. Its reusable lower-level wrappers live under `terraform/modules/fss_stack_sprint12/modules/`.
 
+## Legacy PV Report Conversion
+
+Use `tools/convert_pv_report_to_fss_tfvars.py` to convert legacy Kubernetes/NFS PV reports into `fss_stack_sprint12` variables.
+
+Prerequisite: run from the repository root with Python 3 available.
+
+```bash
+tools/convert_pv_report_to_fss_tfvars.py \
+  etc/pv-template1-details \
+  -o progress/sprint_14/generated_tf/template1.auto.tfvars
+```
+
+The generated file contains `mount_targets` and `filesystems` maps. Each distinct legacy `server` becomes one mount target, and each PV becomes one filesystem with one `primary` export that preserves the legacy `path`.
+
 ## Recent Updates
 
 ### Sprint 1 - Foundation infrastructure for system-level tests

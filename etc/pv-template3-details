@@ -1,0 +1,93 @@
+NAME                   STATUS   ROLES    AGE      VERSION            ZONE
+node-front-001.example.internal  Ready    worker   4y261d   v1.27.11+example   front
+node-front-002.example.internal  Ready    worker   4y261d   v1.27.11+example   front
+node-front-003.example.internal  Ready    worker   4y261d   v1.27.11+example   front
+node-front-004.example.internal  Ready    worker   3y338d   v1.27.11+example   front
+NAME                   STATUS   ROLES    AGE      VERSION            ZONE
+node-front-infra-001.example.internal Ready    worker   4y261d   v1.27.11+example   front-infra
+node-front-infra-002.example.internal Ready    worker   4y261d   v1.27.11+example   front-infra
+node-front-infra-003.example.internal Ready    worker   4y261d   v1.27.11+example   front-infra
+##########
+PV Name: pvc-00000008-0008-0008-0008-000000000008
+path: /legacy-nas-b/tenant-beta/app-env-c-queue-data-workbench-application-0-pvc-00000008-0008-0008-0008-000000000008
+server: 10.0.2.10
+storageclass: front
+##########
+##########
+PV Name: pvc-00000009-0009-0009-0009-000000000009
+path: /legacy-nas-b/tenant-beta/app-env-c-queue-data-workbench-application-1-pvc-00000009-0009-0009-0009-000000000009
+server: 10.0.2.10
+storageclass: front
+##########
+##########
+PV Name: pvc-00000010-0010-0010-0010-000000000010
+path: /legacy-nas-b/tenant-beta/app-env-c-workbench-sync-manager-pvc-oms-pvc-00000010-0010-0010-0010-000000000010
+server: 10.0.2.10
+storageclass: front
+##########
+##########
+PV Name: pvc-00000011-0011-0011-0011-000000000011
+path: /legacy-nas-b/tenant-beta/app-env-b-queue-data-workbench-application-0-pvc-00000011-0011-0011-0011-000000000011
+server: 10.0.2.10
+storageclass: front
+##########
+##########
+PV Name: pvc-00000012-0012-0012-0012-000000000012
+path: /legacy-nas-b/tenant-beta/app-env-a-queue-data-workbench-application-1-pvc-00000012-0012-0012-0012-000000000012
+server: 10.0.2.10
+storageclass: front
+##########
+##########
+PV Name: pvc-00000013-0013-0013-0013-000000000013
+path: /legacy-nas-b/tenant-beta/app-env-a-workbench-sync-manager-pvc-oms-pvc-00000013-0013-0013-0013-000000000013
+server: 10.0.2.10
+storageclass: front
+##########
+##########
+PV Name: pvc-00000014-0014-0014-0014-000000000014
+path: /legacy-nas-b/tenant-beta/app-env-b-queue-data-workbench-sync-manager-0-pvc-00000014-0014-0014-0014-000000000014
+server: 10.0.2.10
+storageclass: front
+##########
+##########
+PV Name: pvc-00000015-0015-0015-0015-000000000015
+path: /legacy-nas-b/tenant-beta/app-env-c-workbench-notification-scope-pvc-00000015-0015-0015-0015-000000000015
+server: 10.0.2.10
+storageclass: front
+##########
+##########
+PV Name: pvc-00000016-0016-0016-0016-000000000016
+path: /legacy-nas-b/tenant-beta/app-env-b-workbench-notification-scope-pvc-00000016-0016-0016-0016-000000000016
+server: 10.0.2.10
+storageclass: front
+##########
+##########
+PV Name: pvc-00000017-0017-0017-0017-000000000017
+path: /legacy-nas-b/tenant-beta/app-env-a-queue-data-workbench-sync-manager-0-pvc-00000017-0017-0017-0017-000000000017
+server: 10.0.2.10
+storageclass: front
+##########
+##########
+PV Name: pvc-00000018-0018-0018-0018-000000000018
+path: /legacy-nas-b/tenant-beta/app-env-c-queue-data-workbench-sync-manager-0-pvc-00000018-0018-0018-0018-000000000018
+server: 10.0.2.10
+storageclass: front
+##########
+##########
+PV Name: pvc-00000019-0019-0019-0019-000000000019
+path: /legacy-nas-b/tenant-beta/app-env-a-workbench-notification-scope-pvc-00000019-0019-0019-0019-000000000019
+server: 10.0.2.10
+storageclass: front
+##########
+##########
+PV Name: pvc-00000020-0020-0020-0020-000000000020
+path: /legacy-nas-b/tenant-beta/app-env-a-queue-data-workbench-application-0-pvc-00000020-0020-0020-0020-000000000020
+server: 10.0.2.10
+storageclass: front
+##########
+##########
+PV Name: pvc-00000021-0021-0021-0021-000000000021
+path: /legacy-nas-b/tenant-beta/app-env-b-workbench-sync-manager-pvc-oms-pvc-00000021-0021-0021-0021-000000000021
+server: 10.0.2.10
+storageclass: front
+##########
