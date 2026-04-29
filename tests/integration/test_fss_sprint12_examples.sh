@@ -231,27 +231,30 @@ test_IT3_multi_fss_identity_squash_behavior() {
     nfs_none="$(jq -r '.nfs_mount_sources.value."data__primary"' "${artifacts_dir}/outputs.json")"
     nfs_root="$(jq -r '.nfs_mount_sources.value."data__secondary"' "${artifacts_dir}/outputs.json")"
 
-    # Verify NONE squash: sudo mkdir must succeed
-    ssh -i "${ssh_key_path}" -o StrictHostKeyChecking=no "opc@${compute_ip}" \
-      "sudo mkdir -p /mnt/fss_it3_none && \
-       sudo mount -t nfs -o vers=3,noacl ${nfs_none} /mnt/fss_it3_none && \
-       sudo mkdir -p /mnt/fss_it3_none/test_dir && \
-       ls /mnt/fss_it3_none/test_dir" \
-      2>&1 | tee "${artifacts_dir}/mount_none.log"
-    if ! grep -q "test_dir\|already exists\|mkdir" "${artifacts_dir}/mount_none.log"; then
+    # Verify NONE squash: sudo mkdir must succeed — echo sentinel so log is never empty
+    ssh -i "${ssh_key_path}" -o StrictHostKeyChecking=no "opc@${compute_ip}" "
+      sudo mkdir -p /mnt/fss_it3_none
+      sudo mount -t nfs -o vers=3,noacl ${nfs_none} /mnt/fss_it3_none
+      sudo mkdir -p /mnt/fss_it3_none/test_dir && echo MKDIR_NONE_OK || echo MKDIR_NONE_FAIL
+      sudo umount /mnt/fss_it3_none
+    " 2>&1 | tee "${artifacts_dir}/mount_none.log"
+    if ! grep -q "MKDIR_NONE_OK" "${artifacts_dir}/mount_none.log"; then
       echo "FAIL: sudo mkdir on NONE-squash mount did not succeed" >&2
+      cat "${artifacts_dir}/mount_none.log" >&2
       exit 1
     fi
     echo "PASS: NONE squash — sudo mkdir succeeded on ${nfs_none}"
 
-    # Verify ROOT squash: sudo mkdir must be denied or mapped to anonymous UID
-    ssh -i "${ssh_key_path}" -o StrictHostKeyChecking=no "opc@${compute_ip}" \
-      "sudo mkdir -p /mnt/fss_it3_root && \
-       sudo mount -t nfs -o vers=3,noacl ${nfs_root} /mnt/fss_it3_root; \
-       sudo mkdir /mnt/fss_it3_root/test_dir 2>&1 || true" \
-      2>&1 | tee "${artifacts_dir}/mount_root.log"
-    if ! grep -qi "permission denied\|mkdir: cannot" "${artifacts_dir}/mount_root.log"; then
+    # Verify ROOT squash: sudo mkdir must be denied (root mapped to anonymous UID)
+    ssh -i "${ssh_key_path}" -o StrictHostKeyChecking=no "opc@${compute_ip}" "
+      sudo mkdir -p /mnt/fss_it3_root
+      sudo mount -t nfs -o vers=3,noacl ${nfs_root} /mnt/fss_it3_root
+      sudo mkdir /mnt/fss_it3_root/test_dir 2>&1 && echo MKDIR_ROOT_OK || echo MKDIR_ROOT_FAIL
+      sudo umount /mnt/fss_it3_root
+    " 2>&1 | tee "${artifacts_dir}/mount_root.log"
+    if ! grep -q "MKDIR_ROOT_FAIL\|Permission denied\|cannot create" "${artifacts_dir}/mount_root.log"; then
       echo "FAIL: ROOT-squash mount did not deny sudo mkdir as expected" >&2
+      cat "${artifacts_dir}/mount_root.log" >&2
       exit 1
     fi
     echo "PASS: ROOT squash — sudo mkdir denied on ${nfs_root}"

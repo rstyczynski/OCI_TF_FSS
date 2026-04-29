@@ -12,3 +12,11 @@
 - **Verification**: Deferred to PBI-025.
 
 **Promotion reason:** Sprint 12 is closed. Fix requires a new apply + SSH + mount test cycle beyond the current sprint's completed scope.
+
+**Resolution:** IT-3 executed successfully on 2026-04-29.
+Log: `progress/sprint_12/test_run_A3_integration_IT3_20260429_105553.log`
+
+- `identity_squash = "NONE"` on `data__primary` (10.0.0.32:/data): `sudo mkdir` → `MKDIR_NONE_OK` ✅
+- `identity_squash = "ROOT"` on `data__secondary` (10.0.0.95:/data-secondary): `sudo mkdir` → `MKDIR_ROOT_FAIL` ✅
+
+**Verdict:** feature works correctly. PBI-025 can be closed.
