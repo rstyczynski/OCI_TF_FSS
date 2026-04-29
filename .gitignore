@@ -14,6 +14,7 @@ progress/.DS_Store
 progress/**/generated_tf/**/*.tfstate
 progress/**/generated_tf/**/*.tfstate.*
 progress/**/generated_tf/**/*.tfplan
+progress/**/generated_tf/**/*.zip
 progress/**/generated_tf/**/.terraform.lock.hcl
 progress/**/generated_tf/**/tf_test_artifacts/
 progress/**/operator_tf/.terraform.lock.hcl

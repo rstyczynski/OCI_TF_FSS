@@ -195,9 +195,9 @@ This item is complete when `terraform/modules/fss_v2_stack` has a complete READM
 
 Test: integration validation uses the README-shaped v2 examples under the sprint generated Terraform directory, verifies the minimal v2 configuration without `availability_domain`, `kms_key_id`, or `default_source_cidr`, and verifies a full v2 configuration with two mount targets, two filesystems, three exports, and one logging-enabled mount target.
 
-### PBI-023. Package v2 stack for OCI Resource Manager
+### PBI-023. Package current FSS stack package for OCI Resource Manager
 
-Add a `schema.yaml` alongside the v2 stack module so operators can deploy it directly from the OCI Console via Resource Manager without writing Terraform by hand. The schema must declare UI metadata for all mandatory variables (`compartment_ocid`, `subnet_ocid`), group and label optional variables clearly, and handle the complex map variables (`mount_targets`, `filesystems`) in a way Resource Manager can accept — either by exposing them as freeform JSON string inputs or by providing a simplified fixed-topology variant of the stack alongside the full map-based interface.
+Add Resource Manager packaging for the current FSS stack package at `terraform/modules/fss_stack_sprint12/` so operators can deploy it directly from the OCI Console via Resource Manager without writing Terraform by hand. The package must include `schema.yaml`, declare UI metadata for all mandatory variables (`compartment_ocid`, `subnet_ocid`), group and label optional variables clearly, and handle the complex map variables (`mount_targets`, `filesystems`) in a way Resource Manager can accept — either by exposing them as freeform JSON string inputs or by providing a simplified fixed-topology variant alongside the full map-based interface.
 
 The schema must be validated against the OCI Resource Manager schema specification and must produce a deployable stack when uploaded to OCI Resource Manager or referenced via a Git-based configuration source. The schema must also declare at least the key outputs (`nfs_mount_sources`, `mount_targets`) so operators can read mount information directly from the Resource Manager job page.
 
@@ -218,3 +218,19 @@ The `multi_fss_with_logging` example sets `identity_squash = "NONE"` on the `dat
 This item is complete when an integration test applies `multi_fss_with_logging`, mounts both the NONE-squash and ROOT-squash exports on the foundation compute instance, verifies that `sudo mkdir` succeeds on the NONE-squash mount, and verifies that root operations are squashed on the ROOT-squash mount.
 
 Test: integration apply of `multi_fss_with_logging` creates 2 mount targets, 2 filesystems, and 3 exports; foundation compute mounts `data__primary` (NONE squash) and confirms `sudo mkdir` succeeds; foundation compute mounts `data__secondary` (ROOT squash) and confirms root write is denied or mapped to anonymous UID; teardown removes all created resources.
+
+### PBI-026. Add advanced multi-topology Resource Manager package
+
+Create an advanced OCI Resource Manager package for the current FSS stack package that supports more than the Sprint 13 single-topology console path. The advanced package should keep the friendly Resource Manager UI experience while allowing operators to deploy multiple mount targets, multiple filesystems, and multiple exports without editing Terraform by hand.
+
+Preferred Resource Manager workflow is split into focused stacks instead of one large raw map form:
+
+- Mount target stack: operator creates one mount target in a selected compartment/subnet. Outputs expose mount target OCID, export set OCID, mount address, and logging details.
+- Filesystem with export stack: operator creates one filesystem and one export by selecting an existing mount target from the compartment with `oci:mount:target:id`. The stack resolves the selected mount target's export set and outputs filesystem OCID, export OCID, export path, and NFS mount source.
+- Export-only stack: operator creates an additional export by selecting an existing filesystem and existing mount target. The stack resolves both resources and outputs export OCID and NFS mount source.
+
+The design may later add bounded multi-entry forms, but JSON-only input is not preferred because it recreates the raw map editing problem. Existing-resource selectors should use Resource Manager schema dynamic controls where supported, for example `oci:mount:target:id` for mount targets.
+
+This item is complete when the advanced Resource Manager package set exists alongside the simple Sprint 13 package, the README clearly explains when to use each stack, and Resource Manager Console shows grouped controls and existing-resource dropdowns instead of raw `mount_targets` and `filesystems` map text boxes.
+
+Test: Resource Manager stack upload validates each schema; integration apply creates a mount target through the mount target stack, creates a filesystem+export by selecting that mount target, and creates an additional export by selecting the existing filesystem and mount target; outputs expose `nfs_mount_sources`, mount target details, filesystem OCIDs, and export associations; destroy jobs remove all created resources.

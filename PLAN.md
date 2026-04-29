@@ -179,3 +179,16 @@ Repackage the current FSS stack baseline into `terraform/modules/fss_stack_sprin
 Backlog Items:
 
 * PBI-024. Repackage FSS stack with examples and modules layout
+
+## Sprint 13 - OCI Resource Manager package for FSS stack
+
+Status: Done
+Mode: managed
+Test: integration
+Regression: none
+
+Package the current `terraform/modules/fss_stack_sprint12/` stack for OCI Resource Manager. The sprint creates a Resource Manager-compatible Terraform root and `schema.yaml` that expose the common single-stack operator path without requiring operators to hand-author complex map variables, while preserving the full stack module as the underlying implementation.
+
+Backlog Items:
+
+* PBI-023. Package current FSS stack package for OCI Resource Manager

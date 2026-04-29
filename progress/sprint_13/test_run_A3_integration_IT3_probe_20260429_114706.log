@@ -1,0 +1,11 @@
+=== IT-3: ORM apply/destroy outputs visible ===
+Action completed. Waiting until the work request has entered state: ('ACTIVE', 'FAILED')
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiatbu2dhdak3p4krsq3pc5r4smvt5qz2jmaluhc46fftfa state=ACCEPTED
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiatbu2dhdak3p4krsq3pc5r4smvt5qz2jmaluhc46fftfa state=IN_PROGRESS
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiatbu2dhdak3p4krsq3pc5r4smvt5qz2jmaluhc46fftfa state=FAILED
+FAIL: Resource Manager apply job failed; see /Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_13/generated_tf/orm_package_apply/apply_job_failure.log
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyia7u2uqyhzqk5ehpxcs54ks6q7mxeadfjqboyuveegeshq state=ACCEPTED
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyia7u2uqyhzqk5ehpxcs54ks6q7mxeadfjqboyuveegeshq state=IN_PROGRESS
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyia7u2uqyhzqk5ehpxcs54ks6q7mxeadfjqboyuveegeshq state=SUCCEEDED
+INFO: deleting Resource Manager stack ocid1.ormstack.oc1.eu-zurich-1.amaaaaaaknhfuyiahtskfyoq7ljcg2taelaqexxp5phraxs2mvojn43s26aq
+Action completed. Waiting until the resource has entered state: ('DELETED', 'FAILED')

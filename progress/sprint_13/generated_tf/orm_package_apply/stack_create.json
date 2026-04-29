@@ -1,0 +1,32 @@
+{
+  "data": {
+    "compartment-id": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+    "config-source": {
+      "config-source-type": "ZIP_UPLOAD",
+      "working-directory": "terraform/modules/fss_stack_sprint13_orm"
+    },
+    "custom-terraform-provider": null,
+    "defined-tags": {
+      "Oracle-Tags": {
+        "CreatedBy": "default/ryszard.styczynski@avaloq.com",
+        "CreatedOn": "2026-04-29T11:50:14.458Z"
+      }
+    },
+    "description": "Sprint 13 ORM package apply validation",
+    "display-name": "fss-sprint13-orm-apply",
+    "freeform-tags": {},
+    "id": "ocid1.ormstack.oc1.eu-zurich-1.amaaaaaaknhfuyiaysy4oryejfql4v2bneipvlgufo6xuxz6ovvxxfr4bg7a",
+    "is-third-party-provider-experience-enabled": true,
+    "lifecycle-state": "ACTIVE",
+    "stack-drift-status": "NOT_CHECKED",
+    "terraform-version": "1.5.x",
+    "time-created": "2026-04-29T11:50:14.511000+00:00",
+    "time-drift-last-checked": null,
+    "variables": {
+      "compartment_ocid": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+      "region": "eu-zurich-1",
+      "subnet_ocid": "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q"
+    }
+  },
+  "etag": "1ead78c6db3ebca0156d122bb455a2e09ab7d21f798b31881241df23175cd027--gzip"
+}

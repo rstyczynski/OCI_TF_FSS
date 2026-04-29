@@ -1,0 +1,5 @@
+=== IT-2: ORM stack upload succeeds ===
+Action completed. Waiting until the work request has entered state: ('ACTIVE', 'FAILED')
+INFO: deleting Resource Manager stack ocid1.ormstack.oc1.eu-zurich-1.amaaaaaaknhfuyia243augii2diap5pyctdlh6l7sphbqsclbxtnbh7d3jyq
+Action completed. Waiting until the resource has entered state: ('DELETED', 'FAILED')
+PASS: IT-2 (stack_id=ocid1.ormstack.oc1.eu-zurich-1.amaaaaaaknhfuyia243augii2diap5pyctdlh6l7sphbqsclbxtnbh7d3jyq)

@@ -1,0 +1,245 @@
+title: "FSS Stack"
+description: "Deploy one OCI File Storage filesystem, mount target, and export using the current fss_stack_sprint12 package."
+schemaVersion: 1.1.0
+version: "20260429"
+locale: "en"
+informationalText: "This Resource Manager package exposes the common single-filesystem path. Use terraform/modules/fss_stack_sprint12 directly for multi-filesystem or multi-mount-target topologies."
+
+variableGroups:
+  - title: "Required OCI Placement"
+    variables:
+      - ${region}
+      - ${compartment_ocid}
+      - ${subnet_ocid}
+  - title: "Filesystem and Export"
+    variables:
+      - ${filesystem_display_name}
+      - ${export_path}
+      - ${default_source_cidr}
+      - ${export_source_cidr}
+      - ${export_access}
+      - ${identity_squash}
+      - ${anonymous_uid}
+      - ${anonymous_gid}
+      - ${is_anonymous_access_allowed}
+      - ${require_privileged_source_port}
+  - title: "Mount Target"
+    variables:
+      - ${mount_target_display_name}
+      - ${mount_target_hostname_label}
+      - ${mount_target_nsg_ids}
+  - title: "Encryption and Availability Domain"
+    variables:
+      - ${kms_key_id}
+      - ${availability_domain}
+  - title: "Logging"
+    variables:
+      - ${enable_mount_target_logging}
+      - ${log_group_id}
+      - ${log_group_name}
+      - ${log_display_name}
+      - ${log_retention_duration}
+  - title: "Tags"
+    variables:
+      - ${freeform_tags}
+
+variables:
+  region:
+    type: oci:identity:region:name
+    title: "Region"
+    description: "OCI region used by the Resource Manager provider runner."
+    required: true
+
+  compartment_ocid:
+    type: oci:identity:compartment:id
+    title: "Compartment"
+    description: "Target compartment for File Storage resources."
+    required: true
+
+  subnet_ocid:
+    type: oci:core:subnet:id
+    title: "Subnet"
+    description: "Subnet where the mount target will be created."
+    required: true
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+
+  availability_domain:
+    type: string
+    title: "Availability Domain override"
+    description: "Leave empty to derive from the subnet or select an AD for regional subnets."
+    required: false
+    default: ""
+
+  kms_key_id:
+    type: string
+    title: "KMS key OCID"
+    description: "Optional customer-managed KMS key OCID. Leave empty for Oracle-managed encryption."
+    required: false
+    default: ""
+
+  default_source_cidr:
+    type: string
+    title: "Default export source CIDR"
+    description: "Default client CIDR used when export source CIDR is empty."
+    required: false
+    default: "0.0.0.0/0"
+
+  mount_target_display_name:
+    type: string
+    title: "Mount target display name"
+    required: false
+    default: "fss-orm-mount-target"
+
+  mount_target_hostname_label:
+    type: string
+    title: "Mount target hostname label"
+    description: "Optional DNS hostname label."
+    required: false
+    default: ""
+
+  mount_target_nsg_ids:
+    type: array
+    title: "Mount target NSG OCIDs"
+    description: "Optional list of Network Security Group OCIDs."
+    required: false
+    items:
+      type: string
+    default: []
+
+  filesystem_display_name:
+    type: string
+    title: "Filesystem display name"
+    required: false
+    default: "fss-orm-filesystem"
+
+  export_path:
+    type: string
+    title: "Export path"
+    required: false
+    default: "/data"
+
+  export_source_cidr:
+    type: string
+    title: "Export source CIDR"
+    description: "Optional client CIDR for this export. Leave empty to use the default export source CIDR."
+    required: false
+    default: ""
+
+  export_access:
+    type: enum
+    title: "Export access"
+    enum:
+      - READ_WRITE
+      - READ_ONLY
+    allowMultiple: false
+    required: false
+    default: READ_WRITE
+
+  identity_squash:
+    type: enum
+    title: "Identity squash"
+    enum:
+      - ROOT
+      - NONE
+    allowMultiple: false
+    required: false
+    default: ROOT
+
+  anonymous_uid:
+    type: integer
+    title: "Anonymous UID"
+    required: false
+    default: 65534
+
+  anonymous_gid:
+    type: integer
+    title: "Anonymous GID"
+    required: false
+    default: 65534
+
+  is_anonymous_access_allowed:
+    type: boolean
+    title: "Allow anonymous access"
+    required: false
+    default: false
+
+  require_privileged_source_port:
+    type: boolean
+    title: "Require privileged source port"
+    required: false
+    default: false
+
+  enable_mount_target_logging:
+    type: boolean
+    title: "Enable mount target NFS logging"
+    required: false
+    default: false
+
+  log_group_id:
+    type: string
+    title: "Existing log group OCID"
+    description: "Optional existing log group. Leave empty to create one when logging is enabled."
+    required: false
+    default: ""
+    visible: ${enable_mount_target_logging}
+
+  log_group_name:
+    type: string
+    title: "New log group name"
+    required: false
+    default: "fss-orm-logs"
+    visible: ${enable_mount_target_logging}
+
+  log_display_name:
+    type: string
+    title: "NFS log display name"
+    required: false
+    default: "fss-orm-nfs"
+    visible: ${enable_mount_target_logging}
+
+  log_retention_duration:
+    type: integer
+    title: "Log retention days"
+    required: false
+    minimum: 30
+    maximum: 365
+    default: 30
+    visible: ${enable_mount_target_logging}
+
+  freeform_tags:
+    type: map
+    valueType: string
+    title: "Freeform tags"
+    required: false
+    default: "{}"
+
+outputGroups:
+  - title: "Mount information"
+    outputs:
+      - nfs_mount_sources
+      - resource_manager_summary
+      - mount_targets
+  - title: "Created resources"
+    outputs:
+      - filesystems
+      - exports
+
+outputs:
+  nfs_mount_sources:
+    type: map
+    title: "NFS mount sources"
+    description: "Ready-to-use mount strings in <mount-address>:<export-path> form."
+  resource_manager_summary:
+    type: json
+    title: "Resource Manager summary"
+    description: "Compact summary of mount address, export path, AD selection, encryption mode, and logging."
+  mount_targets:
+    type: json
+    title: "Mount targets"
+  filesystems:
+    type: json
+    title: "Filesystems"
+  exports:
+    type: map
+    title: "Export paths"

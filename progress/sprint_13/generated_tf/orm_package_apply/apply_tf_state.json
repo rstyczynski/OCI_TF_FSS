@@ -1,0 +1,463 @@
+{
+  "version": 4,
+  "terraform_version": "1.5.7",
+  "serial": 5,
+  "lineage": "0b717456-690f-1b4f-6c23-b7e3fa3644fd",
+  "outputs": {
+    "exports": {
+      "value": {
+        "data__primary": "/data"
+      },
+      "type": [
+        "object",
+        {
+          "data__primary": "string"
+        }
+      ]
+    },
+    "filesystems": {
+      "value": {
+        "data": {
+          "availability_domain": "jJRq:EU-ZURICH-1-AD-1",
+          "compartment_ocid": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+          "exports": {
+            "primary": {
+              "export_ocid": "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrqm3pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+              "identity_squash": "ROOT",
+              "mount_target_key": "primary",
+              "nfs_mount_source": "10.0.0.76:/data",
+              "path": "/data",
+              "source_cidr": "0.0.0.0/0"
+            }
+          },
+          "filesystem_display_name": "fss-orm-filesystem",
+          "filesystem_ocid": "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2ovezpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+          "kms_key_id": null,
+          "kms_key_mode": "ORACLE_MANAGED"
+        }
+      },
+      "type": [
+        "object",
+        {
+          "data": [
+            "object",
+            {
+              "availability_domain": "string",
+              "compartment_ocid": "string",
+              "exports": [
+                "object",
+                {
+                  "primary": [
+                    "object",
+                    {
+                      "export_ocid": "string",
+                      "identity_squash": "string",
+                      "mount_target_key": "string",
+                      "nfs_mount_source": "string",
+                      "path": "string",
+                      "source_cidr": "string"
+                    }
+                  ]
+                }
+              ],
+              "filesystem_display_name": "string",
+              "filesystem_ocid": "string",
+              "kms_key_id": "string",
+              "kms_key_mode": "string"
+            }
+          ]
+        }
+      ]
+    },
+    "mount_targets": {
+      "value": {
+        "primary": {
+          "availability_domain": "jJRq:EU-ZURICH-1-AD-1",
+          "availability_domain_source": "random",
+          "compartment_ocid": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+          "display_name": "fss-orm-mount-target",
+          "export_set_ocid": "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnrp63pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+          "fqdn": null,
+          "ip_address": "10.0.0.76",
+          "logging": null,
+          "mount_address": "10.0.0.76",
+          "ocid": "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrp64pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+          "private_ip_ids": [
+            "ocid1.privateip.oc1.eu-zurich-1.aaaaaaaacjuoxbfjhlvqxisa6vfc4f5xfngydbjyl64m2jjwtmqsctrdgxwq"
+          ],
+          "subnet_ocid": "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q"
+        }
+      },
+      "type": [
+        "object",
+        {
+          "primary": [
+            "object",
+            {
+              "availability_domain": "string",
+              "availability_domain_source": "string",
+              "compartment_ocid": "string",
+              "display_name": "string",
+              "export_set_ocid": "string",
+              "fqdn": "string",
+              "ip_address": "string",
+              "logging": "dynamic",
+              "mount_address": "string",
+              "ocid": "string",
+              "private_ip_ids": [
+                "list",
+                "string"
+              ],
+              "subnet_ocid": "string"
+            }
+          ]
+        }
+      ]
+    },
+    "nfs_mount_sources": {
+      "value": {
+        "data__primary": "10.0.0.76:/data"
+      },
+      "type": [
+        "object",
+        {
+          "data__primary": "string"
+        }
+      ]
+    },
+    "resource_manager_summary": {
+      "value": {
+        "availability_domain": "jJRq:EU-ZURICH-1-AD-1",
+        "availability_domain_source": "random",
+        "export_path": "/data",
+        "filesystem_ocid": "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2ovezpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+        "kms_key_mode": "ORACLE_MANAGED",
+        "logging": null,
+        "mount_target_mount_address": "10.0.0.76",
+        "nfs_mount_source": "10.0.0.76:/data"
+      },
+      "type": [
+        "object",
+        {
+          "availability_domain": "string",
+          "availability_domain_source": "string",
+          "export_path": "string",
+          "filesystem_ocid": "string",
+          "kms_key_mode": "string",
+          "logging": "dynamic",
+          "mount_target_mount_address": "string",
+          "nfs_mount_source": "string"
+        }
+      ]
+    }
+  },
+  "resources": [
+    {
+      "module": "module.fss",
+      "mode": "data",
+      "type": "oci_core_subnet",
+      "name": "selected",
+      "provider": "provider[\"registry.terraform.io/oracle/oci\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "availability_domain": null,
+            "cidr_block": "10.0.0.0/24",
+            "compartment_id": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+            "defined_tags": {
+              "Oracle-Tags.CreatedBy": "default/ryszard.styczynski@avaloq.com",
+              "Oracle-Tags.CreatedOn": "2026-04-28T12:45:54.180Z"
+            },
+            "dhcp_options_id": "ocid1.dhcpoptions.oc1.eu-zurich-1.aaaaaaaaeiffzpmdz4soqxlfi33jzddsih2saogclgdzogyh3tykaq4ojyea",
+            "display_name": "infra",
+            "dns_label": "infra",
+            "freeform_tags": {},
+            "id": "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q",
+            "ipv4cidr_blocks": [
+              "10.0.0.0/24"
+            ],
+            "ipv6cidr_block": null,
+            "ipv6cidr_blocks": [],
+            "ipv6virtual_router_ip": null,
+            "prohibit_internet_ingress": false,
+            "prohibit_public_ip_on_vnic": false,
+            "route_table_id": "ocid1.routetable.oc1.eu-zurich-1.aaaaaaaaz5xgewcrulzmpgen23rllqfp5m7apajv74forod2qlo2b2humctq",
+            "security_list_ids": [
+              "ocid1.securitylist.oc1.eu-zurich-1.aaaaaaaanihy7u7toarbcu6ns7suwqlxbynmktcik4gsn4gihyfll2toapia"
+            ],
+            "state": "AVAILABLE",
+            "subnet_domain_name": "infra.infra.oraclevcn.com",
+            "subnet_id": "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q",
+            "time_created": "2026-04-28 12:45:54.219 +0000 UTC",
+            "vcn_id": "ocid1.vcn.oc1.eu-zurich-1.amaaaaaaknhfuyiar6gra6k6qsc7olmcvyhdhoiumh5rcrbvwzrat2flr5rq",
+            "virtual_router_ip": "10.0.0.1",
+            "virtual_router_mac": "00:00:17:79:91:8D"
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    },
+    {
+      "module": "module.fss",
+      "mode": "data",
+      "type": "oci_identity_availability_domains",
+      "name": "ads",
+      "provider": "provider[\"registry.terraform.io/oracle/oci\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "availability_domains": [
+              {
+                "compartment_id": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+                "id": "ocid1.availabilitydomain.oc1..aaaaaaaahcyn7jl4yxlhced4gce662epqj4bniuu7xnoub2bka7aehwqa2ta",
+                "name": "jJRq:EU-ZURICH-1-AD-1"
+              }
+            ],
+            "compartment_id": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+            "filter": null,
+            "id": "IdentityAvailabilityDomainsDataSource-1771944586"
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    },
+    {
+      "module": "module.fss",
+      "mode": "managed",
+      "type": "random_shuffle",
+      "name": "picked_ad",
+      "provider": "provider[\"registry.terraform.io/hashicorp/random\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "id": "-",
+            "input": [
+              "jJRq:EU-ZURICH-1-AD-1"
+            ],
+            "keepers": null,
+            "result": [
+              "jJRq:EU-ZURICH-1-AD-1"
+            ],
+            "result_count": 1,
+            "seed": null
+          },
+          "sensitive_attributes": [],
+          "dependencies": [
+            "module.fss.data.oci_identity_availability_domains.ads"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.fss.module.export[\"data__primary\"]",
+      "mode": "managed",
+      "type": "oci_file_storage_export",
+      "name": "this",
+      "provider": "provider[\"registry.terraform.io/oracle/oci\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "export_options": [
+              {
+                "access": "READ_WRITE",
+                "allowed_auth": [
+                  "SYS"
+                ],
+                "anonymous_gid": "65534",
+                "anonymous_uid": "65534",
+                "identity_squash": "ROOT",
+                "is_anonymous_access_allowed": false,
+                "require_privileged_source_port": false,
+                "source": "0.0.0.0/0"
+              }
+            ],
+            "export_set_id": "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnrp63pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+            "file_system_id": "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2ovezpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+            "id": "ocid1.export.oc1.eu_zurich_1.aaaaaa4np2wnrqm3pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+            "is_idmap_groups_for_sys_auth": false,
+            "is_lock_override": null,
+            "locks": [],
+            "path": "/data",
+            "state": "ACTIVE",
+            "time_created": "2026-04-29 11:50:52 +0000 UTC",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.fss.data.oci_core_subnet.selected",
+            "module.fss.data.oci_identity_availability_domains.ads",
+            "module.fss.module.filesystem.oci_file_storage_file_system.this",
+            "module.fss.module.mount_target.data.oci_core_subnet.this",
+            "module.fss.module.mount_target.oci_file_storage_mount_target.this",
+            "module.fss.random_shuffle.picked_ad"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.fss.module.filesystem[\"data\"]",
+      "mode": "managed",
+      "type": "oci_file_storage_file_system",
+      "name": "this",
+      "provider": "provider[\"registry.terraform.io/oracle/oci\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "are_quota_rules_enabled": false,
+            "availability_domain": "jJRq:EU-ZURICH-1-AD-1",
+            "clone_attach_status": "DETACHED",
+            "clone_count": 0,
+            "compartment_id": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+            "defined_tags": {
+              "Oracle-Tags.CreatedBy": "default/ryszard.styczynski@avaloq.com",
+              "Oracle-Tags.CreatedOn": "2026-04-29T11:50:41.919Z"
+            },
+            "detach_clone_trigger": null,
+            "display_name": "fss-orm-filesystem",
+            "filesystem_snapshot_policy_id": "",
+            "freeform_tags": {},
+            "id": "ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2ovezpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+            "is_clone_parent": false,
+            "is_hydrated": true,
+            "is_lock_override": null,
+            "is_targetable": true,
+            "kms_key_id": "",
+            "lifecycle_details": "",
+            "locks": [],
+            "metered_bytes": "0",
+            "quota_enforcement_state": "DISABLED",
+            "replication_source_count": 0,
+            "replication_target_id": "",
+            "source_details": [
+              {
+                "parent_file_system_id": "",
+                "source_snapshot_id": ""
+              }
+            ],
+            "source_snapshot_id": null,
+            "state": "ACTIVE",
+            "system_tags": {},
+            "time_created": "2026-04-29 11:50:41.975 +0000 UTC",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.fss.data.oci_core_subnet.selected",
+            "module.fss.data.oci_identity_availability_domains.ads",
+            "module.fss.random_shuffle.picked_ad"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.fss.module.mount_target[\"primary\"]",
+      "mode": "data",
+      "type": "oci_core_subnet",
+      "name": "this",
+      "provider": "provider[\"registry.terraform.io/oracle/oci\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "availability_domain": null,
+            "cidr_block": "10.0.0.0/24",
+            "compartment_id": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+            "defined_tags": {
+              "Oracle-Tags.CreatedBy": "default/ryszard.styczynski@avaloq.com",
+              "Oracle-Tags.CreatedOn": "2026-04-28T12:45:54.180Z"
+            },
+            "dhcp_options_id": "ocid1.dhcpoptions.oc1.eu-zurich-1.aaaaaaaaeiffzpmdz4soqxlfi33jzddsih2saogclgdzogyh3tykaq4ojyea",
+            "display_name": "infra",
+            "dns_label": "infra",
+            "freeform_tags": {},
+            "id": "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q",
+            "ipv4cidr_blocks": [
+              "10.0.0.0/24"
+            ],
+            "ipv6cidr_block": null,
+            "ipv6cidr_blocks": [],
+            "ipv6virtual_router_ip": null,
+            "prohibit_internet_ingress": false,
+            "prohibit_public_ip_on_vnic": false,
+            "route_table_id": "ocid1.routetable.oc1.eu-zurich-1.aaaaaaaaz5xgewcrulzmpgen23rllqfp5m7apajv74forod2qlo2b2humctq",
+            "security_list_ids": [
+              "ocid1.securitylist.oc1.eu-zurich-1.aaaaaaaanihy7u7toarbcu6ns7suwqlxbynmktcik4gsn4gihyfll2toapia"
+            ],
+            "state": "AVAILABLE",
+            "subnet_domain_name": "infra.infra.oraclevcn.com",
+            "subnet_id": "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q",
+            "time_created": "2026-04-28 12:45:54.219 +0000 UTC",
+            "vcn_id": "ocid1.vcn.oc1.eu-zurich-1.amaaaaaaknhfuyiar6gra6k6qsc7olmcvyhdhoiumh5rcrbvwzrat2flr5rq",
+            "virtual_router_ip": "10.0.0.1",
+            "virtual_router_mac": "00:00:17:79:91:8D"
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    },
+    {
+      "module": "module.fss.module.mount_target[\"primary\"]",
+      "mode": "managed",
+      "type": "oci_file_storage_mount_target",
+      "name": "this",
+      "provider": "provider[\"registry.terraform.io/oracle/oci\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "availability_domain": "jJRq:EU-ZURICH-1-AD-1",
+            "compartment_id": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+            "defined_tags": {
+              "Oracle-Tags.CreatedBy": "default/ryszard.styczynski@avaloq.com",
+              "Oracle-Tags.CreatedOn": "2026-04-29T11:50:41.913Z"
+            },
+            "display_name": "fss-orm-mount-target",
+            "export_set_id": "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wnrp63pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+            "freeform_tags": {},
+            "hostname_label": null,
+            "id": "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnrp64pjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+            "idmap_type": "NONE",
+            "ip_address": "10.0.0.76",
+            "is_lock_override": null,
+            "kerberos": [],
+            "ldap_idmap": [],
+            "lifecycle_details": "",
+            "locks": [],
+            "mount_target_ipv6ids": [],
+            "nsg_ids": [],
+            "observed_throughput": "1",
+            "private_ip_ids": [
+              "ocid1.privateip.oc1.eu-zurich-1.aaaaaaaacjuoxbfjhlvqxisa6vfc4f5xfngydbjyl64m2jjwtmqsctrdgxwq"
+            ],
+            "requested_throughput": "1",
+            "reserved_storage_capacity": "0",
+            "security_attributes": {},
+            "state": "ACTIVE",
+            "subnet_id": "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q",
+            "system_tags": {},
+            "time_billing_cycle_end": null,
+            "time_created": "2026-04-29 11:50:42.336 +0000 UTC",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.fss.data.oci_core_subnet.selected",
+            "module.fss.data.oci_identity_availability_domains.ads",
+            "module.fss.random_shuffle.picked_ad"
+          ]
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}
