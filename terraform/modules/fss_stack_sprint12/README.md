@@ -212,6 +212,12 @@ ${SSH_CMD} "sudo mkdir -p /mnt/data && \
 
 #### Teardown
 
+Unmount the client before destroying the stack:
+
+```bash
+${SSH_CMD} "sudo umount /mnt/data || true"
+```
+
 ```bash
 terraform destroy \
   -var="compartment_ocid=${compartment_ocid}" \
@@ -386,6 +392,12 @@ oci logging log get \
 ```
 
 #### Destroy
+
+Unmount any client mount before destroying the stack:
+
+```bash
+${SSH_CMD} "sudo umount /mnt/data || true"
+```
 
 ```bash
 terraform destroy \

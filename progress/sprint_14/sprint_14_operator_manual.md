@@ -189,9 +189,17 @@ ${SSH_CMD} "sudo mkdir -p /mnt/fss-test && \
   df -h /mnt/fss-test"
 ```
 
-## Step 9 - Destroy
+## Step 9 - Unmount
 
-Destroy the test deployment from the same directory:
+Unmount the client before destroying the stack:
+
+```bash
+${SSH_CMD} "sudo umount /mnt/fss-test || true"
+```
+
+## Step 10 - Destroy
+
+Destroy the test deployment from the same Terraform directory:
 
 ```bash
 terraform destroy \
