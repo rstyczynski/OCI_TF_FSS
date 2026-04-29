@@ -202,3 +202,11 @@ Add a `schema.yaml` alongside the v2 stack module so operators can deploy it dir
 The schema must be validated against the OCI Resource Manager schema specification and must produce a deployable stack when uploaded to OCI Resource Manager or referenced via a Git-based configuration source. The schema must also declare at least the key outputs (`nfs_mount_sources`, `mount_targets`) so operators can read mount information directly from the Resource Manager job page.
 
 Test: `oci resource-manager stack create` (or equivalent Resource Manager CLI/console upload) succeeds with the packaged stack zip; the Resource Manager job completes without schema validation errors; outputs including `nfs_mount_sources` are visible in the job result; a destroy job cleans up all created resources.
+
+### PBI-024. Repackage FSS stack with examples and modules layout
+
+Repackage the current stack baseline from `terraform/modules/fss_v2_stack` into a clearer repository layout for operators. The sprint-produced stack package should live at `terraform/modules/fss_stack_sprint12/`, with usable example Terraform roots under its `examples/` directory and reusable lower-level Terraform modules under its `modules/` directory. The package name keeps the sprint traceability while making the product root obvious.
+
+This item is complete when README documentation points operators to the package examples first, the example code can be used directly with minimal variables, lower-level modules are grouped under the package module directory, and the packaged stack behavior remains equivalent to the current `fss_v2_stack` baseline.
+
+Test: `terraform validate` passes for every example under `terraform/modules/fss_stack_sprint12/examples/`; integration apply of the basic example provisions an FSS stack using the repackaged module path and confirms the same key outputs as the `fss_v2_stack` baseline.

@@ -166,3 +166,16 @@ Backlog Items:
 
 * PBI-021. Create v2 stack with optimized mandatory parameters
 * PBI-022. Complete v2 stack package and README
+
+## Sprint 12 - FSS stack examples and modules layout
+
+Status: Done
+Mode: YOLO
+Test: integration
+Regression: none
+
+Repackage the current FSS stack baseline into `terraform/modules/fss_stack_sprint12/`. The stack package contains executable operator examples under `examples/` and lower-level reusable modules under `modules/`.
+
+Backlog Items:
+
+* PBI-024. Repackage FSS stack with examples and modules layout

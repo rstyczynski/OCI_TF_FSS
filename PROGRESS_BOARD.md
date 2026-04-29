@@ -24,3 +24,4 @@ Progress board is a table showing sprint, and backlog items state. It's the only
 | Sprint 10 | tested | PBI-020. Rebase v1 stack on latest Sprint 8 stack interface | tested |
 | Sprint 11 | tested | PBI-021. Create v2 stack with optimized mandatory parameters | tested |
 | Sprint 11 | tested | PBI-022. Complete v2 stack package and README | tested |
+| Sprint 12 | tested | PBI-024. Repackage FSS stack with examples and modules layout | tested |

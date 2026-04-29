@@ -2,6 +2,15 @@
 
 Terraform components to create and manage OCI File Storage Service.
 
+## Usage
+
+Start with the executable examples:
+
+- `terraform/modules/fss_stack_sprint12/examples/basic_fss/` provisions one mount target, one filesystem, and one export with only `compartment_ocid` and `subnet_ocid`.
+- `terraform/modules/fss_stack_sprint12/examples/multi_fss_with_logging/` shows multiple mount targets, multiple filesystems, multiple exports, and mount target logging.
+
+The Sprint 12 product root is `terraform/modules/fss_stack_sprint12/`. Its reusable lower-level wrappers live under `terraform/modules/fss_stack_sprint12/modules/`.
+
 ## Recent Updates
 
 ### Sprint 1 - Foundation infrastructure for system-level tests
@@ -160,3 +169,25 @@ Terraform components to create and manage OCI File Storage Service.
 - Implementation: `progress/sprint_7/sprint_7_implementation.md`
 - Tests: `progress/sprint_7/sprint_7_tests.md`
 - Documentation: `progress/sprint_7/sprint_7_documentation.md`
+
+### Sprint 12 - FSS stack examples and modules layout
+
+**Status:** tested
+
+**Backlog Items Implemented:**
+
+- **PBI-024**: Repackage FSS stack with examples and modules layout - tested
+
+**Key Features Added:**
+
+- `terraform/modules/fss_stack_sprint12/` — operator-facing package: stack root, lower-level modules under `modules/`, and two executable examples under `examples/`
+- `examples/basic_fss/` — minimal example requiring only `compartment_ocid` and `subnet_ocid`; AD derived automatically; Oracle-managed encryption by default
+- `examples/multi_fss_with_logging/` — full example with two mount targets, two filesystems, three exports, OCI Logging, and mixed `identity_squash` policies
+
+**Documentation:**
+
+- Setup: `progress/sprint_12/sprint_12_setup.md`
+- Design: `progress/sprint_12/sprint_12_design.md`
+- Implementation: `progress/sprint_12/sprint_12_implementation.md`
+- Tests: `progress/sprint_12/sprint_12_tests.md`
+- Operator manual: `progress/sprint_12/sprint_12_operator_manual.md`
