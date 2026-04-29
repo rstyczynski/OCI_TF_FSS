@@ -342,17 +342,30 @@ terraform output -json filesystems | jq '.data.exports | to_entries[] | {(.key):
 
 #### Mount the admin-accessible export (`identity_squash = "NONE"`)
 
+Verify the stack is applied and the export has NONE squash before mounting:
+
+```bash
+# Confirm identity_squash is NONE — must be done before mounting
+terraform output -json filesystems | \
+  jq '.data.exports.primary.identity_squash'
+# expected: "NONE"
+```
+
+Then mount and run admin operations:
+
 ```bash
 NFS_ADMIN=$(terraform output -json nfs_mount_sources | jq -r '."data__primary"')
+COMPUTE_IP=<YOUR_COMPUTE_IP>
 
-ssh opc@<COMPUTE_IP> "
+ssh opc@${COMPUTE_IP} "
   sudo mkdir -p /mnt/data
   sudo mount -t nfs -o vers=3,noacl ${NFS_ADMIN} /mnt/data
-  # root is not squashed — admin operations work
-  sudo mkdir -p /mnt/data/app/conf
+  sudo mkdir -p /mnt/data/app/conf && echo MKDIR_OK
   sudo chown opc:opc /mnt/data/app
 "
 ```
+
+> **Note:** `sudo mkdir` fails with "Permission denied" if the export has `identity_squash = ROOT` (the default). Ensure the stack is applied with `identity_squash = "NONE"` on this export before running admin operations. If in doubt, run the verify step above.
 
 #### Discover logs via OCI CLI
 
