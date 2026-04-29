@@ -12,3 +12,5 @@ progress/**/operator_tf/.terraform.tfstate.lock.info
 progress/**/operator_tf/terraform.tfstate
 progress/**/operator_tf/terraform.tfstate.*
 model/.$model.drawio.bkp
+terraform/modules/fss_stack_sprint12/examples/basic_fss/terraform.tfstate
+terraform/modules/fss_stack_sprint12/examples/basic_fss/terraform.tfstate.backup

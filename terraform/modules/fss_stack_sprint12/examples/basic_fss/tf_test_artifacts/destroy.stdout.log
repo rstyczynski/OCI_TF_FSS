@@ -1,0 +1,20 @@
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mNo value for required variable[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 11:
+[31m│[0m [0m  11: [4mvariable "compartment_ocid"[0m {[0m
+[31m│[0m [0m
+[31m│[0m [0mThe root module input variable "compartment_ocid" is not set, and has no
+[31m│[0m [0mdefault value. Use a -var or -var-file command line argument to provide a
+[31m│[0m [0mvalue for this variable.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mNo value for required variable[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 16:
+[31m│[0m [0m  16: [4mvariable "subnet_ocid"[0m {[0m
+[31m│[0m [0m
+[31m│[0m [0mThe root module input variable "subnet_ocid" is not set, and has no default
+[31m│[0m [0mvalue. Use a -var or -var-file command line argument to provide a value for
+[31m│[0m [0mthis variable.
+[31m╵[0m[0m
