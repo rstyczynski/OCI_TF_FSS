@@ -1,0 +1,5 @@
+=== RUN smoke:test_fss_sprint15_orm_advanced.sh ===
+=== SM-1: advanced ORM package static validation ===
+FAIL: SM-1 skeleton pending Sprint 15 construction
+=== FAIL smoke:test_fss_sprint15_orm_advanced.sh ===
+=== SUMMARY suite=smoke pass=0 fail=1 ===

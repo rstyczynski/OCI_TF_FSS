@@ -27,4 +27,5 @@ Progress board is a table showing sprint, and backlog items state. It's the only
 | Sprint 12 | tested | PBI-024. Repackage FSS stack with examples and modules layout | tested |
 | Sprint 13 | tested | PBI-023. Package current FSS stack package for OCI Resource Manager | tested |
 | Sprint 14 | tested | PBI-027. Add legacy PV report to FSS stack variables converter | tested |
+| Sprint 15 | under_design | PBI-026. Add advanced multi-topology Resource Manager package | test_specified |
 | — | — | PBI-025. Verify identity_squash = "NONE" behavior at NFS level | tested |

@@ -205,3 +205,16 @@ Create a converter that turns legacy Kubernetes/NFS PV report files into `.auto.
 Backlog Items:
 
 * PBI-027. Add legacy PV report to FSS stack variables converter
+
+## Sprint 15 - Advanced Resource Manager FSS package
+
+Status: Progress
+Mode: managed
+Test: smoke, integration
+Regression: none
+
+Create an advanced OCI Resource Manager package set for the current `terraform/modules/fss_stack_sprint12/` product. The package set splits the workflow into focused Resource Manager stacks for mount target creation, filesystem-with-export creation, and export-only creation so operators can use console forms and existing-resource selectors instead of raw map variables.
+
+Backlog Items:
+
+* PBI-026. Add advanced multi-topology Resource Manager package

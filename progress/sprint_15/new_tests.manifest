@@ -1,0 +1,2 @@
+smoke:test_fss_sprint15_orm_advanced.sh
+integration:test_fss_sprint15_orm_advanced.sh

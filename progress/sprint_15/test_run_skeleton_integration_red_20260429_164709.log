@@ -1,0 +1,5 @@
+=== RUN integration:test_fss_sprint15_orm_advanced.sh ===
+=== IT-1: Resource Manager advanced workflow ===
+FAIL: IT-1 skeleton pending Sprint 15 construction
+=== FAIL integration:test_fss_sprint15_orm_advanced.sh ===
+=== SUMMARY suite=integration pass=0 fail=1 ===
