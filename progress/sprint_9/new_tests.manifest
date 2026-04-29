@@ -1,0 +1,4 @@
+# Sprint 9 new tests - used by tests/run.sh --new-only
+
+integration:test_fss_sprint9_v1.sh:test_IT1_v1_stack_applies
+integration:test_fss_sprint9_v1.sh:test_IT2_documented_example_validates

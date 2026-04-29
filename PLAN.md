@@ -125,3 +125,17 @@ Add optional OCI Logging support for mount targets in the current stack interfac
 Backlog Items:
 
 * PBI-016. Add logging to mount targets
+
+## Sprint 9 - FSS v1 module packaging
+
+Status: Done
+Mode: YOLO
+Test: integration
+Regression: none
+
+Package the proven Sprint 5 stack behavior and supporting lower-level modules into stable v1 module paths for operator consumption, and add comprehensive module README documentation with executable examples.
+
+Backlog Items:
+
+* PBI-013. Pack sprint 5 terraform stack and lower level modules into v1 module
+* PBI-014. Prepare comprehensive user documentation for v1 modules
