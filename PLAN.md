@@ -213,8 +213,9 @@ Mode: managed
 Test: smoke, integration
 Regression: none
 
-Create an advanced OCI Resource Manager package set for the current `terraform/modules/fss_stack_sprint12/` product. The package set splits the workflow into focused Resource Manager stacks for mount target creation, filesystem-with-export creation, and export-only creation so operators can use console forms and existing-resource selectors instead of raw map variables.
+Create an advanced OCI Resource Manager package set for the current `terraform/modules/fss_stack_sprint12/` product. Sprint 15 delivers the first two focused stacks: mount target creation, and filesystem creation with chained optional export groups, so operators can use console forms and existing-resource selectors instead of raw map variables.
 
 Backlog Items:
 
-* PBI-026. Add advanced multi-topology Resource Manager package
+* PBI-026. Add Resource Manager mount target stack
+* PBI-028. Add Resource Manager filesystem stack with chained exports

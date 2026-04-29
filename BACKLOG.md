@@ -219,21 +219,13 @@ This item is complete when an integration test applies `multi_fss_with_logging`,
 
 Test: integration apply of `multi_fss_with_logging` creates 2 mount targets, 2 filesystems, and 3 exports; foundation compute mounts `data__primary` (NONE squash) and confirms `sudo mkdir` succeeds; foundation compute mounts `data__secondary` (ROOT squash) and confirms root write is denied or mapped to anonymous UID; teardown removes all created resources.
 
-### PBI-026. Add advanced multi-topology Resource Manager package
+### PBI-026. Add Resource Manager mount target stack
 
-Create an advanced OCI Resource Manager package for the current FSS stack package that supports more than the Sprint 13 single-topology console path. The advanced package should keep the friendly Resource Manager UI experience while allowing operators to deploy multiple mount targets, multiple filesystems, and multiple exports without editing Terraform by hand.
+Create a focused OCI Resource Manager package that lets an operator create one FSS mount target from the console without editing Terraform maps. The stack should expose friendly placement, network, logging, and tag controls, and should output the mount target OCID, export set OCID, mount address, IP address, and logging details.
 
-Preferred Resource Manager workflow is split into focused stacks instead of one large raw map form:
+This item is complete when Resource Manager can upload and run the mount target stack independently, and operators can copy the resulting mount target details into later FSS workflows.
 
-- Mount target stack: operator creates one mount target in a selected compartment/subnet. Outputs expose mount target OCID, export set OCID, mount address, and logging details.
-- Filesystem with export stack: operator creates one filesystem and one export by selecting an existing mount target from the compartment with `oci:mount:target:id`. The stack resolves the selected mount target's export set and outputs filesystem OCID, export OCID, export path, and NFS mount source.
-- Export-only stack: operator creates an additional export by selecting an existing filesystem and existing mount target. The stack resolves both resources and outputs export OCID and NFS mount source.
-
-The design may later add bounded multi-entry forms, but JSON-only input is not preferred because it recreates the raw map editing problem. Existing-resource selectors should use Resource Manager schema dynamic controls where supported, for example `oci:mount:target:id` for mount targets.
-
-This item is complete when the advanced Resource Manager package set exists alongside the simple Sprint 13 package, the README clearly explains when to use each stack, and Resource Manager Console shows grouped controls and existing-resource dropdowns instead of raw `mount_targets` and `filesystems` map text boxes.
-
-Test: Resource Manager stack upload validates each schema; integration apply creates a mount target through the mount target stack, creates a filesystem+export by selecting that mount target, and creates an additional export by selecting the existing filesystem and mount target; outputs expose `nfs_mount_sources`, mount target details, filesystem OCIDs, and export associations; destroy jobs remove all created resources.
+Test: Resource Manager stack upload validates the schema; integration apply creates one mount target, outputs expose mount target details and export set OCID, and a destroy job removes the created resource.
 
 ### PBI-027. Add legacy PV report to FSS stack variables converter
 
@@ -246,3 +238,19 @@ The converter should group PVs by legacy NFS server so each distinct server beco
 This item is complete when operators can run one command against a report file and receive a reviewed `.auto.tfvars` file ready to use with the FSS stack module.
 
 Test: unit tests cover all three templates, parsing of node sections, multiple PV blocks, multiple legacy servers, malformed or incomplete PV blocks, key sanitization, and generated HCL formatting. Integration testing applies the produced `.auto.tfvars` with the current `terraform/modules/fss_stack_sprint12` stack, verifies the created mount target, filesystem, export, and NFS mount source outputs, and destroys the created resources.
+
+### PBI-028. Add Resource Manager filesystem stack with chained exports
+
+Create a focused OCI Resource Manager package that lets an operator create one FSS filesystem and one or more exports against an existing mount target. The stack should use a mount target dropdown where Resource Manager supports it, make the first export mandatory, and expose additional export groups through chained "add another export" checkboxes so the UI feels dynamic without requiring raw JSON or map editing.
+
+This item is complete when the filesystem stack can create one filesystem with a bounded set of enabled exports, validates enabled export data, outputs the filesystem OCID, export OCIDs, export paths, and ready-to-use NFS mount sources, and destroys cleanly.
+
+Test: Resource Manager stack upload validates the schema; integration apply selects an existing mount target, creates one filesystem with at least two enabled exports, outputs all NFS mount sources, and a destroy job removes the created filesystem and exports.
+
+### PBI-029. Add Resource Manager export-only stack
+
+Create a focused OCI Resource Manager package that lets an operator add exports later to an existing filesystem and existing mount target. This is a future workflow for day-2 expansion after the filesystem has already been created; it should avoid raw map editing and should use existing-resource selectors where Resource Manager supports them.
+
+This item is complete when operators can run a dedicated export-only stack to add an export to an existing filesystem and mount target, see the resulting export OCID and NFS mount source, and destroy only that additional export without affecting the filesystem or mount target.
+
+Test: Resource Manager stack upload validates the schema; integration apply creates an additional export for existing FSS resources, verifies the NFS mount source output, and a destroy job removes only the created export.
