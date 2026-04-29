@@ -67,3 +67,17 @@ Requirements for **sprint-scoped** oci_scaffold runs (foundation stacks, Sprint 
 4. Secrets on disk remain sensitive: keep sprint state directories under patterns already excluded from version control if they contain PEMs (see repository `.gitignore`; do not commit raw keys).
 
 This applies in addition to P1 evidence rules: logs under `progress/sprint_N/` do not substitute for **preserved** oci_scaffold state when teardown or reproducibility depends on `STATE_FILE`.
+
+## P8. Every copy/paste snippet in ANY operator-facing document must be executed before publishing
+
+P4 covers sprint artifacts. This rule extends the same obligation to **all operator-facing documents** in the repository — module READMEs, root `README.md`, operator manuals, and any runbook or example file committed under `terraform/`.
+
+**Failure mode this rule prevents:** a snippet that reads correctly in isolation but fails at runtime because of an unstated prerequisite (for example, a Terraform stack must be applied before mounting; an export must have a specific `identity_squash` setting; an environment variable must be set first).
+
+Requirements:
+
+- Every `bash`, `hcl`, or `shell` code block in an operator-facing document that a reader could copy and run **must have been executed by the agent** before that document is committed or updated.
+- The execution evidence (a log file, a test artifact, or a direct terminal capture) must be stored under `progress/sprint_N/` and referenced from `sprint_N_tests.md` or `sprint_N_operator_manual.md` with an explicit "Evidence:" line.
+- Prerequisites for a snippet (infrastructure state, applied Terraform, set environment variables, active credentials) **must be stated explicitly** in the document immediately before the snippet. Unstated prerequisites that cause a snippet to fail silently or with a misleading error are a documentation defect, not a user error.
+- If a snippet cannot be executed (cost, destructive side effect, external dependency), it must be marked **NOT RUN** with the exact reason. This marking is itself the evidence that the rule was considered — absence of marking is a violation.
+- The `sprint_N_documentation.md` wrap-up checklist must include a line confirming that every operator-facing snippet in that sprint's product was either executed (with evidence reference) or explicitly marked NOT RUN.
