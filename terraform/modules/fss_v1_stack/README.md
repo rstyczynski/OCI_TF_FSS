@@ -2,13 +2,17 @@
 
 ## Purpose
 
-`fss_v1_stack` provisions a KMS-backed OCI File Storage Service stack from a map input. Each map entry creates:
+`fss_v1_stack` creates one or more OCI File Storage Service entries from the `filesystems` map.
+
+For each entry, the module creates:
 
 - one filesystem
 - one mount target
 - one export
 
-This is the stable v1 package of the Sprint 5 stack behavior. Operators should use this module instead of sprint-numbered module paths.
+The module requires `kms_key_id` because every filesystem created by this module is encrypted with the customer-managed OCI Vault key supplied by the caller.
+
+Use this module for the v1 interface. Sprint-numbered modules remain in the repository as development history and test baselines.
 
 ## Required Inputs
 
@@ -18,7 +22,7 @@ This is the stable v1 package of the Sprint 5 stack behavior. Operators should u
 | `availability_domain` | Availability Domain for filesystems and mount targets. |
 | `subnet_ocid` | Subnet OCID for mount targets. |
 | `kms_key_id` | KMS key OCID used to encrypt all filesystems. |
-| `filesystems` | Map of filesystem stack entries. |
+| `filesystems` | Map of FSS entries to create. Each key becomes a stable Terraform resource key. |
 
 Each `filesystems` entry requires:
 
