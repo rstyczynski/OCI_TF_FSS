@@ -11,15 +11,29 @@ Exports reference mount targets by key. The module reduces mandatory operator in
 
 ## Contents
 
-- [Mandatory Inputs](#mandatory-inputs)
-- [Optional Inputs](#optional-inputs)
-- [Mount Target Entries](#mount-target-entries)
-- [Filesystem Entries](#filesystem-entries)
-- [Outputs](#outputs)
-- [Operator Notes](#operator-notes)
-- [Examples](#examples)
-  - [Example 1 — Basic FSS](#example-1--basic-fss)
-  - [Example 2 — Multiple FSS with logging](#example-2--multiple-fss-with-logging)
+- [FSS Stack Module](#fss-stack-module)
+  - [Purpose](#purpose)
+  - [Contents](#contents)
+  - [Mandatory Inputs](#mandatory-inputs)
+  - [Mount Target Entries](#mount-target-entries)
+  - [Filesystem Entries](#filesystem-entries)
+  - [Optional Inputs](#optional-inputs)
+  - [Outputs](#outputs)
+  - [Operator Notes](#operator-notes)
+  - [Examples](#examples)
+    - [Example 1 — Basic FSS](#example-1--basic-fss)
+      - [Run it](#run-it)
+      - [What the code does](#what-the-code-does)
+      - [Expected output](#expected-output)
+      - [Mount on a compute instance](#mount-on-a-compute-instance)
+      - [Teardown](#teardown)
+    - [Example 2 — Multiple FSS with logging](#example-2--multiple-fss-with-logging)
+      - [Run](#run)
+      - [Code walkthrough](#code-walkthrough)
+      - [Sample outputs](#sample-outputs)
+      - [Mount the admin-accessible export (`identity_squash = "NONE"`)](#mount-the-admin-accessible-export-identity_squash--none)
+      - [Discover logs via OCI CLI](#discover-logs-via-oci-cli)
+      - [Destroy](#destroy)
 
 ## Mandatory Inputs
 
@@ -27,16 +41,6 @@ Exports reference mount targets by key. The module reduces mandatory operator in
 |---|---|
 | `compartment_ocid` | Target OCI compartment OCID. |
 | `subnet_ocid` | Subnet OCID for mount targets. |
-
-## Optional Inputs
-
-| Name | Default | Description |
-|---|---:|---|
-| `availability_domain` | `null` | Explicit AD override. When omitted, the module uses the subnet AD when available, otherwise selects from sorted AD names using `random_shuffle`. |
-| `kms_key_id` | `null` | Customer-managed KMS key OCID. When omitted, OCI File Storage uses Oracle-managed encryption. |
-| `default_source_cidr` | `0.0.0.0/0` | Default client IPv4 CIDR for exports that omit `source`. FSS is private VCN reachable, not public-internet reachable. |
-| `mount_targets` | `{}` | Map of mount targets to create. |
-| `filesystems` | `{}` | Map of filesystems to create, each with optional nested exports. |
 
 ## Mount Target Entries
 
@@ -88,6 +92,16 @@ Each export entry may set:
 | `anonymous_gid` | `65534` | Anonymous GID for squashed users. |
 | `is_anonymous_access_allowed` | `false` | Whether anonymous access is allowed. |
 | `require_privileged_source_port` | `false` | Whether clients must use privileged source ports. |
+
+## Optional Inputs
+
+| Name | Default | Description |
+|---|---:|---|
+| `availability_domain` | `null` | Explicit AD override. When omitted, the module uses the subnet AD when available, otherwise selects from sorted AD names using `random_shuffle`. |
+| `kms_key_id` | `null` | Customer-managed KMS key OCID. When omitted, OCI File Storage uses Oracle-managed encryption. |
+| `default_source_cidr` | `0.0.0.0/0` | Default client IPv4 CIDR for exports that omit `source`. FSS is private VCN reachable, not public-internet reachable. |
+| `mount_targets` | `{}` | Map of mount targets to create. |
+| `filesystems` | `{}` | Map of filesystems to create, each with optional nested exports. |
 
 ## Outputs
 
