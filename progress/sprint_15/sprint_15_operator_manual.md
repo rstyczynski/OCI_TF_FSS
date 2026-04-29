@@ -26,13 +26,25 @@ Use the mount target stack first, then use the filesystem/export stack to create
 The integration test uses the same packaging pattern:
 
 ```bash
+PACKAGE_OUT="$(pwd)/progress/sprint_15/generated_tf/manual"
+mkdir -p "${PACKAGE_OUT}"
+
 cd terraform/modules/fss_stack_sprint15_orm_advanced/mount_target
-zip -qr /tmp/fss-mount-target.zip .
+zip -qr "${PACKAGE_OUT}/fss-mount-target.zip" .
+
+cd -
 ```
 
 ```bash
+PACKAGE_OUT="$(pwd)/progress/sprint_15/generated_tf/manual"
+mkdir -p "${PACKAGE_OUT}"
+
 cd terraform/modules/fss_stack_sprint15_orm_advanced/filesystem_export
-zip -qr /tmp/fss-filesystem-export.zip .
+zip -qr "${PACKAGE_OUT}/fss-filesystem-export.zip" .
+
+cd -
 ```
 
-These snippets are intentionally descriptive. Sprint 15 quality gates execute the packaging and Resource Manager apply/destroy paths with sprint-scoped artifacts under `progress/sprint_15/generated_tf/`.
+Evidence: package snippets executed successfully in `progress/sprint_15/operator_manual_package_20260429_172924.log`.
+
+Sprint 15 quality gates execute the Resource Manager apply/destroy paths with sprint-scoped artifacts under `progress/sprint_15/generated_tf/`.
