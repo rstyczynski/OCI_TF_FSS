@@ -1,2 +1,6 @@
 # Sprint 12 new tests
-integration:test_fss_sprint12_examples.sh
+integration:test_fss_sprint12_examples.sh:test_IT1_examples_validate
+integration:test_fss_sprint12_examples.sh:test_IT2_basic_example_applies
+
+# IT-3 added for PBI-025 (BUG-1 promoted) — not executed in Sprint 12
+# integration:test_fss_sprint12_examples.sh:test_IT3_multi_fss_identity_squash_behavior

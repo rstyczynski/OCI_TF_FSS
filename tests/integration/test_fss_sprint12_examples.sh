@@ -169,6 +169,116 @@ test_IT2_basic_example_applies() {
   return "$ec"
 }
 
+test_IT3_multi_fss_identity_squash_behavior() {
+  echo "=== IT-3: multi_fss_with_logging applies and identity_squash behavior verified at NFS level ==="
+  # Covers PBI-025 (promoted from BUG-1 Sprint 12).
+  # Requires: Sprint 1 foundation state (compartment, subnet, compute public IP, SSH key secret).
+
+  local root_dir compartment_ocid subnet_ocid compute_ip ssh_key_path
+  local example_dir artifacts_dir ec=0
+  root_dir="$(_root_dir)"
+  compartment_ocid="$(_foundation_value '.compartment.ocid')"
+  subnet_ocid="$(_foundation_value '.subnet.ocid')"
+  compute_ip="$(_foundation_value '.compute.public_ip')"
+  example_dir="${root_dir}/terraform/modules/fss_stack_sprint12/examples/multi_fss_with_logging"
+  artifacts_dir="${root_dir}/progress/sprint_12/generated_tf/multi_fss_with_logging/tf_test_artifacts"
+  mkdir -p "$artifacts_dir"
+
+  # Materialise SSH key
+  local secret_ocid
+  secret_ocid="$(_foundation_value '.secret.ocid')"
+  ssh_key_path="$(mktemp)"
+  oci secrets secret-bundle get \
+    --secret-id "${secret_ocid}" \
+    --query 'data."secret-bundle-content".content' \
+    --raw-output | base64 -d >"${ssh_key_path}"
+  chmod 600 "${ssh_key_path}"
+
+  (
+    cd "$example_dir"
+    terraform init -input=false
+    terraform plan -input=false -out="${artifacts_dir}/deploy.tfplan" \
+      -var="compartment_ocid=${compartment_ocid}" \
+      -var="subnet_ocid=${subnet_ocid}"
+    terraform show -no-color "${artifacts_dir}/deploy.tfplan" >"${artifacts_dir}/deploy.tfplan.txt"
+    terraform apply -auto-approve -input=false "${artifacts_dir}/deploy.tfplan" 2>&1 \
+      | tee "${artifacts_dir}/deploy.stdout.log"
+    terraform output -json >"${artifacts_dir}/outputs.json"
+
+    # Assert 3 nfs_mount_sources (2 data exports + 1 backup export)
+    local mount_source_count
+    mount_source_count="$(jq '.nfs_mount_sources.value | length' "${artifacts_dir}/outputs.json")"
+    if [[ "$mount_source_count" -ne 3 ]]; then
+      echo "FAIL: expected 3 nfs_mount_sources, got ${mount_source_count}" >&2
+      exit 1
+    fi
+
+    # Assert identity_squash in composite output
+    local squash_none squash_root
+    squash_none="$(jq -r '.filesystems.value.data.exports.primary.identity_squash' "${artifacts_dir}/outputs.json")"
+    squash_root="$(jq -r '.filesystems.value.data.exports.secondary.identity_squash' "${artifacts_dir}/outputs.json")"
+    if [[ "$squash_none" != "NONE" ]]; then
+      echo "FAIL: data/primary expected identity_squash=NONE, got ${squash_none}" >&2
+      exit 1
+    fi
+    if [[ "$squash_root" != "ROOT" ]]; then
+      echo "FAIL: data/secondary expected identity_squash=ROOT, got ${squash_root}" >&2
+      exit 1
+    fi
+
+    # Retrieve mount sources
+    local nfs_none nfs_root
+    nfs_none="$(jq -r '.nfs_mount_sources.value."data__primary"' "${artifacts_dir}/outputs.json")"
+    nfs_root="$(jq -r '.nfs_mount_sources.value."data__secondary"' "${artifacts_dir}/outputs.json")"
+
+    # Verify NONE squash: sudo mkdir must succeed
+    ssh -i "${ssh_key_path}" -o StrictHostKeyChecking=no "opc@${compute_ip}" \
+      "sudo mkdir -p /mnt/fss_it3_none && \
+       sudo mount -t nfs -o vers=3,noacl ${nfs_none} /mnt/fss_it3_none && \
+       sudo mkdir -p /mnt/fss_it3_none/test_dir && \
+       ls /mnt/fss_it3_none/test_dir" \
+      2>&1 | tee "${artifacts_dir}/mount_none.log"
+    if ! grep -q "test_dir\|already exists\|mkdir" "${artifacts_dir}/mount_none.log"; then
+      echo "FAIL: sudo mkdir on NONE-squash mount did not succeed" >&2
+      exit 1
+    fi
+    echo "PASS: NONE squash — sudo mkdir succeeded on ${nfs_none}"
+
+    # Verify ROOT squash: sudo mkdir must be denied or mapped to anonymous UID
+    ssh -i "${ssh_key_path}" -o StrictHostKeyChecking=no "opc@${compute_ip}" \
+      "sudo mkdir -p /mnt/fss_it3_root && \
+       sudo mount -t nfs -o vers=3,noacl ${nfs_root} /mnt/fss_it3_root; \
+       sudo mkdir /mnt/fss_it3_root/test_dir 2>&1 || true" \
+      2>&1 | tee "${artifacts_dir}/mount_root.log"
+    if ! grep -qi "permission denied\|mkdir: cannot" "${artifacts_dir}/mount_root.log"; then
+      echo "FAIL: ROOT-squash mount did not deny sudo mkdir as expected" >&2
+      exit 1
+    fi
+    echo "PASS: ROOT squash — sudo mkdir denied on ${nfs_root}"
+
+    # Cleanup mounts
+    ssh -i "${ssh_key_path}" -o StrictHostKeyChecking=no "opc@${compute_ip}" \
+      "sudo umount /mnt/fss_it3_none 2>/dev/null || true
+       sudo umount /mnt/fss_it3_root 2>/dev/null || true" || true
+
+    echo "PASS: IT-3"
+  ) || ec=$?
+
+  rm -f "${ssh_key_path}"
+
+  if [[ "${SKIP_TEARDOWN:-false}" != "true" ]]; then
+    local state_json="${example_dir}/terraform.tfstate"
+    if [[ -f "$state_json" ]] && jq -e '(.resources // []) | length > 0' "$state_json" >/dev/null 2>&1; then
+      echo "INFO: terraform destroy (test teardown) in ${example_dir}" >&2
+      (cd "$example_dir" && terraform destroy -auto-approve -input=false \
+        -var="compartment_ocid=${compartment_ocid}" \
+        -var="subnet_ocid=${subnet_ocid}" \
+        2>&1 | tee "${artifacts_dir}/destroy.stdout.log") || true
+    fi
+  fi
+  return "$ec"
+}
+
 if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
   test_IT1_examples_validate
   test_IT2_basic_example_applies

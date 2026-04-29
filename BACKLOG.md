@@ -210,3 +210,11 @@ Repackage the current stack baseline from `terraform/modules/fss_v2_stack` into 
 This item is complete when README documentation points operators to the package examples first, the example code can be used directly with minimal variables, lower-level modules are grouped under the package module directory, and the packaged stack behavior remains equivalent to the current `fss_v2_stack` baseline.
 
 Test: `terraform validate` passes for every example under `terraform/modules/fss_stack_sprint12/examples/`; integration apply of the basic example provisions an FSS stack using the repackaged module path and confirms the same key outputs as the `fss_v2_stack` baseline.
+
+### PBI-025. Verify identity_squash = "NONE" behavior at NFS level (promoted from BUG-1 Sprint 12)
+
+The `multi_fss_with_logging` example sets `identity_squash = "NONE"` on the `data/primary` export and `identity_squash = "ROOT"` (default) on `data/secondary`. Quality gates in Sprint 12 only validated the example schema and applied the `basic_fss` example; the multi-filesystem example was never applied and its NFS squash behavior was never verified at the mount level.
+
+This item is complete when an integration test applies `multi_fss_with_logging`, mounts both the NONE-squash and ROOT-squash exports on the foundation compute instance, verifies that `sudo mkdir` succeeds on the NONE-squash mount, and verifies that root operations are squashed on the ROOT-squash mount.
+
+Test: integration apply of `multi_fss_with_logging` creates 2 mount targets, 2 filesystems, and 3 exports; foundation compute mounts `data__primary` (NONE squash) and confirms `sudo mkdir` succeeds; foundation compute mounts `data__secondary` (ROOT squash) and confirms root write is denied or mapped to anonymous UID; teardown removes all created resources.
