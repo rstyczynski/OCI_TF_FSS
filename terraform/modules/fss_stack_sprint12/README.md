@@ -203,8 +203,9 @@ terraform output -raw kms_key_mode
 
 ```bash
 NFS_SOURCE=$(terraform output -json nfs_mount_sources | jq -r '."data__primary"')
+export SSH_CMD="ssh opc@1.1.2.2"
 
-ssh opc@<COMPUTE_IP> "sudo mkdir -p /mnt/data && \
+${SSH_CMD} "sudo mkdir -p /mnt/data && \
   sudo mount -t nfs -o vers=3,noacl ${NFS_SOURCE} /mnt/data && \
   df -h /mnt/data"
 ```
@@ -355,9 +356,9 @@ Then mount and run admin operations:
 
 ```bash
 NFS_ADMIN=$(terraform output -json nfs_mount_sources | jq -r '."data__primary"')
-COMPUTE_IP=<YOUR_COMPUTE_IP>
+export SSH_CMD="ssh opc@1.1.2.2"
 
-ssh opc@${COMPUTE_IP} "
+${SSH_CMD} "
   sudo mkdir -p /mnt/data
   sudo mount -t nfs -o vers=3,noacl ${NFS_ADMIN} /mnt/data
   sudo mkdir -p /mnt/data/app/conf && echo MKDIR_OK

@@ -182,8 +182,9 @@ Use one value from `nfs_mount_sources` on a compute instance that can reach the 
 
 ```bash
 NFS_SOURCE="$(terraform output -json nfs_mount_sources | jq -r 'to_entries[0].value')"
+export SSH_CMD="ssh opc@1.1.2.2"
 
-ssh opc@<COMPUTE_IP> "sudo mkdir -p /mnt/fss-test && \
+${SSH_CMD} "sudo mkdir -p /mnt/fss-test && \
   sudo mount -t nfs -o vers=3,noacl ${NFS_SOURCE} /mnt/fss-test && \
   df -h /mnt/fss-test"
 ```
