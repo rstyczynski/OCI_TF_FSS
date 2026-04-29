@@ -23,28 +23,22 @@ Use the mount target stack first, then use the filesystem/export stack to create
 
 ## CLI Packaging Pattern
 
-The integration test uses the same packaging pattern:
+Run from the repository root:
 
 ```bash
-PACKAGE_OUT="$(pwd)/progress/sprint_15/generated_tf/manual"
+REPO_ROOT="$(pwd)"
+PACKAGE_OUT="${REPO_ROOT}/progress/sprint_15/generated_tf/manual"
 mkdir -p "${PACKAGE_OUT}"
 
-cd terraform/modules/fss_stack_sprint15_orm_advanced/mount_target
+pushd "${REPO_ROOT}/terraform/modules/fss_stack_sprint15_orm_advanced/mount_target"
 zip -qr "${PACKAGE_OUT}/fss-mount-target.zip" .
+popd
 
-cd -
-```
-
-```bash
-PACKAGE_OUT="$(pwd)/progress/sprint_15/generated_tf/manual"
-mkdir -p "${PACKAGE_OUT}"
-
-cd terraform/modules/fss_stack_sprint15_orm_advanced/filesystem_export
+pushd "${REPO_ROOT}/terraform/modules/fss_stack_sprint15_orm_advanced/filesystem_export"
 zip -qr "${PACKAGE_OUT}/fss-filesystem-export.zip" .
-
-cd -
+popd
 ```
 
-Evidence: package snippets executed successfully in `progress/sprint_15/operator_manual_package_20260429_172924.log`.
+Evidence: package snippet executed successfully in `progress/sprint_15/operator_manual_package_single_block_20260429_173116.log`.
 
 Sprint 15 quality gates execute the Resource Manager apply/destroy paths with sprint-scoped artifacts under `progress/sprint_15/generated_tf/`.

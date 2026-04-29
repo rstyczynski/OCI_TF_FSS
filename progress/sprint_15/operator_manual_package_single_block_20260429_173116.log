@@ -1,0 +1,5 @@
+~/projects/OCI_TF_FSS/terraform/modules/fss_stack_sprint15_orm_advanced/mount_target ~/projects/OCI_TF_FSS
+~/projects/OCI_TF_FSS
+~/projects/OCI_TF_FSS/terraform/modules/fss_stack_sprint15_orm_advanced/filesystem_export ~/projects/OCI_TF_FSS
+~/projects/OCI_TF_FSS
+PASS: Sprint 15 single-block package snippet created zip files
