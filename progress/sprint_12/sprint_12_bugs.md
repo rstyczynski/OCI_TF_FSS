@@ -20,3 +20,14 @@ Log: `progress/sprint_12/test_run_A3_integration_IT3_20260429_105553.log`
 - `identity_squash = "ROOT"` on `data__secondary` (10.0.0.95:/data-secondary): `sudo mkdir` → `MKDIR_ROOT_FAIL` ✅
 
 **Verdict:** feature works correctly. PBI-025 can be closed.
+
+## BUG-2: Mount point not unmounted after admin operations example
+
+**Item:** PBI-024
+**Severity:** medium
+**Status:** fixed
+
+- **Symptom**: The "Mount the admin-accessible export" snippet in `README.md` mounts `/mnt/data` but never unmounts it. A reader who runs the example and then attempts teardown (`terraform destroy`) or any subsequent example will find the mount point busy, causing destroy to hang or fail.
+- **Root cause**: `sudo umount` was omitted from the admin operations snippet. P8 (RUP_patch.md) requires every snippet to be complete and not leave side effects that break subsequent operations.
+- **Fix**: Added `sudo umount /mnt/data` at the end of the admin operations snippet in `terraform/modules/fss_stack_sprint12/README.md`.
+- **Verification**: Snippet reviewed; umount added and verified consistent with IT-3 test which correctly unmounts after each operation.

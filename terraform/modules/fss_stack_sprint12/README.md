@@ -362,6 +362,7 @@ ssh opc@${COMPUTE_IP} "
   sudo mount -t nfs -o vers=3,noacl ${NFS_ADMIN} /mnt/data
   sudo mkdir -p /mnt/data/app/conf && echo MKDIR_OK
   sudo chown opc:opc /mnt/data/app
+  sudo umount /mnt/data
 "
 ```
 
