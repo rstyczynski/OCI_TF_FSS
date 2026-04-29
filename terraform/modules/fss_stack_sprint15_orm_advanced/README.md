@@ -43,5 +43,5 @@ Primary outputs:
 
 - `filesystem_export/` uses Resource Manager's `oci:mount:target:id` selector for mount target selection.
 - Resource Manager does not provide true dynamic pages, so optional exports use a bounded chained-checkbox pattern.
-- Both stacks expose freeform tags as bounded key/value pairs. Tag 1 is visible by default; tag pairs 2-10 use chained `Add another tag` checkboxes and are converted to Terraform `freeform_tags`.
+- Both stacks expose freeform tags only as bounded key/value pairs. Tag 1 is visible by default; tag pairs 2-10 use chained `Add another tag` checkboxes and are converted to Terraform `freeform_tags`.
 - The export-only day-2 workflow is tracked separately as `PBI-029`.

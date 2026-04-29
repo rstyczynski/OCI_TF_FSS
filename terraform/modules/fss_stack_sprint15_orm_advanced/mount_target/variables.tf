@@ -66,12 +66,6 @@ variable "log_retention_duration" {
   default     = 30
 }
 
-variable "freeform_tags" {
-  description = "Programmatic freeform tags merged with Resource Manager tag pair inputs."
-  type        = map(string)
-  default     = {}
-}
-
 variable "tag_1_key" {
   type    = string
   default = ""

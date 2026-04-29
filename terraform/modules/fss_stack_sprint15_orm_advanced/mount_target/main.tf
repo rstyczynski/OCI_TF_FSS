@@ -41,8 +41,6 @@ locals {
     for _, slot in local.enabled_tag_slots : trimspace(slot.key) => slot.value
     if trimspace(slot.key) != ""
   }
-
-  effective_freeform_tags = merge(var.freeform_tags, local.tag_pair_freeform_tags)
 }
 
 resource "terraform_data" "validate_tags" {
@@ -73,7 +71,7 @@ resource "oci_file_storage_mount_target" "this" {
   display_name        = var.mount_target_display_name
   hostname_label      = local.hostname_label
   nsg_ids             = local.nsg_ids
-  freeform_tags       = local.effective_freeform_tags
+  freeform_tags       = local.tag_pair_freeform_tags
 
   depends_on = [terraform_data.validate_tags]
 
@@ -91,7 +89,7 @@ resource "oci_logging_log_group" "mount_target" {
   compartment_id = var.compartment_ocid
   display_name   = var.log_group_name
   description    = "FSS mount target logs for ${var.mount_target_display_name}."
-  freeform_tags  = local.effective_freeform_tags
+  freeform_tags  = local.tag_pair_freeform_tags
 
   depends_on = [terraform_data.validate_tags]
 
@@ -111,7 +109,7 @@ resource "oci_logging_log" "mount_target" {
   log_type           = "SERVICE"
   is_enabled         = true
   retention_duration = var.log_retention_duration
-  freeform_tags      = local.effective_freeform_tags
+  freeform_tags      = local.tag_pair_freeform_tags
 
   configuration {
     source {

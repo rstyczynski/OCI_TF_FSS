@@ -227,12 +227,6 @@ variable "require_privileged_source_port" {
   default     = false
 }
 
-variable "freeform_tags" {
-  description = "Programmatic freeform tags merged with Resource Manager tag pair inputs."
-  type        = map(string)
-  default     = {}
-}
-
 variable "tag_1_key" {
   type    = string
   default = ""

@@ -97,8 +97,6 @@ locals {
     for _, slot in local.enabled_tag_slots : trimspace(slot.key) => slot.value
     if trimspace(slot.key) != ""
   }
-
-  effective_freeform_tags = merge(var.freeform_tags, local.tag_pair_freeform_tags)
 }
 
 resource "terraform_data" "validate_exports" {
@@ -143,7 +141,7 @@ resource "oci_file_storage_file_system" "this" {
   compartment_id      = var.compartment_ocid
   display_name        = var.filesystem_display_name
   kms_key_id          = local.kms_key_id
-  freeform_tags       = local.effective_freeform_tags
+  freeform_tags       = local.tag_pair_freeform_tags
 
   depends_on = [terraform_data.validate_tags]
 
