@@ -1,0 +1,385 @@
+title: "FSS Mount Target"
+description: "Create one OCI File Storage mount target for downstream filesystem and export workflows."
+schemaVersion: 1.1.0
+version: "20260429"
+locale: "en"
+
+variableGroups:
+  - title: "Required OCI Placement"
+    variables:
+      - ${region}
+      - ${compartment_ocid}
+      - ${availability_domain}
+      - ${subnet_ocid}
+  - title: "Mount Target"
+    variables:
+      - ${mount_target_display_name}
+      - ${hostname_label}
+      - ${nsg_ids}
+  - title: "Logging"
+    variables:
+      - ${enable_mount_target_logging}
+      - ${log_group_id}
+      - ${log_group_name}
+      - ${log_display_name}
+      - ${log_retention_duration}
+  - title: "Tag 1"
+    variables:
+      - ${tag_1_key}
+      - ${tag_1_value}
+      - ${add_tag_2}
+  - title: "Tag 2"
+    variables:
+      - ${tag_2_key}
+      - ${tag_2_value}
+      - ${add_tag_3}
+  - title: "Tag 3"
+    variables:
+      - ${tag_3_key}
+      - ${tag_3_value}
+      - ${add_tag_4}
+  - title: "Tag 4"
+    variables:
+      - ${tag_4_key}
+      - ${tag_4_value}
+      - ${add_tag_5}
+  - title: "Tag 5"
+    variables:
+      - ${tag_5_key}
+      - ${tag_5_value}
+      - ${add_tag_6}
+  - title: "Tag 6"
+    variables:
+      - ${tag_6_key}
+      - ${tag_6_value}
+      - ${add_tag_7}
+  - title: "Tag 7"
+    variables:
+      - ${tag_7_key}
+      - ${tag_7_value}
+      - ${add_tag_8}
+  - title: "Tag 8"
+    variables:
+      - ${tag_8_key}
+      - ${tag_8_value}
+      - ${add_tag_9}
+  - title: "Tag 9"
+    variables:
+      - ${tag_9_key}
+      - ${tag_9_value}
+      - ${add_tag_10}
+  - title: "Tag 10"
+    variables:
+      - ${tag_10_key}
+      - ${tag_10_value}
+
+variables:
+  region:
+    type: oci:identity:region:name
+    title: "Region"
+    required: true
+
+  compartment_ocid:
+    type: oci:identity:compartment:id
+    title: "Compartment"
+    required: true
+
+  availability_domain:
+    type: oci:identity:availabilitydomain:name
+    title: "Availability Domain"
+    required: true
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+
+  subnet_ocid:
+    type: oci:core:subnet:id
+    title: "Subnet"
+    required: true
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+
+  mount_target_display_name:
+    type: string
+    title: "Mount target display name"
+    required: false
+    default: "fss-orm-mount-target"
+
+  hostname_label:
+    type: string
+    title: "Hostname label"
+    required: false
+    default: ""
+
+  nsg_ids:
+    type: array
+    title: "Network Security Group OCIDs"
+    required: false
+    items:
+      type: string
+    default: []
+
+  enable_mount_target_logging:
+    type: boolean
+    title: "Enable NFS logging"
+    required: false
+    default: false
+
+  log_group_id:
+    type: string
+    title: "Existing log group OCID"
+    required: false
+    default: ""
+    visible: ${enable_mount_target_logging}
+
+  log_group_name:
+    type: string
+    title: "New log group name"
+    required: false
+    default: "fss-orm-mount-target-logs"
+    visible: ${enable_mount_target_logging}
+
+  log_display_name:
+    type: string
+    title: "NFS log display name"
+    required: false
+    default: "fss-orm-mount-target-nfs"
+    visible: ${enable_mount_target_logging}
+
+  log_retention_duration:
+    type: integer
+    title: "Log retention days"
+    required: false
+    minimum: 30
+    maximum: 365
+    default: 30
+    visible: ${enable_mount_target_logging}
+
+  tag_1_key:
+    type: string
+    title: "Tag 1 key"
+    required: false
+    default: ""
+
+  tag_1_value:
+    type: string
+    title: "Tag 1 value"
+    required: false
+    default: ""
+
+  add_tag_2:
+    type: boolean
+    title: "Add another tag"
+    required: false
+    default: false
+
+  tag_2_key:
+    type: string
+    title: "Tag 2 key"
+    required: false
+    default: ""
+    visible: ${add_tag_2}
+
+  tag_2_value:
+    type: string
+    title: "Tag 2 value"
+    required: false
+    default: ""
+    visible: ${add_tag_2}
+
+  add_tag_3:
+    type: boolean
+    title: "Add another tag"
+    required: false
+    default: false
+    visible: ${add_tag_2}
+
+  tag_3_key:
+    type: string
+    title: "Tag 3 key"
+    required: false
+    default: ""
+    visible: ${add_tag_3}
+
+  tag_3_value:
+    type: string
+    title: "Tag 3 value"
+    required: false
+    default: ""
+    visible: ${add_tag_3}
+
+  add_tag_4:
+    type: boolean
+    title: "Add another tag"
+    required: false
+    default: false
+    visible: ${add_tag_3}
+
+  tag_4_key:
+    type: string
+    title: "Tag 4 key"
+    required: false
+    default: ""
+    visible: ${add_tag_4}
+
+  tag_4_value:
+    type: string
+    title: "Tag 4 value"
+    required: false
+    default: ""
+    visible: ${add_tag_4}
+
+  add_tag_5:
+    type: boolean
+    title: "Add another tag"
+    required: false
+    default: false
+    visible: ${add_tag_4}
+
+  tag_5_key:
+    type: string
+    title: "Tag 5 key"
+    required: false
+    default: ""
+    visible: ${add_tag_5}
+
+  tag_5_value:
+    type: string
+    title: "Tag 5 value"
+    required: false
+    default: ""
+    visible: ${add_tag_5}
+
+  add_tag_6:
+    type: boolean
+    title: "Add another tag"
+    required: false
+    default: false
+    visible: ${add_tag_5}
+
+  tag_6_key:
+    type: string
+    title: "Tag 6 key"
+    required: false
+    default: ""
+    visible: ${add_tag_6}
+
+  tag_6_value:
+    type: string
+    title: "Tag 6 value"
+    required: false
+    default: ""
+    visible: ${add_tag_6}
+
+  add_tag_7:
+    type: boolean
+    title: "Add another tag"
+    required: false
+    default: false
+    visible: ${add_tag_6}
+
+  tag_7_key:
+    type: string
+    title: "Tag 7 key"
+    required: false
+    default: ""
+    visible: ${add_tag_7}
+
+  tag_7_value:
+    type: string
+    title: "Tag 7 value"
+    required: false
+    default: ""
+    visible: ${add_tag_7}
+
+  add_tag_8:
+    type: boolean
+    title: "Add another tag"
+    required: false
+    default: false
+    visible: ${add_tag_7}
+
+  tag_8_key:
+    type: string
+    title: "Tag 8 key"
+    required: false
+    default: ""
+    visible: ${add_tag_8}
+
+  tag_8_value:
+    type: string
+    title: "Tag 8 value"
+    required: false
+    default: ""
+    visible: ${add_tag_8}
+
+  add_tag_9:
+    type: boolean
+    title: "Add another tag"
+    required: false
+    default: false
+    visible: ${add_tag_8}
+
+  tag_9_key:
+    type: string
+    title: "Tag 9 key"
+    required: false
+    default: ""
+    visible: ${add_tag_9}
+
+  tag_9_value:
+    type: string
+    title: "Tag 9 value"
+    required: false
+    default: ""
+    visible: ${add_tag_9}
+
+  add_tag_10:
+    type: boolean
+    title: "Add another tag"
+    required: false
+    default: false
+    visible: ${add_tag_9}
+
+  tag_10_key:
+    type: string
+    title: "Tag 10 key"
+    required: false
+    default: ""
+    visible: ${add_tag_10}
+
+  tag_10_value:
+    type: string
+    title: "Tag 10 value"
+    required: false
+    default: ""
+    visible: ${add_tag_10}
+
+outputGroups:
+  - title: "Mount target details"
+    outputs:
+      - mount_target_ocid
+      - export_set_ocid
+      - mount_address
+      - ip_address
+      - logging
+      - mount_target_summary
+
+outputs:
+  mount_target_ocid:
+    type: string
+    title: "Mount target OCID"
+  export_set_ocid:
+    type: string
+    title: "Export set OCID"
+  mount_address:
+    type: string
+    title: "Mount address"
+  ip_address:
+    type: string
+    title: "Private IP address"
+  logging:
+    type: json
+    title: "Logging"
+  mount_target_summary:
+    type: json
+    title: "Mount target summary"

@@ -1,0 +1,24 @@
+=== RUN integration:test_fss_sprint16_orm_advanced.sh:test_IT1_sprint16_resource_manager_advanced_workflow ===
+=== IT-1: Resource Manager advanced workflow ===
+Action completed. Waiting until the work request has entered state: ('ACTIVE', 'FAILED')
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyia3p54jod4verprfxctlbj6tqwok5ywkvviy5kertcgw5a state=ACCEPTED
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyia3p54jod4verprfxctlbj6tqwok5ywkvviy5kertcgw5a state=IN_PROGRESS
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyia3p54jod4verprfxctlbj6tqwok5ywkvviy5kertcgw5a state=IN_PROGRESS
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyia3p54jod4verprfxctlbj6tqwok5ywkvviy5kertcgw5a state=SUCCEEDED
+Action completed. Waiting until the work request has entered state: ('ACTIVE', 'FAILED')
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaiuaqzscdl5v3n2762rqf2uinqmxmznsrvh64pp54ec6q state=ACCEPTED
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaiuaqzscdl5v3n2762rqf2uinqmxmznsrvh64pp54ec6q state=IN_PROGRESS
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaiuaqzscdl5v3n2762rqf2uinqmxmznsrvh64pp54ec6q state=SUCCEEDED
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaqmj46l76h67hohnvrffnoadxonadhevqirvpe7yicoea state=ACCEPTED
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaqmj46l76h67hohnvrffnoadxonadhevqirvpe7yicoea state=ACCEPTED
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaqmj46l76h67hohnvrffnoadxonadhevqirvpe7yicoea state=IN_PROGRESS
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaqmj46l76h67hohnvrffnoadxonadhevqirvpe7yicoea state=IN_PROGRESS
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaqmj46l76h67hohnvrffnoadxonadhevqirvpe7yicoea state=SUCCEEDED
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaedbgytvj476hzkso7m57vtryvfprg6djgklda7w74tda state=ACCEPTED
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaedbgytvj476hzkso7m57vtryvfprg6djgklda7w74tda state=IN_PROGRESS
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaedbgytvj476hzkso7m57vtryvfprg6djgklda7w74tda state=IN_PROGRESS
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaedbgytvj476hzkso7m57vtryvfprg6djgklda7w74tda state=IN_PROGRESS
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaedbgytvj476hzkso7m57vtryvfprg6djgklda7w74tda state=SUCCEEDED
+PASS: IT-1 (mount_target_ocid=ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnuftopjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, nfs_count=2)
+=== PASS integration:test_fss_sprint16_orm_advanced.sh:test_IT1_sprint16_resource_manager_advanced_workflow ===
+=== SUMMARY suite=integration pass=1 fail=0 ===

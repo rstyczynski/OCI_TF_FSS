@@ -220,22 +220,22 @@ Backlog Items:
 * PBI-026. Add Resource Manager mount target stack
 * PBI-028. Add Resource Manager filesystem stack with chained exports
 
-## Sprint 16 - Replace sprint-15-specific modules with canonical fss_stack_sprint12
+## Sprint 16 - Replace sprint-15-specific modules with canonical fss_stack_sprint17
 
-Status: Progress
+Status: Done
 Mode: YOLO
 Test: smoke, integration
 Regression: none
 
-Sprint 15 failed due to BUG-11 (critical): the intermediate module layer in both ORM stack roots uses custom sprint-15-specific modules (`fss_stack_sprint15_mount_target`, `fss_stack_sprint15_filesystem_export`) instead of the existing, externally-managed, unmodifiable `fss_stack_sprint12`. Sprint 13 embeds `fss_stack_sprint12` verbatim and calls it from the ORM root. Sprint 15 must follow the same rule.
+Sprint 15 failed due to BUG-11 (critical): the intermediate module layer in both ORM stack roots uses custom sprint-15-specific modules (`fss_stack_sprint15_mount_target`, `fss_stack_sprint15_filesystem_export`) instead of an externally-managed canonical FSS stack module. Sprint 16 uses the improved `fss_stack_sprint17` module so the filesystem/export ORM stack can reference an externally managed mount target through the canonical module entry point.
 
-Sprint 16 replaces both custom intermediate modules with a verbatim copy of `fss_stack_sprint12` embedded in each stack root's `modules/` directory. The ORM root variable-shaping logic (tag slots, export slots, validation) stays in the root `main.tf`; resource creation delegates to `fss_stack_sprint12` (or its sub-modules for the filesystem_export stack where only filesystem and export creation is needed against an existing mount target).
+Sprint 16 creates `terraform/modules/fss_stack_sprint16_orm_advanced/` and embeds a verbatim copy of `fss_stack_sprint17` in each stack root's `modules/` directory. The ORM root variable-shaping logic (tag slots, export slots, validation) stays in the root `main.tf`; resource creation delegates to `fss_stack_sprint17`.
 
-Reference: `progress/sprint_15/sprint_15_bugs.md` BUG-11. Canonical source module: `terraform/modules/fss_stack_sprint12/`.
+Reference: `progress/sprint_15/sprint_15_bugs.md` BUG-11. Canonical source module: `terraform/modules/fss_stack_sprint17/`.
 
 Backlog Items:
 
-* PBI-030. Replace sprint-15-specific intermediate modules with fss_stack_sprint12 (BUG-11 implementation)
+* PBI-030. Replace sprint-15-specific intermediate modules with fss_stack_sprint17 (BUG-11 implementation)
 
 ## Sprint 17 - fss_stack_sprint12 supports externally managed mount targets
 

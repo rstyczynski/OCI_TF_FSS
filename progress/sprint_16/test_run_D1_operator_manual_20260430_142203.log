@@ -1,0 +1,4 @@
+D1 Operator Manual check
+Manual: progress/sprint_16/sprint_16_operator_manual.md
+bash_blocks=16 executable_markers=16
+PASS: every executable manual snippet is marked EXECUTED or NOT RUN; evidence files exist

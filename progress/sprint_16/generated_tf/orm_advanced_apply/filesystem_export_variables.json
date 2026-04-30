@@ -1,0 +1,10 @@
+{
+  "region": "eu-zurich-1",
+  "compartment_ocid": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+  "availability_domain": "jJRq:EU-ZURICH-1-AD-1",
+  "existing_mount_target_ocid": "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wnuftopjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+  "filesystem_display_name": "fss-sprint16-orm-fs",
+  "export_1_path": "/data",
+  "add_export_2": true,
+  "export_2_path": "/logs"
+}

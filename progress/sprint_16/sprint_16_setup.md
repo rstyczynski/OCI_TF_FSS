@@ -6,14 +6,14 @@ Status: Accepted
 
 Sprint 16 implements PBI-030, which fixes the critical BUG-11 identified at the end of Sprint 15. No ambiguities require clarification. All constraints are fully specified.
 
-**Canonical source module (unmodifiable):** `terraform/modules/fss_stack_sprint12/`
+**Canonical source module (unmodifiable):** `terraform/modules/fss_stack_sprint17/`
 
-**Defective modules to replace:**
+**Defective Sprint 15 modules to replace in the new Sprint 16 product:**
 
-- `mount_target/modules/fss_stack_sprint15_mount_target/` → replace with verbatim copy of `fss_stack_sprint12/`
-- `filesystem_export/modules/fss_stack_sprint15_filesystem_export/` → replace with verbatim copy of `fss_stack_sprint12/`
+- `mount_target/modules/fss_stack_sprint15_mount_target/` → replace with verbatim copy of `fss_stack_sprint17/`
+- `filesystem_export/modules/fss_stack_sprint15_filesystem_export/` → replace with verbatim copy of `fss_stack_sprint17/`
 
-**Rule (from Sprint 13 pattern):** the intermediate module embedded in an ORM stack zip MUST be `fss_stack_sprint12`, copied as-is, not a new sprint-specific module. This module is externally managed and must not be modified.
+**Rule:** the intermediate module embedded in an ORM stack zip MUST be `fss_stack_sprint17`, copied as-is, not a new sprint-specific module. This module is externally managed and must not be modified.
 
 ## Analysis
 
@@ -31,11 +31,12 @@ Sprint 16 implements PBI-030, which fixes the critical BUG-11 identified at the 
 
 **Sprint 16 target state:**
 
-- `mount_target/modules/fss_stack_sprint12/` — verbatim copy of canonical `fss_stack_sprint12/`
-- `filesystem_export/modules/fss_stack_sprint12/` — verbatim copy of canonical `fss_stack_sprint12/`
-- `mount_target/main.tf` calls `module "fss_stack" { source = "./modules/fss_stack_sprint12" }` with `mount_targets` map (single entry) and `filesystems = {}`
-- `filesystem_export/main.tf` calls `fss_filesystem` and `fss_export` sub-modules directly from within the embedded `fss_stack_sprint12/modules/` tree, because the filesystem_export stack operates against an existing mount target and cannot call the full `fss_stack_sprint12` (which always creates new mount targets)
+- `terraform/modules/fss_stack_sprint16_orm_advanced/` is created as the corrected product directory; the failed Sprint 15 product remains unchanged.
+- `mount_target/modules/fss_stack_sprint17/` — verbatim copy of canonical `fss_stack_sprint17/`
+- `filesystem_export/modules/fss_stack_sprint17/` — verbatim copy of canonical `fss_stack_sprint17/`
+- `mount_target/main.tf` calls `module "fss_stack" { source = "./modules/fss_stack_sprint17" }` with `mount_targets` map (single managed entry) and `filesystems = {}`
+- `filesystem_export/main.tf` calls the full `fss_stack_sprint17` module with an external mount target entry, because Sprint 17 supports `mount_targets[*].external_ocid`
 
 **Compatibility with existing quality gates:**
 
-Sprint 15 smoke (`test_fss_sprint15_orm_advanced.sh`) and integration (`test_fss_sprint15_orm_advanced.sh`) tests must pass without modification. The schema, variables, and outputs of both ORM roots are unchanged; only the module layer changes.
+Sprint 16 smoke (`test_fss_sprint16_orm_advanced.sh`) and integration (`test_fss_sprint16_orm_advanced.sh`) tests must pass. The schema, variables, and outputs of both ORM roots are unchanged; only the product directory and module layer change.

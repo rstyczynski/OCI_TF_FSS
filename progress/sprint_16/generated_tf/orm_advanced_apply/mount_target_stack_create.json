@@ -1,0 +1,34 @@
+{
+  "data": {
+    "compartment-id": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+    "config-source": {
+      "config-source-type": "ZIP_UPLOAD",
+      "working-directory": null
+    },
+    "custom-terraform-provider": null,
+    "defined-tags": {
+      "Oracle-Tags": {
+        "CreatedBy": "default/ryszard.styczynski@avaloq.com",
+        "CreatedOn": "2026-04-30T14:12:14.677Z"
+      }
+    },
+    "description": "Sprint 16 advanced ORM mount target stack",
+    "display-name": "fss-sprint16-orm-mount-target",
+    "freeform-tags": {},
+    "id": "ocid1.ormstack.oc1.eu-zurich-1.amaaaaaaknhfuyiannczhe3sdym3y4cizym4uowaspxz5ljhkbkivyityvcq",
+    "is-third-party-provider-experience-enabled": true,
+    "lifecycle-state": "ACTIVE",
+    "stack-drift-status": "NOT_CHECKED",
+    "terraform-version": "1.5.x",
+    "time-created": "2026-04-30T14:12:14.756000+00:00",
+    "time-drift-last-checked": null,
+    "variables": {
+      "availability_domain": "jJRq:EU-ZURICH-1-AD-1",
+      "compartment_ocid": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+      "mount_target_display_name": "fss-sprint16-orm-mt",
+      "region": "eu-zurich-1",
+      "subnet_ocid": "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q"
+    }
+  },
+  "etag": "ac75151d939a775aca588b27472a44fbfaed470a580ddf672b613d0bc88f888d--gzip"
+}

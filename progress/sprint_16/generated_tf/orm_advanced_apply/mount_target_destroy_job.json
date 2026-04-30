@@ -1,0 +1,52 @@
+{
+  "data": {
+    "apply-job-plan-resolution": {
+      "is-auto-approved": true,
+      "is-use-latest-job-id": null,
+      "plan-job-id": null
+    },
+    "cancellation-details": {
+      "is-forced": false
+    },
+    "compartment-id": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+    "config-source": {
+      "config-source-record-type": "ZIP_UPLOAD"
+    },
+    "defined-tags": {
+      "Oracle-Tags": {
+        "CreatedBy": "default/ryszard.styczynski@avaloq.com",
+        "CreatedOn": "2026-04-30T14:15:25.547Z"
+      }
+    },
+    "display-name": "fss-sprint16-orm-mount-target-destroy",
+    "failure-details": null,
+    "freeform-tags": {},
+    "id": "ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaedbgytvj476hzkso7m57vtryvfprg6djgklda7w74tda",
+    "is-provider-upgrade-required": false,
+    "is-third-party-provider-experience-enabled": true,
+    "job-operation-details": {
+      "execution-plan-strategy": "AUTO_APPROVED",
+      "operation": "DESTROY",
+      "terraform-advanced-options": {
+        "detailed-log-level": null,
+        "is-refresh-required": true,
+        "parallelism": 10
+      }
+    },
+    "lifecycle-state": "ACCEPTED",
+    "operation": "DESTROY",
+    "resolved-plan-job-id": null,
+    "stack-id": "ocid1.ormstack.oc1.eu-zurich-1.amaaaaaaknhfuyiannczhe3sdym3y4cizym4uowaspxz5ljhkbkivyityvcq",
+    "time-created": "2026-04-30T14:15:25.690000+00:00",
+    "time-finished": null,
+    "variables": {
+      "availability_domain": "jJRq:EU-ZURICH-1-AD-1",
+      "compartment_ocid": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+      "mount_target_display_name": "fss-sprint16-orm-mt",
+      "region": "eu-zurich-1",
+      "subnet_ocid": "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q"
+    },
+    "working-directory": null
+  },
+  "etag": "b56733228cac22d86bd5f813a9be12e08556bbf9b0cb2a3b29a7cda0c99ec464--gzip"
+}
