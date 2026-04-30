@@ -255,12 +255,16 @@ This item is complete when operators can run a dedicated export-only stack to ad
 
 Test: Resource Manager stack upload validates the schema; integration apply creates an additional export for existing FSS resources, verifies the NFS mount source output, and a destroy job removes only the created export.
 
-### PBI-030. Evaluate removing embedded module layer from Sprint 15 ORM stacks
+### PBI-030. Replace sprint-15-specific intermediate modules with fss_stack_sprint12 (BUG-11 implementation)
 
-Sprint 15 (`fss_stack_sprint15_orm_advanced`) currently follows Sprint 13 architecture: each ORM stack root delegates to embedded child modules (`modules/fss_mount_target/`, `modules/fss_filesystem/`, `modules/fss_export/`). The stacks have no multi-instance looping at the module level — each root manages exactly one mount target or one filesystem with a fixed export set. Embedding modules adds packaging complexity (zips must include `modules/` trees) with no reuse benefit in this context.
+Sprint 15 ORM stacks currently embed custom intermediate modules (`fss_stack_sprint15_mount_target`, `fss_stack_sprint15_filesystem_export`). BUG-11 (sprint_15_bugs.md) identifies this as a critical defect: the intermediate module layer must be `fss_stack_sprint12` — the existing, externally-managed, unmodifiable canonical stack module — embedded as-is, exactly as Sprint 13 does.
 
-Evaluate whether removing the module layer and inlining OCI resources directly in the stack roots improves maintainability without sacrificing correctness. The alternative (direct resources) was the original Sprint 15 implementation before BUG-3 was filed.
+This item implements the BUG-11 fix:
 
-This item is complete when the team decides to keep or remove the module layer, documents the rationale, and if removal is chosen — refactors both stacks and verifies with `terraform validate`.
+- Replace `mount_target/modules/fss_stack_sprint15_mount_target/` with a verbatim copy of `fss_stack_sprint12/`.
+- Replace `filesystem_export/modules/fss_stack_sprint15_filesystem_export/` with a verbatim copy of `fss_stack_sprint12/`.
+- Update both ORM roots to call `fss_stack_sprint12` or its sub-modules appropriately.
 
-Test: `terraform validate` passes on both refactored stack roots; zips regenerated and verified.
+This item is complete when both stack zips contain `modules/fss_stack_sprint12/` (byte-for-byte identical to `terraform/modules/fss_stack_sprint12/`), both stacks pass `terraform validate`, and all quality gates pass.
+
+Test: `terraform validate` on both stack roots; A1 smoke and A3 integration gates pass; embedded `fss_stack_sprint12/` content matches the canonical source.

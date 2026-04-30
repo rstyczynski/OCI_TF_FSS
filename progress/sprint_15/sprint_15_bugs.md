@@ -1,5 +1,18 @@
 # Sprint 15 — Bugs
 
+## BUG-11: Sprint 15 intermediate modules are custom sprint-15-specific instead of the unmodifiable fss_stack_sprint12
+
+**Item:** PBI-026, PBI-028
+**Severity:** critical
+**Status:** open
+
+- **Symptom**: `mount_target/modules/` contains `fss_stack_sprint15_mount_target/` and `filesystem_export/modules/` contains `fss_stack_sprint15_filesystem_export/` — both are new custom modules invented for Sprint 15. Sprint 13 (`fss_stack_sprint13_orm`) embeds the existing, externally-managed, unmodifiable `fss_stack_sprint12` module and calls it from its ORM root. Sprint 15 must follow the same rule: the intermediate module layer MUST be `fss_stack_sprint12`, embedded as-is.
+- **Root cause**: BUG-6 fix (2026-04-29) added the two-layer architecture but created new sprint-15-specific modules rather than reusing the canonical `fss_stack_sprint12`. The constraint "use the existing unmodifiable fss_stack module" was not enforced at that time.
+- **Fix**:
+  - Replace `mount_target/modules/fss_stack_sprint15_mount_target/` with a verbatim copy of `fss_stack_sprint12/` at `mount_target/modules/fss_stack_sprint12/`. Update `mount_target/main.tf` to call `module "fss_stack" { source = "./modules/fss_stack_sprint12" }` with `mount_targets` map (single entry) and `filesystems = {}`.
+  - Replace `filesystem_export/modules/fss_stack_sprint15_filesystem_export/` with a verbatim copy of `fss_stack_sprint12/` at `filesystem_export/modules/fss_stack_sprint12/`. Update `filesystem_export/main.tf` to call the `fss_filesystem` and `fss_export` sub-modules directly from within the embedded `fss_stack_sprint12/modules/` tree (`./modules/fss_stack_sprint12/modules/fss_filesystem` and `./modules/fss_stack_sprint12/modules/fss_export`), since the filesystem_export stack operates against an existing mount target and cannot use the full `fss_stack_sprint12` call.
+- **Verification**: `terraform validate` passes on both stacks; `modules/` tree in each zip contains `fss_stack_sprint12/` (not sprint-15-specific modules); the content of the embedded `fss_stack_sprint12/` is byte-for-byte identical to `terraform/modules/fss_stack_sprint12/`.
+
 ## BUG-10: Operator manual missing OCI Resource Manager CLI chapter
 
 **Item:** PBI-026, PBI-028
