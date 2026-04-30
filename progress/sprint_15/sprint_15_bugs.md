@@ -1,5 +1,18 @@
 # Sprint 15 — Bugs
 
+## BUG-10: Operator manual missing OCI Resource Manager CLI chapter
+
+**Item:** PBI-026, PBI-028
+**Severity:** high
+**Status:** fixed
+
+- **Symptom**: `sprint_15_operator_manual.md` covers the direct `terraform apply` path only. Sprint 15 stacks are designed for OCI Resource Manager; operators who use ORM via the CLI (`oci resource-manager stack create`, job polling, state extraction) have no documented path.
+- **Root cause**: ORM CLI workflow was only covered implicitly by the A3 integration test script; it was never surfaced as an operator chapter.
+- **Fix**: Add an "ORM CLI" chapter to the operator manual with copy/paste commands for: package, create stack, apply job, poll job, extract outputs from job state, destroy job, delete stack — for both stacks in order.
+- **Verification**: Chapter is marked EXECUTED with reference to `test_run_A3_integration_20260430_095710.log` (the A3 gate already exercised every ORM CLI command in this path).
+
+**Resolution:** Fixed 2026-04-30.
+
 ## BUG-9: Operator manual missing complete deploy/apply/destroy CLI workflow
 
 **Item:** PBI-026, PBI-028
