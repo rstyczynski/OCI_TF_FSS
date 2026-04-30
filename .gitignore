@@ -28,3 +28,4 @@ terraform/modules/fss_stack_sprint12/examples/**/terraform.tfstate.backup
 
 # Other editor/diagram artifacts
 model/.$model.drawio.bkp
+progress/sprint_15/generated_tf/manual/.DS_Store

@@ -1,0 +1,196 @@
+# Sprint 17 final check
+timestamp: 20260430_154857
+
+## terraform fmt
+
+## module validate
+[0m[1mInitializing modules...[0m
+- export in modules/fss_export
+- filesystem in modules/fss_filesystem
+- mount_target in modules/fss_mount_target
+
+[0m[1mInitializing provider plugins...[0m
+- terraform.io/builtin/terraform is built in to Terraform
+- Finding latest version of oracle/oci...
+- Finding latest version of hashicorp/random...
+- Installing oracle/oci v8.12.0...
+- Installed oracle/oci v8.12.0 (signed by a HashiCorp partner, key ID [0m[1m1533A49284137CEB[0m[0m)
+- Installing hashicorp/random v3.8.1...
+- Installed hashicorp/random v3.8.1 (signed by HashiCorp)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+
+## examples validate
+### basic_fss
+[0m[1mInitializing modules...[0m
+- fss in ../..
+- fss.export in ../../modules/fss_export
+- fss.filesystem in ../../modules/fss_filesystem
+- fss.mount_target in ../../modules/fss_mount_target
+
+[0m[1mInitializing provider plugins...[0m
+- terraform.io/builtin/terraform is built in to Terraform
+- Finding latest version of hashicorp/random...
+- Finding latest version of oracle/oci...
+- Installing hashicorp/random v3.8.1...
+- Installed hashicorp/random v3.8.1 (signed by HashiCorp)
+- Installing oracle/oci v8.12.0...
+- Installed oracle/oci v8.12.0 (signed by a HashiCorp partner, key ID [0m[1m1533A49284137CEB[0m[0m)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+
+### mount_target_only
+[0m[1mInitializing modules...[0m
+- fss in ../..
+- fss.export in ../../modules/fss_export
+- fss.filesystem in ../../modules/fss_filesystem
+- fss.mount_target in ../../modules/fss_mount_target
+
+[0m[1mInitializing provider plugins...[0m
+- terraform.io/builtin/terraform is built in to Terraform
+- Finding latest version of oracle/oci...
+- Finding latest version of hashicorp/random...
+- Installing oracle/oci v8.12.0...
+- Installed oracle/oci v8.12.0 (signed by a HashiCorp partner, key ID [0m[1m1533A49284137CEB[0m[0m)
+- Installing hashicorp/random v3.8.1...
+- Installed hashicorp/random v3.8.1 (signed by HashiCorp)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+
+### multi_fss_with_logging
+[0m[1mInitializing modules...[0m
+- fss in ../..
+- fss.export in ../../modules/fss_export
+- fss.filesystem in ../../modules/fss_filesystem
+- fss.mount_target in ../../modules/fss_mount_target
+
+[0m[1mInitializing provider plugins...[0m
+- terraform.io/builtin/terraform is built in to Terraform
+- Finding latest version of oracle/oci...
+- Finding latest version of hashicorp/random...
+- Installing oracle/oci v8.12.0...
+- Installed oracle/oci v8.12.0 (signed by a HashiCorp partner, key ID [0m[1m1533A49284137CEB[0m[0m)
+- Installing hashicorp/random v3.8.1...
+- Installed hashicorp/random v3.8.1 (signed by HashiCorp)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+
+### external_mount_target
+[0m[1mInitializing modules...[0m
+- fss in ../..
+- fss.export in ../../modules/fss_export
+- fss.filesystem in ../../modules/fss_filesystem
+- fss.mount_target in ../../modules/fss_mount_target
+
+[0m[1mInitializing provider plugins...[0m
+- terraform.io/builtin/terraform is built in to Terraform
+- Finding latest version of hashicorp/random...
+- Finding latest version of oracle/oci...
+- Installing hashicorp/random v3.8.1...
+- Installed hashicorp/random v3.8.1 (signed by HashiCorp)
+- Installing oracle/oci v8.12.0...
+- Installed oracle/oci v8.12.0 (signed by a HashiCorp partner, key ID [0m[1m1533A49284137CEB[0m[0m)
+
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+
+## state artifact scan
+OK: no terraform.tfstate artifacts under sprint17 module.
+OK: no .terraform.lock.hcl artifacts under sprint17 module.
+OK: no .terraform directories under sprint17 module.
+
+Status: PASS

@@ -236,3 +236,17 @@ Reference: `progress/sprint_15/sprint_15_bugs.md` BUG-11. Canonical source modul
 Backlog Items:
 
 * PBI-030. Replace sprint-15-specific intermediate modules with fss_stack_sprint12 (BUG-11 implementation)
+
+## Sprint 17 - fss_stack_sprint12 supports externally managed mount targets
+
+Status: Planned
+Mode: managed
+Test: smoke, integration
+Regression: none
+
+Extend the stack module to support filesystem exports that target externally managed mount targets (by OCID) in addition to stack-managed mount targets (by key lookup), while keeping backwards compatibility with all existing Sprint 12 examples. Keep the sprint product in `terraform/modules/fss_stack_sprint17/`.
+
+Backlog Items:
+
+* PBI-031. fss_stack_sprint12 - support externally managed mount targets in exports
+* PBI-032. fss stack - allow per-mount-target placement overrides (subnet / availability domain)

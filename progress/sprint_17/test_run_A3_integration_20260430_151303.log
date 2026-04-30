@@ -1,0 +1,7 @@
+# Sprint 17 A3 Integration
+timestamp: 20260430_151303
+
+Status: NOT RUN
+
+Reason: requires a live OCI environment, valid OCI credentials, and appropriate networking/quota to actually create mount targets, filesystems, and exports.
+This environment executed only terraform init/validate (smoke) without apply.

@@ -268,3 +268,24 @@ This item implements the BUG-11 fix:
 This item is complete when both stack zips contain `modules/fss_stack_sprint12/` (byte-for-byte identical to `terraform/modules/fss_stack_sprint12/`), both stacks pass `terraform validate`, and all quality gates pass.
 
 Test: `terraform validate` on both stack roots; A1 smoke and A3 integration gates pass; embedded `fss_stack_sprint12/` content matches the canonical source.
+
+### PBI-031. fss_stack_sprint12 - support externally managed mount targets in exports
+
+Extend `terraform/modules/fss_stack_sprint12` so filesystem exports can target an externally managed mount target, not only mount targets created by the stack. The export field `mount_target_key` must accept either (a) a key that resolves into the `mount_targets` map (current behavior) or (b) a literal mount target OCID (`ocid1.fsmounttarget...`). This must support multiple external mount targets within the same apply (different exports may point to different mount target OCIDs).
+
+This item is complete when the stack can create filesystems and exports against a provided mount target OCID without requiring any `mount_targets` entries, while preserving full backward compatibility for existing configurations that use `mount_targets` keys.
+
+Test: `terraform validate` passes for all existing Sprint 12 examples unchanged, and a new example validates where an export uses a literal mount target OCID and `mount_targets = {}`.
+
+### PBI-032. fss stack - allow per-mount-target placement overrides (subnet / availability domain)
+
+The stack currently assumes a single shared `subnet_ocid` and a single effective availability domain for all mount targets (and for filesystems). This is too restrictive when operators need to reference or create mount targets in different subnets (and therefore potentially different availability domains) within one stack configuration, especially when mixing stack-managed and externally managed mount targets.
+
+Extend the stack interface so each `mount_targets[*]` entry can optionally override placement:
+
+- `subnet_ocid` (optional): when set, this mount target uses the provided subnet instead of the stack default `var.subnet_ocid`
+- `availability_domain` (optional): when set, this mount target uses the provided AD instead of the stack’s effective AD
+
+When omitted, each override defaults to the current stack behavior (use the shared default), preserving backward compatibility. The stack must validate that externally managed mount targets referenced by `external_ocid` are actually in the effective subnet/AD for that entry (using the overrides when present).
+
+Test: `terraform validate` passes for existing examples unchanged, and a new example validates with two mount target entries that set different `subnet_ocid` values (and corresponding availability domain overrides when required).
