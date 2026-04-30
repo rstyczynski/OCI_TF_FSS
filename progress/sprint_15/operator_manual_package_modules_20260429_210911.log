@@ -1,0 +1,7 @@
+REPO_ROOT=/Users/rstyczynski/projects/OCI_TF_FSS
+PACKAGE_OUT=/Users/rstyczynski/projects/OCI_TF_FSS/progress/sprint_15/generated_tf/manual
+PASS: mount_target stack validated (terraform validate — Success! The configuration is valid.)
+PASS: filesystem_export stack validated (terraform validate — Success! The configuration is valid.)
+PASS: fss-mount-target.zip regenerated — 11 files, 20550 bytes (main.tf variables.tf outputs.tf schema.yaml versions.tf modules/fss_mount_target/*)
+PASS: fss-filesystem-export.zip regenerated — 16 files, 35608 bytes (main.tf variables.tf outputs.tf schema.yaml versions.tf modules/fss_filesystem/* modules/fss_export/*)
+Architecture: Sprint 13 module-based (embedded sub-modules, not direct OCI resources)

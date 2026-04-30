@@ -1,0 +1,55 @@
+{
+  "data": {
+    "apply-job-plan-resolution": {
+      "is-auto-approved": true,
+      "is-use-latest-job-id": null,
+      "plan-job-id": null
+    },
+    "cancellation-details": {
+      "is-forced": false
+    },
+    "compartment-id": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+    "config-source": {
+      "config-source-record-type": "ZIP_UPLOAD"
+    },
+    "defined-tags": {
+      "Oracle-Tags": {
+        "CreatedBy": "default/ryszard.styczynski@avaloq.com",
+        "CreatedOn": "2026-04-30T07:59:00.070Z"
+      }
+    },
+    "display-name": "fss-sprint15-orm-filesystem-export-destroy",
+    "failure-details": null,
+    "freeform-tags": {},
+    "id": "ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaeoxo4fnqa4avfgmofme3iswixfxu4woavq36djh3o2ha",
+    "is-provider-upgrade-required": false,
+    "is-third-party-provider-experience-enabled": true,
+    "job-operation-details": {
+      "execution-plan-strategy": "AUTO_APPROVED",
+      "operation": "DESTROY",
+      "terraform-advanced-options": {
+        "detailed-log-level": null,
+        "is-refresh-required": true,
+        "parallelism": 10
+      }
+    },
+    "lifecycle-state": "ACCEPTED",
+    "operation": "DESTROY",
+    "resolved-plan-job-id": null,
+    "stack-id": "ocid1.ormstack.oc1.eu-zurich-1.amaaaaaaknhfuyiabmo3fwhmadrsjaekqng5gh45fyfjqnoyrbprvpnpy3pa",
+    "time-created": "2026-04-30T07:59:00.177000+00:00",
+    "time-finished": null,
+    "variables": {
+      "add_export_2": "true",
+      "availability_domain": "jJRq:EU-ZURICH-1-AD-1",
+      "compartment_ocid": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+      "existing_mount_target_ocid": "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wntqzdpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+      "export_1_path": "/data",
+      "export_2_path": "/logs",
+      "filesystem_display_name": "fss-sprint15-orm-fs",
+      "region": "eu-zurich-1"
+    },
+    "working-directory": null
+  },
+  "etag": "eae06ddfbb479fd55acb8c1052b52cf1f0a26307f017d3b46650acde456b6fcd--gzip"
+}

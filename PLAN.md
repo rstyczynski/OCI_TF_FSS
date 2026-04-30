@@ -208,7 +208,7 @@ Backlog Items:
 
 ## Sprint 15 - Advanced Resource Manager FSS package
 
-Status: Progress
+Status: Done
 Mode: managed
 Test: smoke, integration
 Regression: none

@@ -1,0 +1,29 @@
+DATE: 2026-04-30
+REGION: eu-zurich-1
+COMPARTMENT: ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q
+SUBNET: ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q
+AD: jJRq:EU-ZURICH-1-AD-1
+
+STEP 3 - mount_target apply:
+PASS: Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+  mount_target_ocid = ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wntpujpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr
+  export_set_ocid   = ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wntpuipjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr
+  ip_address        = 10.0.0.45
+  mount_address     = 10.0.0.45
+
+STEP 5 - filesystem_export apply (export_1=/data, export_2=/backup):
+PASS: Apply complete! Resources: 5 added, 0 changed, 0 destroyed.
+  filesystem_ocid = ocid1.filesystem.oc1.eu_zurich_1.aaaaaaaaaan2vjiypjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr
+  nfs_mount_sources = {
+    export_1 = 10.0.0.45:/data
+    export_2 = 10.0.0.45:/backup
+  }
+  filesystem_display_name = fss-sprint15-fs
+
+STEP 8 - filesystem_export destroy:
+PASS: Destroy complete! Resources: 5 destroyed.
+
+STEP 8 - mount_target destroy:
+PASS: Destroy complete! Resources: 2 destroyed.
+
+NOTE: Step 7 (NFS mount/verify) NOT RUN — no compute instance available in same subnet during this test run.

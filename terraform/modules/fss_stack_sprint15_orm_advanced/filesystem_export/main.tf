@@ -8,6 +8,13 @@ data "oci_file_storage_mount_targets" "selected" {
   id                  = var.existing_mount_target_ocid
 }
 
+# oci_file_storage_mount_targets (list) calls ListMountTargets which returns
+# MountTargetSummary — ip_address is absent. OCI provider has no singular
+# oci_file_storage_mount_target data source. Resolve IP via private_ip_ids[0].
+data "oci_core_private_ip" "mount_target" {
+  private_ip_id = local.selected_mount_target.private_ip_ids[0]
+}
+
 data "oci_core_subnet" "selected_mount_target" {
   subnet_id = local.selected_mount_target.subnet_id
 }
@@ -16,7 +23,7 @@ locals {
   kms_key_id            = trimspace(var.kms_key_id) == "" ? null : var.kms_key_id
   selected_mount_target = one(data.oci_file_storage_mount_targets.selected.mount_targets)
   mount_target_fqdn     = trimspace(try(local.selected_mount_target.hostname_label, "")) == "" || data.oci_core_subnet.selected_mount_target.subnet_domain_name == null ? null : "${local.selected_mount_target.hostname_label}.${data.oci_core_subnet.selected_mount_target.subnet_domain_name}"
-  mount_address         = coalesce(local.mount_target_fqdn, local.selected_mount_target.ip_address)
+  mount_address         = coalesce(local.mount_target_fqdn, data.oci_core_private_ip.mount_target.ip_address)
 
   export_slots = {
     export_1 = {
@@ -136,40 +143,27 @@ resource "terraform_data" "validate_tags" {
   }
 }
 
-resource "oci_file_storage_file_system" "this" {
-  availability_domain = var.availability_domain
-  compartment_id      = var.compartment_ocid
-  display_name        = var.filesystem_display_name
-  kms_key_id          = local.kms_key_id
-  freeform_tags       = local.tag_pair_freeform_tags
+module "fss_stack" {
+  source = "./modules/fss_stack_sprint15_filesystem_export"
 
-  depends_on = [terraform_data.validate_tags]
-
-  lifecycle {
-    ignore_changes = [
-      defined_tags["Oracle-Tags.CreatedBy"],
-      defined_tags["Oracle-Tags.CreatedOn"],
-    ]
+  compartment_ocid        = var.compartment_ocid
+  availability_domain     = var.availability_domain
+  export_set_ocid         = local.selected_mount_target.export_set_id
+  filesystem_display_name = var.filesystem_display_name
+  kms_key_id              = local.kms_key_id
+  freeform_tags           = local.tag_pair_freeform_tags
+  defined_tags            = {}
+  enabled_exports = {
+    for key, slot in local.enabled_exports : key => {
+      path            = slot.path
+      source_cidr     = slot.source_cidr
+      access          = slot.access
+      identity_squash = slot.identity_squash
+    }
   }
-}
+  anonymous_uid                  = var.anonymous_uid
+  anonymous_gid                  = var.anonymous_gid
+  require_privileged_source_port = var.require_privileged_source_port
 
-resource "oci_file_storage_export" "this" {
-  for_each = local.enabled_exports
-
-  export_set_id  = local.selected_mount_target.export_set_id
-  file_system_id = oci_file_storage_file_system.this.id
-  path           = each.value.path
-
-  export_options {
-    source                         = each.value.source_cidr
-    access                         = each.value.access
-    allowed_auth                   = ["SYS"]
-    identity_squash                = each.value.identity_squash
-    anonymous_uid                  = var.anonymous_uid
-    anonymous_gid                  = var.anonymous_gid
-    is_anonymous_access_allowed    = false
-    require_privileged_source_port = var.require_privileged_source_port
-  }
-
-  depends_on = [terraform_data.validate_exports]
+  depends_on = [terraform_data.validate_exports, terraform_data.validate_tags]
 }

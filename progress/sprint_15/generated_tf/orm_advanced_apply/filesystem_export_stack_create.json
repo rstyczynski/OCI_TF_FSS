@@ -1,0 +1,37 @@
+{
+  "data": {
+    "compartment-id": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+    "config-source": {
+      "config-source-type": "ZIP_UPLOAD",
+      "working-directory": null
+    },
+    "custom-terraform-provider": null,
+    "defined-tags": {
+      "Oracle-Tags": {
+        "CreatedBy": "default/ryszard.styczynski@avaloq.com",
+        "CreatedOn": "2026-04-30T07:58:16.557Z"
+      }
+    },
+    "description": "Sprint 15 advanced ORM filesystem export stack",
+    "display-name": "fss-sprint15-orm-filesystem-export",
+    "freeform-tags": {},
+    "id": "ocid1.ormstack.oc1.eu-zurich-1.amaaaaaaknhfuyiabmo3fwhmadrsjaekqng5gh45fyfjqnoyrbprvpnpy3pa",
+    "is-third-party-provider-experience-enabled": true,
+    "lifecycle-state": "ACTIVE",
+    "stack-drift-status": "NOT_CHECKED",
+    "terraform-version": "1.5.x",
+    "time-created": "2026-04-30T07:58:16.606000+00:00",
+    "time-drift-last-checked": null,
+    "variables": {
+      "add_export_2": "true",
+      "availability_domain": "jJRq:EU-ZURICH-1-AD-1",
+      "compartment_ocid": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+      "existing_mount_target_ocid": "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wntqzdpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+      "export_1_path": "/data",
+      "export_2_path": "/logs",
+      "filesystem_display_name": "fss-sprint15-orm-fs",
+      "region": "eu-zurich-1"
+    }
+  },
+  "etag": "9847b88da037c992b89fb8765234d6aed1418f82bd0cdca4782350078f862d22--gzip"
+}

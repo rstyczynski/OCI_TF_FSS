@@ -254,3 +254,13 @@ Create a focused OCI Resource Manager package that lets an operator add exports 
 This item is complete when operators can run a dedicated export-only stack to add an export to an existing filesystem and mount target, see the resulting export OCID and NFS mount source, and destroy only that additional export without affecting the filesystem or mount target.
 
 Test: Resource Manager stack upload validates the schema; integration apply creates an additional export for existing FSS resources, verifies the NFS mount source output, and a destroy job removes only the created export.
+
+### PBI-030. Evaluate removing embedded module layer from Sprint 15 ORM stacks
+
+Sprint 15 (`fss_stack_sprint15_orm_advanced`) currently follows Sprint 13 architecture: each ORM stack root delegates to embedded child modules (`modules/fss_mount_target/`, `modules/fss_filesystem/`, `modules/fss_export/`). The stacks have no multi-instance looping at the module level — each root manages exactly one mount target or one filesystem with a fixed export set. Embedding modules adds packaging complexity (zips must include `modules/` trees) with no reuse benefit in this context.
+
+Evaluate whether removing the module layer and inlining OCI resources directly in the stack roots improves maintainability without sacrificing correctness. The alternative (direct resources) was the original Sprint 15 implementation before BUG-3 was filed.
+
+This item is complete when the team decides to keep or remove the module layer, documents the rationale, and if removal is chosen — refactors both stacks and verifies with `terraform validate`.
+
+Test: `terraform validate` passes on both refactored stack roots; zips regenerated and verified.

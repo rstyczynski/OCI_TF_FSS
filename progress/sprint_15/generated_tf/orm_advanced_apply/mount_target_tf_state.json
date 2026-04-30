@@ -1,0 +1,198 @@
+{
+  "version": 4,
+  "terraform_version": "1.5.7",
+  "serial": 4,
+  "lineage": "bcf09ebe-b007-472c-7fed-b7319f032931",
+  "outputs": {
+    "availability_domain": {
+      "value": "jJRq:EU-ZURICH-1-AD-1",
+      "type": "string"
+    },
+    "export_set_ocid": {
+      "value": "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wntqzcpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+      "type": "string"
+    },
+    "ip_address": {
+      "value": "10.0.0.101",
+      "type": "string"
+    },
+    "mount_address": {
+      "value": "10.0.0.101",
+      "type": "string"
+    },
+    "mount_target_ocid": {
+      "value": "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wntqzdpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+      "type": "string"
+    },
+    "mount_target_summary": {
+      "value": {
+        "availability_domain": "jJRq:EU-ZURICH-1-AD-1",
+        "export_set_ocid": "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wntqzcpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+        "ip_address": "10.0.0.101",
+        "logging_enabled": false,
+        "mount_address": "10.0.0.101",
+        "mount_target_ocid": "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wntqzdpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+        "subnet_ocid": "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q"
+      },
+      "type": [
+        "object",
+        {
+          "availability_domain": "string",
+          "export_set_ocid": "string",
+          "ip_address": "string",
+          "logging_enabled": "bool",
+          "mount_address": "string",
+          "mount_target_ocid": "string",
+          "subnet_ocid": "string"
+        }
+      ]
+    },
+    "subnet_ocid": {
+      "value": "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q",
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "terraform_data",
+      "name": "validate_tags",
+      "provider": "provider[\"terraform.io/builtin/terraform\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "bc6975d2-04ff-7ed1-d389-b7f7e0b123a9",
+            "input": {
+              "value": {},
+              "type": [
+                "object",
+                {}
+              ]
+            },
+            "output": {
+              "value": {},
+              "type": [
+                "object",
+                {}
+              ]
+            },
+            "triggers_replace": null
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    },
+    {
+      "module": "module.fss_stack.module.mount_target",
+      "mode": "data",
+      "type": "oci_core_subnet",
+      "name": "this",
+      "provider": "provider[\"registry.terraform.io/oracle/oci\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "availability_domain": null,
+            "cidr_block": "10.0.0.0/24",
+            "compartment_id": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+            "defined_tags": {
+              "Oracle-Tags.CreatedBy": "default/ryszard.styczynski@avaloq.com",
+              "Oracle-Tags.CreatedOn": "2026-04-28T12:45:54.180Z"
+            },
+            "dhcp_options_id": "ocid1.dhcpoptions.oc1.eu-zurich-1.aaaaaaaaeiffzpmdz4soqxlfi33jzddsih2saogclgdzogyh3tykaq4ojyea",
+            "display_name": "infra",
+            "dns_label": "infra",
+            "freeform_tags": {},
+            "id": "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q",
+            "ipv4cidr_blocks": [
+              "10.0.0.0/24"
+            ],
+            "ipv6cidr_block": null,
+            "ipv6cidr_blocks": [],
+            "ipv6virtual_router_ip": null,
+            "prohibit_internet_ingress": false,
+            "prohibit_public_ip_on_vnic": false,
+            "route_table_id": "ocid1.routetable.oc1.eu-zurich-1.aaaaaaaaz5xgewcrulzmpgen23rllqfp5m7apajv74forod2qlo2b2humctq",
+            "security_list_ids": [
+              "ocid1.securitylist.oc1.eu-zurich-1.aaaaaaaanihy7u7toarbcu6ns7suwqlxbynmktcik4gsn4gihyfll2toapia"
+            ],
+            "state": "AVAILABLE",
+            "subnet_domain_name": "infra.infra.oraclevcn.com",
+            "subnet_id": "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q",
+            "time_created": "2026-04-28 12:45:54.219 +0000 UTC",
+            "vcn_id": "ocid1.vcn.oc1.eu-zurich-1.amaaaaaaknhfuyiar6gra6k6qsc7olmcvyhdhoiumh5rcrbvwzrat2flr5rq",
+            "virtual_router_ip": "10.0.0.1",
+            "virtual_router_mac": "00:00:17:79:91:8D"
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    },
+    {
+      "module": "module.fss_stack.module.mount_target",
+      "mode": "managed",
+      "type": "oci_file_storage_mount_target",
+      "name": "this",
+      "provider": "provider[\"registry.terraform.io/oracle/oci\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "availability_domain": "jJRq:EU-ZURICH-1-AD-1",
+            "compartment_id": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+            "defined_tags": {
+              "Oracle-Tags.CreatedBy": "default/ryszard.styczynski@avaloq.com",
+              "Oracle-Tags.CreatedOn": "2026-04-30T07:57:35.810Z"
+            },
+            "display_name": "fss-sprint15-orm-mt",
+            "export_set_id": "ocid1.exportset.oc1.eu_zurich_1.aaaaaa4np2wntqzcpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+            "freeform_tags": {},
+            "hostname_label": null,
+            "id": "ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wntqzdpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr",
+            "idmap_type": "NONE",
+            "ip_address": "10.0.0.101",
+            "is_lock_override": null,
+            "kerberos": [],
+            "ldap_idmap": [],
+            "lifecycle_details": "",
+            "locks": [],
+            "mount_target_ipv6ids": [],
+            "nsg_ids": [],
+            "observed_throughput": "1",
+            "private_ip_ids": [
+              "ocid1.privateip.oc1.eu-zurich-1.aaaaaaaa5rieuu5q26zw6xgd65uloohjekrhmgg4f7kypasrhmpkjvuzj6ha"
+            ],
+            "requested_throughput": "1",
+            "reserved_storage_capacity": "0",
+            "security_attributes": {},
+            "state": "ACTIVE",
+            "subnet_id": "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q",
+            "system_tags": {},
+            "time_billing_cycle_end": null,
+            "time_created": "2026-04-30 07:57:36.313 +0000 UTC",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "terraform_data.validate_tags"
+          ]
+        }
+      ]
+    }
+  ],
+  "check_results": [
+    {
+      "object_kind": "resource",
+      "config_addr": "terraform_data.validate_tags",
+      "status": "pass",
+      "objects": [
+        {
+          "object_addr": "terraform_data.validate_tags",
+          "status": "pass"
+        }
+      ]
+    }
+  ]
+}

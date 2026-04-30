@@ -1,0 +1,7 @@
+{
+  "region": "eu-zurich-1",
+  "compartment_ocid": "ocid1.compartment.oc1..aaaaaaaarg3czmfmagxnchqiaz7cptm4ngxyrlzevngts7lbpyu2pijogx2q",
+  "availability_domain": "jJRq:EU-ZURICH-1-AD-1",
+  "subnet_ocid": "ocid1.subnet.oc1.eu-zurich-1.aaaaaaaaidkhv3o7xq3igisuy3v2t3z4eccnftkrzsomm5kvhs2u2dhggp2q",
+  "mount_target_display_name": "fss-sprint15-orm-mt"
+}

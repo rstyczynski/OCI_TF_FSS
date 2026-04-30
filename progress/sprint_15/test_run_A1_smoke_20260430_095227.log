@@ -1,0 +1,3 @@
+=== SM-1: advanced ORM package static validation ===
+PASS: schemas parse and expose required controls
+terraform/modules/fss_stack_sprint15_orm_advanced/filesystem_export/main.tf

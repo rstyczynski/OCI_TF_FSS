@@ -1,0 +1,22 @@
+=== IT-1: Resource Manager advanced workflow ===
+Action completed. Waiting until the work request has entered state: ('ACTIVE', 'FAILED')
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaali2jkro5ul6kyds2aho6u2zls6mzbiau3wjaked2oka state=ACCEPTED
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaali2jkro5ul6kyds2aho6u2zls6mzbiau3wjaked2oka state=IN_PROGRESS
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaali2jkro5ul6kyds2aho6u2zls6mzbiau3wjaked2oka state=IN_PROGRESS
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaali2jkro5ul6kyds2aho6u2zls6mzbiau3wjaked2oka state=SUCCEEDED
+Downloading file
+Action completed. Waiting until the work request has entered state: ('ACTIVE', 'FAILED')
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiazlqvqtnxf5tncziidotfk67v3p4umwhit5mpfcnv55bq state=ACCEPTED
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiazlqvqtnxf5tncziidotfk67v3p4umwhit5mpfcnv55bq state=IN_PROGRESS
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiazlqvqtnxf5tncziidotfk67v3p4umwhit5mpfcnv55bq state=SUCCEEDED
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaeoxo4fnqa4avfgmofme3iswixfxu4woavq36djh3o2ha state=ACCEPTED
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaeoxo4fnqa4avfgmofme3iswixfxu4woavq36djh3o2ha state=IN_PROGRESS
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaeoxo4fnqa4avfgmofme3iswixfxu4woavq36djh3o2ha state=IN_PROGRESS
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyiaeoxo4fnqa4avfgmofme3iswixfxu4woavq36djh3o2ha state=SUCCEEDED
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyial6nzxxjezojzumfqtjwuvc3jntnxtxfvodnigavkpjta state=ACCEPTED
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyial6nzxxjezojzumfqtjwuvc3jntnxtxfvodnigavkpjta state=IN_PROGRESS
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyial6nzxxjezojzumfqtjwuvc3jntnxtxfvodnigavkpjta state=IN_PROGRESS
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyial6nzxxjezojzumfqtjwuvc3jntnxtxfvodnigavkpjta state=IN_PROGRESS
+INFO: Resource Manager job ocid1.ormjob.oc1.eu-zurich-1.amaaaaaaknhfuyial6nzxxjezojzumfqtjwuvc3jntnxtxfvodnigavkpjta state=SUCCEEDED
+PASS: IT-1 (mount_target_ocid=ocid1.mounttarget.oc1.eu_zurich_1.aaaaaa4np2wntqzdpjzgqllqojxwiotfouwxu5lsnfrwqljrfvqwiljr, nfs_count=2)
+Exit: 0

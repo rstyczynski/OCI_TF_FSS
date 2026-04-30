@@ -44,6 +44,8 @@ Requirements:
   - connecting (for example SSH to a test instance), including how to obtain or preserve required keys
   - teardown / cleanup (when applicable)
 - Any claim that a manual snippet was executed MUST be backed by an artifact per P4 (log file under `progress/sprint_N/` and referenced from `sprint_N_tests.md`).
+- **All snippets in the manual MUST be validated per P4 and P8 before the sprint is considered release-ready.** What the manual contains is the sprint’s design decision; that every snippet in it is tested is a method requirement with no exceptions.
+- **Enforcement: every sprint that ships an operator manual MUST include a `D1 Operator Manual` gate row in `sprint_N_tests.md`.** This gate is PASS only when every snippet in the manual is either EXECUTED (with timestamped log reference) or explicitly marked NOT RUN (with reason). The sprint MUST NOT transition to `tested` with D1 absent or PENDING.
 
 ## P6. Managed-mode approval checkpoint before quality gates
 

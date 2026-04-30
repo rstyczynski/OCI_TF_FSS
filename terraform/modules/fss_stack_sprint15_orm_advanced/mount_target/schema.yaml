@@ -23,35 +23,53 @@ variableGroups:
       - ${log_group_name}
       - ${log_display_name}
       - ${log_retention_duration}
-  - title: "Tags"
+  - title: "Tag 1"
     variables:
       - ${tag_1_key}
       - ${tag_1_value}
       - ${add_tag_2}
+  - title: "Tag 2"
+    variables:
       - ${tag_2_key}
       - ${tag_2_value}
       - ${add_tag_3}
+  - title: "Tag 3"
+    variables:
       - ${tag_3_key}
       - ${tag_3_value}
       - ${add_tag_4}
+  - title: "Tag 4"
+    variables:
       - ${tag_4_key}
       - ${tag_4_value}
       - ${add_tag_5}
+  - title: "Tag 5"
+    variables:
       - ${tag_5_key}
       - ${tag_5_value}
       - ${add_tag_6}
+  - title: "Tag 6"
+    variables:
       - ${tag_6_key}
       - ${tag_6_value}
       - ${add_tag_7}
+  - title: "Tag 7"
+    variables:
       - ${tag_7_key}
       - ${tag_7_value}
       - ${add_tag_8}
+  - title: "Tag 8"
+    variables:
       - ${tag_8_key}
       - ${tag_8_value}
       - ${add_tag_9}
+  - title: "Tag 9"
+    variables:
       - ${tag_9_key}
       - ${tag_9_value}
       - ${add_tag_10}
+  - title: "Tag 10"
+    variables:
       - ${tag_10_key}
       - ${tag_10_value}
 
