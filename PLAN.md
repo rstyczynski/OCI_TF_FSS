@@ -208,7 +208,7 @@ Backlog Items:
 
 ## Sprint 15 - Advanced Resource Manager FSS package
 
-Status: Done
+Status: Failed
 Mode: managed
 Test: smoke, integration
 Regression: none
@@ -219,3 +219,20 @@ Backlog Items:
 
 * PBI-026. Add Resource Manager mount target stack
 * PBI-028. Add Resource Manager filesystem stack with chained exports
+
+## Sprint 16 - Replace sprint-15-specific modules with canonical fss_stack_sprint12
+
+Status: Progress
+Mode: YOLO
+Test: smoke, integration
+Regression: none
+
+Sprint 15 failed due to BUG-11 (critical): the intermediate module layer in both ORM stack roots uses custom sprint-15-specific modules (`fss_stack_sprint15_mount_target`, `fss_stack_sprint15_filesystem_export`) instead of the existing, externally-managed, unmodifiable `fss_stack_sprint12`. Sprint 13 embeds `fss_stack_sprint12` verbatim and calls it from the ORM root. Sprint 15 must follow the same rule.
+
+Sprint 16 replaces both custom intermediate modules with a verbatim copy of `fss_stack_sprint12` embedded in each stack root's `modules/` directory. The ORM root variable-shaping logic (tag slots, export slots, validation) stays in the root `main.tf`; resource creation delegates to `fss_stack_sprint12` (or its sub-modules for the filesystem_export stack where only filesystem and export creation is needed against an existing mount target).
+
+Reference: `progress/sprint_15/sprint_15_bugs.md` BUG-11. Canonical source module: `terraform/modules/fss_stack_sprint12/`.
+
+Backlog Items:
+
+* PBI-030. Replace sprint-15-specific intermediate modules with fss_stack_sprint12 (BUG-11 implementation)

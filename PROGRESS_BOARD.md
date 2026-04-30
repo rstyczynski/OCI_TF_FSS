@@ -3,7 +3,7 @@
 Progress board is a table showing sprint, and backlog items state. It's the only purpose of this file. All potential comments, progress notes, etc. always keep in dedicated files for each phase.
 
 | Sprint | Sprint Status | Backlog Item | Item Status |
-|--------|---------------|--------------|-------------|
+| --- | --- | --- | --- |
 | Sprint 1 | implemented | PBI-005. Foundation infrastructure for system-level FSS tests | tested |
 | Sprint 2 | implemented | PBI-001. Terraform module for FSS filesystem | tested |
 | Sprint 2 | implemented | PBI-006. Terraform architecture rules for agentic development | tested |
@@ -27,6 +27,7 @@ Progress board is a table showing sprint, and backlog items state. It's the only
 | Sprint 12 | tested | PBI-024. Repackage FSS stack with examples and modules layout | tested |
 | Sprint 13 | tested | PBI-023. Package current FSS stack package for OCI Resource Manager | tested |
 | Sprint 14 | tested | PBI-027. Add legacy PV report to FSS stack variables converter | tested |
-| Sprint 15 | tested | PBI-026. Add Resource Manager mount target stack | tested |
-| Sprint 15 | tested | PBI-028. Add Resource Manager filesystem stack with chained exports | tested |
+| Sprint 15 | failed | PBI-026. Add Resource Manager mount target stack | failed |
+| Sprint 15 | failed | PBI-028. Add Resource Manager filesystem stack with chained exports | failed |
+| Sprint 16 | under_construction | PBI-030. Replace sprint-15-specific intermediate modules with fss_stack_sprint12 | under_construction |
 | — | — | PBI-025. Verify identity_squash = "NONE" behavior at NFS level | tested |

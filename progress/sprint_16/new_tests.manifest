@@ -1,0 +1,2 @@
+tests/smoke/test_fss_sprint15_orm_advanced.sh::test_SM1_advanced_orm_package_static_validation
+tests/integration/test_fss_sprint15_orm_advanced.sh::test_IT1_resource_manager_advanced_workflow
