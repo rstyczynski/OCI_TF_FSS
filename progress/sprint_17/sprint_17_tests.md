@@ -68,6 +68,8 @@ Scope: `tests/run.sh --smoke --new-only progress/sprint_17/new_tests.manifest` â
 
 ### BUG-13 A3 Integration Gate
 
-**Status:** NOT RUN
+**Status:** PASS
 
-Reason: requires live OCI environment and credentials. The `log_id` bypass skips both `data.oci_logging_logs` lookup and `oci_logging_log` resource creation; functional correctness of the bypass path requires an apply against real OCI Logging. This is recorded as an open condition per RUP_patch.md P2.
+Evidence: `progress/sprint_17/test_run_A3_integration_bug13_20260503_084751.log`
+
+Scope: `tests/run.sh --integration --new-only progress/sprint_17/new_tests.manifest` â€” pre-created a CUSTOM log group + log via OCI CLI, applied `fss_stack_sprint17` with `logging.log_group_id` and `logging.log_id` set to the pre-created OCIDs, verified output `log_ocid` equals the pre-created log OCID (bypass worked), verified log count in group remained 1 (no new log created by Terraform), tore down mount target and pre-created OCI resources.
