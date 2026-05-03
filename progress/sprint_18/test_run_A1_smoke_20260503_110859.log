@@ -1,0 +1,19 @@
+=== RUN smoke:test_pbi033_stable_packages.sh:test_SM1_symlink_targets ===
+=== SM-1: stable package symlinks resolve to correct sprint directories ===
+PASS: SM-1
+=== PASS smoke:test_pbi033_stable_packages.sh:test_SM1_symlink_targets ===
+=== RUN smoke:test_pbi033_stable_packages.sh:test_SM2_terraform_validate ===
+=== SM-2: terraform validate passes through all stable package names ===
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+PASS: SM-2
+=== PASS smoke:test_pbi033_stable_packages.sh:test_SM2_terraform_validate ===
+=== RUN smoke:test_pbi033_stable_packages.sh:test_SM3_project_rules_contain_r1_r2 ===
+=== SM-3: PROJECT_RULES.md contains R1 and R2 ===
+PASS: SM-3
+=== PASS smoke:test_pbi033_stable_packages.sh:test_SM3_project_rules_contain_r1_r2 ===
+=== SUMMARY suite=smoke pass=3 fail=0 ===

@@ -1,0 +1,6 @@
+# Sprint 18 new tests — used by tests/run.sh --new-only
+
+# Smoke tests
+smoke:test_pbi033_stable_packages.sh:test_SM1_symlink_targets
+smoke:test_pbi033_stable_packages.sh:test_SM2_terraform_validate
+smoke:test_pbi033_stable_packages.sh:test_SM3_project_rules_contain_r1_r2

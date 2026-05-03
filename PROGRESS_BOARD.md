@@ -32,4 +32,5 @@ Progress board is a table showing sprint, and backlog items state. It's the only
 | Sprint 16 | tested | PBI-030. Replace sprint-15-specific intermediate modules with fss_stack_sprint17 | tested |
 | Sprint 17 | tested | PBI-031. fss_stack_sprint12 - support externally managed mount targets in exports | tested |
 | Sprint 17 | tested | PBI-032. fss stack - allow per-mount-target placement overrides (subnet / availability domain) | tested |
+| Sprint 18 | tested | PBI-033. Stable release pointers for terraform/modules | tested |
 | — | — | PBI-025. Verify identity_squash = "NONE" behavior at NFS level | tested |

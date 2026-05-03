@@ -1,0 +1,1 @@
+../../sprint_18/sprint_18_operator_manual.md

@@ -36,7 +36,7 @@ Mode: managed
 Test: integration
 Regression: integration
 
-Sprint 2 implemented some add-on features as: (1) AD randomization, (2) dynamic tag recognition, (3) name_prefix. All of this must be remove to keep the solution as simple as possible and as close to regular terraform best practices as possible. 
+Sprint 2 implemented some add-on features as: (1) AD randomization, (2) dynamic tag recognition, (3) name_prefix. All of this must be remove to keep the solution as simple as possible and as close to regular terraform best practices as possible.
 
 (4) Terraform agentic rules should move all three techniques to `Experimental patterns` chapter to be used ONLY on a clear request.
 
@@ -236,6 +236,19 @@ Reference: `progress/sprint_15/sprint_15_bugs.md` BUG-11. Canonical source modul
 Backlog Items:
 
 * PBI-030. Replace sprint-15-specific intermediate modules with fss_stack_sprint17 (BUG-11 implementation)
+
+## Sprint 18 - Stable release pointers for terraform/packages
+
+Status: Done
+Mode: YOLO
+Test: smoke
+Regression: none
+
+Introduce stable, sprint-independent names for operator-facing Terraform modules via symlinks in `terraform/packages/`. Add project rules R1 (Module Release Rule) and R2 (Stable release name field) to `PROJECT_RULES.md`. Retroactively create stable pointers for the three current releases. Pre-design: `predesigns/stable_module_release_pointers.md`.
+
+Backlog Items:
+
+* PBI-033. Stable release pointers for terraform/modules
 
 ## Sprint 17 - fss_stack_sprint12 supports externally managed mount targets
 

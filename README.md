@@ -206,6 +206,31 @@ The generated file contains `mount_targets` and `filesystems` maps. Each distinc
 - Tests: `progress/sprint_12/sprint_12_tests.md`
 - Operator manual: `progress/sprint_12/sprint_12_operator_manual.md`
 
+### Sprint 18 - Stable release pointers for terraform/packages
+
+**Status:** tested
+
+**Backlog Items Implemented:**
+
+- **PBI-033**: Stable release pointers for terraform/packages - tested
+
+**Key Features Added:**
+
+- `terraform/packages/` — stable operator-facing release directory; symlinks point from stable names into versioned sprint directories in `terraform/modules/`
+- `terraform/packages/fss_stack` → `fss_stack_sprint17`
+- `terraform/packages/fss_stack_orm` → `fss_stack_sprint13_orm`
+- `terraform/packages/fss_stack_orm_advanced` → `fss_stack_sprint16_orm_advanced`
+- `PROJECT_RULES.md` R1 (Module Release Rule) and R2 (Stable Release Name field) enforce this pattern for all future sprints
+
+**Documentation:**
+
+- Setup: `progress/sprint_18/sprint_18_setup.md`
+- Design: `progress/sprint_18/sprint_18_design.md`
+- Implementation: `progress/sprint_18/sprint_18_implementation.md`
+- Tests: `progress/sprint_18/sprint_18_tests.md`
+- Operator manual: `progress/sprint_18/sprint_18_operator_manual.md`
+- Documentation: `progress/sprint_18/sprint_18_documentation.md`
+
 ### Sprint 17 - Externally managed mount targets and per-mount-target placement overrides
 
 **Status:** tested
