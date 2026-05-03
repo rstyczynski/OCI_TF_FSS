@@ -126,13 +126,21 @@ This repository includes local clarifications to the upstream RUP rules:
 
 - `RUP_patch.md`
 
+## Project-specific rules (MUST READ)
+
+This repository includes rules specific to the OCI TF FSS project:
+
+- `PROJECT_RULES.md`
+
 ## Summary
 
 As an agent:
 
 1. ✅ Read all rules in `rules/generic` directory
-2. ✅ Invoke `@rup-manager.md` for full cycle
-3. ✅ Follow agent instructions from `.claude/commands/agents/`
-4. ✅ Ask questions when unclear - NEVER assume
+2. ✅ Read `RUP_patch.md`
+3. ✅ Read `PROJECT_RULES.md`
+4. ✅ Invoke `@rup-manager.md` for full cycle
+5. ✅ Follow agent instructions from `.claude/commands/agents/`
+6. ✅ Ask questions when unclear - NEVER assume
 
 **Ready to start?** Invoke `@rup-manager.md` to begin.

@@ -83,3 +83,16 @@ Requirements:
 - Prerequisites for a snippet (infrastructure state, applied Terraform, set environment variables, active credentials) **must be stated explicitly** in the document immediately before the snippet. Unstated prerequisites that cause a snippet to fail silently or with a misleading error are a documentation defect, not a user error.
 - If a snippet cannot be executed (cost, destructive side effect, external dependency), it must be marked **NOT RUN** with the exact reason. This marking is itself the evidence that the rule was considered — absence of marking is a violation.
 - The `sprint_N_documentation.md` wrap-up checklist must include a line confirming that every operator-facing snippet in that sprint's product was either executed (with evidence reference) or explicitly marked NOT RUN.
+
+## P9. Bug fixes must be visible in quality-gate reporting
+
+`RUPStrikesBack/rules/generic/bug_policy.md` requires each fixed bug to name the quality gate or log that proves resolution. This repository adds a stricter reporting rule: a bug is not considered release-ready unless its verification is also visible from `progress/sprint_N/sprint_N_tests.md`.
+
+Requirements:
+
+- Every bug in `progress/sprint_N/sprint_N_bugs.md` with `Status: fixed` MUST have a verification artifact under `progress/sprint_N/`.
+- The same artifact MUST be referenced from `progress/sprint_N/sprint_N_tests.md`, either:
+  - in an existing gate row when the bug was fixed by rerunning a configured gate, or
+  - in a clearly named bug-verification row/section such as `BUG-12 Validation` when the verification is a targeted check outside the original gate list.
+- If the appropriate verification cannot be executed, the bug MUST remain `Status: open` or be marked `Status: promoted`; do not mark it fixed with only a design note.
+- A sprint MUST NOT transition to `tested` or `Done` while it contains a fixed bug whose verification artifact is absent from `sprint_N_tests.md`.

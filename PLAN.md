@@ -239,7 +239,7 @@ Backlog Items:
 
 ## Sprint 17 - fss_stack_sprint12 supports externally managed mount targets
 
-Status: Planned
+Status: Done
 Mode: managed
 Test: smoke, integration
 Regression: none

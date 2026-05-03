@@ -1,0 +1,7 @@
+=== RUN smoke:test_fss_sprint17_bug12.sh:test_SM_bug12_logging_reuse_static_validation ===
+=== SM-BUG-12: logging reuse static validation ===
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+PASS: SM-BUG-12
+=== PASS smoke:test_fss_sprint17_bug12.sh:test_SM_bug12_logging_reuse_static_validation ===
+=== SUMMARY suite=smoke pass=1 fail=0 ===

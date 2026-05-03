@@ -78,6 +78,143 @@ locals {
   - parse plan output (`terraform show -no-color <plan>`) to assert replace behavior (destroy+create)
   - do NOT apply the destructive plan in the test
 
+## OCI unique display names - lookup before create
+
+Some OCI resources reject duplicate display names inside a scope. OCI Logging returns `409-Conflict` when creating a log group if another log group in the same compartment already uses the requested display name. Service logs have the same practical collision risk inside the chosen log group.
+
+Rule: **When a module accepts a name for an OCI resource with scoped uniqueness, resolve an existing resource with that name before creating a new one.** Creation should happen only when no matching resource exists and the caller did not pass an explicit existing OCID.
+
+For mount target logging, use this precedence:
+
+- If `logging.log_group_id` is set, use that log group.
+- Else, look up a log group in `var.compartment_ocid` with `display_name == logging.log_group_name`.
+- If exactly one matching log group exists, use it.
+- If no matching log group exists, create it.
+- After the log group is resolved, look up an existing service log in that group with `display_name == logging.log_display_name`.
+- If an existing log is found, use it only when its source configuration matches the expected File Storage NFS service log for the same mount target resource/category.
+- If no matching log exists, create it.
+
+Pattern:
+
+```hcl
+locals {
+  logging_enabled_mount_targets = {
+    for key, mt in var.mount_targets : key => mt
+    if try(mt.logging.enabled, false)
+  }
+}
+
+data "oci_logging_log_groups" "by_name" {
+  for_each = {
+    for key, mt in local.logging_enabled_mount_targets : key => mt
+    if try(mt.logging.log_group_id, null) == null
+  }
+
+  compartment_id = var.compartment_ocid
+  display_name   = coalesce(each.value.logging.log_group_name, "fss-${each.key}-logs")
+}
+
+locals {
+  existing_log_group_ids = {
+    for key, result in data.oci_logging_log_groups.by_name :
+    key => try(one(result.log_groups).id, null)
+  }
+
+  log_groups_to_create = {
+    for key, mt in local.logging_enabled_mount_targets : key => mt
+    if try(mt.logging.log_group_id, null) == null
+      && try(local.existing_log_group_ids[key], null) == null
+  }
+}
+
+resource "oci_logging_log_group" "mount_target" {
+  for_each = local.log_groups_to_create
+
+  compartment_id = var.compartment_ocid
+  display_name   = coalesce(each.value.logging.log_group_name, "fss-${each.key}-logs")
+}
+
+locals {
+  resolved_log_group_ids = {
+    for key, mt in local.logging_enabled_mount_targets :
+    key => coalesce(
+      try(mt.logging.log_group_id, null),
+      try(local.existing_log_group_ids[key], null),
+      try(oci_logging_log_group.mount_target[key].id, null)
+    )
+  }
+}
+```
+
+Apply the same lookup-before-create rule for `oci_logging_log`:
+
+```hcl
+data "oci_logging_logs" "by_name" {
+  for_each = local.logging_enabled_mount_targets
+
+  log_group_id = local.resolved_log_group_ids[each.key]
+  display_name = coalesce(each.value.logging.log_display_name, "fss-${each.key}-nfs")
+}
+
+locals {
+  existing_log_ids = {
+    for key, result in data.oci_logging_logs.by_name :
+    key => try(one(result.logs).id, null)
+  }
+
+  logs_to_create = {
+    for key, mt in local.logging_enabled_mount_targets : key => mt
+    if try(local.existing_log_ids[key], null) == null
+  }
+}
+
+resource "terraform_data" "validate_existing_logs" {
+  for_each = {
+    for key, log_id in local.existing_log_ids : key => log_id
+    if log_id != null
+  }
+
+  lifecycle {
+    precondition {
+      condition = alltrue([
+        for log in data.oci_logging_logs.by_name[each.key].logs :
+        log.id != each.value || (
+          log.log_type == "SERVICE"
+          && log.configuration[0].source[0].service == "filestorage"
+          && log.configuration[0].source[0].resource == module.mount_target[each.key].mount_target_ocid
+          && log.configuration[0].source[0].category == "nfslogs"
+        )
+      ])
+      error_message = "Existing logging log display name is already used for a different source; pass an explicit compatible log name or log group."
+    }
+  }
+}
+
+resource "oci_logging_log" "mount_target" {
+  for_each = local.logs_to_create
+
+  log_group_id = local.resolved_log_group_ids[each.key]
+  display_name = coalesce(each.value.logging.log_display_name, "fss-${each.key}-nfs")
+  log_type     = "SERVICE"
+
+  configuration {
+    source {
+      source_type = "OCISERVICE"
+      service     = "filestorage"
+      resource    = module.mount_target[each.key].mount_target_ocid
+      category    = "nfslogs"
+    }
+  }
+}
+```
+
+Notes:
+
+- Do not blindly reuse an existing service log just because the display name matches. Validate the existing source configuration first.
+- If the OCI data source returns multiple matches where the service should guarantee uniqueness, fail fast rather than choosing arbitrarily.
+- For resources that support explicit existing OCID inputs, explicit OCID wins over name lookup.
+- The module output should expose the resolved OCID, regardless of whether the resource was created or reused.
+
 ## Oracle-managed tags (OCI) — avoid perpetual drift
 
 Some OCI resources get **Oracle-managed defined tags** injected after create (example keys: `Oracle-Tags.CreatedBy`, `Oracle-Tags.CreatedOn`). If your Terraform configuration sets `defined_tags = {}` (or sets a subset), a subsequent `terraform plan` may try to remove those injected tags, causing perpetual “drift”.

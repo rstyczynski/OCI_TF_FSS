@@ -205,3 +205,28 @@ The generated file contains `mount_targets` and `filesystems` maps. Each distinc
 - Implementation: `progress/sprint_12/sprint_12_implementation.md`
 - Tests: `progress/sprint_12/sprint_12_tests.md`
 - Operator manual: `progress/sprint_12/sprint_12_operator_manual.md`
+
+### Sprint 17 - Externally managed mount targets and per-mount-target placement overrides
+
+**Status:** tested
+
+**Backlog Items Implemented:**
+
+- **PBI-031**: fss_stack_sprint12 — support externally managed mount targets in exports - tested
+- **PBI-032**: fss stack — allow per-mount-target placement overrides (subnet / availability domain) - tested
+
+**Key Features Added:**
+
+- `terraform/modules/fss_stack_sprint17/` — extends the Sprint 12 stack with `mount_targets[*].external_ocid` (reference an existing mount target by OCID instead of creating one), `mount_targets[*].subnet_ocid`, and `mount_targets[*].availability_domain` (per-entry placement overrides)
+- Exports continue to reference mount targets by key (`mount_target_key`) regardless of whether the target is managed or external
+- Input validation for `external_ocid` format and placement consistency
+- BUG-12 fix: reuses an existing OCI Logging log group by display name to avoid 409-Conflict on repeated applies; mirrored into Sprint 16 vendored copies
+
+**Documentation:**
+
+- Setup: `progress/sprint_17/sprint_17_setup.md`
+- Design: `progress/sprint_17/sprint_17_design.md`
+- Implementation: `progress/sprint_17/sprint_17_implementation.md`
+- Tests: `progress/sprint_17/sprint_17_tests.md`
+- Operator manual: `progress/sprint_17/sprint_17_operator_manual.md`
+- Documentation: `progress/sprint_17/sprint_17_documentation.md`

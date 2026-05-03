@@ -1,31 +1,29 @@
-# Ignore all Terraform state files and related artifacts across the repo
-
-# Common state directory patterns
+# Terraform state and locking artifacts
 **/.terraform/
 **/.terraform.lock.hcl
-**/terraform.tfstate
-**/terraform.tfstate.*
+**/terraform.tfstate*
 **/.terraform.tfstate.lock.info
 
-# Generated state/artifacts from progress automation and operator runs
+# Progress/automation/generated state artifacts
 progress/**/tf_state/
 progress/**/scaffold/
-progress/.DS_Store
-progress/**/generated_tf/**/*.tfstate
-progress/**/generated_tf/**/*.tfstate.*
+progress/**/generated_tf/**/*.tfstate*
 progress/**/generated_tf/**/*.tfplan
 progress/**/generated_tf/**/*.zip
 progress/**/generated_tf/**/.terraform.lock.hcl
 progress/**/generated_tf/**/tf_test_artifacts/
 progress/**/operator_tf/.terraform.lock.hcl
 progress/**/operator_tf/.terraform.tfstate.lock.info
-progress/**/operator_tf/terraform.tfstate
-progress/**/operator_tf/terraform.tfstate.*
+progress/**/operator_tf/terraform.tfstate*
 
-# Example/module-specific state files
-terraform/modules/fss_stack_sprint12/examples/**/terraform.tfstate
-terraform/modules/fss_stack_sprint12/examples/**/terraform.tfstate.backup
+# Specific example/module state files
+terraform/modules/fss_stack_sprint12/examples/**/terraform.tfstate*
+# (The above covers .tfstate and .tfstate.backup)
 
-# Other editor/diagram artifacts
+# Miscellaneous/editor/diagram artifacts
+*.DS_Store
 model/.$model.drawio.bkp
+terraform/modules/.DS_Store
+terraform/modules/fss_stack_sprint16_orm_advanced/.DS_Store
+terraform/modules/fss_stack_sprint16_orm_advanced/mount_target/.DS_Store
 progress/sprint_15/generated_tf/manual/.DS_Store

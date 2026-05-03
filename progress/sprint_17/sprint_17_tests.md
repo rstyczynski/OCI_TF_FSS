@@ -28,7 +28,32 @@ Evidence: `progress/sprint_17/test_run_A3_integration_20260430_152421.log`
 
 Evidence: `progress/sprint_17/operator_manual_validate_20260430_151136.log`
 
+### BUG-12 Validation
+
+**Status:** PASS
+
+Evidence: `progress/sprint_17/bug12_validate_20260502_195501.log`
+
+Scope: targeted Terraform validation for the BUG-12 logging reuse fix. It validates the canonical `terraform/modules/fss_stack_sprint17` module and both Sprint 16 vendored ORM roots after the lookup-before-create logging change.
+
+### BUG-12 A1 Smoke Gate
+
+**Status:** PASS
+
+Evidence: `progress/sprint_17/test_run_A1_smoke_bug12_20260502_200524.log`
+
+Scope: `tests/run.sh --smoke --new-only progress/sprint_17/new_tests.manifest`
+
+### BUG-12 A3 Integration Gate
+
+**Status:** PASS
+
+Evidence: `progress/sprint_17/test_run_A3_integration_bug12_20260502_200530.log`
+
+Scope: `tests/run.sh --integration --new-only progress/sprint_17/new_tests.manifest`
+
+Result: verified that the module reuses a pre-existing OCI Logging log group with the requested display name, creates the File Storage NFS service log under that reused group, confirms logging output consistency, and tears down the temporary OCI resources.
+
 Notes:
 
 - Apply/destroy snippets in `progress/sprint_17/sprint_17_operator_manual.md` are marked **NOT RUN** because they require a live OCI environment and credentials.
-

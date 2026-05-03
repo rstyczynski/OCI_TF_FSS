@@ -1,1 +1,2 @@
-
+smoke:test_fss_sprint17_bug12.sh:test_SM_bug12_logging_reuse_static_validation
+integration:test_fss_sprint17_bug12.sh:test_IT_bug12_existing_log_group_name_is_reused

@@ -15,17 +15,7 @@ output "mount_targets" {
       compartment_ocid    = var.compartment_ocid
       external_ocid       = mt.external_ocid
 
-      # Without try, any mount target with logging disabled would break terraform output / plan evaluation.
-      logging = try({
-        log_group_ocid     = oci_logging_log.mount_target[key].log_group_id
-        log_ocid           = oci_logging_log.mount_target[key].id
-        log_display_name   = oci_logging_log.mount_target[key].display_name
-        service            = oci_logging_log.mount_target[key].configuration[0].source[0].service
-        resource           = oci_logging_log.mount_target[key].configuration[0].source[0].resource
-        category           = oci_logging_log.mount_target[key].configuration[0].source[0].category
-        is_enabled         = oci_logging_log.mount_target[key].is_enabled
-        retention_duration = oci_logging_log.mount_target[key].retention_duration
-      }, null)
+      logging = try(local.resolved_mount_target_logging[key], null)
 
       availability_domain_source = var.availability_domain != null ? "explicit" : local.default_subnet_availability_domain != null ? "subnet" : "random"
     }
@@ -49,12 +39,12 @@ output "mount_target_mount_addresses" {
 
 output "mount_target_log_group_ocids" {
   description = "Log group OCIDs keyed by mount target input key for targets with logging enabled."
-  value       = { for key, log in oci_logging_log.mount_target : key => log.log_group_id }
+  value       = { for key, logging in local.resolved_mount_target_logging : key => logging.log_group_ocid }
 }
 
 output "mount_target_log_ocids" {
   description = "Log OCIDs keyed by mount target input key for targets with logging enabled."
-  value       = { for key, log in oci_logging_log.mount_target : key => log.id }
+  value       = { for key, logging in local.resolved_mount_target_logging : key => logging.log_ocid }
 }
 
 output "filesystems" {
@@ -133,4 +123,3 @@ output "default_source_cidr" {
   description = "Default CIDR used by exports that omit source."
   value       = var.default_source_cidr
 }
-
