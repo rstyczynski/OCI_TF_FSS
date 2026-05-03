@@ -57,3 +57,17 @@ Result: verified that the module reuses a pre-existing OCI Logging log group wit
 Notes:
 
 - Apply/destroy snippets in `progress/sprint_17/sprint_17_operator_manual.md` are marked **NOT RUN** because they require a live OCI environment and credentials.
+
+### BUG-13 A1 Smoke Gate
+
+**Status:** PASS
+
+Evidence: `progress/sprint_17/test_run_A1_smoke_bug13_20260503_083329.log`
+
+Scope: `tests/run.sh --smoke --new-only progress/sprint_17/new_tests.manifest` — verifies `log_id` field present in canonical and Sprint 16 vendored `variables.tf`, lookup/creation exclusion logic in `main.tf`, and `terraform validate` passes for all three modules.
+
+### BUG-13 A3 Integration Gate
+
+**Status:** NOT RUN
+
+Reason: requires live OCI environment and credentials. The `log_id` bypass skips both `data.oci_logging_logs` lookup and `oci_logging_log` resource creation; functional correctness of the bypass path requires an apply against real OCI Logging. This is recorded as an open condition per RUP_patch.md P2.

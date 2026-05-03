@@ -32,6 +32,7 @@ variable "mount_targets" {
       enabled            = optional(bool, false)
       log_group_id       = optional(string)
       log_group_name     = optional(string)
+      log_id             = optional(string)
       log_display_name   = optional(string)
       retention_duration = optional(number, 30)
       freeform_tags      = optional(map(string), {})

@@ -299,7 +299,7 @@ locals {
 
   logging_lookup_logs = {
     for key, mt in local.logging_enabled_mount_targets : key => mt
-    if !contains(keys(local.logging_created_groups), key)
+    if !contains(keys(local.logging_created_groups), key) && try(mt.logging.log_id, null) == null
   }
 }
 
@@ -341,7 +341,9 @@ locals {
 
   logging_created_logs = {
     for key, mt in local.logging_enabled_mount_targets : key => mt
-    if !contains(keys(local.logging_lookup_logs), key) || try(local.existing_log_ids[key], null) == null
+    if try(mt.logging.log_id, null) == null && (
+      !contains(keys(local.logging_lookup_logs), key) || try(local.existing_log_ids[key], null) == null
+    )
   }
 }
 
@@ -378,6 +380,7 @@ locals {
     for key, mt in local.logging_enabled_mount_targets : key => {
       log_group_ocid = local.resolved_log_group_ids[key]
       log_ocid = coalesce(
+        try(mt.logging.log_id, null),
         try(local.existing_log_ids[key], null),
         try(oci_logging_log.mount_target[key].id, null)
       )
@@ -385,12 +388,16 @@ locals {
       service          = "filestorage"
       resource         = module.mount_target[key].mount_target_ocid
       category         = "nfslogs"
-      is_enabled = try(local.existing_log_ids[key], null) != null ? (
-        try(data.oci_logging_logs.mount_target[key].logs[0].is_enabled, null)
-      ) : try(oci_logging_log.mount_target[key].is_enabled, null)
-      retention_duration = try(local.existing_log_ids[key], null) != null ? (
-        try(data.oci_logging_logs.mount_target[key].logs[0].retention_duration, null)
-      ) : try(oci_logging_log.mount_target[key].retention_duration, null)
+      is_enabled = try(mt.logging.log_id, null) != null ? null : (
+        try(local.existing_log_ids[key], null) != null ? (
+          try(data.oci_logging_logs.mount_target[key].logs[0].is_enabled, null)
+        ) : try(oci_logging_log.mount_target[key].is_enabled, null)
+      )
+      retention_duration = try(mt.logging.log_id, null) != null ? null : (
+        try(local.existing_log_ids[key], null) != null ? (
+          try(data.oci_logging_logs.mount_target[key].logs[0].retention_duration, null)
+        ) : try(oci_logging_log.mount_target[key].retention_duration, null)
+      )
     }
   }
 }
