@@ -35,13 +35,8 @@ Documentor release step:
 
 ```bash
 mkdir -p doc
-cp progress/sprint_N/sprint_N_tf_rules.md doc/tf_rules.md
-```
-
-Verify the file is present and non-empty:
-
-```bash
-test -s doc/tf_rules.md && echo "OK"
+ln -sfn ../progress/sprint_N/sprint_N_tf_rules.md doc/tf_rules.md
+ls -la doc/tf_rules.md
 ```
 
 Record the release in `sprint_N_documentation.md` under a "TF Rules release" section and commit `doc/tf_rules.md` as part of the docs commit.
