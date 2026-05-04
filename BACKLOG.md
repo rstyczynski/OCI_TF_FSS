@@ -289,3 +289,21 @@ Extend the stack interface so each `mount_targets[*]` entry can optionally overr
 When omitted, each override defaults to the current stack behavior (use the shared default), preserving backward compatibility. The stack must validate that externally managed mount targets referenced by `external_ocid` are actually in the effective subnet/AD for that entry (using the overrides when present).
 
 Test: `terraform validate` passes for existing examples unchanged, and a new example validates with two mount target entries that set different `subnet_ocid` values (and corresponding availability domain overrides when required).
+
+### PBI-033. Stable release pointers for terraform/modules
+
+Introduce stable, sprint-independent names for operator-facing Terraform modules in `terraform/modules/` using symlinks. Pre-design: `predesigns/stable_module_release_pointers.md`.
+
+Each sprint that delivers an operator-facing module creates a stable symlink in `terraform/modules/` at Phase 5 (Documentor). The symlink name carries no sprint suffix (e.g. `fss_stack`, `fss_stack_orm_advanced`). The sprint-suffixed directory remains as the immutable versioned artifact. Retroactively apply stable pointers to the three currently-relevant sprint products (`fss_stack`, `fss_stack_orm`, `fss_stack_orm_advanced`). Add R1 (Module Release Rule) and R2 (Stable release name field) to `PROJECT_RULES.md`.
+
+Test: `terraform validate` passes through each stable symlink; existing tests that reference sprint-suffixed paths are unaffected; `ls -la terraform/modules/` shows the expected symlinks.
+
+### PBI-034. Complete generic Terraform rules skill in RUPStrikesBack
+
+Create a complete, MoSCoW-prioritised Terraform architecture rules document as a reusable generic skill in `RUPStrikesBack/rules/specific/terraform/TERRAFORM_RULES.md`, following the convention of `RUPStrikesBack/rules/specific/ansible/ANSIBLE_BEST_PRACTICES.md`. Pre-design: `predesigns/terraform_rules_complete.md`.
+
+The current `doc/tf_rules.md` covers eight topics from sprints 2–17 but leaves ten patterns undocumented (module file organisation, variable validation blocks, precondition validation, map partitioning, composite key flattening, coalesce/try fallback chains, dual-mode outputs, self-contained packaging, count for optional resources, versions.tf). OCI-specific rules are included in a clearly labelled section so teams on other clouds can skip or substitute.
+
+Once created, update `doc/tf_rules.md` symlink to point to the upstream file and update `PROJECT_RULES.md` R3 accordingly.
+
+Test: `readlink doc/tf_rules.md` returns the upstream path; `grep -c '^## ' doc/tf_rules.md` ≥ 10; no project-specific content in `TERRAFORM_RULES.md`; all rules from the current `doc/tf_rules.md` present or superseded.
