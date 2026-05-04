@@ -1,0 +1,7 @@
+=== RUN smoke:test_pbi035_multi_exports.sh:test_SM1_example_validates ===
+=== SM-1: multi_exports_one_fs example passes terraform validate ===
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+PASS: SM-1
+=== PASS smoke:test_pbi035_multi_exports.sh:test_SM1_example_validates ===
+=== SUMMARY suite=smoke pass=1 fail=0 ===

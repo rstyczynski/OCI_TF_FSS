@@ -237,6 +237,19 @@ Backlog Items:
 
 * PBI-030. Replace sprint-15-specific intermediate modules with fss_stack_sprint17 (BUG-11 implementation)
 
+## Sprint 19 - OCI FSS export path scoping experiment
+
+Status: Done
+Mode: YOLO
+Test: smoke, integration
+Regression: none
+
+Determine empirically whether OCI FSS exposes the same filesystem root at two different export paths, or scopes each export to a distinct subtree. Add a `multi_exports_one_fs` example to `terraform/modules/fss_stack_sprint17/examples/` documenting the confirmed behavior.
+
+Backlog Items:
+
+* PBI-035. OCI FSS export path scoping experiment and multi_exports_one_fs example
+
 ## Sprint 18 - Stable release pointers for terraform/packages
 
 Status: Done

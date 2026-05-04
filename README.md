@@ -206,6 +206,33 @@ The generated file contains `mount_targets` and `filesystems` maps. Each distinc
 - Tests: `progress/sprint_12/sprint_12_tests.md`
 - Operator manual: `progress/sprint_12/sprint_12_operator_manual.md`
 
+### Sprint 19 - OCI FSS export path scoping experiment
+
+**Status:** tested
+
+**Backlog Items Implemented:**
+
+- **PBI-035**: OCI FSS export path scoping experiment and multi_exports_one_fs example - tested
+
+**Key Findings:**
+
+- OCI FSS export `path` is an NFS alias for the filesystem root — **not** a subtree scope
+- A file written via one export path is immediately visible via all other export paths on the same filesystem (SAME-ROOT, verified on live OCI)
+- The `1-MT / 1-FS / N-exports` topology shares data across all paths; use separate filesystems for data isolation
+
+**Key Features Added:**
+
+- `terraform/packages/fss_stack/examples/multi_exports_one_fs/` — example demonstrating 1 mount target, 1 filesystem, 2 export paths, with documented SAME-ROOT behavior
+
+**Documentation:**
+
+- Setup: `progress/sprint_19/sprint_19_setup.md`
+- Design: `progress/sprint_19/sprint_19_design.md`
+- Implementation: `progress/sprint_19/sprint_19_implementation.md`
+- Tests: `progress/sprint_19/sprint_19_tests.md`
+- Operator manual: `progress/sprint_19/sprint_19_operator_manual.md`
+- Documentation: `progress/sprint_19/sprint_19_documentation.md`
+
 ### Sprint 18 - Stable release pointers for terraform/packages
 
 **Status:** tested

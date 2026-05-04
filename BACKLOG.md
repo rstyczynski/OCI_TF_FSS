@@ -307,3 +307,11 @@ The current `doc/tf_rules.md` covers eight topics from sprints 2–17 but leaves
 Once created, update `doc/tf_rules.md` symlink to point to the upstream file and update `PROJECT_RULES.md` R3 accordingly.
 
 Test: `readlink doc/tf_rules.md` returns the upstream path; `grep -c '^## ' doc/tf_rules.md` ≥ 10; no project-specific content in `TERRAFORM_RULES.md`; all rules from the current `doc/tf_rules.md` present or superseded.
+
+### PBI-035. OCI FSS export path scoping experiment and multi_exports_one_fs example
+
+Determine empirically whether OCI FSS exposes the same filesystem root at two different export paths, or scopes each export to a distinct subtree. Run an integration experiment: provision 1 mount target + 1 filesystem + 2 exports (`/vol1` and `/vol2`), mount both on the foundation compute, write a sentinel file via one mount, check if it appears via the other.
+
+Based on the result, add a `multi_exports_one_fs` example to `terraform/modules/fss_stack_sprint17/examples/` demonstrating the confirmed behavior with documented findings.
+
+Test: smoke — `terraform validate` on the new example; integration — apply + dual-mount experiment + verify + destroy.
