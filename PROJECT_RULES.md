@@ -26,3 +26,24 @@ Every `sprint_N_design.md` that delivers an operator-facing Terraform module MUS
 ```markdown
 Stable release name: fss_stack
 ```
+
+## R3 — TF Rules Release Rule
+
+Every sprint that produces a `sprint_N_tf_rules.md` MUST release it to the `doc/` directory at Phase 5 (Documentor). The file in `doc/` carries a stable name without a sprint suffix. The latest rules always win — the Documentor overwrites the previous release by copying the new file over the existing one.
+
+Documentor release step:
+
+```bash
+mkdir -p doc
+cp progress/sprint_N/sprint_N_tf_rules.md doc/tf_rules.md
+```
+
+Verify the file is present and non-empty:
+
+```bash
+test -s doc/tf_rules.md && echo "OK"
+```
+
+Record the release in `sprint_N_documentation.md` under a "TF Rules release" section and commit `doc/tf_rules.md` as part of the docs commit.
+
+`doc/tf_rules.md` is the authoritative Terraform architecture rules reference for this repository. Agents MUST read it before designing or implementing Terraform code.
