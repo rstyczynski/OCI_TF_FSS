@@ -6,6 +6,7 @@ Terraform components to create and manage OCI File Storage Service on Oracle Clo
 
 - [Packages](#packages)
 - [Infrastructure Setup (Sprint 1, PBI-005)](#infrastructure-setup-sprint-1-pbi-005)
+- [Legacy PV Converter](#legacy-pv-converter)
 - [Terraform CLI](#terraform-cli)
   - [fss_stack — Basic FSS](#fss_stack--basic-fss)
   - [fss_stack — Multiple Filesystems with Logging](#fss_stack--multiple-filesystems-with-logging)
@@ -15,7 +16,6 @@ Terraform components to create and manage OCI File Storage Service on Oracle Clo
 - [OCI Resource Manager](#oci-resource-manager)
   - [fss_stack_orm — single stack](#fss_stack_orm--oci-resource-manager-single-stack)
   - [fss_stack_orm_advanced — split stacks](#fss_stack_orm_advanced--oci-resource-manager-split-stacks)
-- [Legacy PV Converter](#legacy-pv-converter)
 - [Foundation Teardown](#foundation-teardown)
 - [Sprint History](#sprint-history)
 
