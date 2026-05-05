@@ -1,3 +1,6 @@
+# Operator working directory (scaffold state, Terraform state, generated vars, ORM zips)
+working/
+
 # Terraform state and locking artifacts
 **/.terraform/
 **/.terraform.lock.hcl
